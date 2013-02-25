@@ -175,20 +175,20 @@ namespace Dresscode
                         {
                             nineWeeksDatabase = 4;
                         }
-                        if (databasedate >= 157 && databasedate <= 231)
+                        if (databasedate >= summerstart && databasedate <= summerend)
                         {
                             nineWeeksDatabase = 0;
                             MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherfirstname + " " + teacherlastname + "\nSTAHP\n\nOnly school days... I know it sadens me too.\n<3 LG Dresscode Report System", "Summer...");
                         }
-                        if (currentDayOfYear >= 297 || currentDayOfYear <= 17)
+                        if (currentDayOfYear >= secondtnineweeksstart || currentDayOfYear <= secondnineweeksend)
                         {
                             currentNineWeeks = 2;
                         }
-                        if (currentDayOfYear >= 18 && currentDayOfYear <= 93)
+                        if (currentDayOfYear >= thirdnineweeksstart && currentDayOfYear <= thirdnineweeksend)
                         {
                             currentNineWeeks = 3;
                         }
-                        if (currentDayOfYear >= 94 && currentDayOfYear <= 156)
+                        if (currentDayOfYear >= forthnineweeksstart && currentDayOfYear <= forthnineweeksend)
                         {
                             currentNineWeeks = 4;
                         }

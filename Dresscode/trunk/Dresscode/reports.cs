@@ -23,6 +23,27 @@ namespace Dresscode
         OleDbCommandBuilder cBuilder;
         bool wtfbrah = true;
         //
+        int county = 0,
+nineWeeksDatabase = 0,
+currentNineWeeks = 0,
+currentDayOfYear = DateTime.Now.DayOfYear,
+totalinfractions = 1,
+            /**/
+firstnineweeksstart = 0,
+firstnineweeksend = 0,
+
+secondtnineweeksstart = 0,
+secondnineweeksend = 0,
+
+thirdnineweeksstart = 0,
+thirdnineweeksend = 0,
+
+forthnineweeksstart = 0,
+forthnineweeksend = 0,
+
+summerstart = 0,
+summerend = 0;
+        //
         public reports()
         {
             InitializeComponent();
@@ -30,7 +51,33 @@ namespace Dresscode
 
         private void reports_Load(object sender, EventArgs e)
         {
-            
+            try
+            {
+                global.oleconnection.Open();
+                OleDbCommand getdatescommand = global.oleconnection.CreateCommand();
+                getdatescommand.CommandText = "SELECT * FROM DATES";
+                OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
+                while (getdateinfo.Read())
+                {
+                    firstnineweeksstart = int.Parse(getdateinfo["firstnineweeksstart"].ToString());
+                    firstnineweeksend = int.Parse(getdateinfo["firstnineweeksend"].ToString());
+
+                    secondtnineweeksstart = int.Parse(getdateinfo["secondnineweeksstart"].ToString());
+                    secondnineweeksend = int.Parse(getdateinfo["secondnineweeksend"].ToString());
+
+                    thirdnineweeksstart = int.Parse(getdateinfo["thirdnineweeksstart"].ToString());
+                    thirdnineweeksend = int.Parse(getdateinfo["thridnineweeksend"].ToString());
+
+                    forthnineweeksstart = int.Parse(getdateinfo["forthnineweeksstart"].ToString());
+                    forthnineweeksend = int.Parse(getdateinfo["forthnineweeksend"].ToString());
+
+                    summerstart = int.Parse(getdateinfo["summerstart"].ToString());
+                    summerend = int.Parse(getdateinfo["summerend"].ToString());
+                }
+            }
+            catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
+            finally { global.oleconnection.Close(); }
+
             try
             {
                 global.oleconnection.Open();
@@ -40,9 +87,9 @@ namespace Dresscode
                 while (getinfraction.Read())
                 {
                     if (!combobox_teacher.Items.Contains(getinfraction["Teacher"].ToString()))
-                        {
-                            combobox_teacher.Items.Add(getinfraction["Teacher"].ToString());
-                        }
+                    {
+                        combobox_teacher.Items.Add(getinfraction["Teacher"].ToString());
+                    }
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
@@ -68,10 +115,10 @@ namespace Dresscode
             sql = "SELECT * FROM INFRACTIONS WHERE";
             Boolean hasStarted = false;
             //
-            int year =datetimepicker_date_start.Value.Date.Year;
-            int month =datetimepicker_date_start.Value.Date.Month;
-            int day =datetimepicker_date_start.Value.Date.Day;
-            DateTime theDate = new DateTime(year,month,day);
+            int year = datetimepicker_date_start.Value.Date.Year;
+            int month = datetimepicker_date_start.Value.Date.Month;
+            int day = datetimepicker_date_start.Value.Date.Day;
+            DateTime theDate = new DateTime(year, month, day);
             int startdate = theDate.DayOfYear;
             year = dateTimePicker_end_date.Value.Date.Year;
             month = dateTimePicker_end_date.Value.Date.Month;
@@ -99,7 +146,7 @@ namespace Dresscode
                     hasStarted = true;
                 }
             }
-            
+
             if (checkBox_teacher.Checked)
             {
                 wtfbrah = false;
@@ -172,7 +219,7 @@ namespace Dresscode
             if (wtfbrah)
             {
                 sql = "SELECT * FROM INFRACTIONS";
-                
+
             }
             dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
             getinfractions();
@@ -186,13 +233,13 @@ namespace Dresscode
                 cBuilder = new OleDbCommandBuilder(dAdapter);
                 cBuilder.QuotePrefix = "[";
                 cBuilder.QuoteSuffix = "]";
-                
+
                 dAdapter.Fill(dTable);
                 bSource.DataSource = dTable;
                 dataGridView_reports.DataSource = bSource;
                 for (int i = 0; i <= 11; i++)
                 {
-                    if(i<=3)
+                    if (i <= 3)
                         dataGridView_reports.Columns[i].Visible = false;
                     dataGridView_reports.Columns[i].ReadOnly = true;
                 }
@@ -203,10 +250,65 @@ namespace Dresscode
             {
                 MessageBox.Show(x.Message, "Error");
             }
-            finally 
+            finally
             {
                 global.oleconnection.Close();
                 wtfbrah = true;
+            }
+            try
+            {
+                global.oleconnection.Open();
+                OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
+                getinfractioncommand.CommandText = sql;
+                OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
+                while (getinfraction.Read())
+                {
+                    DateTime theDate = new DateTime(2013, 1, 1).AddDays(int.Parse(getinfraction["dayofyear"].ToString()) - 1);
+                    //MessageBox.Show();
+                    int databasedate = int.Parse(getinfraction["dayofyear"].ToString());
+                    if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
+                    {
+                        nineWeeksDatabase = 1;
+                    }
+                    if (databasedate >= secondtnineweeksstart || databasedate <= secondnineweeksend)
+                    {
+                        nineWeeksDatabase = 2;
+                    }
+                    if (databasedate >= thirdnineweeksstart && databasedate <= thirdnineweeksend)
+                    {
+                        nineWeeksDatabase = 3;
+                    }
+                    if (databasedate >= forthnineweeksstart && databasedate <= forthnineweeksend)
+                    {
+                        nineWeeksDatabase = 4;
+                    }
+                    if (currentDayOfYear >= secondtnineweeksstart || currentDayOfYear <= secondnineweeksend)
+                    {
+                        currentNineWeeks = 2;
+                    }
+                    if (currentDayOfYear >= thirdnineweeksstart && currentDayOfYear <= thirdnineweeksend)
+                    {
+                        currentNineWeeks = 3;
+                    }
+                    if (currentDayOfYear >= forthnineweeksstart && currentDayOfYear <= forthnineweeksend)
+                    {
+                        currentNineWeeks = 4;
+                    }
+                    if (currentNineWeeks == nineWeeksDatabase)
+                    {
+                        county++;
+                        label_nineweeks.Text = "Infractions this 9 weeks: " + county;
+                    }
+                    label_total_reports.Text = "Total Infractions: " + (totalinfractions++);
+                }
+            }
+            catch (Exception x)
+            {
+
+            }
+            finally
+            {
+                global.oleconnection.Close();
             }
         }
 
@@ -220,7 +322,7 @@ namespace Dresscode
             if (checkBox_date_single.Checked == true)
             {
                 datetimepicker_date_start.Enabled = true;
-                checkBox_date_range.Enabled = true; 
+                checkBox_date_range.Enabled = true;
             }
             else
             {
@@ -298,7 +400,7 @@ namespace Dresscode
         {
             try
             {
-                
+
                 dAdapter.Update(dTable);
             }
             catch (Exception exceptionObj)
@@ -409,7 +511,7 @@ namespace Dresscode
                 }
                 else
                 {
-                    MessageBox.Show("Please Enter a first or last name","Missing Name");
+                    MessageBox.Show("Please Enter a first or last name", "Missing Name");
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
@@ -423,19 +525,16 @@ namespace Dresscode
                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
                 ExcelApp.Application.Workbooks.Add(Type.Missing);
-                ExcelApp.Columns.ColumnWidth = 20;
+                ExcelApp.Columns.ColumnWidth = 15;
                 for (int i = 4; i < dataGridView_reports.Columns.Count + 1; i++)
                 {
-                    if (i != 0 || i != 8 || i != 6)
-                    {
-                        ExcelApp.Cells[1, i -3] = dataGridView_reports.Columns[i - 1].HeaderText;
-                    }
+                    ExcelApp.Cells[1, i - 3] = dataGridView_reports.Columns[i - 1].HeaderText;
                 }
                 for (int i = 0; i < dataGridView_reports.Rows.Count - 1; i++)
                 {
                     for (int j = 3; j < dataGridView_reports.Columns.Count; j++)
                     {
-                        ExcelApp.Cells[i + 2, j-2] = dataGridView_reports.Rows[i].Cells[j].Value.ToString();
+                        ExcelApp.Cells[i + 2, j - 2] = dataGridView_reports.Rows[i].Cells[j].Value.ToString();
                     }
                 }
                 SaveFileDialog sfd = new SaveFileDialog();

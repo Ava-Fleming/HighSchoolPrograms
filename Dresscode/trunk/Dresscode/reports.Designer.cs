@@ -55,6 +55,8 @@
             this.dataGridView_reports = new System.Windows.Forms.DataGridView();
             this.button_update = new System.Windows.Forms.Button();
             this.button_export_excel = new System.Windows.Forms.Button();
+            this.label_nineweeks = new System.Windows.Forms.Label();
+            this.label_total_reports = new System.Windows.Forms.Label();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -84,7 +86,7 @@
             // label_viewing
             // 
             this.label_viewing.AutoSize = true;
-            this.label_viewing.Location = new System.Drawing.Point(15, 208);
+            this.label_viewing.Location = new System.Drawing.Point(15, 194);
             this.label_viewing.Name = "label_viewing";
             this.label_viewing.Size = new System.Drawing.Size(94, 13);
             this.label_viewing.TabIndex = 7;
@@ -147,7 +149,7 @@
             this.groupBox_search.Controls.Add(this.combobox_teacher);
             this.groupBox_search.Location = new System.Drawing.Point(12, 12);
             this.groupBox_search.Name = "groupBox_search";
-            this.groupBox_search.Size = new System.Drawing.Size(476, 193);
+            this.groupBox_search.Size = new System.Drawing.Size(476, 179);
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
@@ -384,15 +386,15 @@
             // dataGridView_reports
             // 
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_reports.Location = new System.Drawing.Point(12, 224);
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 210);
             this.dataGridView_reports.Name = "dataGridView_reports";
-            this.dataGridView_reports.Size = new System.Drawing.Size(476, 180);
+            this.dataGridView_reports.Size = new System.Drawing.Size(476, 194);
             this.dataGridView_reports.TabIndex = 13;
             this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             // 
             // button_update
             // 
-            this.button_update.Location = new System.Drawing.Point(257, 410);
+            this.button_update.Location = new System.Drawing.Point(184, 410);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(118, 23);
             this.button_update.TabIndex = 14;
@@ -402,19 +404,39 @@
             // 
             // button_export_excel
             // 
-            this.button_export_excel.Location = new System.Drawing.Point(413, 410);
+            this.button_export_excel.Location = new System.Drawing.Point(375, 410);
             this.button_export_excel.Name = "button_export_excel";
-            this.button_export_excel.Size = new System.Drawing.Size(75, 23);
+            this.button_export_excel.Size = new System.Drawing.Size(113, 23);
             this.button_export_excel.TabIndex = 15;
             this.button_export_excel.Text = "Export To Excel";
             this.button_export_excel.UseVisualStyleBackColor = true;
             this.button_export_excel.Click += new System.EventHandler(this.button_export_excel_Click);
+            // 
+            // label_nineweeks
+            // 
+            this.label_nineweeks.AutoSize = true;
+            this.label_nineweeks.Location = new System.Drawing.Point(156, 194);
+            this.label_nineweeks.Name = "label_nineweeks";
+            this.label_nineweeks.Size = new System.Drawing.Size(109, 13);
+            this.label_nineweeks.TabIndex = 30;
+            this.label_nineweeks.Text = "Reports this 9 weeks:";
+            // 
+            // label_total_reports
+            // 
+            this.label_total_reports.AutoSize = true;
+            this.label_total_reports.Location = new System.Drawing.Point(327, 194);
+            this.label_total_reports.Name = "label_total_reports";
+            this.label_total_reports.Size = new System.Drawing.Size(77, 13);
+            this.label_total_reports.TabIndex = 31;
+            this.label_total_reports.Text = "Total Reports: ";
             // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(513, 445);
+            this.Controls.Add(this.label_total_reports);
+            this.Controls.Add(this.label_nineweeks);
             this.Controls.Add(this.button_export_excel);
             this.Controls.Add(this.button_update);
             this.Controls.Add(this.dataGridView_reports);
@@ -465,6 +487,8 @@
         private System.Windows.Forms.CheckBox checkBox_student;
         private System.Windows.Forms.ComboBox comboBox_student_firstname;
         private System.Windows.Forms.Button button_export_excel;
+        private System.Windows.Forms.Label label_nineweeks;
+        private System.Windows.Forms.Label label_total_reports;
 
     }
 }
