@@ -418,36 +418,42 @@ namespace Dresscode
 
         private void button_export_excel_Click(object sender, EventArgs e)
         {
-                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+            try
+            {
+                Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
-            ExcelApp.Application.Workbooks.Add(Type.Missing);
-            ExcelApp.Columns.ColumnWidth = 20;
-            for (int i = 1; i < dataGridView_reports.Columns.Count + 1; i++)
-            {
-                if (i != 0 || i != 8 || i != 6)
+                ExcelApp.Application.Workbooks.Add(Type.Missing);
+                ExcelApp.Columns.ColumnWidth = 20;
+                for (int i = 4; i < dataGridView_reports.Columns.Count + 1; i++)
                 {
-                    ExcelApp.Cells[1, i] = dataGridView_reports.Columns[i - 1].HeaderText;
+                    if (i != 0 || i != 8 || i != 6)
+                    {
+                        ExcelApp.Cells[1, i -3] = dataGridView_reports.Columns[i - 1].HeaderText;
+                    }
                 }
-            }
-            for (int i = 0; i < dataGridView_reports.Rows.Count - 1; i++)
-            {
-                for (int j = 1; j < dataGridView_reports.Columns.Count; j++)
+                for (int i = 0; i < dataGridView_reports.Rows.Count - 1; i++)
                 {
-                    ExcelApp.Cells[i + 2, j + 1] = dataGridView_reports.Rows[i].Cells[j].Value.ToString();
+                    for (int j = 3; j < dataGridView_reports.Columns.Count; j++)
+                    {
+                        ExcelApp.Cells[i + 2, j-2] = dataGridView_reports.Rows[i].Cells[j].Value.ToString();
+                    }
                 }
+                SaveFileDialog sfd = new SaveFileDialog();
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName); //or .xlsx file, depending of the excel version of your system
+                    ExcelApp.ActiveWorkbook.Saved = true;
+                }
+                else
+                {
+                    ExcelApp.ActiveWorkbook.Saved = false;
+                }
+                ExcelApp.Quit();
             }
-            SaveFileDialog sfd = new SaveFileDialog();
-            if (sfd.ShowDialog() == DialogResult.OK)
+            catch (Exception x)
             {
-                ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName); //or .xlsx file, depending of the excel version of your system
-                ExcelApp.ActiveWorkbook.Saved = true;
+                MessageBox.Show(x.Message);
             }
-            else
-            {
-                ExcelApp.ActiveWorkbook.Saved = false ;
-            }
-            ExcelApp.Quit();
-
         }
     }
 }
