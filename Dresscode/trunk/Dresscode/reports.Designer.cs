@@ -54,6 +54,7 @@
             this.checkBox_date_range = new System.Windows.Forms.CheckBox();
             this.dataGridView_reports = new System.Windows.Forms.DataGridView();
             this.button_update = new System.Windows.Forms.Button();
+            this.button_export_excel = new System.Windows.Forms.Button();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -178,6 +179,7 @@
             this.comboBox_student_last.Name = "comboBox_student_last";
             this.comboBox_student_last.Size = new System.Drawing.Size(107, 21);
             this.comboBox_student_last.TabIndex = 27;
+            this.comboBox_student_last.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_student_last_KeyDown);
             // 
             // checkBox_student
             // 
@@ -198,6 +200,7 @@
             this.comboBox_student_firstname.Name = "comboBox_student_firstname";
             this.comboBox_student_firstname.Size = new System.Drawing.Size(109, 21);
             this.comboBox_student_firstname.TabIndex = 25;
+            this.comboBox_student_firstname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_student_firstname_KeyDown);
             // 
             // numericUpDown_grade_end
             // 
@@ -389,7 +392,7 @@
             // 
             // button_update
             // 
-            this.button_update.Location = new System.Drawing.Point(370, 410);
+            this.button_update.Location = new System.Drawing.Point(257, 410);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(118, 23);
             this.button_update.TabIndex = 14;
@@ -397,11 +400,22 @@
             this.button_update.UseVisualStyleBackColor = true;
             this.button_update.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button_export_excel
+            // 
+            this.button_export_excel.Location = new System.Drawing.Point(413, 410);
+            this.button_export_excel.Name = "button_export_excel";
+            this.button_export_excel.Size = new System.Drawing.Size(75, 23);
+            this.button_export_excel.TabIndex = 15;
+            this.button_export_excel.Text = "Export To Excel";
+            this.button_export_excel.UseVisualStyleBackColor = true;
+            this.button_export_excel.Click += new System.EventHandler(this.button_export_excel_Click);
+            // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(513, 445);
+            this.Controls.Add(this.button_export_excel);
             this.Controls.Add(this.button_update);
             this.Controls.Add(this.dataGridView_reports);
             this.Controls.Add(this.groupBox_search);
@@ -450,6 +464,7 @@
         private System.Windows.Forms.ComboBox comboBox_student_last;
         private System.Windows.Forms.CheckBox checkBox_student;
         private System.Windows.Forms.ComboBox comboBox_student_firstname;
+        private System.Windows.Forms.Button button_export_excel;
 
     }
 }

@@ -7,15 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.IO;
+
 
 namespace Dresscode
 {
     public partial class reports : Form
     {
-        private OleDbDataAdapter dataadapter = null;
-        private BindingSource bindingSource1 = new BindingSource();
+        BindingSource bSource = new BindingSource();
         string sql = "";
+        string findstudentinfo = null;
         globals global = new globals();
+        OleDbDataAdapter dAdapter;
+        DataTable dTable = new DataTable();
+        OleDbCommandBuilder cBuilder;
         bool wtfbrah = true;
         //
         public reports()
@@ -25,6 +30,7 @@ namespace Dresscode
 
         private void reports_Load(object sender, EventArgs e)
         {
+            
             try
             {
                 global.oleconnection.Open();
@@ -154,11 +160,13 @@ namespace Dresscode
             }
             if (checkBox_student.Checked)
             {
+
+                getstudentinfo();
                 wtfbrah = false;
                 if (hasStarted)
                     sql += " AND";
                 //student name
-                sql += " `First Name` = '" + comboBox_student_firstname + "' AND `Last Name` = '" + comboBox_student_last.Text + "'";
+                sql += " `First Name` = '" + comboBox_student_firstname.Text + "' AND `Last Name` = '" + comboBox_student_last.Text + "'";
                 hasStarted = true;
             }
             if (wtfbrah)
@@ -166,37 +174,28 @@ namespace Dresscode
                 sql = "SELECT * FROM INFRACTIONS";
                 
             }
+            dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
             getinfractions();
         }
         public void getinfractions()
         {
             try
             {
-                dataGridView_reports.DataSource = bindingSource1;
-                // Specify a connection string. Replace the given value with a  
-                // valid connection string for a Northwind SQL Server sample 
-                // database accessible to your system.
+                dTable.Rows.Clear();
 
-                // Create a new data adapter based on the specified query.
-                dataadapter = new OleDbDataAdapter(sql, global.oleconnection);
-
-                // Create a command builder to generate SQL update, insert, and 
-                // delete commands based on selectCommand. These are used to 
-                // update the database.
-                OleDbCommandBuilder commandBuilder = new OleDbCommandBuilder(dataadapter);
-
-
-                // Populate a new data table and bind it to the BindingSource.
-                DataTable table = new DataTable();
-                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
-                dataadapter.Fill(table);
-
-                bindingSource1.DataSource = table;
-                // Resize the DataGridView columns to fit the newly loaded content.
-                dataGridView_reports.Columns[0].Visible = false;
-                dataGridView_reports.Columns[8].Visible = false;
-                dataGridView_reports.Columns[6].Visible = false;
+                cBuilder = new OleDbCommandBuilder(dAdapter);
+                cBuilder.QuotePrefix = "[";
+                cBuilder.QuoteSuffix = "]";
+                
+                dAdapter.Fill(dTable);
+                bSource.DataSource = dTable;
+                dataGridView_reports.DataSource = bSource;
+                for (int i = 0; i <= 11; i++)
+                {
+                    if(i<=3)
+                        dataGridView_reports.Columns[i].Visible = false;
+                    dataGridView_reports.Columns[i].ReadOnly = true;
+                }
                 dataGridView_reports.AutoResizeColumns(
                     DataGridViewAutoSizeColumnsMode.AllCells);
             }
@@ -299,7 +298,8 @@ namespace Dresscode
         {
             try
             {
-                dataadapter.Update((DataTable)bindingSource1.DataSource);
+                
+                dAdapter.Update(dTable);
             }
             catch (Exception exceptionObj)
             {
@@ -309,7 +309,7 @@ namespace Dresscode
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            //button_update.PerformClick();
+            button_update.PerformClick();
         }
 
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
@@ -351,6 +351,103 @@ namespace Dresscode
                 comboBox_student_firstname.Enabled = false;
                 comboBox_student_last.Enabled = false;
             }
+        }
+        private void comboBox_student_last_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                getstudentinfo();
+        }
+
+        private void comboBox_student_firstname_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                getstudentinfo();
+        }
+
+        public void getstudentinfo()
+        {
+            int retrievalcode = 0;
+            findstudentinfo = null;
+            if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text == "")
+                retrievalcode = -1;
+            if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text != "")
+            {
+                retrievalcode = 0;
+                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE LASTNAME='" + comboBox_student_last.Text + "'";
+            }
+            if (comboBox_student_firstname.Text != "" && comboBox_student_last.Text == "")
+            {
+                retrievalcode = 1;
+                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + comboBox_student_firstname.Text + "'";
+            }
+            if (comboBox_student_last.Text != "" && comboBox_student_firstname.Text != "")
+            {
+                retrievalcode = 2;
+                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + comboBox_student_firstname.Text + "' AND LASTNAME='" + comboBox_student_last.Text + "'";
+            }
+            try
+            {
+                global.oleconnection.Open();
+                if (retrievalcode != -1)
+                {
+                    OleDbCommand getstudentinfocommand = global.oleconnection.CreateCommand();
+                    getstudentinfocommand.CommandText = findstudentinfo;
+                    OleDbDataReader getstudentinfo = getstudentinfocommand.ExecuteReader();
+                    while (getstudentinfo.Read())
+                    {
+                        if (retrievalcode == 0)
+                        {
+                            comboBox_student_firstname.Text = getstudentinfo["FIRSTNAME"].ToString();
+                            comboBox_student_firstname.Items.Add(getstudentinfo["FIRSTNAME"].ToString());
+                        }
+                        if (retrievalcode == 1)
+                        {
+                            comboBox_student_last.Text = getstudentinfo["LASTNAME"].ToString();
+                            comboBox_student_last.Items.Add(getstudentinfo["LASTNAME"].ToString());
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please Enter a first or last name","Missing Name");
+                }
+            }
+            catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
+            finally { global.oleconnection.Close(); }
+        }
+
+        private void button_export_excel_Click(object sender, EventArgs e)
+        {
+                 Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+            ExcelApp.Application.Workbooks.Add(Type.Missing);
+            ExcelApp.Columns.ColumnWidth = 20;
+            for (int i = 1; i < dataGridView_reports.Columns.Count + 1; i++)
+            {
+                if (i != 0 || i != 8 || i != 6)
+                {
+                    ExcelApp.Cells[1, i] = dataGridView_reports.Columns[i - 1].HeaderText;
+                }
+            }
+            for (int i = 0; i < dataGridView_reports.Rows.Count - 1; i++)
+            {
+                for (int j = 1; j < dataGridView_reports.Columns.Count; j++)
+                {
+                    ExcelApp.Cells[i + 2, j + 1] = dataGridView_reports.Rows[i].Cells[j].Value.ToString();
+                }
+            }
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName); //or .xlsx file, depending of the excel version of your system
+                ExcelApp.ActiveWorkbook.Saved = true;
+            }
+            else
+            {
+                ExcelApp.ActiveWorkbook.Saved = false ;
+            }
+            ExcelApp.Quit();
+
         }
     }
 }

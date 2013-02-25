@@ -19,7 +19,6 @@ namespace Dresscode
         }
         /**/
         globals global = new globals();
-        private OleDbConnection connection = null;
         private OleDbDataAdapter dataadapter = null;
         private BindingSource bindingSource1 = new BindingSource();
         /**/
@@ -147,10 +146,12 @@ namespace Dresscode
 
 
                     // Resize the DataGridView columns to fit the newly loaded content.
+                    
                     dataGridView1.Columns[0].Visible = false;
-                    dataGridView1.Columns[8].Visible = false;
+                    dataGridView1.Columns[1].Visible = false;
+                    dataGridView1.Columns[2].Visible = false;
                     dataGridView1.Columns[12].Visible = false;
-                    dataGridView1.Columns[6].Visible = false;
+                    
                     dataGridView1.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
                     while (getinfraction.Read())
@@ -281,7 +282,7 @@ namespace Dresscode
                                                 }
                                             }
 
-                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherid + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.DayOfYear.ToString() + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
+                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + DateTime.Now.DayOfYear.ToString() + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
                                             oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                                             oledbAdapter.InsertCommand.ExecuteNonQuery();
                                             submitted = true;
@@ -431,8 +432,6 @@ namespace Dresscode
 
         private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          //  dgt dg = new dgt();
-           // dg.Show();
             reports report = new reports();
             report.ShowDialog();
         }
