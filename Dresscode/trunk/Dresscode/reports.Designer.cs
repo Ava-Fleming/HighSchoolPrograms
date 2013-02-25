@@ -35,6 +35,15 @@
             this.checkBox_date_single = new System.Windows.Forms.CheckBox();
             this.checkBox_teacher = new System.Windows.Forms.CheckBox();
             this.groupBox_search = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label_student_firstname = new System.Windows.Forms.Label();
+            this.comboBox_student_last = new System.Windows.Forms.ComboBox();
+            this.checkBox_student = new System.Windows.Forms.CheckBox();
+            this.comboBox_student_firstname = new System.Windows.Forms.ComboBox();
+            this.numericUpDown_grade_end = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_grade_range = new System.Windows.Forms.CheckBox();
+            this.numericUpDown_grade_start = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_grade_single = new System.Windows.Forms.CheckBox();
             this.numericUpDown_period_end = new System.Windows.Forms.NumericUpDown();
             this.checkBox_period_range = new System.Windows.Forms.CheckBox();
             this.numericUpDown_period_start = new System.Windows.Forms.NumericUpDown();
@@ -43,23 +52,14 @@
             this.checkBox_infraction = new System.Windows.Forms.CheckBox();
             this.dateTimePicker_end_date = new System.Windows.Forms.DateTimePicker();
             this.checkBox_date_range = new System.Windows.Forms.CheckBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.checkBox_grade_single = new System.Windows.Forms.CheckBox();
-            this.numericUpDown_grade_start = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown_grade_end = new System.Windows.Forms.NumericUpDown();
-            this.checkBox_grade_range = new System.Windows.Forms.CheckBox();
-            this.checkBox_student = new System.Windows.Forms.CheckBox();
-            this.comboBox_student_firstname = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label_student_firstname = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView_reports = new System.Windows.Forms.DataGridView();
+            this.button_update = new System.Windows.Forms.Button();
             this.groupBox_search.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_start)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_reports)).BeginInit();
             this.SuspendLayout();
             // 
             // datetimepicker_date_start
@@ -125,7 +125,7 @@
             // 
             this.groupBox_search.Controls.Add(this.label1);
             this.groupBox_search.Controls.Add(this.label_student_firstname);
-            this.groupBox_search.Controls.Add(this.comboBox1);
+            this.groupBox_search.Controls.Add(this.comboBox_student_last);
             this.groupBox_search.Controls.Add(this.checkBox_student);
             this.groupBox_search.Controls.Add(this.comboBox_student_firstname);
             this.groupBox_search.Controls.Add(this.numericUpDown_grade_end);
@@ -151,6 +151,122 @@
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
             this.groupBox_search.Enter += new System.EventHandler(this.groupBox_search_Enter);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(296, 149);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 29;
+            this.label1.Text = "Last Name:";
+            // 
+            // label_student_firstname
+            // 
+            this.label_student_firstname.AutoSize = true;
+            this.label_student_firstname.Location = new System.Drawing.Point(119, 146);
+            this.label_student_firstname.Name = "label_student_firstname";
+            this.label_student_firstname.Size = new System.Drawing.Size(60, 13);
+            this.label_student_firstname.TabIndex = 28;
+            this.label_student_firstname.Text = "First Name:";
+            // 
+            // comboBox_student_last
+            // 
+            this.comboBox_student_last.Enabled = false;
+            this.comboBox_student_last.FormattingEnabled = true;
+            this.comboBox_student_last.Location = new System.Drawing.Point(363, 145);
+            this.comboBox_student_last.Name = "comboBox_student_last";
+            this.comboBox_student_last.Size = new System.Drawing.Size(107, 21);
+            this.comboBox_student_last.TabIndex = 27;
+            // 
+            // checkBox_student
+            // 
+            this.checkBox_student.AutoSize = true;
+            this.checkBox_student.Location = new System.Drawing.Point(6, 145);
+            this.checkBox_student.Name = "checkBox_student";
+            this.checkBox_student.Size = new System.Drawing.Size(111, 17);
+            this.checkBox_student.TabIndex = 26;
+            this.checkBox_student.Text = "Select By Student";
+            this.checkBox_student.UseVisualStyleBackColor = true;
+            this.checkBox_student.CheckedChanged += new System.EventHandler(this.checkBox_student_CheckedChanged);
+            // 
+            // comboBox_student_firstname
+            // 
+            this.comboBox_student_firstname.Enabled = false;
+            this.comboBox_student_firstname.FormattingEnabled = true;
+            this.comboBox_student_firstname.Location = new System.Drawing.Point(181, 143);
+            this.comboBox_student_firstname.Name = "comboBox_student_firstname";
+            this.comboBox_student_firstname.Size = new System.Drawing.Size(109, 21);
+            this.comboBox_student_firstname.TabIndex = 25;
+            // 
+            // numericUpDown_grade_end
+            // 
+            this.numericUpDown_grade_end.Enabled = false;
+            this.numericUpDown_grade_end.Location = new System.Drawing.Point(241, 119);
+            this.numericUpDown_grade_end.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numericUpDown_grade_end.Minimum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDown_grade_end.Name = "numericUpDown_grade_end";
+            this.numericUpDown_grade_end.Size = new System.Drawing.Size(49, 20);
+            this.numericUpDown_grade_end.TabIndex = 24;
+            this.numericUpDown_grade_end.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            // 
+            // checkBox_grade_range
+            // 
+            this.checkBox_grade_range.AutoSize = true;
+            this.checkBox_grade_range.Enabled = false;
+            this.checkBox_grade_range.Location = new System.Drawing.Point(177, 120);
+            this.checkBox_grade_range.Name = "checkBox_grade_range";
+            this.checkBox_grade_range.Size = new System.Drawing.Size(58, 17);
+            this.checkBox_grade_range.TabIndex = 23;
+            this.checkBox_grade_range.Text = "Range";
+            this.checkBox_grade_range.UseVisualStyleBackColor = true;
+            this.checkBox_grade_range.CheckedChanged += new System.EventHandler(this.checkBox_grade_range_CheckedChanged);
+            // 
+            // numericUpDown_grade_start
+            // 
+            this.numericUpDown_grade_start.Enabled = false;
+            this.numericUpDown_grade_start.Location = new System.Drawing.Point(122, 119);
+            this.numericUpDown_grade_start.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numericUpDown_grade_start.Minimum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDown_grade_start.Name = "numericUpDown_grade_start";
+            this.numericUpDown_grade_start.Size = new System.Drawing.Size(51, 20);
+            this.numericUpDown_grade_start.TabIndex = 22;
+            this.numericUpDown_grade_start.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            // 
+            // checkBox_grade_single
+            // 
+            this.checkBox_grade_single.AutoSize = true;
+            this.checkBox_grade_single.Location = new System.Drawing.Point(7, 117);
+            this.checkBox_grade_single.Name = "checkBox_grade_single";
+            this.checkBox_grade_single.Size = new System.Drawing.Size(107, 17);
+            this.checkBox_grade_single.TabIndex = 21;
+            this.checkBox_grade_single.Text = "Search By Grade";
+            this.checkBox_grade_single.UseVisualStyleBackColor = true;
+            this.checkBox_grade_single.CheckedChanged += new System.EventHandler(this.checkBox_grade_single_CheckedChanged);
             // 
             // numericUpDown_period_end
             // 
@@ -262,147 +378,32 @@
             this.checkBox_date_range.UseVisualStyleBackColor = true;
             this.checkBox_date_range.CheckedChanged += new System.EventHandler(this.checkBox_date_range_CheckedChanged);
             // 
-            // dataGridView1
+            // dataGridView_reports
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 224);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(476, 180);
-            this.dataGridView1.TabIndex = 13;
-            this.dataGridView1.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
+            this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 224);
+            this.dataGridView_reports.Name = "dataGridView_reports";
+            this.dataGridView_reports.Size = new System.Drawing.Size(476, 180);
+            this.dataGridView_reports.TabIndex = 13;
+            this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             // 
-            // button1
+            // button_update
             // 
-            this.button1.Location = new System.Drawing.Point(370, 410);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Update";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // checkBox_grade_single
-            // 
-            this.checkBox_grade_single.AutoSize = true;
-            this.checkBox_grade_single.Location = new System.Drawing.Point(7, 117);
-            this.checkBox_grade_single.Name = "checkBox_grade_single";
-            this.checkBox_grade_single.Size = new System.Drawing.Size(107, 17);
-            this.checkBox_grade_single.TabIndex = 21;
-            this.checkBox_grade_single.Text = "Search By Grade";
-            this.checkBox_grade_single.UseVisualStyleBackColor = true;
-            this.checkBox_grade_single.CheckedChanged += new System.EventHandler(this.checkBox_grade_single_CheckedChanged);
-            // 
-            // numericUpDown_grade_start
-            // 
-            this.numericUpDown_grade_start.Enabled = false;
-            this.numericUpDown_grade_start.Location = new System.Drawing.Point(122, 119);
-            this.numericUpDown_grade_start.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.numericUpDown_grade_start.Minimum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numericUpDown_grade_start.Name = "numericUpDown_grade_start";
-            this.numericUpDown_grade_start.Size = new System.Drawing.Size(51, 20);
-            this.numericUpDown_grade_start.TabIndex = 22;
-            this.numericUpDown_grade_start.Value = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown_grade_end
-            // 
-            this.numericUpDown_grade_end.Enabled = false;
-            this.numericUpDown_grade_end.Location = new System.Drawing.Point(241, 119);
-            this.numericUpDown_grade_end.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.numericUpDown_grade_end.Minimum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numericUpDown_grade_end.Name = "numericUpDown_grade_end";
-            this.numericUpDown_grade_end.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDown_grade_end.TabIndex = 24;
-            this.numericUpDown_grade_end.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            // 
-            // checkBox_grade_range
-            // 
-            this.checkBox_grade_range.AutoSize = true;
-            this.checkBox_grade_range.Enabled = false;
-            this.checkBox_grade_range.Location = new System.Drawing.Point(177, 120);
-            this.checkBox_grade_range.Name = "checkBox_grade_range";
-            this.checkBox_grade_range.Size = new System.Drawing.Size(58, 17);
-            this.checkBox_grade_range.TabIndex = 23;
-            this.checkBox_grade_range.Text = "Range";
-            this.checkBox_grade_range.UseVisualStyleBackColor = true;
-            this.checkBox_grade_range.CheckedChanged += new System.EventHandler(this.checkBox_grade_range_CheckedChanged);
-            // 
-            // checkBox_student
-            // 
-            this.checkBox_student.AutoSize = true;
-            this.checkBox_student.Location = new System.Drawing.Point(6, 145);
-            this.checkBox_student.Name = "checkBox_student";
-            this.checkBox_student.Size = new System.Drawing.Size(111, 17);
-            this.checkBox_student.TabIndex = 26;
-            this.checkBox_student.Text = "Select By Student";
-            this.checkBox_student.UseVisualStyleBackColor = true;
-            // 
-            // comboBox_student_firstname
-            // 
-            this.comboBox_student_firstname.Enabled = false;
-            this.comboBox_student_firstname.FormattingEnabled = true;
-            this.comboBox_student_firstname.Location = new System.Drawing.Point(181, 143);
-            this.comboBox_student_firstname.Name = "comboBox_student_firstname";
-            this.comboBox_student_firstname.Size = new System.Drawing.Size(109, 21);
-            this.comboBox_student_firstname.TabIndex = 25;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(363, 145);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(107, 21);
-            this.comboBox1.TabIndex = 27;
-            // 
-            // label_student_firstname
-            // 
-            this.label_student_firstname.AutoSize = true;
-            this.label_student_firstname.Location = new System.Drawing.Point(119, 146);
-            this.label_student_firstname.Name = "label_student_firstname";
-            this.label_student_firstname.Size = new System.Drawing.Size(60, 13);
-            this.label_student_firstname.TabIndex = 28;
-            this.label_student_firstname.Text = "First Name:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(296, 149);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "Last Name:";
+            this.button_update.Location = new System.Drawing.Point(370, 410);
+            this.button_update.Name = "button_update";
+            this.button_update.Size = new System.Drawing.Size(118, 23);
+            this.button_update.TabIndex = 14;
+            this.button_update.Text = "Update";
+            this.button_update.UseVisualStyleBackColor = true;
+            this.button_update.Click += new System.EventHandler(this.button1_Click);
             // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(513, 445);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.button_update);
+            this.Controls.Add(this.dataGridView_reports);
             this.Controls.Add(this.groupBox_search);
             this.Controls.Add(this.button_retrieve);
             this.Controls.Add(this.label_viewing);
@@ -411,11 +412,11 @@
             this.Load += new System.EventHandler(this.reports_Load);
             this.groupBox_search.ResumeLayout(false);
             this.groupBox_search.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_end)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_start)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_reports)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,15 +439,15 @@
         private System.Windows.Forms.CheckBox checkBox_period_range;
         private System.Windows.Forms.NumericUpDown numericUpDown_period_start;
         private System.Windows.Forms.CheckBox checkBox_period_single;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dataGridView_reports;
+        private System.Windows.Forms.Button button_update;
         private System.Windows.Forms.NumericUpDown numericUpDown_grade_end;
         private System.Windows.Forms.CheckBox checkBox_grade_range;
         private System.Windows.Forms.NumericUpDown numericUpDown_grade_start;
         private System.Windows.Forms.CheckBox checkBox_grade_single;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label_student_firstname;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_student_last;
         private System.Windows.Forms.CheckBox checkBox_student;
         private System.Windows.Forms.ComboBox comboBox_student_firstname;
 

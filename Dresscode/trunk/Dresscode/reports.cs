@@ -12,8 +12,6 @@ namespace Dresscode
 {
     public partial class reports : Form
     {
-        //public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\w03s1762d\tech\TSA\dresscode\dc.mdb");
-        OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\Dresscode\dc.mdb");
         private OleDbDataAdapter dataadapter = null;
         private BindingSource bindingSource1 = new BindingSource();
         string sql = "";
@@ -29,8 +27,8 @@ namespace Dresscode
         {
             try
             {
-                oleconnection.Open();
-                OleDbCommand getinfractioncommand = oleconnection.CreateCommand();
+                global.oleconnection.Open();
+                OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
@@ -42,12 +40,12 @@ namespace Dresscode
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { oleconnection.Close(); }
+            finally { global.oleconnection.Close(); }
 
             try
             {
-                oleconnection.Open();
-                OleDbCommand getinfractioncommand = oleconnection.CreateCommand();
+                global.oleconnection.Open();
+                OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = "SELECT * FROM settings";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
@@ -56,7 +54,7 @@ namespace Dresscode
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { oleconnection.Close(); }
+            finally { global.oleconnection.Close(); }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -142,7 +140,7 @@ namespace Dresscode
                     if (hasStarted)
                         sql += " AND";
                     //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
-                    sql += " Grade >= " + numericUpDown_grade_start.Value.ToString() + " AND Grade <= " + numericUpDown_grade_end.Value.ToString() + "";
+                    sql += " Grade >= '" + numericUpDown_grade_start.Value.ToString() + "' AND Grade <= '" + numericUpDown_grade_end.Value.ToString() + "'";
                     hasStarted = true;
                 }
                 else
@@ -150,9 +148,18 @@ namespace Dresscode
                     if (hasStarted)
                         sql += " AND";
                     //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
-                    sql += " Grade = " + numericUpDown_grade_start.Value.ToString() + "";
+                    sql += " Grade = '" + numericUpDown_grade_start.Value.ToString() + "'";
                     hasStarted = true;
                 }
+            }
+            if (checkBox_student.Checked)
+            {
+                wtfbrah = false;
+                if (hasStarted)
+                    sql += " AND";
+                //student name
+                sql += " `First Name` = '" + comboBox_student_firstname + "' AND `Last Name` = '" + comboBox_student_last.Text + "'";
+                hasStarted = true;
             }
             if (wtfbrah)
             {
@@ -165,14 +172,13 @@ namespace Dresscode
         {
             try
             {
-                dataGridView1.DataSource = bindingSource1;
+                dataGridView_reports.DataSource = bindingSource1;
                 // Specify a connection string. Replace the given value with a  
                 // valid connection string for a Northwind SQL Server sample 
                 // database accessible to your system.
-                oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\Dresscode\dc.mdb");
 
                 // Create a new data adapter based on the specified query.
-                dataadapter = new OleDbDataAdapter(sql, oleconnection);
+                dataadapter = new OleDbDataAdapter(sql, global.oleconnection);
 
                 // Create a command builder to generate SQL update, insert, and 
                 // delete commands based on selectCommand. These are used to 
@@ -188,10 +194,10 @@ namespace Dresscode
 
                 bindingSource1.DataSource = table;
                 // Resize the DataGridView columns to fit the newly loaded content.
-                dataGridView1.Columns[0].Visible = false;
-                dataGridView1.Columns[8].Visible = false;
-                dataGridView1.Columns[6].Visible = false;
-                dataGridView1.AutoResizeColumns(
+                dataGridView_reports.Columns[0].Visible = false;
+                dataGridView_reports.Columns[8].Visible = false;
+                dataGridView_reports.Columns[6].Visible = false;
+                dataGridView_reports.AutoResizeColumns(
                     DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception x)
@@ -199,8 +205,8 @@ namespace Dresscode
                 MessageBox.Show(x.Message, "Error");
             }
             finally 
-            { 
-                oleconnection.Close();
+            {
+                global.oleconnection.Close();
                 wtfbrah = true;
             }
         }
@@ -303,7 +309,7 @@ namespace Dresscode
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            button1.PerformClick();
+            //button_update.PerformClick();
         }
 
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
@@ -330,6 +336,20 @@ namespace Dresscode
             else
             {
                 numericUpDown_grade_end.Enabled = false;
+            }
+        }
+
+        private void checkBox_student_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_student.Checked == true)
+            {
+                comboBox_student_firstname.Enabled = true;
+                comboBox_student_last.Enabled = true;
+            }
+            else
+            {
+                comboBox_student_firstname.Enabled = false;
+                comboBox_student_last.Enabled = false;
             }
         }
     }

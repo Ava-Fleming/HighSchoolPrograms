@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupbox_retrieve = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.combobox_lastname = new System.Windows.Forms.ComboBox();
             this.combobox_firstname = new System.Windows.Forms.ComboBox();
             this.label_nineweeksinfractions = new System.Windows.Forms.Label();
@@ -48,11 +49,10 @@
             this.label_teacherid = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupbox_retrieve.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupbox_submit.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupbox_retrieve
@@ -71,6 +71,17 @@
             this.groupbox_retrieve.TabIndex = 1;
             this.groupbox_retrieve.TabStop = false;
             this.groupbox_retrieve.Text = "Retrieval";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 75);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(407, 151);
+            this.dataGridView1.TabIndex = 18;
             // 
             // combobox_lastname
             // 
@@ -157,7 +168,7 @@
             // label_period
             // 
             this.label_period.AutoSize = true;
-            this.label_period.Location = new System.Drawing.Point(104, 24);
+            this.label_period.Location = new System.Drawing.Point(104, 37);
             this.label_period.Name = "label_period";
             this.label_period.Size = new System.Drawing.Size(40, 13);
             this.label_period.TabIndex = 13;
@@ -175,7 +186,7 @@
             // label_selecttheinfraction
             // 
             this.label_selecttheinfraction.AutoSize = true;
-            this.label_selecttheinfraction.Location = new System.Drawing.Point(231, 16);
+            this.label_selecttheinfraction.Location = new System.Drawing.Point(254, 18);
             this.label_selecttheinfraction.Name = "label_selecttheinfraction";
             this.label_selecttheinfraction.Size = new System.Drawing.Size(109, 13);
             this.label_selecttheinfraction.TabIndex = 11;
@@ -193,7 +204,7 @@
             "5",
             "6",
             "7"});
-            this.combobox_period.Location = new System.Drawing.Point(150, 19);
+            this.combobox_period.Location = new System.Drawing.Point(150, 32);
             this.combobox_period.Name = "combobox_period";
             this.combobox_period.Size = new System.Drawing.Size(34, 21);
             this.combobox_period.TabIndex = 5;
@@ -234,7 +245,7 @@
             // 
             this.combobox_infraction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combobox_infraction.FormattingEnabled = true;
-            this.combobox_infraction.Location = new System.Drawing.Point(190, 32);
+            this.combobox_infraction.Location = new System.Drawing.Point(213, 34);
             this.combobox_infraction.Name = "combobox_infraction";
             this.combobox_infraction.Size = new System.Drawing.Size(181, 21);
             this.combobox_infraction.TabIndex = 7;
@@ -267,17 +278,6 @@
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 75);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(407, 151);
-            this.dataGridView1.TabIndex = 18;
-            // 
             // form_dresscode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,11 +293,11 @@
             this.Load += new System.EventHandler(this.form_dresscode_Load);
             this.groupbox_retrieve.ResumeLayout(false);
             this.groupbox_retrieve.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupbox_submit.ResumeLayout(false);
             this.groupbox_submit.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
