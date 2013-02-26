@@ -97,6 +97,12 @@
     <Compile Include="Dresscode.Designer.cs">
       <DependentUpon>Dresscode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Email.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Email.Designer.cs">
+      <DependentUpon>Email.cs</DependentUpon>
+    </Compile>
     <Compile Include="globals.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -123,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dresscode.resx">
       <DependentUpon>Dresscode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Email.resx">
+      <DependentUpon>Email.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
