@@ -37,6 +37,8 @@
             this.button_stop = new System.Windows.Forms.Button();
             this.button_start = new System.Windows.Forms.Button();
             this.groupBox_settings = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_port = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_host_email = new System.Windows.Forms.TextBox();
             this.button_edit_settings = new System.Windows.Forms.Button();
@@ -52,16 +54,14 @@
             this.tabPage_console = new System.Windows.Forms.TabPage();
             this.button_clear_console = new System.Windows.Forms.Button();
             this.button_save_console = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDown_port = new System.Windows.Forms.NumericUpDown();
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_port)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_hours)).BeginInit();
             this.groupBox_emailing_list.SuspendLayout();
             this.tabPage_console.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_port)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox_console
@@ -132,6 +132,7 @@
             this.button_stop.TabIndex = 7;
             this.button_stop.Text = "Stop Task";
             this.button_stop.UseVisualStyleBackColor = true;
+            this.button_stop.Click += new System.EventHandler(this.button_stop_Click);
             // 
             // button_start
             // 
@@ -163,6 +164,28 @@
             this.groupBox_settings.TabIndex = 5;
             this.groupBox_settings.TabStop = false;
             this.groupBox_settings.Text = "Settings";
+            // 
+            // numericUpDown_port
+            // 
+            this.numericUpDown_port.Enabled = false;
+            this.numericUpDown_port.Location = new System.Drawing.Point(89, 115);
+            this.numericUpDown_port.Name = "numericUpDown_port";
+            this.numericUpDown_port.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown_port.TabIndex = 12;
+            this.numericUpDown_port.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(54, 117);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Port:";
             // 
             // label5
             // 
@@ -312,6 +335,7 @@
             this.button_clear_console.TabIndex = 2;
             this.button_clear_console.Text = "Clear";
             this.button_clear_console.UseVisualStyleBackColor = true;
+            this.button_clear_console.Click += new System.EventHandler(this.button_clear_console_Click);
             // 
             // button_save_console
             // 
@@ -321,23 +345,7 @@
             this.button_save_console.TabIndex = 1;
             this.button_save_console.Text = "Export to Text";
             this.button_save_console.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(54, 117);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Port:";
-            // 
-            // numericUpDown_port
-            // 
-            this.numericUpDown_port.Enabled = false;
-            this.numericUpDown_port.Location = new System.Drawing.Point(89, 115);
-            this.numericUpDown_port.Name = "numericUpDown_port";
-            this.numericUpDown_port.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown_port.TabIndex = 12;
+            this.button_save_console.Click += new System.EventHandler(this.button_save_console_Click);
             // 
             // Email
             // 
@@ -352,13 +360,13 @@
             this.tabPage_main.ResumeLayout(false);
             this.groupBox_settings.ResumeLayout(false);
             this.groupBox_settings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_port)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_hours)).EndInit();
             this.groupBox_emailing_list.ResumeLayout(false);
             this.groupBox_emailing_list.PerformLayout();
             this.tabPage_console.ResumeLayout(false);
             this.tabPage_console.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_port)).EndInit();
             this.ResumeLayout(false);
 
         }
