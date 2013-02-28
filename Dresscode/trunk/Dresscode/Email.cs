@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using System.Net.Mail;
+using System.Data.OleDb;
 
 namespace Dresscode
 {
@@ -17,7 +20,9 @@ namespace Dresscode
         }
         //globals
         bool editmode = false;
-        System.IO.StreamWriter SR;
+        StreamWriter SR;
+        SmtpClient smtp;
+        globals global = new globals();
         //textBox_console.Text += "\r\n";
         //
 
@@ -48,19 +53,30 @@ namespace Dresscode
         private void Email_Load(object sender, EventArgs e)
         {
             textBox_console.Text += "Initializing Settings from database.\r\n";
-            // pull old settings from database and set them here
-                //hours for send time
-                //minutes for send time
-                //subject for email
-                //hoste email adress
+            global.oleconnection.Open();
+            OleDbCommand command = global.oleconnection.CreateCommand();
+            command.CommandText = "SELECT * FROM settings_email";
+            OleDbDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                numericUpDown_hours.Value = int.Parse(reader["time hour"].ToString());
+                numericUpDown_minutes.Value = int.Parse(reader["time minute"].ToString());
+                textBox_smtp.Text = reader["smtp server"].ToString();
+                textBox_host_email.Text = reader["host email"].ToString();
+                textBox_email_password.Text = reader["host password"].ToString();
+                textBox_email_subject.Text = reader["email subject"].ToString();
+                textBox_email_body.Text = reader["email body"].ToString();
+                numericUpDown_port.Value = int.Parse(reader["port number"].ToString());
+            }
                 //list of emails to populate the listbox
-                //port
         }
 
         private void button_start_Click(object sender, EventArgs e)
         {
             //http://msdn.microsoft.com/en-us/library/system.net.mail.smtpclient.aspx
             textBox_console.Text += "Starting task\r\n";
+            smtp = new SmtpClient(textBox_host_email.Text, (int)numericUpDown_port.Value);
+            smtp.EnableSsl = false;
         }
 
         private void button_remove_email_Click(object sender, EventArgs e)
@@ -84,6 +100,9 @@ namespace Dresscode
                 textBox_host_email.Enabled = true;
                 textBox_email_subject.Enabled = true;
                 numericUpDown_port.Enabled = true;
+                textBox_email_password.Enabled = true;
+                textBox_smtp.Enabled = true;
+                textBox_email_body.Enabled = true;
             }
             else
             {
@@ -96,16 +115,22 @@ namespace Dresscode
                 textBox_host_email.Enabled = false;
                 textBox_email_subject.Enabled = false;
                 numericUpDown_port.Enabled = false;
+                textBox_email_password.Enabled = false;
+                textBox_smtp.Enabled = false;
+                textBox_email_body.Enabled = false;
             }
         }
 
         public void saveSettings()
         {
             //send new settings to database here.
-            textBox_console.Text += "Send time set to "+ numericUpDown_hours.Value.ToString() +":"+ numericUpDown_minutes.Value.ToString() +"\r\n";
+            textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
+            textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + "\r\n";
+            textBox_console.Text += "SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
             textBox_console.Text += "Host email set to "+ textBox_host_email.Text +"\r\n";
+            textBox_console.Text += "Email password set to " + textBox_email_password.Text + "\r\n";
             textBox_console.Text += "Email subject set to "+ textBox_email_subject.Text +"\r\n";
-            textBox_console.Text += "Host email port set to "+ numericUpDown_port.Value.ToString() +"\r\n";
+            textBox_console.Text += "Email body set to " + textBox_email_body.Text + "\r\n";
             textBox_console.Text += "Settings saved to database\r\n";
         }
 

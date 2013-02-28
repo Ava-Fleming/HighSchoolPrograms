@@ -37,6 +37,12 @@
             this.button_stop = new System.Windows.Forms.Button();
             this.button_start = new System.Windows.Forms.Button();
             this.groupBox_settings = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox_smtp = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox_email_password = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox_email_body = new System.Windows.Forms.TextBox();
             this.numericUpDown_port = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -69,7 +75,7 @@
             this.textBox_console.Location = new System.Drawing.Point(6, 6);
             this.textBox_console.Multiline = true;
             this.textBox_console.Name = "textBox_console";
-            this.textBox_console.Size = new System.Drawing.Size(423, 355);
+            this.textBox_console.Size = new System.Drawing.Size(423, 397);
             this.textBox_console.TabIndex = 0;
             // 
             // listBox_emails
@@ -107,7 +113,7 @@
             this.tabControl_main.Location = new System.Drawing.Point(2, 2);
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
-            this.tabControl_main.Size = new System.Drawing.Size(446, 422);
+            this.tabControl_main.Size = new System.Drawing.Size(446, 464);
             this.tabControl_main.TabIndex = 4;
             // 
             // tabPage_main
@@ -119,14 +125,14 @@
             this.tabPage_main.Location = new System.Drawing.Point(4, 22);
             this.tabPage_main.Name = "tabPage_main";
             this.tabPage_main.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_main.Size = new System.Drawing.Size(438, 396);
+            this.tabPage_main.Size = new System.Drawing.Size(438, 438);
             this.tabPage_main.TabIndex = 0;
             this.tabPage_main.Text = "Main";
             this.tabPage_main.UseVisualStyleBackColor = true;
             // 
             // button_stop
             // 
-            this.button_stop.Location = new System.Drawing.Point(229, 367);
+            this.button_stop.Location = new System.Drawing.Point(235, 411);
             this.button_stop.Name = "button_stop";
             this.button_stop.Size = new System.Drawing.Size(75, 23);
             this.button_stop.TabIndex = 7;
@@ -136,7 +142,7 @@
             // 
             // button_start
             // 
-            this.button_start.Location = new System.Drawing.Point(112, 367);
+            this.button_start.Location = new System.Drawing.Point(118, 411);
             this.button_start.Name = "button_start";
             this.button_start.Size = new System.Drawing.Size(75, 23);
             this.button_start.TabIndex = 6;
@@ -146,6 +152,12 @@
             // 
             // groupBox_settings
             // 
+            this.groupBox_settings.Controls.Add(this.label9);
+            this.groupBox_settings.Controls.Add(this.textBox_smtp);
+            this.groupBox_settings.Controls.Add(this.label8);
+            this.groupBox_settings.Controls.Add(this.textBox_email_password);
+            this.groupBox_settings.Controls.Add(this.label7);
+            this.groupBox_settings.Controls.Add(this.textBox_email_body);
             this.groupBox_settings.Controls.Add(this.numericUpDown_port);
             this.groupBox_settings.Controls.Add(this.label6);
             this.groupBox_settings.Controls.Add(this.label5);
@@ -160,20 +172,76 @@
             this.groupBox_settings.Controls.Add(this.numericUpDown_hours);
             this.groupBox_settings.Location = new System.Drawing.Point(7, 183);
             this.groupBox_settings.Name = "groupBox_settings";
-            this.groupBox_settings.Size = new System.Drawing.Size(425, 178);
+            this.groupBox_settings.Size = new System.Drawing.Size(425, 222);
             this.groupBox_settings.TabIndex = 5;
             this.groupBox_settings.TabStop = false;
             this.groupBox_settings.Text = "Settings";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 63);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(72, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "SMTP server:";
+            // 
+            // textBox_smtp
+            // 
+            this.textBox_smtp.Enabled = false;
+            this.textBox_smtp.Location = new System.Drawing.Point(88, 60);
+            this.textBox_smtp.Name = "textBox_smtp";
+            this.textBox_smtp.Size = new System.Drawing.Size(327, 20);
+            this.textBox_smtp.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(1, 141);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.TabIndex = 16;
+            this.label8.Text = "Host Password:";
+            // 
+            // textBox_email_password
+            // 
+            this.textBox_email_password.Enabled = false;
+            this.textBox_email_password.Location = new System.Drawing.Point(88, 138);
+            this.textBox_email_password.Name = "textBox_email_password";
+            this.textBox_email_password.Size = new System.Drawing.Size(327, 20);
+            this.textBox_email_password.TabIndex = 15;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(21, 193);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Email Body:";
+            // 
+            // textBox_email_body
+            // 
+            this.textBox_email_body.Enabled = false;
+            this.textBox_email_body.Location = new System.Drawing.Point(89, 190);
+            this.textBox_email_body.Name = "textBox_email_body";
+            this.textBox_email_body.Size = new System.Drawing.Size(327, 20);
+            this.textBox_email_body.TabIndex = 13;
+            // 
             // numericUpDown_port
             // 
             this.numericUpDown_port.Enabled = false;
-            this.numericUpDown_port.Location = new System.Drawing.Point(89, 115);
+            this.numericUpDown_port.Location = new System.Drawing.Point(88, 86);
+            this.numericUpDown_port.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.numericUpDown_port.Name = "numericUpDown_port";
             this.numericUpDown_port.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown_port.TabIndex = 12;
             this.numericUpDown_port.Value = new decimal(new int[] {
-            25,
+            587,
             0,
             0,
             0});
@@ -181,7 +249,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(54, 117);
+            this.label6.Location = new System.Drawing.Point(53, 88);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 11;
@@ -190,7 +258,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 62);
+            this.label5.Location = new System.Drawing.Point(23, 115);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 13);
             this.label5.TabIndex = 9;
@@ -199,7 +267,7 @@
             // textBox_host_email
             // 
             this.textBox_host_email.Enabled = false;
-            this.textBox_host_email.Location = new System.Drawing.Point(89, 59);
+            this.textBox_host_email.Location = new System.Drawing.Point(89, 112);
             this.textBox_host_email.Name = "textBox_host_email";
             this.textBox_host_email.Size = new System.Drawing.Size(327, 20);
             this.textBox_host_email.TabIndex = 8;
@@ -217,7 +285,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 91);
+            this.label4.Location = new System.Drawing.Point(9, 167);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 6;
@@ -226,7 +294,7 @@
             // textBox_email_subject
             // 
             this.textBox_email_subject.Enabled = false;
-            this.textBox_email_subject.Location = new System.Drawing.Point(89, 88);
+            this.textBox_email_subject.Location = new System.Drawing.Point(89, 164);
             this.textBox_email_subject.Name = "textBox_email_subject";
             this.textBox_email_subject.Size = new System.Drawing.Size(327, 20);
             this.textBox_email_subject.TabIndex = 5;
@@ -322,14 +390,14 @@
             this.tabPage_console.Location = new System.Drawing.Point(4, 22);
             this.tabPage_console.Name = "tabPage_console";
             this.tabPage_console.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_console.Size = new System.Drawing.Size(438, 396);
+            this.tabPage_console.Size = new System.Drawing.Size(438, 438);
             this.tabPage_console.TabIndex = 1;
             this.tabPage_console.Text = "Output Console";
             this.tabPage_console.UseVisualStyleBackColor = true;
             // 
             // button_clear_console
             // 
-            this.button_clear_console.Location = new System.Drawing.Point(354, 367);
+            this.button_clear_console.Location = new System.Drawing.Point(354, 409);
             this.button_clear_console.Name = "button_clear_console";
             this.button_clear_console.Size = new System.Drawing.Size(75, 23);
             this.button_clear_console.TabIndex = 2;
@@ -339,7 +407,7 @@
             // 
             // button_save_console
             // 
-            this.button_save_console.Location = new System.Drawing.Point(6, 367);
+            this.button_save_console.Location = new System.Drawing.Point(6, 409);
             this.button_save_console.Name = "button_save_console";
             this.button_save_console.Size = new System.Drawing.Size(101, 23);
             this.button_save_console.TabIndex = 1;
@@ -351,7 +419,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 426);
+            this.ClientSize = new System.Drawing.Size(447, 468);
             this.Controls.Add(this.tabControl_main);
             this.Name = "Email";
             this.Text = "Email";
@@ -399,5 +467,11 @@
         private System.Windows.Forms.Button button_edit_settings;
         private System.Windows.Forms.NumericUpDown numericUpDown_port;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox_email_body;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox_smtp;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox_email_password;
     }
 }
