@@ -57,6 +57,10 @@
             this.button_export_excel = new System.Windows.Forms.Button();
             this.label_nineweeks = new System.Windows.Forms.Label();
             this.label_total_reports = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -68,10 +72,10 @@
             // datetimepicker_date_start
             // 
             this.datetimepicker_date_start.Enabled = false;
-            this.datetimepicker_date_start.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datetimepicker_date_start.Location = new System.Drawing.Point(109, 19);
+            this.datetimepicker_date_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datetimepicker_date_start.Location = new System.Drawing.Point(109, 15);
             this.datetimepicker_date_start.Name = "datetimepicker_date_start";
-            this.datetimepicker_date_start.Size = new System.Drawing.Size(92, 20);
+            this.datetimepicker_date_start.Size = new System.Drawing.Size(49, 20);
             this.datetimepicker_date_start.TabIndex = 2;
             // 
             // combobox_teacher
@@ -126,6 +130,10 @@
             // 
             // groupBox_search
             // 
+            this.groupBox_search.Controls.Add(this.label3);
+            this.groupBox_search.Controls.Add(this.label2);
+            this.groupBox_search.Controls.Add(this.comboBox2);
+            this.groupBox_search.Controls.Add(this.comboBox1);
             this.groupBox_search.Controls.Add(this.label1);
             this.groupBox_search.Controls.Add(this.label_student_firstname);
             this.groupBox_search.Controls.Add(this.comboBox_student_last);
@@ -366,16 +374,16 @@
             // 
             this.dateTimePicker_end_date.Enabled = false;
             this.dateTimePicker_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_end_date.Location = new System.Drawing.Point(271, 17);
+            this.dateTimePicker_end_date.Location = new System.Drawing.Point(292, 13);
             this.dateTimePicker_end_date.Name = "dateTimePicker_end_date";
-            this.dateTimePicker_end_date.Size = new System.Drawing.Size(92, 20);
+            this.dateTimePicker_end_date.Size = new System.Drawing.Size(49, 20);
             this.dateTimePicker_end_date.TabIndex = 14;
             // 
             // checkBox_date_range
             // 
             this.checkBox_date_range.AutoSize = true;
             this.checkBox_date_range.Enabled = false;
-            this.checkBox_date_range.Location = new System.Drawing.Point(207, 20);
+            this.checkBox_date_range.Location = new System.Drawing.Point(228, 15);
             this.checkBox_date_range.Name = "checkBox_date_range";
             this.checkBox_date_range.Size = new System.Drawing.Size(58, 17);
             this.checkBox_date_range.TabIndex = 13;
@@ -429,6 +437,42 @@
             this.label_total_reports.Size = new System.Drawing.Size(77, 13);
             this.label_total_reports.TabIndex = 31;
             this.label_total_reports.Text = "Total Reports: ";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Enabled = false;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(172, 14);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(50, 21);
+            this.comboBox1.TabIndex = 30;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Enabled = false;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(362, 13);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(50, 21);
+            this.comboBox2.TabIndex = 31;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(159, 19);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(12, 13);
+            this.label2.TabIndex = 32;
+            this.label2.Text = "/";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(344, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(12, 13);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "/";
             // 
             // reports
             // 
@@ -489,6 +533,10 @@
         private System.Windows.Forms.Button button_export_excel;
         private System.Windows.Forms.Label label_nineweeks;
         private System.Windows.Forms.Label label_total_reports;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
 
     }
 }

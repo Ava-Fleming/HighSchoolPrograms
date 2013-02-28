@@ -51,6 +51,8 @@ summerend = 0;
 
         private void reports_Load(object sender, EventArgs e)
         {
+            datetimepicker_date_start.CustomFormat = "MM/dd";
+            dateTimePicker_end_date.CustomFormat = "MM/dd";
             try
             {
                 global.oleconnection.Open();
@@ -84,11 +86,24 @@ summerend = 0;
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
+                int count = 0;
                 while (getinfraction.Read())
                 {
                     if (!combobox_teacher.Items.Contains(getinfraction["Teacher"].ToString()))
                     {
                         combobox_teacher.Items.Add(getinfraction["Teacher"].ToString());
+                    }
+                    if (!comboBox1.Items.Contains(getinfraction["yearofreport"].ToString()))
+                    {
+                        if (count < 1)
+                        {
+                            comboBox1.Text = getinfraction["yearofreport"].ToString();
+                            comboBox2.Text = getinfraction["yearofreport"].ToString();
+                        }
+
+                        comboBox1.Items.Add(getinfraction["yearofreport"].ToString());
+                        comboBox2.Items.Add(getinfraction["yearofreport"].ToString());
+                        count++;
                     }
                 }
             }
@@ -112,120 +127,130 @@ summerend = 0;
 
         private void button3_Click(object sender, EventArgs e)
         {
-            sql = "SELECT * FROM INFRACTIONS WHERE";
-            Boolean hasStarted = false;
-            //
-            int year = datetimepicker_date_start.Value.Date.Year;
-            int month = datetimepicker_date_start.Value.Date.Month;
-            int day = datetimepicker_date_start.Value.Date.Day;
-            DateTime theDate = new DateTime(year, month, day);
-            int startdate = theDate.DayOfYear;
-            year = dateTimePicker_end_date.Value.Date.Year;
-            month = dateTimePicker_end_date.Value.Date.Month;
-            day = dateTimePicker_end_date.Value.Date.Day;
-            theDate = new DateTime(year, month, day);
-            int enddate = theDate.DayOfYear;
+            if (int.Parse(comboBox1.Text) <= int.Parse(comboBox2.Text))
+            {
+                sql = "SELECT * FROM INFRACTIONS WHERE";
+                Boolean hasStarted = false;
+                //
+                int year = datetimepicker_date_start.Value.Date.Year;
+                int month = datetimepicker_date_start.Value.Date.Month;
+                int day = datetimepicker_date_start.Value.Date.Day;
+                DateTime theDate = new DateTime(year, month, day);
+                int startdate = theDate.DayOfYear;
+                year = dateTimePicker_end_date.Value.Date.Year;
+                month = dateTimePicker_end_date.Value.Date.Month;
+                day = dateTimePicker_end_date.Value.Date.Day;
+                theDate = new DateTime(year, month, day);
+                int enddate = theDate.DayOfYear;
 
-            if (checkBox_date_single.Checked)
-            {
-                wtfbrah = false;
-                if (checkBox_date_range.Checked)
+                if (checkBox_date_single.Checked)
                 {
-                    if (hasStarted)
-                        sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
-                    sql += " dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
-                    hasStarted = true;
+                    wtfbrah = false;
+                    if (checkBox_date_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
+                        sql += " dayofyear >= " + startdate + " AND dayofyear <= " + enddate + " AND yearofreport >=" + comboBox1.Text + " AND yearofreport <=" + comboBox2.Text + "";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + "";
+                        sql += " dayofyear = " + startdate + " AND yearofreport =" + comboBox1.Text + "";
+                        hasStarted = true;
+                    }
                 }
-                else
-                {
-                    if (hasStarted)
-                        sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + "";
-                    sql += " dayofyear = " + startdate + "";
-                    hasStarted = true;
-                }
-            }
 
-            if (checkBox_teacher.Checked)
-            {
-                wtfbrah = false;
-                if (hasStarted)
-                    sql += " AND";
-                //sql = "SELECT * FROM INFRACTIONS WHERE teachername = '" + combobox_teacher.Text + "'";
-                sql += " Teacher = '" + combobox_teacher.Text + "'";
-                hasStarted = true;
-            }
-            if (checkBox_infraction.Checked)
-            {
-                wtfbrah = false;
-                if (hasStarted)
-                    sql += " AND";
-                //sql = "SELECT * FROM INFRACTIONS WHERE infraction = '" + comboBox_infraction_select.Text + "'";
-                sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
-                hasStarted = true;
-            }
-            if (checkBox_period_single.Checked)
-            {
-                wtfbrah = false;
-                if (checkBox_period_range.Checked)
+                if (checkBox_teacher.Checked)
                 {
+                    wtfbrah = false;
                     if (hasStarted)
                         sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
-                    sql += " Period >= " + numericUpDown_period_start.Value.ToString() + " AND Period <= " + numericUpDown_period_end.Value.ToString() + "";
+                    //sql = "SELECT * FROM INFRACTIONS WHERE teachername = '" + combobox_teacher.Text + "'";
+                    sql += " Teacher = '" + combobox_teacher.Text + "'";
                     hasStarted = true;
                 }
-                else
+                if (checkBox_infraction.Checked)
                 {
+                    wtfbrah = false;
                     if (hasStarted)
                         sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
-                    sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
+                    //sql = "SELECT * FROM INFRACTIONS WHERE infraction = '" + comboBox_infraction_select.Text + "'";
+                    sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
                     hasStarted = true;
                 }
-            }
-            if (checkBox_grade_single.Checked)
-            {
-                wtfbrah = false;
-                if (checkBox_grade_range.Checked)
+                if (checkBox_period_single.Checked)
                 {
-                    if (hasStarted)
-                        sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
-                    sql += " Grade >= '" + numericUpDown_grade_start.Value.ToString() + "' AND Grade <= '" + numericUpDown_grade_end.Value.ToString() + "'";
-                    hasStarted = true;
+                    wtfbrah = false;
+                    if (checkBox_period_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
+                        sql += " Period >= " + numericUpDown_period_start.Value.ToString() + " AND Period <= " + numericUpDown_period_end.Value.ToString() + "";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
+                        hasStarted = true;
+                    }
                 }
-                else
+                if (checkBox_grade_single.Checked)
                 {
-                    if (hasStarted)
-                        sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
-                    sql += " Grade = '" + numericUpDown_grade_start.Value.ToString() + "'";
-                    hasStarted = true;
+                    wtfbrah = false;
+                    if (checkBox_grade_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
+                        sql += " Grade >= '" + numericUpDown_grade_start.Value.ToString() + "' AND Grade <= '" + numericUpDown_grade_end.Value.ToString() + "'";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        sql += " Grade = '" + numericUpDown_grade_start.Value.ToString() + "'";
+                        hasStarted = true;
+                    }
                 }
-            }
-            if (checkBox_student.Checked)
-            {
+                if (checkBox_student.Checked)
+                {
 
-                getstudentinfo();
-                wtfbrah = false;
-                if (hasStarted)
-                    sql += " AND";
-                //student name
-                sql += " `First Name` = '" + comboBox_student_firstname.Text + "' AND `Last Name` = '" + comboBox_student_last.Text + "'";
-                hasStarted = true;
-            }
-            if (wtfbrah)
-            {
-                sql = "SELECT * FROM INFRACTIONS";
+                    getstudentinfo();
+                    wtfbrah = false;
+                    if (hasStarted)
+                        sql += " AND";
+                    //student name
+                    sql += " `First Name` = '" + comboBox_student_firstname.Text + "' AND `Last Name` = '" + comboBox_student_last.Text + "'";
+                    hasStarted = true;
+                }
+                if (wtfbrah)
+                {
+                    sql = "SELECT * FROM INFRACTIONS";
 
+                }
+                dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
+                county = 0;
+                totalinfractions = 1;
+                getinfractions();
             }
-            dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
-            getinfractions();
+            else
+            {
+                MessageBox.Show("The date range: " + comboBox1.Text + "-" + comboBox2.Text + " is not possible\nThe initial date can not be more than the ending date.");
+            }
         }
         public void getinfractions()
         {
+
             try
             {
                 dTable.Rows.Clear();
@@ -296,10 +321,9 @@ summerend = 0;
                     }
                     if (currentNineWeeks == nineWeeksDatabase)
                     {
-                        county++;
-                        label_nineweeks.Text = "Infractions this 9 weeks: " + county;
+                        label_nineweeks.Text = "Infractions this 9 weeks: " + (county++).ToString();
                     }
-                    label_total_reports.Text = "Total Infractions: " + (totalinfractions++);
+                    label_total_reports.Text = "Total Infractions: " + (totalinfractions++).ToString();
                 }
             }
             catch (Exception x)
@@ -323,12 +347,14 @@ summerend = 0;
             {
                 datetimepicker_date_start.Enabled = true;
                 checkBox_date_range.Enabled = true;
+                comboBox1.Enabled = true;
             }
             else
             {
                 datetimepicker_date_start.Enabled = false;
                 checkBox_date_range.Enabled = false;
                 checkBox_date_range.Checked = false;
+                comboBox1.Enabled = false;
             }
         }
 
@@ -337,10 +363,12 @@ summerend = 0;
             if (checkBox_date_range.Checked == true)
             {
                 dateTimePicker_end_date.Enabled = true;
+                comboBox2.Enabled = true;
             }
             else
             {
                 dateTimePicker_end_date.Enabled = false;
+                comboBox2.Enabled = false;
             }
         }
 
