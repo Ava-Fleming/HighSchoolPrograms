@@ -150,6 +150,7 @@ namespace Dresscode
                     dataGridView1.Columns[0].Visible = false;
                     dataGridView1.Columns[1].Visible = false;
                     dataGridView1.Columns[2].Visible = false;
+                    dataGridView1.Columns[3].Visible = false;
                     dataGridView1.Columns[12].Visible = false;
                     
                     dataGridView1.AutoResizeColumns(
@@ -282,7 +283,7 @@ namespace Dresscode
                                                 }
                                             }
 
-                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + DateTime.Now.DayOfYear.ToString() + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
+                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + DateTime.Now.DayOfYear.ToString() + "','" + DateTime.Now.Year.ToString() + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
                                             oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                                             oledbAdapter.InsertCommand.ExecuteNonQuery();
                                             submitted = true;
