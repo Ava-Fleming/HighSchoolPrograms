@@ -22,6 +22,8 @@ namespace Dresscode
         bool editmode = false;
         StreamWriter SR;
         SmtpClient smtp;
+        MailMessage message;
+        AttachmentCollection AC;
         globals global = new globals();
         //textBox_console.Text += "\r\n";
         //
@@ -74,9 +76,18 @@ namespace Dresscode
         private void button_start_Click(object sender, EventArgs e)
         {
             //http://msdn.microsoft.com/en-us/library/system.net.mail.smtpclient.aspx
-            textBox_console.Text += "Starting task\r\n";
-            smtp = new SmtpClient(textBox_host_email.Text, (int)numericUpDown_port.Value);
+
+            textBox_console.Text += "Starting task...\r\n";
+
+            textBox_console.Text += "Applying SMTP settings...\r\n";
+            smtp = new SmtpClient(textBox_smtp.Text, (int)numericUpDown_port.Value);
             smtp.EnableSsl = false;
+            textBox_console.Text += "Inserting Message...\r\n";
+            string Esender;
+            string Erecipients;
+            string adshflakj;
+            textBox_console.Text += "Email sent.\r\n";
+            smtp.Send(message);
         }
 
         private void button_remove_email_Click(object sender, EventArgs e)
@@ -92,7 +103,7 @@ namespace Dresscode
         {
             if (!editmode)
             {
-                textBox_console.Text += "Edit Mode Active\r\n";
+                textBox_console.Text += "Edit Mode Active.\r\n";
                 editmode = true;
                 button_edit_settings.Text = "Done";
                 numericUpDown_hours.Enabled = true;
@@ -107,7 +118,7 @@ namespace Dresscode
             else
             {
                 saveSettings();
-                textBox_console.Text += "Edit Mode Disabled\r\n";
+                textBox_console.Text += "Edit Mode Disabled.\r\n";
                 editmode = false;
                 button_edit_settings.Text = "Edit Settings";
                 numericUpDown_hours.Enabled = false;
@@ -146,7 +157,7 @@ namespace Dresscode
         private void button_stop_Click(object sender, EventArgs e)
         {
             //stop
-            textBox_console.Text += "Stopping task\r\n";
+            textBox_console.Text += "Stopping task.\r\n";
         }
 
         private void button_save_console_Click(object sender, EventArgs e)
