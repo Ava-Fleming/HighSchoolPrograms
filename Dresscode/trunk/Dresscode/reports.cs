@@ -51,8 +51,6 @@ summerend = 0;
 
         private void reports_Load(object sender, EventArgs e)
         {
-            datetimepicker_date_start.CustomFormat = "MM/dd";
-            dateTimePicker_end_date.CustomFormat = "MM/dd";
             try
             {
                 global.oleconnection.Open();
@@ -129,6 +127,21 @@ summerend = 0;
         {
             if (int.Parse(comboBox1.Text) <= int.Parse(comboBox2.Text))
             {
+                int cfsnws = firstnineweeksstart;
+                int cfsnwe = firstnineweeksend;
+
+                int csnws = secondtnineweeksstart;
+                int csnwe = secondnineweeksend;
+
+                int ctnws = thirdnineweeksstart;
+                int ctnwe = thirdnineweeksend;
+
+                int cfnws = forthnineweeksstart;
+                int cfnwe = forthnineweeksend;
+
+                int csws = summerstart;
+                int cswe = summerend;
+
                 sql = "SELECT * FROM INFRACTIONS WHERE";
                 Boolean hasStarted = false;
                 //
@@ -151,7 +164,7 @@ summerend = 0;
                         if (hasStarted)
                             sql += " AND";
                         //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
-                        sql += " dayofyear >= " + startdate + " AND dayofyear <= " + enddate + " AND yearofreport >=" + comboBox1.Text + " AND yearofreport <=" + comboBox2.Text + "";
+                        sql += " dayofyear >= " + (((dateTimePicker_end_date.Value.Year - datetimepicker_date_start.Value.Year) * 365) + datetimepicker_date_start.Value.DayOfYear).ToString() + " AND dayofyear <= " + (((dateTimePicker_end_date.Value.Year - datetimepicker_date_start.Value.Year) * 365) + dateTimePicker_end_date.Value.DayOfYear).ToString() + "";
                         hasStarted = true;
                     }
                     else
