@@ -50,23 +50,22 @@
             this.checkBox_period_single = new System.Windows.Forms.CheckBox();
             this.comboBox_infraction_select = new System.Windows.Forms.ComboBox();
             this.checkBox_infraction = new System.Windows.Forms.CheckBox();
-            this.dateTimePicker_end_date = new System.Windows.Forms.DateTimePicker();
+            this.datetimepicker_date_end = new System.Windows.Forms.DateTimePicker();
             this.checkBox_date_range = new System.Windows.Forms.CheckBox();
             this.dataGridView_reports = new System.Windows.Forms.DataGridView();
             this.button_update = new System.Windows.Forms.Button();
             this.button_export_excel = new System.Windows.Forms.Button();
             this.label_nineweeks = new System.Windows.Forms.Label();
             this.label_total_reports = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_start)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_reports)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // datetimepicker_date_start
@@ -75,7 +74,7 @@
             this.datetimepicker_date_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.datetimepicker_date_start.Location = new System.Drawing.Point(109, 15);
             this.datetimepicker_date_start.Name = "datetimepicker_date_start";
-            this.datetimepicker_date_start.Size = new System.Drawing.Size(49, 20);
+            this.datetimepicker_date_start.Size = new System.Drawing.Size(80, 20);
             this.datetimepicker_date_start.TabIndex = 2;
             // 
             // combobox_teacher
@@ -90,7 +89,7 @@
             // label_viewing
             // 
             this.label_viewing.AutoSize = true;
-            this.label_viewing.Location = new System.Drawing.Point(15, 194);
+            this.label_viewing.Location = new System.Drawing.Point(15, 207);
             this.label_viewing.Name = "label_viewing";
             this.label_viewing.Size = new System.Drawing.Size(94, 13);
             this.label_viewing.TabIndex = 7;
@@ -130,10 +129,6 @@
             // 
             // groupBox_search
             // 
-            this.groupBox_search.Controls.Add(this.label3);
-            this.groupBox_search.Controls.Add(this.label2);
-            this.groupBox_search.Controls.Add(this.comboBox2);
-            this.groupBox_search.Controls.Add(this.comboBox1);
             this.groupBox_search.Controls.Add(this.label1);
             this.groupBox_search.Controls.Add(this.label_student_firstname);
             this.groupBox_search.Controls.Add(this.comboBox_student_last);
@@ -149,15 +144,15 @@
             this.groupBox_search.Controls.Add(this.checkBox_period_single);
             this.groupBox_search.Controls.Add(this.comboBox_infraction_select);
             this.groupBox_search.Controls.Add(this.checkBox_infraction);
-            this.groupBox_search.Controls.Add(this.dateTimePicker_end_date);
+            this.groupBox_search.Controls.Add(this.datetimepicker_date_end);
             this.groupBox_search.Controls.Add(this.checkBox_date_range);
             this.groupBox_search.Controls.Add(this.checkBox_teacher);
             this.groupBox_search.Controls.Add(this.checkBox_date_single);
             this.groupBox_search.Controls.Add(this.datetimepicker_date_start);
             this.groupBox_search.Controls.Add(this.combobox_teacher);
-            this.groupBox_search.Location = new System.Drawing.Point(12, 12);
+            this.groupBox_search.Location = new System.Drawing.Point(12, 25);
             this.groupBox_search.Name = "groupBox_search";
-            this.groupBox_search.Size = new System.Drawing.Size(476, 179);
+            this.groupBox_search.Size = new System.Drawing.Size(489, 179);
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
@@ -370,20 +365,20 @@
             this.checkBox_infraction.UseVisualStyleBackColor = true;
             this.checkBox_infraction.CheckedChanged += new System.EventHandler(this.checkBox_infraction_CheckedChanged);
             // 
-            // dateTimePicker_end_date
+            // datetimepicker_date_end
             // 
-            this.dateTimePicker_end_date.Enabled = false;
-            this.dateTimePicker_end_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_end_date.Location = new System.Drawing.Point(292, 13);
-            this.dateTimePicker_end_date.Name = "dateTimePicker_end_date";
-            this.dateTimePicker_end_date.Size = new System.Drawing.Size(49, 20);
-            this.dateTimePicker_end_date.TabIndex = 14;
+            this.datetimepicker_date_end.Enabled = false;
+            this.datetimepicker_date_end.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_date_end.Location = new System.Drawing.Point(259, 13);
+            this.datetimepicker_date_end.Name = "datetimepicker_date_end";
+            this.datetimepicker_date_end.Size = new System.Drawing.Size(80, 20);
+            this.datetimepicker_date_end.TabIndex = 14;
             // 
             // checkBox_date_range
             // 
             this.checkBox_date_range.AutoSize = true;
             this.checkBox_date_range.Enabled = false;
-            this.checkBox_date_range.Location = new System.Drawing.Point(228, 15);
+            this.checkBox_date_range.Location = new System.Drawing.Point(195, 15);
             this.checkBox_date_range.Name = "checkBox_date_range";
             this.checkBox_date_range.Size = new System.Drawing.Size(58, 17);
             this.checkBox_date_range.TabIndex = 13;
@@ -394,15 +389,15 @@
             // dataGridView_reports
             // 
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_reports.Location = new System.Drawing.Point(12, 210);
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 223);
             this.dataGridView_reports.Name = "dataGridView_reports";
-            this.dataGridView_reports.Size = new System.Drawing.Size(476, 194);
+            this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 13;
             this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             // 
             // button_update
             // 
-            this.button_update.Location = new System.Drawing.Point(184, 410);
+            this.button_update.Location = new System.Drawing.Point(216, 410);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(118, 23);
             this.button_update.TabIndex = 14;
@@ -412,7 +407,7 @@
             // 
             // button_export_excel
             // 
-            this.button_export_excel.Location = new System.Drawing.Point(375, 410);
+            this.button_export_excel.Location = new System.Drawing.Point(388, 410);
             this.button_export_excel.Name = "button_export_excel";
             this.button_export_excel.Size = new System.Drawing.Size(113, 23);
             this.button_export_excel.TabIndex = 15;
@@ -423,7 +418,7 @@
             // label_nineweeks
             // 
             this.label_nineweeks.AutoSize = true;
-            this.label_nineweeks.Location = new System.Drawing.Point(156, 194);
+            this.label_nineweeks.Location = new System.Drawing.Point(156, 207);
             this.label_nineweeks.Name = "label_nineweeks";
             this.label_nineweeks.Size = new System.Drawing.Size(109, 13);
             this.label_nineweeks.TabIndex = 30;
@@ -432,47 +427,28 @@
             // label_total_reports
             // 
             this.label_total_reports.AutoSize = true;
-            this.label_total_reports.Location = new System.Drawing.Point(327, 194);
+            this.label_total_reports.Location = new System.Drawing.Point(327, 207);
             this.label_total_reports.Name = "label_total_reports";
             this.label_total_reports.Size = new System.Drawing.Size(77, 13);
             this.label_total_reports.TabIndex = 31;
             this.label_total_reports.Text = "Total Reports: ";
             // 
-            // comboBox1
+            // menuStrip1
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(172, 14);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(50, 21);
-            this.comboBox1.TabIndex = 30;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(513, 24);
+            this.menuStrip1.TabIndex = 32;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // comboBox2
+            // settingsToolStripMenuItem
             // 
-            this.comboBox2.Enabled = false;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(362, 13);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(50, 21);
-            this.comboBox2.TabIndex = 31;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(159, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(12, 13);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "/";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(344, 17);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(12, 13);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "/";
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // reports
             // 
@@ -487,6 +463,8 @@
             this.Controls.Add(this.groupBox_search);
             this.Controls.Add(this.button_retrieve);
             this.Controls.Add(this.label_viewing);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "reports";
             this.Text = "reports";
             this.Load += new System.EventHandler(this.reports_Load);
@@ -497,6 +475,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_end)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_period_start)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_reports)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -511,7 +491,7 @@
         private System.Windows.Forms.CheckBox checkBox_date_single;
         private System.Windows.Forms.CheckBox checkBox_teacher;
         private System.Windows.Forms.GroupBox groupBox_search;
-        private System.Windows.Forms.DateTimePicker dateTimePicker_end_date;
+        private System.Windows.Forms.DateTimePicker datetimepicker_date_end;
         private System.Windows.Forms.CheckBox checkBox_date_range;
         private System.Windows.Forms.ComboBox comboBox_infraction_select;
         private System.Windows.Forms.CheckBox checkBox_infraction;
@@ -533,10 +513,8 @@
         private System.Windows.Forms.Button button_export_excel;
         private System.Windows.Forms.Label label_nineweeks;
         private System.Windows.Forms.Label label_total_reports;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
 
     }
 }

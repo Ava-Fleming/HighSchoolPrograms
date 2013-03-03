@@ -26,23 +26,20 @@ namespace Dresscode
         int county = 0,
 nineWeeksDatabase = 0,
 currentNineWeeks = 0,
-currentDayOfYear = DateTime.Now.DayOfYear,
-totalinfractions = 1,
+totalinfractions = 1;
             /**/
-firstnineweeksstart = 0,
-firstnineweeksend = 0,
+        DateTime
+firstnineweeksstart,
+firstnineweeksend,
 
-secondtnineweeksstart = 0,
-secondnineweeksend = 0,
+secondtnineweeksstart,
+secondnineweeksend,
 
-thirdnineweeksstart = 0,
-thirdnineweeksend = 0,
+thirdnineweeksstart,
+thirdnineweeksend,
 
-forthnineweeksstart = 0,
-forthnineweeksend = 0,
-
-summerstart = 0,
-summerend = 0;
+forthnineweeksstart,
+forthnineweeksend;
         //
         public reports()
         {
@@ -59,20 +56,17 @@ summerend = 0;
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
                 while (getdateinfo.Read())
                 {
-                    firstnineweeksstart = int.Parse(getdateinfo["firstnineweeksstart"].ToString());
-                    firstnineweeksend = int.Parse(getdateinfo["firstnineweeksend"].ToString());
+                    firstnineweeksstart = DateTime.Parse(getdateinfo["firstnineweeksstart"].ToString());
+                    firstnineweeksend = DateTime.Parse(getdateinfo["firstnineweeksend"].ToString());
 
-                    secondtnineweeksstart = int.Parse(getdateinfo["secondnineweeksstart"].ToString());
-                    secondnineweeksend = int.Parse(getdateinfo["secondnineweeksend"].ToString());
+                    secondtnineweeksstart = DateTime.Parse(getdateinfo["secondnineweeksstart"].ToString());
+                    secondnineweeksend = DateTime.Parse(getdateinfo["secondnineweeksend"].ToString());
 
-                    thirdnineweeksstart = int.Parse(getdateinfo["thirdnineweeksstart"].ToString());
-                    thirdnineweeksend = int.Parse(getdateinfo["thridnineweeksend"].ToString());
+                    thirdnineweeksstart = DateTime.Parse(getdateinfo["thirdnineweeksstart"].ToString());
+                    thirdnineweeksend = DateTime.Parse(getdateinfo["thirdnineweeksend"].ToString());
 
-                    forthnineweeksstart = int.Parse(getdateinfo["forthnineweeksstart"].ToString());
-                    forthnineweeksend = int.Parse(getdateinfo["forthnineweeksend"].ToString());
-
-                    summerstart = int.Parse(getdateinfo["summerstart"].ToString());
-                    summerend = int.Parse(getdateinfo["summerend"].ToString());
+                    forthnineweeksstart = DateTime.Parse(getdateinfo["forthnineweeksstart"].ToString());
+                    forthnineweeksend = DateTime.Parse(getdateinfo["forthnineweeksend"].ToString());
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
@@ -84,24 +78,11 @@ summerend = 0;
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
-                int count = 0;
                 while (getinfraction.Read())
                 {
                     if (!combobox_teacher.Items.Contains(getinfraction["Teacher"].ToString()))
                     {
                         combobox_teacher.Items.Add(getinfraction["Teacher"].ToString());
-                    }
-                    if (!comboBox1.Items.Contains(getinfraction["yearofreport"].ToString()))
-                    {
-                        if (count < 1)
-                        {
-                            comboBox1.Text = getinfraction["yearofreport"].ToString();
-                            comboBox2.Text = getinfraction["yearofreport"].ToString();
-                        }
-
-                        comboBox1.Items.Add(getinfraction["yearofreport"].ToString());
-                        comboBox2.Items.Add(getinfraction["yearofreport"].ToString());
-                        count++;
                     }
                 }
             }
@@ -125,22 +106,8 @@ summerend = 0;
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (int.Parse(comboBox1.Text) <= int.Parse(comboBox2.Text))
+            if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
             {
-                int cfsnws = firstnineweeksstart;
-                int cfsnwe = firstnineweeksend;
-
-                int csnws = secondtnineweeksstart;
-                int csnwe = secondnineweeksend;
-
-                int ctnws = thirdnineweeksstart;
-                int ctnwe = thirdnineweeksend;
-
-                int cfnws = forthnineweeksstart;
-                int cfnwe = forthnineweeksend;
-
-                int csws = summerstart;
-                int cswe = summerend;
 
                 sql = "SELECT * FROM INFRACTIONS WHERE";
                 Boolean hasStarted = false;
@@ -150,9 +117,9 @@ summerend = 0;
                 int day = datetimepicker_date_start.Value.Date.Day;
                 DateTime theDate = new DateTime(year, month, day);
                 int startdate = theDate.DayOfYear;
-                year = dateTimePicker_end_date.Value.Date.Year;
-                month = dateTimePicker_end_date.Value.Date.Month;
-                day = dateTimePicker_end_date.Value.Date.Day;
+                year = datetimepicker_date_end.Value.Date.Year;
+                month = datetimepicker_date_end.Value.Date.Month;
+                day = datetimepicker_date_end.Value.Date.Day;
                 theDate = new DateTime(year, month, day);
                 int enddate = theDate.DayOfYear;
 
@@ -164,7 +131,7 @@ summerend = 0;
                         if (hasStarted)
                             sql += " AND";
                         //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
-                        sql += " dayofyear >= " + (((dateTimePicker_end_date.Value.Year - datetimepicker_date_start.Value.Year) * 365) + datetimepicker_date_start.Value.DayOfYear).ToString() + " AND dayofyear <= " + (((dateTimePicker_end_date.Value.Year - datetimepicker_date_start.Value.Year) * 365) + dateTimePicker_end_date.Value.DayOfYear).ToString() + "";
+                        sql += " `Report Date` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
                     else
@@ -172,7 +139,7 @@ summerend = 0;
                         if (hasStarted)
                             sql += " AND";
                         //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + "";
-                        sql += " dayofyear = " + startdate + " AND yearofreport =" + comboBox1.Text + "";
+                        sql += " `Report Date` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
                 }
@@ -252,13 +219,13 @@ summerend = 0;
 
                 }
                 dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
-                county = 0;
+                county = 1;
                 totalinfractions = 1;
                 getinfractions();
             }
             else
             {
-                MessageBox.Show("The date range: " + comboBox1.Text + "-" + comboBox2.Text + " is not possible\nThe initial date can not be more than the ending date.");
+                MessageBox.Show("The date range: " + datetimepicker_date_start.Value.Year.ToString() + "-" + datetimepicker_date_end.Value.Year.ToString() + " is not possible\nThe initial date can not be more than the ending date.");
             }
         }
         public void getinfractions()
@@ -267,7 +234,6 @@ summerend = 0;
             try
             {
                 dTable.Rows.Clear();
-
                 cBuilder = new OleDbCommandBuilder(dAdapter);
                 cBuilder.QuotePrefix = "[";
                 cBuilder.QuoteSuffix = "]";
@@ -275,9 +241,9 @@ summerend = 0;
                 dAdapter.Fill(dTable);
                 bSource.DataSource = dTable;
                 dataGridView_reports.DataSource = bSource;
-                for (int i = 0; i <= 11; i++)
+                for (int i = 0; i <= 10; i++)
                 {
-                    if (i <= 3)
+                    if (i <= 2)
                         dataGridView_reports.Columns[i].Visible = false;
                     dataGridView_reports.Columns[i].ReadOnly = true;
                 }
@@ -301,9 +267,7 @@ summerend = 0;
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
-                    DateTime theDate = new DateTime(2013, 1, 1).AddDays(int.Parse(getinfraction["dayofyear"].ToString()) - 1);
-                    //MessageBox.Show();
-                    int databasedate = int.Parse(getinfraction["dayofyear"].ToString());
+                    DateTime databasedate = DateTime.Parse(getinfraction["Report Date"].ToString());
                     if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
                     {
                         nineWeeksDatabase = 1;
@@ -320,15 +284,15 @@ summerend = 0;
                     {
                         nineWeeksDatabase = 4;
                     }
-                    if (currentDayOfYear >= secondtnineweeksstart || currentDayOfYear <= secondnineweeksend)
+                    if (DateTime.Today >= secondtnineweeksstart || DateTime.Today <= secondnineweeksend)
                     {
                         currentNineWeeks = 2;
                     }
-                    if (currentDayOfYear >= thirdnineweeksstart && currentDayOfYear <= thirdnineweeksend)
+                    if (DateTime.Today >= thirdnineweeksstart && DateTime.Today <= thirdnineweeksend)
                     {
                         currentNineWeeks = 3;
                     }
-                    if (currentDayOfYear >= forthnineweeksstart && currentDayOfYear <= forthnineweeksend)
+                    if (DateTime.Today >= forthnineweeksstart && DateTime.Today <= forthnineweeksend)
                     {
                         currentNineWeeks = 4;
                     }
@@ -360,14 +324,12 @@ summerend = 0;
             {
                 datetimepicker_date_start.Enabled = true;
                 checkBox_date_range.Enabled = true;
-                comboBox1.Enabled = true;
             }
             else
             {
                 datetimepicker_date_start.Enabled = false;
                 checkBox_date_range.Enabled = false;
                 checkBox_date_range.Checked = false;
-                comboBox1.Enabled = false;
             }
         }
 
@@ -375,13 +337,11 @@ summerend = 0;
         {
             if (checkBox_date_range.Checked == true)
             {
-                dateTimePicker_end_date.Enabled = true;
-                comboBox2.Enabled = true;
+                datetimepicker_date_end.Enabled = true;
             }
             else
             {
-                dateTimePicker_end_date.Enabled = false;
-                comboBox2.Enabled = false;
+                datetimepicker_date_end.Enabled = false;
             }
         }
 
@@ -594,6 +554,12 @@ summerend = 0;
             {
                 MessageBox.Show(x.Message);
             }
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settings sets = new settings();
+            sets.ShowDialog();
         }
     }
 }

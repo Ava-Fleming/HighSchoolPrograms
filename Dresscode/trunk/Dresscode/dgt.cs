@@ -16,7 +16,6 @@ namespace Dresscode
         {
             InitializeComponent();
         }
-        private OleDbConnection connection = null;
         private OleDbDataAdapter dataadapter = null;
         globals gl = new globals();
 
@@ -32,10 +31,9 @@ namespace Dresscode
                 // Specify a connection string. Replace the given value with a  
                 // valid connection string for a Northwind SQL Server sample 
                 // database accessible to your system.
-                connection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\Dresscode\dc.mdb");
 
                 // Create a new data adapter based on the specified query.
-                dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS", connection);
+                dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE dayofyear BETWEEN #3/2/2013# AND #3/2/2013#", gl.oleconnection);
 
                 // Create a command builder to generate SQL update, insert, and 
                 // delete commands based on selectCommand. These are used to 

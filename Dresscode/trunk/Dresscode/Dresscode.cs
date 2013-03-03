@@ -37,22 +37,20 @@ namespace Dresscode
         nineWeeksDatabase = 0,
         currentNineWeeks = 0,
         currentDayOfYear = DateTime.Now.DayOfYear,
-        totalinfractions = 1,
+        totalinfractions = 1;
             /**/
-        firstnineweeksstart = 0,
-        firstnineweeksend = 0,
+        DateTime
+firstnineweeksstart,
+firstnineweeksend,
 
-        secondtnineweeksstart = 0,
-        secondnineweeksend = 0,
+secondtnineweeksstart,
+secondnineweeksend,
 
-        thirdnineweeksstart = 0,
-        thirdnineweeksend = 0,
+thirdnineweeksstart,
+thirdnineweeksend,
 
-        forthnineweeksstart = 0,
-        forthnineweeksend = 0,
-
-        summerstart = 0,
-        summerend = 0;
+forthnineweeksstart,
+forthnineweeksend;
 
         Boolean submitted = false;
         string sql = "";
@@ -139,9 +137,7 @@ namespace Dresscode
                     DataTable table = new DataTable();
                     table.Locale = System.Globalization.CultureInfo.InvariantCulture;
 
-                    //table.TableName[0];
                     dataadapter.Fill(table);
-                    //
                     bindingSource1.DataSource = table;
 
 
@@ -149,17 +145,13 @@ namespace Dresscode
                     
                     dataGridView1.Columns[0].Visible = false;
                     dataGridView1.Columns[1].Visible = false;
-                    dataGridView1.Columns[2].Visible = false;
-                    dataGridView1.Columns[3].Visible = false;
-                    dataGridView1.Columns[12].Visible = false;
+                    dataGridView1.Columns[11].Visible = false;
                     
                     dataGridView1.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
                     while (getinfraction.Read())
                     {
-                        DateTime theDate = new DateTime(2013, 1, 1).AddDays(int.Parse(getinfraction["dayofyear"].ToString()) - 1);
-                        //MessageBox.Show();
-                        int databasedate = int.Parse(getinfraction["dayofyear"].ToString());
+                        DateTime databasedate = DateTime.Parse(getinfraction["Report Date"].ToString());
                         if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
                         {
                             nineWeeksDatabase = 1;
@@ -176,20 +168,15 @@ namespace Dresscode
                         {
                             nineWeeksDatabase = 4;
                         }
-                        if (databasedate >= summerstart && databasedate <= summerend)
-                        {
-                            nineWeeksDatabase = 0;
-                            MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherfirstname + " " + teacherlastname + "\nSTAHP\n\nOnly school days... I know it sadens me too.\n<3 LG Dresscode Report System", "Summer...");
-                        }
-                        if (currentDayOfYear >= secondtnineweeksstart || currentDayOfYear <= secondnineweeksend)
+                        if (DateTime.Today >= secondtnineweeksstart || DateTime.Today <= secondnineweeksend)
                         {
                             currentNineWeeks = 2;
                         }
-                        if (currentDayOfYear >= thirdnineweeksstart && currentDayOfYear <= thirdnineweeksend)
+                        if (DateTime.Today >= thirdnineweeksstart && DateTime.Today <= thirdnineweeksend)
                         {
                             currentNineWeeks = 3;
                         }
-                        if (currentDayOfYear >= forthnineweeksstart && currentDayOfYear <= forthnineweeksend)
+                        if (DateTime.Today >= forthnineweeksstart && DateTime.Today <= forthnineweeksend)
                         {
                             currentNineWeeks = 4;
                         }
@@ -252,29 +239,10 @@ namespace Dresscode
                             {
                                 try
                                 {
-                                    Boolean really = false;
                                     global.oleconnection.Open();
                                     OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                                     string sql = null;
-                                    //Kicks and gigglies code, to be removed when asked.
-                                    if (lastname == "Fleming")
-                                        really = true;
-                                    if (lastname == "Ragusa")
-                                        really = true;
-                                    if (lastname == "Kuell")
-                                        really = true;
-                                    if (really)
-                                    {
-                                        DialogResult specialverification = MessageBox.Show("Are you sure you really want to infracture " + firstname + " " + lastname + "?", "Are you positive?", MessageBoxButtons.YesNo);
-                                    }
-                                    else
-                                    {
-                                        if (DateTime.Now.DayOfYear >= 157 && DateTime.Now.DayOfYear <= 231)
-                                        {
-                                            MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherlastname + ", " + teacherfirstname + "\nSTAHP\n\nOnly school days... I know it sadens me too.", "Summer...");
-                                        }
-                                        else
-                                        {
+                                    
                                             for (int i = 0; i < details.Length; i++)
                                             {
                                                 if (details[i] == '"')
@@ -282,13 +250,11 @@ namespace Dresscode
                                                     details.Replace('"', '\"');
                                                 }
                                             }
-
-                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + DateTime.Now.DayOfYear.ToString() + "','" + DateTime.Now.Year.ToString() + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
+                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
                                             oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                                             oledbAdapter.InsertCommand.ExecuteNonQuery();
                                             submitted = true;
-                                        }
-                                    }
+                                        
                                 }
                                 catch (Exception x)
                                 {
@@ -327,20 +293,17 @@ namespace Dresscode
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
                 while (getdateinfo.Read())
                 {
-                    firstnineweeksstart = int.Parse(getdateinfo["firstnineweeksstart"].ToString());
-                    firstnineweeksend = int.Parse(getdateinfo["firstnineweeksend"].ToString());
+                    firstnineweeksstart = DateTime.Parse(getdateinfo["firstnineweeksstart"].ToString());
+                    firstnineweeksend = DateTime.Parse(getdateinfo["firstnineweeksend"].ToString());
 
-                    secondtnineweeksstart = int.Parse(getdateinfo["secondnineweeksstart"].ToString());
-                    secondnineweeksend = int.Parse(getdateinfo["secondnineweeksend"].ToString());
+                    secondtnineweeksstart = DateTime.Parse(getdateinfo["secondnineweeksstart"].ToString());
+                    secondnineweeksend = DateTime.Parse(getdateinfo["secondnineweeksend"].ToString());
 
-                    thirdnineweeksstart = int.Parse(getdateinfo["thirdnineweeksstart"].ToString());
-                    thirdnineweeksend = int.Parse(getdateinfo["thridnineweeksend"].ToString());
+                    thirdnineweeksstart = DateTime.Parse(getdateinfo["thirdnineweeksstart"].ToString());
+                    thirdnineweeksend = DateTime.Parse(getdateinfo["thirdnineweeksend"].ToString());
 
-                    forthnineweeksstart = int.Parse(getdateinfo["forthnineweeksstart"].ToString());
-                    forthnineweeksend = int.Parse(getdateinfo["forthnineweeksend"].ToString());
-
-                    summerstart = int.Parse(getdateinfo["summerstart"].ToString());
-                    summerend = int.Parse(getdateinfo["summerend"].ToString());
+                    forthnineweeksstart = DateTime.Parse(getdateinfo["forthnineweeksstart"].ToString());
+                    forthnineweeksend = DateTime.Parse(getdateinfo["forthnineweeksend"].ToString());
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }

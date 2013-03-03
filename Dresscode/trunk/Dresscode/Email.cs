@@ -55,21 +55,33 @@ namespace Dresscode
         private void Email_Load(object sender, EventArgs e)
         {
             textBox_console.Text += "Initializing Settings from database.\r\n";
-            global.oleconnection.Open();
-            OleDbCommand command = global.oleconnection.CreateCommand();
-            command.CommandText = "SELECT * FROM settings_email";
-            OleDbDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                numericUpDown_hours.Value = int.Parse(reader["time hour"].ToString());
-                numericUpDown_minutes.Value = int.Parse(reader["time minute"].ToString());
-                textBox_smtp.Text = reader["smtp server"].ToString();
-                textBox_host_email.Text = reader["host email"].ToString();
-                textBox_email_password.Text = reader["host password"].ToString();
-                textBox_email_subject.Text = reader["email subject"].ToString();
-                textBox_email_body.Text = reader["email body"].ToString();
-                numericUpDown_port.Value = int.Parse(reader["port number"].ToString());
+                global.oleconnection.Open();
+                OleDbCommand command = global.oleconnection.CreateCommand();
+                command.CommandText = "SELECT * FROM settings_email";
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    numericUpDown_hours.Value = int.Parse(reader["time hour"].ToString());
+                    numericUpDown_minutes.Value = int.Parse(reader["time minute"].ToString());
+                    textBox_smtp.Text = reader["smtp server"].ToString();
+                    textBox_host_email.Text = reader["host email"].ToString();
+                    textBox_email_password.Text = reader["host password"].ToString();
+                    textBox_email_subject.Text = reader["email subject"].ToString();
+                    textBox_email_body.Text = reader["email body"].ToString();
+                    numericUpDown_port.Value = int.Parse(reader["port number"].ToString());
+                }
             }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                global.oleconnection.Close();
+            }
+
                 //list of emails to populate the listbox
         }
 
@@ -135,14 +147,33 @@ namespace Dresscode
         public void saveSettings()
         {
             //send new settings to database here.
-            textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
-            textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + "\r\n";
-            textBox_console.Text += "SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
-            textBox_console.Text += "Host email set to "+ textBox_host_email.Text +"\r\n";
-            textBox_console.Text += "Email password set to " + textBox_email_password.Text + "\r\n";
-            textBox_console.Text += "Email subject set to "+ textBox_email_subject.Text +"\r\n";
-            textBox_console.Text += "Email body set to " + textBox_email_body.Text + "\r\n";
-            textBox_console.Text += "Settings saved to database\r\n";
+            try
+            {
+                global.oleconnection.Open();
+                OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+                string sql = "";
+                sql = "UPDATE settings_email SET smtpserver=" + textBox_smtp.Text + "";
+                oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
+                oledbAdapter.UpdateCommand.ExecuteNonQuery();
+                textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
+                //Console output.
+                
+                textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + "\r\n";
+                textBox_console.Text += "SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
+                textBox_console.Text += "Host email set to " + textBox_host_email.Text + "\r\n";
+                textBox_console.Text += "Email password set to " + textBox_email_password.Text + "\r\n";
+                textBox_console.Text += "Email subject set to " + textBox_email_subject.Text + "\r\n";
+                textBox_console.Text += "Email body set to " + textBox_email_body.Text + "\r\n";
+                textBox_console.Text += "Settings saved to database\r\n";
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                global.oleconnection.Close();
+            }
         }
 
         private void button_clear_console_Click(object sender, EventArgs e)
