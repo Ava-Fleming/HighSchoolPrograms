@@ -15,7 +15,7 @@ namespace Dresscode
     public partial class reports : Form
     {
         BindingSource bSource = new BindingSource();
-        string sql = "";
+        string sql = "", firstname, lastname, studentid;
         string findstudentinfo = null;
         globals global = new globals();
         OleDbDataAdapter dAdapter;
@@ -210,7 +210,23 @@ forthnineweeksend;
                     if (hasStarted)
                         sql += " AND";
                     //student name
-                    sql += " `First Name` = '" + comboBox_student_firstname.Text + "' AND `Last Name` = '" + comboBox_student_last.Text + "'";
+                    for (int i = 0; i < comboBox_student_firstname.Text.Length; i++)
+                    {
+                        if (comboBox_student_firstname.Text[i] == ' ')
+                        {
+                            firstname = comboBox_student_firstname.Text.Substring(0, i);
+                            studentid = comboBox_student_firstname.Text.Substring(i + 1, (comboBox_student_firstname.Text.Length - (i + 1)));
+                        }
+                    }
+                    for (int i = 0; i < comboBox_student_last.Text.Length; i++)
+                    {
+                        if (comboBox_student_last.Text[i] == ' ')
+                        {
+                            lastname = comboBox_student_last.Text.Substring(0, i);
+                            studentid = comboBox_student_last.Text.Substring(i + 1, (comboBox_student_last.Text.Length - (i + 1)));
+                        }
+                    }
+                    sql += " `First Name` = '" + firstname + "' AND `Last Name` = '" + lastname + "' AND `Student ID`='" + studentid + "'";
                     hasStarted = true;
                 }
                 if (wtfbrah)
@@ -485,8 +501,10 @@ forthnineweeksend;
             }
             if (comboBox_student_last.Text != "" && comboBox_student_firstname.Text != "")
             {
+                firstname = comboBox_student_firstname.Text;
+                lastname = comboBox_student_last.Text;
                 retrievalcode = 2;
-                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + comboBox_student_firstname.Text + "' AND LASTNAME='" + comboBox_student_last.Text + "'";
+                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
             }
             try
             {
@@ -500,13 +518,18 @@ forthnineweeksend;
                     {
                         if (retrievalcode == 0)
                         {
-                            comboBox_student_firstname.Text = getstudentinfo["FIRSTNAME"].ToString();
-                            comboBox_student_firstname.Items.Add(getstudentinfo["FIRSTNAME"].ToString());
+                            comboBox_student_firstname.Text = getstudentinfo["FIRSTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString();
+                            comboBox_student_firstname.Items.Add(getstudentinfo["FIRSTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString());
                         }
                         if (retrievalcode == 1)
                         {
-                            comboBox_student_last.Text = getstudentinfo["LASTNAME"].ToString();
-                            comboBox_student_last.Items.Add(getstudentinfo["LASTNAME"].ToString());
+                            comboBox_student_last.Text = getstudentinfo["LASTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString();
+                            comboBox_student_last.Items.Add(getstudentinfo["LASTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString());
+                        }
+                        if (retrievalcode == 2)
+                        {
+                            comboBox_student_last.Text = lastname + " " + getstudentinfo["STUDENTID"].ToString();
+                            comboBox_student_last.Items.Add(lastname + " " + getstudentinfo["STUDENTID"].ToString());
                         }
                     }
                 }

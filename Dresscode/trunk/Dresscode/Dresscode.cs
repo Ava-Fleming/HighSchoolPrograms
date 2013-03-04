@@ -56,8 +56,6 @@ forthnineweeksend;
         string sql = "";
         public void retrieval()
         {
-            combobox_firstname.Items.Clear();
-            combobox_lastname.Items.Clear();
             label_totalinfractions.Text = "Total Infractions: 0";
             #region Getbasicstudentinfo
             int retrievalcode = 0;
@@ -106,6 +104,11 @@ forthnineweeksend;
                             combobox_lastname.Text = lastname + " " + studentid;
                             combobox_lastname.Items.Add(lastname + " " + studentid);
                         }
+                        if (retrievalcode == 2)
+                        {
+                            combobox_lastname.Text = lastname + " " + studentid;
+                            combobox_lastname.Items.Add(lastname + " " + studentid);
+                        }
                     }
                 }
             }
@@ -116,8 +119,8 @@ forthnineweeksend;
             {
                 if (combobox_firstname.Text[i] == ' ')
                 {
-                    firstname = firstname.Substring(0, i);
-                    studentid = studentid.Substring(i, combobox_firstname.Text.Length);
+                    firstname = combobox_firstname.Text.Substring(0, i);
+                    studentid = combobox_firstname.Text.Substring(i+1, (combobox_firstname.Text.Length - (i+1)));
                 }
             }
             for (int i = 0; i < combobox_lastname.Text.Length; i++)
@@ -125,15 +128,24 @@ forthnineweeksend;
                 if (combobox_lastname.Text[i] == ' ')
                 {
                     lastname = combobox_lastname.Text.Substring(0, i);
-                    studentid = combobox_lastname.Text.Substring(i, (combobox_lastname.Text.Length - i));
+                    studentid = combobox_lastname.Text.Substring(i+1, (combobox_lastname.Text.Length - (i+1)));
                 }
             }
+
             if (studentid != "")
             {
                 #region getinfractions
                 try
                 {
-
+                    global.oleconnection.Open();
+                    OleDbCommand recheck = global.oleconnection.CreateCommand();
+                    recheck.CommandText = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "' AND STUDENTID=" + studentid + "";
+                    OleDbDataReader recheckreader = recheck.ExecuteReader();
+                    while (recheckreader.Read())
+                    {
+                        grade = recheckreader["GRADE"].ToString();
+                    }
+                    global.oleconnection.Close();
 
                     global.oleconnection.Open();
                     county = 0;
@@ -142,12 +154,12 @@ forthnineweeksend;
                     currentNineWeeks = 0;
                     currentDayOfYear = DateTime.Now.DayOfYear;
                     OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                    getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "'";
+                    getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'";
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     dataGridView1.DataSource = bindingSource1;
 
                     // Create a new data adapter based on the specified query.
-                    dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "'", global.oleconnection);
+                    dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'", global.oleconnection);
 
                     // Create a command builder to generate SQL update, insert, and 
                     // delete commands based on selectCommand. These are used to 
