@@ -38,7 +38,7 @@ namespace Dresscode
         currentNineWeeks = 0,
         currentDayOfYear = DateTime.Now.DayOfYear,
         totalinfractions = 1;
-            /**/
+        /**/
         DateTime
 firstnineweeksstart,
 firstnineweeksend,
@@ -75,8 +75,11 @@ forthnineweeksend;
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
             {
+                firstname = combobox_firstname.Text;
+                lastname = combobox_lastname.Text;
                 retrievalcode = 2;
-                sql = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + combobox_firstname.Text + "' AND LASTNAME='" + combobox_lastname.Text + "'";
+                //sql = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + combobox_firstname.Text + "' AND LASTNAME='" + combobox_lastname.Text + "'";
+                sql = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
             }
             try
             {
@@ -94,13 +97,14 @@ forthnineweeksend;
                         grade = getstudentinfo["GRADE"].ToString();
                         if (retrievalcode == 0)
                         {
-                            combobox_firstname.Text = firstname;
-                            combobox_firstname.Items.Add(firstname);
+                            combobox_firstname.Text = firstname + " " + studentid;
+                            combobox_firstname.Items.Add(firstname + " " + studentid);
+
                         }
                         if (retrievalcode == 1)
                         {
-                            combobox_lastname.Text = lastname;
-                            combobox_lastname.Items.Add(lastname);
+                            combobox_lastname.Text = lastname + " " + studentid;
+                            combobox_lastname.Items.Add(lastname + " " + studentid);
                         }
                     }
                 }
@@ -108,11 +112,29 @@ forthnineweeksend;
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
             finally { global.oleconnection.Close(); }
             #endregion
+            for (int i = 0; i < combobox_firstname.Text.Length; i++)
+            {
+                if (combobox_firstname.Text[i] == ' ')
+                {
+                    firstname = firstname.Substring(0, i);
+                    studentid = studentid.Substring(i, combobox_firstname.Text.Length);
+                }
+            }
+            for (int i = 0; i < combobox_lastname.Text.Length; i++)
+            {
+                if (combobox_lastname.Text[i] == ' ')
+                {
+                    lastname = combobox_lastname.Text.Substring(0, i);
+                    studentid = combobox_lastname.Text.Substring(i, (combobox_lastname.Text.Length - i));
+                }
+            }
             if (studentid != "")
             {
                 #region getinfractions
                 try
                 {
+
+
                     global.oleconnection.Open();
                     county = 0;
                     totalinfractions = 1;
@@ -120,12 +142,12 @@ forthnineweeksend;
                     currentNineWeeks = 0;
                     currentDayOfYear = DateTime.Now.DayOfYear;
                     OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                    getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS WHERE `First Name`='" + combobox_firstname.Text + "' AND `Last Name`='" + combobox_lastname.Text + "'";
+                    getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "'";
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     dataGridView1.DataSource = bindingSource1;
 
                     // Create a new data adapter based on the specified query.
-                    dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE `First Name`='" + combobox_firstname.Text + "' AND `Last Name`='" + combobox_lastname.Text + "'", global.oleconnection);
+                    dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "'", global.oleconnection);
 
                     // Create a command builder to generate SQL update, insert, and 
                     // delete commands based on selectCommand. These are used to 
@@ -142,11 +164,11 @@ forthnineweeksend;
 
 
                     // Resize the DataGridView columns to fit the newly loaded content.
-                    
+
                     dataGridView1.Columns[0].Visible = false;
                     dataGridView1.Columns[1].Visible = false;
                     dataGridView1.Columns[11].Visible = false;
-                    
+
                     dataGridView1.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
                     while (getinfraction.Read())
@@ -198,7 +220,7 @@ forthnineweeksend;
                 #endregion
             }
             else
-                MessageBox.Show("Student: \"" + combobox_firstname.Text + " " + combobox_lastname.Text + "\" does not exist\nContact Administration", "Error");
+                MessageBox.Show("Student: \"" + firstname + " " + lastname + "\" does not exist\nContact Administration", "Error");
         }
 
         private void button_retrieve_Click(object sender, EventArgs e)
@@ -212,74 +234,74 @@ forthnineweeksend;
 
         private void button_submit_Click(object sender, EventArgs e)
         {
-                if (combobox_period.Text == "")
+            if (combobox_period.Text == "")
+            {
+                MessageBox.Show("Pick a period", "Period Required");
+            }
+            else
+            {
+                button_retrieve.PerformClick();
+                if (studentid != "")
                 {
-                    MessageBox.Show("Pick a period", "Period Required");
-                }
-                else
-                {
-                    button_retrieve.PerformClick();
-                    if (studentid != "")
+                    if (textbox_details.Text != "Details")
                     {
-                        if (textbox_details.Text != "Details")
-                        {
-                            details = textbox_details.Text;
-                        }
-                        else
-                        {
-                            details = "N/A";
-                        }
+                        details = textbox_details.Text;
+                    }
+                    else
+                    {
+                        details = "N/A";
+                    }
 
-                        period = combobox_period.Text;
-                        infraction = combobox_infraction.Text;
-                        if (infraction != "")
+                    period = combobox_period.Text;
+                    infraction = combobox_infraction.Text;
+                    if (infraction != "")
+                    {
+                        DialogResult verification = MessageBox.Show("Is this correct?\nStudent Name: " + firstname + " " + lastname + "\nGrade: " + grade + "\nPeriod: #" + period + "\nInfractured by: (" + teacherid + ") " + teacherfirstname + " " + teacherlastname + "\nDate: " + DateTime.Now.ToShortDateString() + "\nInfraction: " + infraction + "\nDetails: " + details, "Verify your infraction", MessageBoxButtons.YesNo);
+                        if (verification == DialogResult.Yes)
                         {
-                            DialogResult verification = MessageBox.Show("Is this correct?\nStudent Name: " + firstname + " " + lastname + "\nGrade: " + grade + "\nPeriod: #" + period + "\nInfractured by: (" + teacherid + ") " + teacherfirstname + " " + teacherlastname + "\nDate: " + DateTime.Now.ToShortDateString() + "\nInfraction: " + infraction + "\nDetails: " + details, "Verify your infraction", MessageBoxButtons.YesNo);
-                            if (verification == DialogResult.Yes)
+                            try
                             {
-                                try
+                                global.oleconnection.Open();
+                                OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+                                string sql = null;
+
+                                for (int i = 0; i < details.Length; i++)
                                 {
-                                    global.oleconnection.Open();
-                                    OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-                                    string sql = null;
-                                    
-                                            for (int i = 0; i < details.Length; i++)
-                                            {
-                                                if (details[i] == '"')
-                                                {
-                                                    details.Replace('"', '\"');
-                                                }
-                                            }
-                                            sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
-                                            oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
-                                            oledbAdapter.InsertCommand.ExecuteNonQuery();
-                                            submitted = true;
-                                        
+                                    if (details[i] == '"')
+                                    {
+                                        details.Replace('"', '\"');
+                                    }
                                 }
-                                catch (Exception x)
-                                {
-                                    MessageBox.Show(x.Message);
-                                }
-                                finally
-                                {
-                                    global.oleconnection.Close();
-                                    button_retrieve.PerformClick();
-                                }
+                                sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
+                                oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                                oledbAdapter.InsertCommand.ExecuteNonQuery();
+                                submitted = true;
+
+                            }
+                            catch (Exception x)
+                            {
+                                MessageBox.Show(x.Message);
+                            }
+                            finally
+                            {
+                                global.oleconnection.Close();
+                                button_retrieve.PerformClick();
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show("Select The Infraction. You monster", "Missing Infraction.");
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Select The Infraction. You monster", "Missing Infraction.");
                     }
                 }
+            }
         }
 
         private void form_dresscode_Load(object sender, EventArgs e)
         {
             button_clear.PerformClick();
             admin = true;
-            if(admin)
+            if (admin)
             {
                 menuStrip1.Enabled = true;
                 menuStrip1.Visible = true;
@@ -343,10 +365,10 @@ forthnineweeksend;
                 getpossibleinfractionscommand.CommandText = sql;
                 OleDbDataReader getpossibleinfractions = getpossibleinfractionscommand.ExecuteReader();
                 while (getpossibleinfractions.Read())
-                    {
-                        combobox_infraction.Items.Add(getpossibleinfractions["infractions"].ToString());
-                    }
+                {
+                    combobox_infraction.Items.Add(getpossibleinfractions["infractions"].ToString());
                 }
+            }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
             finally { global.oleconnection.Close(); }
         }
@@ -377,7 +399,7 @@ forthnineweeksend;
 
         private void form_dresscode_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show("Goodbye.\nYou know, using this program just now taught me a valuable lesson:\nthe best solution to a problem is usually the easiest one.\nAnd lets be honest, using the orginal dresscode system is hard.\nYou know what the old dresscode system used to be like?\nNo one could easily report students.\nReporting was bad until I showed up.\nIt's been fun, come back anytime. <3","Closing");
+            MessageBox.Show("Goodbye.\nYou know, using this program just now taught me a valuable lesson:\nthe best solution to a problem is usually the easiest one.\nAnd lets be honest, using the orginal dresscode system is hard.\nYou know what the old dresscode system used to be like?\nNo one could easily report students.\nReporting was bad until I showed up.\nIt's been fun, come back anytime. <3", "Closing");
             //MessageBox.Show("And when you close me i'll be Still Alive.\nStill Alive.\n\nGood bye.", "Still Alive");
             Application.Exit();
         }
