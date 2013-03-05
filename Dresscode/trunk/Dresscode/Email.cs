@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net.Mail;
 using System.Data.OleDb;
+using System.Net;
 
 namespace Dresscode
 {
@@ -45,15 +46,33 @@ namespace Dresscode
                 }
                 if (!exists)
                 {
-                    listBox_emails.Items.Add(textBox_add_email.Text);
-                    textBox_console.Text += "Added Email: " + textBox_add_email.Text +" \r\n";
-                    textBox_add_email.Clear();
+                    try
+                    {
+                        global.oleconnection.Open();
+                        OleDbDataAdapter adapter = new OleDbDataAdapter();
+                        string sql = "INSERT INTO emails VALUES ('" + textBox_add_email.Text + "')";
+                        adapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                        adapter.InsertCommand.ExecuteNonQuery();
+                        listBox_emails.Items.Add(textBox_add_email.Text);
+                        textBox_console.Text += "Added Email: " + textBox_add_email.Text + " \r\n";
+                        textBox_add_email.Clear();
+                    }
+                    catch (Exception x)
+                    {
+                        textBox_console.Text += "Error adding email! \r\n";
+                        MessageBox.Show(x.Message);
+                    }
+                    finally
+                    {
+                        global.oleconnection.Close();
+                    }
                 }
             }
         }
 
         private void Email_Load(object sender, EventArgs e)
         {
+            button_add_email.PerformClick();
             textBox_console.Text += "Initializing Settings from database.\r\n";
             try
             {
@@ -72,9 +91,19 @@ namespace Dresscode
                     textBox_email_body.Text = reader["emailbody"].ToString();
                     numericUpDown_port.Value = int.Parse(reader["portnumber"].ToString());
                 }
+                global.oleconnection.Close();
+                global.oleconnection.Open();
+                command = global.oleconnection.CreateCommand();
+                command.CommandText = "SELECT * FROM emails";
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    listBox_emails.Items.Add(reader["emaillist"].ToString());
+                }
             }
             catch (Exception x)
             {
+                textBox_console.Text += "Error Loading data from database! \r\n";
                 MessageBox.Show(x.Message);
             }
             finally
@@ -82,31 +111,46 @@ namespace Dresscode
                 global.oleconnection.Close();
             }
 
-                //list of emails to populate the listbox
+            //list of emails to populate the listbox
         }
 
         private void button_start_Click(object sender, EventArgs e)
         {
-            //http://msdn.microsoft.com/en-us/library/system.net.mail.smtpclient.aspx
-
             textBox_console.Text += "Starting task...\r\n";
 
             textBox_console.Text += "Applying SMTP settings...\r\n";
-            smtp = new SmtpClient(textBox_smtp.Text, (int)numericUpDown_port.Value);
-            smtp.EnableSsl = false;
-            textBox_console.Text += "Inserting Message...\r\n";
-            string Esender;
-            string Erecipients;
-            string adshflakj;
-            textBox_console.Text += "Email sent.\r\n";
-            smtp.Send(message);
+            String SMTPHost =  textBox_smtp.Text;
+            int Port = (int)numericUpDown_port.Value;
+
+            try
+            {
+                textBox_console.Text += "Attempting to send email with current settings...\r\n";
+                SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                sm.EnableSsl = true;
+                sm.Credentials = new NetworkCredential("username", "password");//?
+                MailAddress from = new MailAddress(textBox_host_email.Text);
+                string strAddress="saKDLFHLASKJDF";
+                MailAddress to = new MailAddress(strAddress); // use this with a 4 loop
+                MailMessage mMsg = new MailMessage(from, to);
+                mMsg.Subject = textBox_email_subject.Text;
+                mMsg.Body = textBox_email_body.Text;
+                sm.Send(mMsg);
+                textBox_console.Text += "Email sent!\r\n";
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+
         }
+
+
 
         private void button_remove_email_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you want to delete " + listBox_emails.SelectedItem.ToString() + "?", "Really Delete Email?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                textBox_console.Text += "Removed: "+ listBox_emails.SelectedItem +".\r\n";
+                textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
                 listBox_emails.Items.Remove(listBox_emails.SelectedItem);
             }
         }
@@ -155,23 +199,24 @@ namespace Dresscode
                 sql = "UPDATE settings_email SET timehour='" + numericUpDown_hours.Value.ToString() + "', timeminute='" + numericUpDown_minutes.Value.ToString() + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
-                //Console output.
                 sql = "UPDATE settings_email SET smtpserver='" + textBox_smtp.Text + "', portnumber='" + numericUpDown_port.Value.ToString() + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + " AND SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
+
                 sql = "UPDATE settings_email SET hostemail='" + textBox_smtp.Text + "', hostpassword='" + textBox_email_password.Text + "', emailsubject='" + textBox_email_subject.Text + "', emailbody='" + textBox_email_body.Text + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                textBox_console.Text += "Host email set to " + textBox_host_email.Text + "\r\n";
-                textBox_console.Text += "Email password set to " + textBox_email_password.Text + "\r\n";
+                //Console output.
+                textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
+                textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + " AND SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
+                textBox_console.Text += "Host email set to " + textBox_host_email.Text + " AND Email password set to " + textBox_email_password.Text + "\r\n";
                 textBox_console.Text += "Email subject set to " + textBox_email_subject.Text + "\r\n";
                 textBox_console.Text += "Email body set to " + textBox_email_body.Text + "\r\n";
                 textBox_console.Text += "Settings saved to database\r\n";
             }
             catch (Exception x)
             {
+                textBox_console.Text += "Error saving settings! \r\n";
                 MessageBox.Show(x.Message);
             }
             finally
@@ -182,7 +227,7 @@ namespace Dresscode
 
         private void button_clear_console_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Really clear console?","Clear",MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Really clear console?", "Clear", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 textBox_console.Clear();
                 textBox_console.Text += "Console Cleared.\r\n";

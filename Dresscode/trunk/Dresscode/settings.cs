@@ -85,7 +85,7 @@ namespace Dresscode
             }
             catch (Exception x)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show(x.Message);
             }
             finally
             {
