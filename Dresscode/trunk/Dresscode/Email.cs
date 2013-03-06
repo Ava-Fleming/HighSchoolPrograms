@@ -21,6 +21,7 @@ namespace Dresscode
         }
         //globals
         bool editmode = false;
+        bool looping = false;
         StreamWriter SR;
         SmtpClient smtp;
         MailMessage message;
@@ -110,38 +111,40 @@ namespace Dresscode
             {
                 global.oleconnection.Close();
             }
-
-            //list of emails to populate the listbox
         }
 
         private void button_start_Click(object sender, EventArgs e)
         {
             textBox_console.Text += "Starting task...\r\n";
+            //..............................................................................
+                textBox_console.Text += "Applying SMTP settings...\r\n";
+                String SMTPHost = textBox_smtp.Text;
+                int Port = (int)numericUpDown_port.Value;
 
-            textBox_console.Text += "Applying SMTP settings...\r\n";
-            String SMTPHost =  textBox_smtp.Text;
-            int Port = (int)numericUpDown_port.Value;
-
-            try
-            {
-                textBox_console.Text += "Attempting to send email with current settings...\r\n";
-                SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                sm.EnableSsl = true;
-                sm.Credentials = new NetworkCredential("username", "password");//?
-                MailAddress from = new MailAddress(textBox_host_email.Text);
-                string strAddress="saKDLFHLASKJDF";
-                MailAddress to = new MailAddress(strAddress); // use this with a 4 loop
-                MailMessage mMsg = new MailMessage(from, to);
-                mMsg.Subject = textBox_email_subject.Text;
-                mMsg.Body = textBox_email_body.Text;
-                sm.Send(mMsg);
-                textBox_console.Text += "Email sent!\r\n";
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message);
-            }
-
+                try
+                {
+                    textBox_console.Text += "Attempting to send email with current settings...\r\n";
+                    SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                    sm.EnableSsl = true;
+                    sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
+                    MailAddress from = new MailAddress(textBox_host_email.Text);
+                    for (int i = 0; i < listBox_emails.Items.Count; i++)
+                    {
+                        MailAddress to = new MailAddress(listBox_emails.Items[i].ToString());
+                        MailMessage mMsg = new MailMessage(from, to);
+                        //mMsg.Attachments.Add();
+                        mMsg.Subject = textBox_email_subject.Text;
+                        mMsg.Body = textBox_email_body.Text;
+                        sm.Send(mMsg);
+                        textBox_console.Text += "Email sent!\r\n";
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
+            //..............................................................................
+            //looping = true;
         }
 
 
@@ -150,8 +153,25 @@ namespace Dresscode
         {
             if (MessageBox.Show("Do you want to delete " + listBox_emails.SelectedItem.ToString() + "?", "Really Delete Email?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
-                listBox_emails.Items.Remove(listBox_emails.SelectedItem);
+                try
+                {
+                    global.oleconnection.Open();
+                    OleDbDataAdapter adapter = new OleDbDataAdapter();
+                    string sql = "DELETE * FROM emails WHERE emaillist ='" + listBox_emails.SelectedItem + "'";
+                    adapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                    adapter.InsertCommand.ExecuteNonQuery();
+                    textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
+                    listBox_emails.Items.Remove(listBox_emails.SelectedItem);
+                }
+                catch (Exception x)
+                {
+                    textBox_console.Text += "Error Loading data from database! \r\n";
+                    MessageBox.Show(x.Message);
+                }
+            finally
+            {
+                global.oleconnection.Close();
+            }
             }
         }
 
@@ -203,7 +223,7 @@ namespace Dresscode
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
 
-                sql = "UPDATE settings_email SET hostemail='" + textBox_smtp.Text + "', hostpassword='" + textBox_email_password.Text + "', emailsubject='" + textBox_email_subject.Text + "', emailbody='" + textBox_email_body.Text + "'";
+                sql = "UPDATE settings_email SET hostemail='" + textBox_host_email.Text + "', hostpassword='" + textBox_email_password.Text + "', emailsubject='" + textBox_email_subject.Text + "', emailbody='" + textBox_email_body.Text + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
                 //Console output.
@@ -236,8 +256,8 @@ namespace Dresscode
 
         private void button_stop_Click(object sender, EventArgs e)
         {
-            //stop
             textBox_console.Text += "Stopping task.\r\n";
+            looping = false;
         }
 
         private void button_save_console_Click(object sender, EventArgs e)
@@ -250,6 +270,41 @@ namespace Dresscode
                 SR.WriteLine(textBox_console.Text);
                 SR.Flush();
                 SR.Close();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
+            int hour = (int)numericUpDown_hours.Value;
+            int min = (int)numericUpDown_minutes.Value;
+            if (looping && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min)
+            {
+                textBox_console.Text += "Applying SMTP settings...\r\n";
+                String SMTPHost = textBox_smtp.Text;
+                int Port = (int)numericUpDown_port.Value;
+
+                try
+                {
+                    textBox_console.Text += "Attempting to send email with current settings...\r\n";
+                    SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                    sm.EnableSsl = true;
+                    sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
+                    MailAddress from = new MailAddress(textBox_host_email.Text);
+                    for (int i = 0; i < listBox_emails.Items.Count; i++)
+                    {
+                        MailAddress to = new MailAddress(listBox_emails.Items[i].ToString());
+                        MailMessage mMsg = new MailMessage(from, to);
+                        mMsg.Subject = textBox_email_subject.Text;
+                        mMsg.Body = textBox_email_body.Text;
+                        sm.Send(mMsg);
+                        textBox_console.Text += "Email sent!\r\n";
+                    }
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
             }
         }
     }

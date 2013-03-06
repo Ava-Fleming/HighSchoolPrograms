@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBox_console = new System.Windows.Forms.TextBox();
             this.listBox_emails = new System.Windows.Forms.ListBox();
             this.button_add_email = new System.Windows.Forms.Button();
@@ -60,6 +61,7 @@
             this.tabPage_console = new System.Windows.Forms.TabPage();
             this.button_clear_console = new System.Windows.Forms.Button();
             this.button_save_console = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
@@ -415,6 +417,10 @@
             this.button_save_console.UseVisualStyleBackColor = true;
             this.button_save_console.Click += new System.EventHandler(this.button_save_console_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Email
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -473,5 +479,6 @@
         private System.Windows.Forms.TextBox textBox_smtp;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox_email_password;
+        private System.Windows.Forms.Timer timer1;
     }
 }
