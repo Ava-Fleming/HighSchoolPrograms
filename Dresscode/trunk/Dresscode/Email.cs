@@ -73,7 +73,6 @@ namespace Dresscode
 
         private void Email_Load(object sender, EventArgs e)
         {
-            button_add_email.PerformClick();
             textBox_console.Text += "Initializing Settings from database.\r\n";
             try
             {
@@ -116,35 +115,37 @@ namespace Dresscode
         private void button_start_Click(object sender, EventArgs e)
         {
             textBox_console.Text += "Starting task...\r\n";
+            timer1.Enabled = true;
             //..............................................................................
-                textBox_console.Text += "Applying SMTP settings...\r\n";
-                String SMTPHost = textBox_smtp.Text;
-                int Port = (int)numericUpDown_port.Value;
+            /*
+            textBox_console.Text += "Applying SMTP settings...\r\n";
+            String SMTPHost = textBox_smtp.Text;
+            int Port = (int)numericUpDown_port.Value;
 
-                try
+            try
+            {
+                textBox_console.Text += "Attempting to send email with current settings...\r\n";
+                SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                sm.EnableSsl = false;
+                sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
+                MailAddress from = new MailAddress(textBox_host_email.Text);
+                for (int i = 0; i < listBox_emails.Items.Count; i++)
                 {
-                    textBox_console.Text += "Attempting to send email with current settings...\r\n";
-                    SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                    sm.EnableSsl = true;
-                    sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
-                    MailAddress from = new MailAddress(textBox_host_email.Text);
-                    for (int i = 0; i < listBox_emails.Items.Count; i++)
-                    {
-                        MailAddress to = new MailAddress(listBox_emails.Items[i].ToString());
-                        MailMessage mMsg = new MailMessage(from, to);
-                        //mMsg.Attachments.Add();
-                        mMsg.Subject = textBox_email_subject.Text;
-                        mMsg.Body = textBox_email_body.Text;
-                        sm.Send(mMsg);
-                        textBox_console.Text += "Email sent!\r\n";
-                    }
+                    MailAddress to = new MailAddress(listBox_emails.Items[i].ToString());
+                    MailMessage mMsg = new MailMessage(from, to);
+                    //mMsg.Attachments.Add();
+                    mMsg.Subject = textBox_email_subject.Text;
+                    mMsg.Body = textBox_email_body.Text;
+                    sm.Send(mMsg);
+                    textBox_console.Text += "Email sent!\r\n";
                 }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.Message);
-                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }*/
             //..............................................................................
-            //looping = true;
+            looping = true;
         }
 
 
@@ -275,7 +276,6 @@ namespace Dresscode
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
             int hour = (int)numericUpDown_hours.Value;
             int min = (int)numericUpDown_minutes.Value;
             if (looping && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min)
@@ -288,7 +288,7 @@ namespace Dresscode
                 {
                     textBox_console.Text += "Attempting to send email with current settings...\r\n";
                     SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                    sm.EnableSsl = true;
+                    sm.EnableSsl = false;
                     sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
                     MailAddress from = new MailAddress(textBox_host_email.Text);
                     for (int i = 0; i < listBox_emails.Items.Count; i++)
@@ -300,11 +300,16 @@ namespace Dresscode
                         sm.Send(mMsg);
                         textBox_console.Text += "Email sent!\r\n";
                     }
+                    looping = false;
                 }
                 catch (Exception x)
                 {
                     MessageBox.Show(x.Message);
                 }
+            }
+            if (looping == false && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min + 1)
+            {
+                looping = true;
             }
         }
     }
