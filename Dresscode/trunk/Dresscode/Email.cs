@@ -27,6 +27,10 @@ namespace Dresscode
         MailMessage message;
         AttachmentCollection AC;
         globals global = new globals();
+        OleDbDataAdapter dAdapter;
+        DataTable dTable = new DataTable();
+        OleDbCommandBuilder cBuilder;
+        BindingSource bSource = new BindingSource();
         //textBox_console.Text += "\r\n";
         //
 
@@ -116,34 +120,6 @@ namespace Dresscode
         {
             textBox_console.Text += "Starting task...\r\n";
             timer1.Enabled = true;
-            //..............................................................................
-            /*
-            textBox_console.Text += "Applying SMTP settings...\r\n";
-            String SMTPHost = textBox_smtp.Text;
-            int Port = (int)numericUpDown_port.Value;
-
-            try
-            {
-                textBox_console.Text += "Attempting to send email with current settings...\r\n";
-                SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                sm.EnableSsl = false;
-                sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
-                MailAddress from = new MailAddress(textBox_host_email.Text);
-                for (int i = 0; i < listBox_emails.Items.Count; i++)
-                {
-                    MailAddress to = new MailAddress(listBox_emails.Items[i].ToString());
-                    MailMessage mMsg = new MailMessage(from, to);
-                    //mMsg.Attachments.Add();
-                    mMsg.Subject = textBox_email_subject.Text;
-                    mMsg.Body = textBox_email_body.Text;
-                    sm.Send(mMsg);
-                    textBox_console.Text += "Email sent!\r\n";
-                }
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message);
-            }*/
             //..............................................................................
             looping = true;
         }
@@ -278,10 +254,70 @@ namespace Dresscode
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            
             int hour = (int)numericUpDown_hours.Value;
             int min = (int)numericUpDown_minutes.Value;
             if (looping && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min)
             {
+                looping = false;
+                //--------Datagrid start ========
+                try
+                {
+                    string sql = "SELECT  * FROM INFRACTIONS WHERE `Dean Action`='None'";
+                    dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
+                    dTable.Rows.Clear();
+                    cBuilder = new OleDbCommandBuilder(dAdapter);
+                    cBuilder.QuotePrefix = "[";
+                    cBuilder.QuoteSuffix = "]";
+
+                    dAdapter.Fill(dTable);
+                    bSource.DataSource = dTable;
+                    dataGridView1.DataSource = bSource;
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        if (i <= 2)
+                            dataGridView1.Columns[i].Visible = false;
+                        dataGridView1.Columns[i].ReadOnly = true;
+                    }
+                    dataGridView1.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message, "Error");
+                }
+                finally
+                {
+                    global.oleconnection.Close();
+                }
+                //--------Datagrid stop ========
+                //--Excel export ---
+                try
+                {
+                        Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
+
+                        ExcelApp.Application.Workbooks.Add(Type.Missing);
+                        ExcelApp.Columns.ColumnWidth = 15;
+                        for (int i = 4; i < dataGridView1.Columns.Count + 1; i++)
+                        {
+                            ExcelApp.Cells[1, i - 3] = dataGridView1.Columns[i - 1].HeaderText;
+                        }
+                        for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                        {
+                            for (int j = 3; j < dataGridView1.Columns.Count; j++)
+                            {
+                                ExcelApp.Cells[i + 2, j - 2] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            }
+                        }
+                        ExcelApp.ActiveWorkbook.SaveCopyAs(AppDomain.CurrentDomain.BaseDirectory + "Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx"); //or .xlsx file, depending of the excel version of your system
+                        ExcelApp.ActiveWorkbook.Saved = true;
+                        ExcelApp.Quit();
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
+                //--Excel export stop ----
                 textBox_console.Text += "Applying SMTP settings...\r\n";
                 String SMTPHost = textBox_smtp.Text;
                 int Port = (int)numericUpDown_port.Value;
@@ -299,6 +335,8 @@ namespace Dresscode
                         MailMessage mMsg = new MailMessage(from, to);
                         mMsg.Subject = textBox_email_subject.Text;
                         mMsg.Body = textBox_email_body.Text;
+                        Attachment att = new Attachment("Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx");
+                        mMsg.Attachments.Add(att);
                         sm.Send(mMsg);
                         textBox_console.Text += "Email sent!\r\n";
                     }
