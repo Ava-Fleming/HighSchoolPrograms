@@ -191,6 +191,7 @@ namespace Dresscode
                 textBox_email_password.Enabled = true;
                 textBox_smtp.Enabled = true;
                 textBox_email_body.Enabled = true;
+                checkBox1.Enabled = true;
             }
             else
             {
@@ -206,6 +207,7 @@ namespace Dresscode
                 textBox_email_password.Enabled = false;
                 textBox_smtp.Enabled = false;
                 textBox_email_body.Enabled = false;
+                checkBox1.Enabled = false;
             }
         }
 
@@ -311,6 +313,20 @@ namespace Dresscode
             {
                 looping = true;
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                textBox_email_password.PasswordChar = (char)0;
+                
+            }
+            else
+            {
+                textBox_email_password.PasswordChar = '*';
+            }
+
         }
     }
 }

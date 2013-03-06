@@ -62,6 +62,7 @@
             this.button_clear_console = new System.Windows.Forms.Button();
             this.button_save_console = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
@@ -154,6 +155,7 @@
             // 
             // groupBox_settings
             // 
+            this.groupBox_settings.Controls.Add(this.checkBox1);
             this.groupBox_settings.Controls.Add(this.label9);
             this.groupBox_settings.Controls.Add(this.textBox_smtp);
             this.groupBox_settings.Controls.Add(this.label8);
@@ -210,7 +212,8 @@
             this.textBox_email_password.Enabled = false;
             this.textBox_email_password.Location = new System.Drawing.Point(88, 138);
             this.textBox_email_password.Name = "textBox_email_password";
-            this.textBox_email_password.Size = new System.Drawing.Size(327, 20);
+            this.textBox_email_password.PasswordChar = '*';
+            this.textBox_email_password.Size = new System.Drawing.Size(268, 20);
             this.textBox_email_password.TabIndex = 15;
             // 
             // label7
@@ -421,6 +424,18 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Location = new System.Drawing.Point(362, 141);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(53, 17);
+            this.checkBox1.TabIndex = 19;
+            this.checkBox1.Text = "Show";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Email
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -480,5 +495,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox_email_password;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
