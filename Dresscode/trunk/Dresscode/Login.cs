@@ -25,24 +25,25 @@ namespace Dresscode
             {
                 global.oleconnection.Open();
                 OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM Teachers";
+                getteacherscommand.CommandText = "SELECT * FROM Teachers WHERE teacherid='" + textbox_teacherid.Text + "' AND password='"+ textbox_password.Text +"'";
                 OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
                 while (getteacher.Read())
                 {
+                    
                     if (real == false)
                     {
                         if (textbox_teacherid.Text.Contains(getteacher["teacherid"].ToString()))
                         {
                             if (textbox_password.Text.Contains(getteacher["password"].ToString()))
                             {
-
                                 frm_dresscode.teacherfirstname = getteacher["firstname"].ToString();
                                 frm_dresscode.teacherlastname = getteacher["lastname"].ToString();
                                 frm_dresscode.teacherid = getteacher["teacherid"].ToString();
-                                if (getteacher["admin"].ToString() == "Yes" || getteacher["admin"].ToString() == "yes")
+                                if(getteacher["admin"].ToString() == "yes" || getteacher["admin"].ToString() == "Yes")
+                                {
                                     frm_dresscode.admin = true;
+                                }
                                 real = true;
-                                break;
                             }
                         }
                     }

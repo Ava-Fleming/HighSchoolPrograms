@@ -62,9 +62,9 @@
             this.tabPage_console = new System.Windows.Forms.TabPage();
             this.button_clear_console = new System.Windows.Forms.Button();
             this.button_save_console = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
@@ -437,10 +437,6 @@
             this.button_save_console.UseVisualStyleBackColor = true;
             this.button_save_console.Click += new System.EventHandler(this.button_save_console_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.dataGridView1);
@@ -449,7 +445,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(438, 438);
             this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Data Preview";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -459,6 +455,10 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(423, 426);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Email
             // 

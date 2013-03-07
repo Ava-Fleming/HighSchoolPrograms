@@ -221,7 +221,7 @@ forthnineweeksend;
                         }
                         label_totalinfractions.Text = "Total Infractions: " + (totalinfractions++);
                     }
-                    if (submitted && county >= 6)
+                    if (submitted && county >= 5)
                     {
                         MessageBox.Show("A referal is required for this report.", "Referal Required");
                         submitted = false;
@@ -268,7 +268,7 @@ forthnineweeksend;
                     infraction = combobox_infraction.Text;
                     if (infraction != "")
                     {
-                        DialogResult verification = MessageBox.Show("Is this correct?\nStudent Name: " + firstname + " " + lastname + "\nGrade: " + grade + "\nPeriod: #" + period + "\nInfractured by: (" + teacherid + ") " + teacherfirstname + " " + teacherlastname + "\nDate: " + DateTime.Now.ToShortDateString() + "\nInfraction: " + infraction + "\nDetails: " + details, "Verify your infraction", MessageBoxButtons.YesNo);
+                        DialogResult verification = MessageBox.Show("Is this correct?\nStudent Name: " + firstname + " " + lastname + "\nGrade: " + grade + "\nStudent ID: " + studentid + "\nPeriod: #" + period + "\nInfractured by: (" + teacherid + ") " + teacherfirstname + " " + teacherlastname + "\nDate: " + DateTime.Now.ToShortDateString() + "\nInfraction: " + infraction + "\nDetails: " + details, "Verify your infraction", MessageBoxButtons.YesNo);
                         if (verification == DialogResult.Yes)
                         {
                             try
@@ -312,7 +312,6 @@ forthnineweeksend;
         private void form_dresscode_Load(object sender, EventArgs e)
         {
             button_clear.PerformClick();
-            admin = true;
             if (admin)
             {
                 menuStrip1.Enabled = true;
