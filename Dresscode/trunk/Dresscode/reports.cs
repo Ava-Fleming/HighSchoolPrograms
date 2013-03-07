@@ -111,17 +111,6 @@ forthnineweeksend;
 
                 sql = "SELECT * FROM INFRACTIONS WHERE";
                 Boolean hasStarted = false;
-                //
-                int year = datetimepicker_date_start.Value.Date.Year;
-                int month = datetimepicker_date_start.Value.Date.Month;
-                int day = datetimepicker_date_start.Value.Date.Day;
-                DateTime theDate = new DateTime(year, month, day);
-                int startdate = theDate.DayOfYear;
-                year = datetimepicker_date_end.Value.Date.Year;
-                month = datetimepicker_date_end.Value.Date.Month;
-                day = datetimepicker_date_end.Value.Date.Day;
-                theDate = new DateTime(year, month, day);
-                int enddate = theDate.DayOfYear;
 
                 if (checkBox_date_single.Checked)
                 {
@@ -228,6 +217,87 @@ forthnineweeksend;
                     }
                     sql += " `First Name` = '" + firstname + "' AND `Last Name` = '" + lastname + "' AND `Student ID`='" + studentid + "'";
                     hasStarted = true;
+                }
+                if (checkBox1.Checked)
+                {
+                    wtfbrah = false;
+                    if (checkBox2.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        DateTime startdate = new DateTime();
+                        DateTime enddate = new DateTime();
+                        if (comboBox1.Text == "1st 9 weeks")
+                        {
+                            startdate = firstnineweeksstart;
+                        }
+                        if (comboBox1.Text == "2nd 9 weeks")
+                        {
+                            startdate = secondtnineweeksstart;
+                        }
+                        if (comboBox1.Text == "3rd 9 weeks")
+                        {
+                            startdate = thirdnineweeksstart;
+                        }
+                        if (comboBox1.Text == "4th 9 weeks")
+                        {
+                            enddate = forthnineweeksstart;
+                        }
+                        if (comboBox2.Text == "1st 9 weeks")
+                        {
+                            enddate = firstnineweeksend;
+                        }
+                        if (comboBox2.Text == "2nd 9 weeks")
+                        {
+                            enddate = secondnineweeksend;
+                        }
+                        if (comboBox2.Text == "3rd 9 weeks")
+                        {
+                            enddate = thirdnineweeksend;
+                        }
+                        if (comboBox2.Text == "4th 9 weeks")
+                        {
+                            enddate = forthnineweeksend;
+                        }
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
+                        sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        if (comboBox1.Text == "1st 9 weeks")
+                        {
+                            sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
+                        }
+                        if (comboBox1.Text == "2nd 9 weeks")
+                        {
+                            sql += " `Report Date` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                        }
+                        if (comboBox1.Text == "3rd 9 weeks")
+                        {
+                            sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
+                        }
+                        if (comboBox1.Text == "4th 9 weeks")
+                        {
+                            sql += " `Report Date` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                        }
+                        hasStarted = true;
+                    }
+                }
+                if (checkBox_grade_single.Checked)
+                {
+                    wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                    if(comboBox3.Text == "1st semster")
+                        sql += " `Report Date` BETWEEN #" + firstnineweeksstart + " AND #" + secondnineweeksend + "#";
+                    if (comboBox3.Text == "2nd semster")
+                        sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + " AND #" + forthnineweeksend + "#";
+                        hasStarted = true;
                 }
                 if (wtfbrah)
                 {
@@ -583,6 +653,53 @@ forthnineweeksend;
         {
             settings sets = new settings();
             sets.ShowDialog();
+        }
+
+        private void dataGridView_reports_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            e.Cancel = false;
+            DialogResult dr = MessageBox.Show("Are you sure you want to delete?", "Confirmation", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                comboBox1.Enabled = true;
+                checkBox2.Enabled = true;
+            }
+            else
+            {
+                comboBox1.Enabled = false;
+                checkBox2.Enabled = false;
+                comboBox2.Enabled = false;
+            }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+            {
+                comboBox2.Enabled = true;
+                comboBox2.Enabled = true;
+            }
+            else
+            {
+                comboBox2.Enabled = false;
+                comboBox2.Enabled = false;
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked)
+                comboBox3.Enabled = true;
+            else
+                comboBox3.Enabled = false;
         }
     }
 }

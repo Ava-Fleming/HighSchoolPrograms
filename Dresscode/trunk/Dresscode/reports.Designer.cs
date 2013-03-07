@@ -59,6 +59,12 @@
             this.label_total_reports = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -81,7 +87,7 @@
             // 
             this.combobox_teacher.Enabled = false;
             this.combobox_teacher.FormattingEnabled = true;
-            this.combobox_teacher.Location = new System.Drawing.Point(126, 43);
+            this.combobox_teacher.Location = new System.Drawing.Point(126, 95);
             this.combobox_teacher.Name = "combobox_teacher";
             this.combobox_teacher.Size = new System.Drawing.Size(121, 21);
             this.combobox_teacher.TabIndex = 5;
@@ -89,7 +95,7 @@
             // label_viewing
             // 
             this.label_viewing.AutoSize = true;
-            this.label_viewing.Location = new System.Drawing.Point(15, 207);
+            this.label_viewing.Location = new System.Drawing.Point(15, 248);
             this.label_viewing.Name = "label_viewing";
             this.label_viewing.Size = new System.Drawing.Size(94, 13);
             this.label_viewing.TabIndex = 7;
@@ -97,7 +103,7 @@
             // 
             // button_retrieve
             // 
-            this.button_retrieve.Location = new System.Drawing.Point(12, 410);
+            this.button_retrieve.Location = new System.Drawing.Point(12, 451);
             this.button_retrieve.Name = "button_retrieve";
             this.button_retrieve.Size = new System.Drawing.Size(132, 23);
             this.button_retrieve.TabIndex = 9;
@@ -119,7 +125,7 @@
             // checkBox_teacher
             // 
             this.checkBox_teacher.AutoSize = true;
-            this.checkBox_teacher.Location = new System.Drawing.Point(6, 45);
+            this.checkBox_teacher.Location = new System.Drawing.Point(6, 97);
             this.checkBox_teacher.Name = "checkBox_teacher";
             this.checkBox_teacher.Size = new System.Drawing.Size(114, 17);
             this.checkBox_teacher.TabIndex = 11;
@@ -129,6 +135,12 @@
             // 
             // groupBox_search
             // 
+            this.groupBox_search.Controls.Add(this.comboBox3);
+            this.groupBox_search.Controls.Add(this.checkBox3);
+            this.groupBox_search.Controls.Add(this.checkBox2);
+            this.groupBox_search.Controls.Add(this.comboBox2);
+            this.groupBox_search.Controls.Add(this.comboBox1);
+            this.groupBox_search.Controls.Add(this.checkBox1);
             this.groupBox_search.Controls.Add(this.label1);
             this.groupBox_search.Controls.Add(this.label_student_firstname);
             this.groupBox_search.Controls.Add(this.comboBox_student_last);
@@ -152,7 +164,7 @@
             this.groupBox_search.Controls.Add(this.combobox_teacher);
             this.groupBox_search.Location = new System.Drawing.Point(12, 25);
             this.groupBox_search.Name = "groupBox_search";
-            this.groupBox_search.Size = new System.Drawing.Size(489, 179);
+            this.groupBox_search.Size = new System.Drawing.Size(489, 220);
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
@@ -161,7 +173,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(296, 149);
+            this.label1.Location = new System.Drawing.Point(296, 201);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 29;
@@ -170,7 +182,7 @@
             // label_student_firstname
             // 
             this.label_student_firstname.AutoSize = true;
-            this.label_student_firstname.Location = new System.Drawing.Point(119, 146);
+            this.label_student_firstname.Location = new System.Drawing.Point(119, 198);
             this.label_student_firstname.Name = "label_student_firstname";
             this.label_student_firstname.Size = new System.Drawing.Size(60, 13);
             this.label_student_firstname.TabIndex = 28;
@@ -180,7 +192,7 @@
             // 
             this.comboBox_student_last.Enabled = false;
             this.comboBox_student_last.FormattingEnabled = true;
-            this.comboBox_student_last.Location = new System.Drawing.Point(363, 145);
+            this.comboBox_student_last.Location = new System.Drawing.Point(363, 197);
             this.comboBox_student_last.Name = "comboBox_student_last";
             this.comboBox_student_last.Size = new System.Drawing.Size(107, 21);
             this.comboBox_student_last.TabIndex = 27;
@@ -189,7 +201,7 @@
             // checkBox_student
             // 
             this.checkBox_student.AutoSize = true;
-            this.checkBox_student.Location = new System.Drawing.Point(6, 145);
+            this.checkBox_student.Location = new System.Drawing.Point(6, 197);
             this.checkBox_student.Name = "checkBox_student";
             this.checkBox_student.Size = new System.Drawing.Size(111, 17);
             this.checkBox_student.TabIndex = 26;
@@ -201,7 +213,7 @@
             // 
             this.comboBox_student_firstname.Enabled = false;
             this.comboBox_student_firstname.FormattingEnabled = true;
-            this.comboBox_student_firstname.Location = new System.Drawing.Point(181, 143);
+            this.comboBox_student_firstname.Location = new System.Drawing.Point(181, 195);
             this.comboBox_student_firstname.Name = "comboBox_student_firstname";
             this.comboBox_student_firstname.Size = new System.Drawing.Size(109, 21);
             this.comboBox_student_firstname.TabIndex = 25;
@@ -210,7 +222,7 @@
             // numericUpDown_grade_end
             // 
             this.numericUpDown_grade_end.Enabled = false;
-            this.numericUpDown_grade_end.Location = new System.Drawing.Point(241, 119);
+            this.numericUpDown_grade_end.Location = new System.Drawing.Point(241, 171);
             this.numericUpDown_grade_end.Maximum = new decimal(new int[] {
             12,
             0,
@@ -234,7 +246,7 @@
             // 
             this.checkBox_grade_range.AutoSize = true;
             this.checkBox_grade_range.Enabled = false;
-            this.checkBox_grade_range.Location = new System.Drawing.Point(177, 120);
+            this.checkBox_grade_range.Location = new System.Drawing.Point(177, 172);
             this.checkBox_grade_range.Name = "checkBox_grade_range";
             this.checkBox_grade_range.Size = new System.Drawing.Size(58, 17);
             this.checkBox_grade_range.TabIndex = 23;
@@ -245,7 +257,7 @@
             // numericUpDown_grade_start
             // 
             this.numericUpDown_grade_start.Enabled = false;
-            this.numericUpDown_grade_start.Location = new System.Drawing.Point(122, 119);
+            this.numericUpDown_grade_start.Location = new System.Drawing.Point(122, 171);
             this.numericUpDown_grade_start.Maximum = new decimal(new int[] {
             12,
             0,
@@ -268,7 +280,7 @@
             // checkBox_grade_single
             // 
             this.checkBox_grade_single.AutoSize = true;
-            this.checkBox_grade_single.Location = new System.Drawing.Point(7, 117);
+            this.checkBox_grade_single.Location = new System.Drawing.Point(7, 169);
             this.checkBox_grade_single.Name = "checkBox_grade_single";
             this.checkBox_grade_single.Size = new System.Drawing.Size(107, 17);
             this.checkBox_grade_single.TabIndex = 21;
@@ -279,7 +291,7 @@
             // numericUpDown_period_end
             // 
             this.numericUpDown_period_end.Enabled = false;
-            this.numericUpDown_period_end.Location = new System.Drawing.Point(241, 93);
+            this.numericUpDown_period_end.Location = new System.Drawing.Point(241, 145);
             this.numericUpDown_period_end.Maximum = new decimal(new int[] {
             7,
             0,
@@ -303,7 +315,7 @@
             // 
             this.checkBox_period_range.AutoSize = true;
             this.checkBox_period_range.Enabled = false;
-            this.checkBox_period_range.Location = new System.Drawing.Point(177, 94);
+            this.checkBox_period_range.Location = new System.Drawing.Point(177, 146);
             this.checkBox_period_range.Name = "checkBox_period_range";
             this.checkBox_period_range.Size = new System.Drawing.Size(58, 17);
             this.checkBox_period_range.TabIndex = 19;
@@ -314,7 +326,7 @@
             // numericUpDown_period_start
             // 
             this.numericUpDown_period_start.Enabled = false;
-            this.numericUpDown_period_start.Location = new System.Drawing.Point(122, 93);
+            this.numericUpDown_period_start.Location = new System.Drawing.Point(122, 145);
             this.numericUpDown_period_start.Maximum = new decimal(new int[] {
             7,
             0,
@@ -337,7 +349,7 @@
             // checkBox_period_single
             // 
             this.checkBox_period_single.AutoSize = true;
-            this.checkBox_period_single.Location = new System.Drawing.Point(7, 93);
+            this.checkBox_period_single.Location = new System.Drawing.Point(7, 145);
             this.checkBox_period_single.Name = "checkBox_period_single";
             this.checkBox_period_single.Size = new System.Drawing.Size(108, 17);
             this.checkBox_period_single.TabIndex = 17;
@@ -349,7 +361,7 @@
             // 
             this.comboBox_infraction_select.Enabled = false;
             this.comboBox_infraction_select.FormattingEnabled = true;
-            this.comboBox_infraction_select.Location = new System.Drawing.Point(126, 69);
+            this.comboBox_infraction_select.Location = new System.Drawing.Point(126, 121);
             this.comboBox_infraction_select.Name = "comboBox_infraction_select";
             this.comboBox_infraction_select.Size = new System.Drawing.Size(121, 21);
             this.comboBox_infraction_select.TabIndex = 16;
@@ -357,7 +369,7 @@
             // checkBox_infraction
             // 
             this.checkBox_infraction.AutoSize = true;
-            this.checkBox_infraction.Location = new System.Drawing.Point(7, 69);
+            this.checkBox_infraction.Location = new System.Drawing.Point(7, 121);
             this.checkBox_infraction.Name = "checkBox_infraction";
             this.checkBox_infraction.Size = new System.Drawing.Size(118, 17);
             this.checkBox_infraction.TabIndex = 15;
@@ -389,15 +401,16 @@
             // dataGridView_reports
             // 
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_reports.Location = new System.Drawing.Point(12, 223);
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 264);
             this.dataGridView_reports.Name = "dataGridView_reports";
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 13;
             this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
+            this.dataGridView_reports.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_reports_UserDeletingRow);
             // 
             // button_update
             // 
-            this.button_update.Location = new System.Drawing.Point(216, 410);
+            this.button_update.Location = new System.Drawing.Point(216, 451);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(118, 23);
             this.button_update.TabIndex = 14;
@@ -407,7 +420,7 @@
             // 
             // button_export_excel
             // 
-            this.button_export_excel.Location = new System.Drawing.Point(388, 410);
+            this.button_export_excel.Location = new System.Drawing.Point(388, 451);
             this.button_export_excel.Name = "button_export_excel";
             this.button_export_excel.Size = new System.Drawing.Size(113, 23);
             this.button_export_excel.TabIndex = 15;
@@ -418,7 +431,7 @@
             // label_nineweeks
             // 
             this.label_nineweeks.AutoSize = true;
-            this.label_nineweeks.Location = new System.Drawing.Point(156, 207);
+            this.label_nineweeks.Location = new System.Drawing.Point(156, 248);
             this.label_nineweeks.Name = "label_nineweeks";
             this.label_nineweeks.Size = new System.Drawing.Size(109, 13);
             this.label_nineweeks.TabIndex = 30;
@@ -427,7 +440,7 @@
             // label_total_reports
             // 
             this.label_total_reports.AutoSize = true;
-            this.label_total_reports.Location = new System.Drawing.Point(327, 207);
+            this.label_total_reports.Location = new System.Drawing.Point(327, 248);
             this.label_total_reports.Name = "label_total_reports";
             this.label_total_reports.Size = new System.Drawing.Size(77, 13);
             this.label_total_reports.TabIndex = 31;
@@ -450,11 +463,82 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 43);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(113, 17);
+            this.checkBox1.TabIndex = 30;
+            this.checkBox1.Text = "Select by 9 weeks";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "1st 9 weeks",
+            "2nd 9 weeks",
+            "3rd 9 weeks",
+            "4th 9 weeks"});
+            this.comboBox1.Location = new System.Drawing.Point(126, 41);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(63, 21);
+            this.comboBox1.TabIndex = 31;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "1st 9 weeks",
+            "2nd 9 weeks",
+            "3rd 9 weeks",
+            "4th 9 weeks"});
+            this.comboBox2.Location = new System.Drawing.Point(259, 41);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(63, 21);
+            this.comboBox2.TabIndex = 32;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
+            this.checkBox2.Location = new System.Drawing.Point(195, 43);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(58, 17);
+            this.checkBox2.TabIndex = 33;
+            this.checkBox2.Text = "Range";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "1st semester",
+            "2nd semester"});
+            this.comboBox3.Location = new System.Drawing.Point(129, 68);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(63, 21);
+            this.comboBox3.TabIndex = 35;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(6, 70);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(117, 17);
+            this.checkBox3.TabIndex = 34;
+            this.checkBox3.Text = "Select by Semester";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 445);
+            this.ClientSize = new System.Drawing.Size(513, 486);
             this.Controls.Add(this.label_total_reports);
             this.Controls.Add(this.label_nineweeks);
             this.Controls.Add(this.button_export_excel);
@@ -466,7 +550,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "reports";
-            this.Text = "reports";
+            this.Text = "Reports";
             this.Load += new System.EventHandler(this.reports_Load);
             this.groupBox_search.ResumeLayout(false);
             this.groupBox_search.PerformLayout();
@@ -515,6 +599,12 @@
         private System.Windows.Forms.Label label_total_reports;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.CheckBox checkBox3;
 
     }
 }
