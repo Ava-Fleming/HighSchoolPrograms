@@ -35,6 +35,12 @@
             this.checkBox_date_single = new System.Windows.Forms.CheckBox();
             this.checkBox_teacher = new System.Windows.Forms.CheckBox();
             this.groupBox_search = new System.Windows.Forms.GroupBox();
+            this.comboBox_semster = new System.Windows.Forms.ComboBox();
+            this.checkBox_semester = new System.Windows.Forms.CheckBox();
+            this.checkBox_9weeksend = new System.Windows.Forms.CheckBox();
+            this.comboBox_9weeksend = new System.Windows.Forms.ComboBox();
+            this.comboBox_9weeksstart = new System.Windows.Forms.ComboBox();
+            this.checkBox_9weeksstart = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label_student_firstname = new System.Windows.Forms.Label();
             this.comboBox_student_last = new System.Windows.Forms.ComboBox();
@@ -59,12 +65,6 @@
             this.label_total_reports = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -135,12 +135,12 @@
             // 
             // groupBox_search
             // 
-            this.groupBox_search.Controls.Add(this.comboBox3);
-            this.groupBox_search.Controls.Add(this.checkBox3);
-            this.groupBox_search.Controls.Add(this.checkBox2);
-            this.groupBox_search.Controls.Add(this.comboBox2);
-            this.groupBox_search.Controls.Add(this.comboBox1);
-            this.groupBox_search.Controls.Add(this.checkBox1);
+            this.groupBox_search.Controls.Add(this.comboBox_semster);
+            this.groupBox_search.Controls.Add(this.checkBox_semester);
+            this.groupBox_search.Controls.Add(this.checkBox_9weeksend);
+            this.groupBox_search.Controls.Add(this.comboBox_9weeksend);
+            this.groupBox_search.Controls.Add(this.comboBox_9weeksstart);
+            this.groupBox_search.Controls.Add(this.checkBox_9weeksstart);
             this.groupBox_search.Controls.Add(this.label1);
             this.groupBox_search.Controls.Add(this.label_student_firstname);
             this.groupBox_search.Controls.Add(this.comboBox_student_last);
@@ -169,6 +169,80 @@
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
             this.groupBox_search.Enter += new System.EventHandler(this.groupBox_search_Enter);
+            // 
+            // comboBox_semster
+            // 
+            this.comboBox_semster.Enabled = false;
+            this.comboBox_semster.FormattingEnabled = true;
+            this.comboBox_semster.Items.AddRange(new object[] {
+            "1st semester",
+            "2nd semester"});
+            this.comboBox_semster.Location = new System.Drawing.Point(129, 68);
+            this.comboBox_semster.Name = "comboBox_semster";
+            this.comboBox_semster.Size = new System.Drawing.Size(63, 21);
+            this.comboBox_semster.TabIndex = 35;
+            // 
+            // checkBox_semester
+            // 
+            this.checkBox_semester.AutoSize = true;
+            this.checkBox_semester.Location = new System.Drawing.Point(6, 70);
+            this.checkBox_semester.Name = "checkBox_semester";
+            this.checkBox_semester.Size = new System.Drawing.Size(117, 17);
+            this.checkBox_semester.TabIndex = 34;
+            this.checkBox_semester.Text = "Select by Semester";
+            this.checkBox_semester.UseVisualStyleBackColor = true;
+            this.checkBox_semester.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
+            // checkBox_9weeksend
+            // 
+            this.checkBox_9weeksend.AutoSize = true;
+            this.checkBox_9weeksend.Enabled = false;
+            this.checkBox_9weeksend.Location = new System.Drawing.Point(195, 43);
+            this.checkBox_9weeksend.Name = "checkBox_9weeksend";
+            this.checkBox_9weeksend.Size = new System.Drawing.Size(58, 17);
+            this.checkBox_9weeksend.TabIndex = 33;
+            this.checkBox_9weeksend.Text = "Range";
+            this.checkBox_9weeksend.UseVisualStyleBackColor = true;
+            this.checkBox_9weeksend.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
+            // comboBox_9weeksend
+            // 
+            this.comboBox_9weeksend.Enabled = false;
+            this.comboBox_9weeksend.FormattingEnabled = true;
+            this.comboBox_9weeksend.Items.AddRange(new object[] {
+            "1st 9 weeks",
+            "2nd 9 weeks",
+            "3rd 9 weeks",
+            "4th 9 weeks"});
+            this.comboBox_9weeksend.Location = new System.Drawing.Point(259, 41);
+            this.comboBox_9weeksend.Name = "comboBox_9weeksend";
+            this.comboBox_9weeksend.Size = new System.Drawing.Size(63, 21);
+            this.comboBox_9weeksend.TabIndex = 32;
+            // 
+            // comboBox_9weeksstart
+            // 
+            this.comboBox_9weeksstart.Enabled = false;
+            this.comboBox_9weeksstart.FormattingEnabled = true;
+            this.comboBox_9weeksstart.Items.AddRange(new object[] {
+            "1st 9 weeks",
+            "2nd 9 weeks",
+            "3rd 9 weeks",
+            "4th 9 weeks"});
+            this.comboBox_9weeksstart.Location = new System.Drawing.Point(126, 41);
+            this.comboBox_9weeksstart.Name = "comboBox_9weeksstart";
+            this.comboBox_9weeksstart.Size = new System.Drawing.Size(63, 21);
+            this.comboBox_9weeksstart.TabIndex = 31;
+            // 
+            // checkBox_9weeksstart
+            // 
+            this.checkBox_9weeksstart.AutoSize = true;
+            this.checkBox_9weeksstart.Location = new System.Drawing.Point(7, 43);
+            this.checkBox_9weeksstart.Name = "checkBox_9weeksstart";
+            this.checkBox_9weeksstart.Size = new System.Drawing.Size(113, 17);
+            this.checkBox_9weeksstart.TabIndex = 30;
+            this.checkBox_9weeksstart.Text = "Select by 9 weeks";
+            this.checkBox_9weeksstart.UseVisualStyleBackColor = true;
+            this.checkBox_9weeksstart.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label1
             // 
@@ -463,77 +537,6 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 43);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(113, 17);
-            this.checkBox1.TabIndex = 30;
-            this.checkBox1.Text = "Select by 9 weeks";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "1st 9 weeks",
-            "2nd 9 weeks",
-            "3rd 9 weeks",
-            "4th 9 weeks"});
-            this.comboBox1.Location = new System.Drawing.Point(126, 41);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(63, 21);
-            this.comboBox1.TabIndex = 31;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "1st 9 weeks",
-            "2nd 9 weeks",
-            "3rd 9 weeks",
-            "4th 9 weeks"});
-            this.comboBox2.Location = new System.Drawing.Point(259, 41);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(63, 21);
-            this.comboBox2.TabIndex = 32;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Enabled = false;
-            this.checkBox2.Location = new System.Drawing.Point(195, 43);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(58, 17);
-            this.checkBox2.TabIndex = 33;
-            this.checkBox2.Text = "Range";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "1st semester",
-            "2nd semester"});
-            this.comboBox3.Location = new System.Drawing.Point(129, 68);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(63, 21);
-            this.comboBox3.TabIndex = 35;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(6, 70);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(117, 17);
-            this.checkBox3.TabIndex = 34;
-            this.checkBox3.Text = "Select by Semester";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
-            // 
             // reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -599,12 +602,12 @@
         private System.Windows.Forms.Label label_total_reports;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox_9weeksend;
+        private System.Windows.Forms.ComboBox comboBox_9weeksend;
+        private System.Windows.Forms.ComboBox comboBox_9weeksstart;
+        private System.Windows.Forms.CheckBox checkBox_9weeksstart;
+        private System.Windows.Forms.ComboBox comboBox_semster;
+        private System.Windows.Forms.CheckBox checkBox_semester;
 
     }
 }
