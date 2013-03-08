@@ -83,5 +83,11 @@ namespace Dresscode
         private void Login_Load(object sender, EventArgs e)
         {
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Password pass = new Password();
+            pass.ShowDialog();
+        }
     }
 }

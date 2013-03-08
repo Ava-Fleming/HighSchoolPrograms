@@ -33,6 +33,7 @@
             this.label_user = new System.Windows.Forms.Label();
             this.label_password = new System.Windows.Forms.Label();
             this.button_login_click = new System.Windows.Forms.Button();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // textbox_teacherid
@@ -79,11 +80,23 @@
             this.button_login_click.UseVisualStyleBackColor = true;
             this.button_login_click.Click += new System.EventHandler(this.button_login_click_Click);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(30, 135);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(93, 13);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Change Password";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(159, 142);
+            this.ClientSize = new System.Drawing.Size(159, 157);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.button_login_click);
             this.Controls.Add(this.label_password);
             this.Controls.Add(this.label_user);
@@ -105,5 +118,6 @@
         private System.Windows.Forms.Label label_user;
         private System.Windows.Forms.Label label_password;
         private System.Windows.Forms.Button button_login_click;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
