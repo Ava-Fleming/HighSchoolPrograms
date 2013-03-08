@@ -33,7 +33,7 @@ namespace Dresscode
                 // database accessible to your system.
 
                 // Create a new data adapter based on the specified query.
-                dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE dayofyear BETWEEN #3/2/2013# AND #3/2/2013#", gl.oleconnection);
+                dataadapter = new OleDbDataAdapter("SELECT * FROM `Reports` WHERE dayofyear BETWEEN #3/2/2013# AND #3/2/2013#", gl.oleconnection);
 
                 // Create a command builder to generate SQL update, insert, and 
                 // delete commands based on selectCommand. These are used to 

@@ -25,7 +25,7 @@ namespace Dresscode
             {
                 global.oleconnection.Open();
                 OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM Teachers WHERE teacherid='" + textbox_teacherid.Text + "' AND password='"+ textbox_password.Text +"'";
+                getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid='" + textbox_teacherid.Text + "' AND password='"+ textbox_password.Text +"'";
                 OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
                 while (getteacher.Read())
                 {

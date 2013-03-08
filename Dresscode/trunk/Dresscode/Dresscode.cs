@@ -64,20 +64,20 @@ forthnineweeksend;
             if (combobox_firstname.Text == "" && combobox_lastname.Text != "")
             {
                 retrievalcode = 0;
-                sql = "SELECT * FROM STUDENTINFO WHERE LASTNAME='" + combobox_lastname.Text + "'";
+                sql = "SELECT * FROM `Student Info` WHERE LASTNAME='" + combobox_lastname.Text + "'";
             }
             if (combobox_firstname.Text != "" && combobox_lastname.Text == "")
             {
                 retrievalcode = 1;
-                sql = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + combobox_firstname.Text + "'";
+                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + combobox_firstname.Text + "'";
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
             {
                 firstname = combobox_firstname.Text;
                 lastname = combobox_lastname.Text;
                 retrievalcode = 2;
-                //sql = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + combobox_firstname.Text + "' AND LASTNAME='" + combobox_lastname.Text + "'";
-                sql = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
+                //sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + combobox_firstname.Text + "' AND LASTNAME='" + combobox_lastname.Text + "'";
+                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
             }
             try
             {
@@ -139,10 +139,12 @@ forthnineweeksend;
                 {
                     global.oleconnection.Open();
                     OleDbCommand recheck = global.oleconnection.CreateCommand();
-                    recheck.CommandText = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "' AND STUDENTID=" + studentid + "";
+                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "' AND STUDENTID=" + studentid + "";
                     OleDbDataReader recheckreader = recheck.ExecuteReader();
                     while (recheckreader.Read())
                     {
+                        lastname = recheckreader["LASTNAME"].ToString();
+                        firstname = recheckreader["FIRSTNAME"].ToString();
                         grade = recheckreader["GRADE"].ToString();
                     }
                     global.oleconnection.Close();
@@ -154,12 +156,12 @@ forthnineweeksend;
                     currentNineWeeks = 0;
                     currentDayOfYear = DateTime.Now.DayOfYear;
                     OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                    getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'";
+                    getinfractioncommand.CommandText = "SELECT * FROM `Reports` WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'";
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     dataGridView1.DataSource = bindingSource1;
 
                     // Create a new data adapter based on the specified query.
-                    dataadapter = new OleDbDataAdapter("SELECT * FROM INFRACTIONS WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'", global.oleconnection);
+                    dataadapter = new OleDbDataAdapter("SELECT * FROM `Reports` WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'", global.oleconnection);
 
                     // Create a command builder to generate SQL update, insert, and 
                     // delete commands based on selectCommand. These are used to 
@@ -179,7 +181,7 @@ forthnineweeksend;
 
                     dataGridView1.Columns[0].Visible = false;
                     dataGridView1.Columns[1].Visible = false;
-                    dataGridView1.Columns[11].Visible = false;
+                    //dataGridView1.Columns[11].Visible = false;
 
                     dataGridView1.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
@@ -284,7 +286,7 @@ forthnineweeksend;
                                         details.Replace('"', '\"');
                                     }
                                 }
-                                sql = "INSERT INTO INFRACTIONS VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
+                                sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                                 oledbAdapter.InsertCommand.ExecuteNonQuery();
                                 submitted = true;
@@ -311,6 +313,8 @@ forthnineweeksend;
 
         private void form_dresscode_Load(object sender, EventArgs e)
         {
+            menuStrip1.Visible = false;
+            menuStrip1.Enabled = false;
             button_clear.PerformClick();
             if (admin)
             {
@@ -322,7 +326,7 @@ forthnineweeksend;
             {
                 global.oleconnection.Open();
                 OleDbCommand getdatescommand = global.oleconnection.CreateCommand();
-                getdatescommand.CommandText = "SELECT * FROM DATES";
+                getdatescommand.CommandText = "SELECT * FROM `Nine Weeks Dates`";
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
                 while (getdateinfo.Read())
                 {
@@ -370,7 +374,7 @@ forthnineweeksend;
             textbox_details.Text = "Details";
             try
             {
-                sql = "SELECT * FROM SETTINGS";
+                sql = "SELECT * FROM `Infraction List`";
                 global.oleconnection.Open();
                 OleDbCommand getpossibleinfractionscommand = global.oleconnection.CreateCommand();
                 getpossibleinfractionscommand.CommandText = sql;

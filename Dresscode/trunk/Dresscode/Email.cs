@@ -55,7 +55,7 @@ namespace Dresscode
                     {
                         global.oleconnection.Open();
                         OleDbDataAdapter adapter = new OleDbDataAdapter();
-                        string sql = "INSERT INTO emails VALUES ('" + textBox_add_email.Text + "')";
+                        string sql = "INSERT INTO `Mailing List` VALUES ('" + textBox_add_email.Text + "')";
                         adapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                         adapter.InsertCommand.ExecuteNonQuery();
                         listBox_emails.Items.Add(textBox_add_email.Text);
@@ -82,7 +82,7 @@ namespace Dresscode
             {
                 global.oleconnection.Open();
                 OleDbCommand command = global.oleconnection.CreateCommand();
-                command.CommandText = "SELECT * FROM settings_email";
+                command.CommandText = "SELECT * FROM `Email Settings`";
                 OleDbDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -98,7 +98,7 @@ namespace Dresscode
                 global.oleconnection.Close();
                 global.oleconnection.Open();
                 command = global.oleconnection.CreateCommand();
-                command.CommandText = "SELECT * FROM emails";
+                command.CommandText = "SELECT * FROM `Mailing List`";
                 reader = command.ExecuteReader();
                 while (reader.Read())
                 {
@@ -134,7 +134,7 @@ namespace Dresscode
                 {
                     global.oleconnection.Open();
                     OleDbDataAdapter adapter = new OleDbDataAdapter();
-                    string sql = "DELETE * FROM emails WHERE emaillist ='" + listBox_emails.SelectedItem + "'";
+                    string sql = "DELETE * FROM `Mailing List` WHERE emaillist ='" + listBox_emails.SelectedItem + "'";
                     adapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                     adapter.InsertCommand.ExecuteNonQuery();
                     textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
@@ -195,14 +195,14 @@ namespace Dresscode
                 global.oleconnection.Open();
                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                 string sql = "";
-                sql = "UPDATE settings_email SET timehour='" + numericUpDown_hours.Value.ToString() + "', timeminute='" + numericUpDown_minutes.Value.ToString() + "'";
+                sql = "UPDATE `Email Settings` SET timehour='" + numericUpDown_hours.Value.ToString() + "', timeminute='" + numericUpDown_minutes.Value.ToString() + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                sql = "UPDATE settings_email SET smtpserver='" + textBox_smtp.Text + "', portnumber='" + numericUpDown_port.Value.ToString() + "'";
+                sql = "UPDATE `Email Settings` SET smtpserver='" + textBox_smtp.Text + "', portnumber='" + numericUpDown_port.Value.ToString() + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
 
-                sql = "UPDATE settings_email SET hostemail='" + textBox_host_email.Text + "', hostpassword='" + textBox_email_password.Text + "', emailsubject='" + textBox_email_subject.Text + "', emailbody='" + textBox_email_body.Text + "'";
+                sql = "UPDATE `Email Settings` SET hostemail='" + textBox_host_email.Text + "', hostpassword='" + textBox_email_password.Text + "', emailsubject='" + textBox_email_subject.Text + "', emailbody='" + textBox_email_body.Text + "'";
                 oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
                 //Console output.
@@ -263,7 +263,7 @@ namespace Dresscode
                 //--------Datagrid start ========
                 try
                 {
-                    string sql = "SELECT  * FROM INFRACTIONS WHERE `Dean Action`='None'";
+                    string sql = "SELECT  * FROM `Reports` WHERE `Dean Action`='None'";
                     dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
                     dTable.Rows.Clear();
                     cBuilder = new OleDbCommandBuilder(dAdapter);

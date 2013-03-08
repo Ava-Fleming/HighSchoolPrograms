@@ -25,28 +25,28 @@ namespace Dresscode
                 global.oleconnection.Open();
                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                 
-                sql = "UPDATE DATES SET firstnineweeksstart='" + dateTimePicker1.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET firstnineweeksstart='" + dateTimePicker1.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET firstnineweeksend='" + dateTimePicker2.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET firstnineweeksend='" + dateTimePicker2.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET secondnineweeksstart='" + dateTimePicker3.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET secondnineweeksstart='" + dateTimePicker3.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET secondnineweeksend='" + dateTimePicker4.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET secondnineweeksend='" + dateTimePicker4.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET thirdnineweeksstart='" + dateTimePicker5.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET thirdnineweeksstart='" + dateTimePicker5.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET thridnineweeksend='" + dateTimePicker6.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET thridnineweeksend='" + dateTimePicker6.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET forthnineweeksstart='" + dateTimePicker7.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET forthnineweeksstart='" + dateTimePicker7.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
-                sql = "UPDATE DATES SET forthnineweeksend='" + dateTimePicker8.Value.ToShortDateString() + "'";
+                sql = "UPDATE `Nine Weeks Dates` SET forthnineweeksend='" + dateTimePicker8.Value.ToShortDateString() + "'";
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
             }
@@ -66,7 +66,7 @@ namespace Dresscode
             {
                 global.oleconnection.Open();
                 OleDbCommand getdatecommand = global.oleconnection.CreateCommand();
-                getdatecommand.CommandText = "SELECT * FROM DATES";
+                getdatecommand.CommandText = "SELECT * FROM `Nine Weeks Dates`";
                 OleDbDataReader getdate = getdatecommand.ExecuteReader();
                 while (getdate.Read())
                 {

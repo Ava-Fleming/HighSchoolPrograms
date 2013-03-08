@@ -136,6 +136,12 @@
     <Compile Include="Splashscreen.Designer.cs">
       <DependentUpon>Splashscreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Student Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Student Editor.Designer.cs">
+      <DependentUpon>Student Editor.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="dgt.resx">
       <DependentUpon>dgt.cs</DependentUpon>
     </EmbeddedResource>
@@ -169,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Splashscreen.resx">
       <DependentUpon>Splashscreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Student Editor.resx">
+      <DependentUpon>Student Editor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

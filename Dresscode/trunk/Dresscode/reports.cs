@@ -52,7 +52,7 @@ forthnineweeksend;
             {
                 global.oleconnection.Open();
                 OleDbCommand getdatescommand = global.oleconnection.CreateCommand();
-                getdatescommand.CommandText = "SELECT * FROM DATES";
+                getdatescommand.CommandText = "SELECT * FROM `Nine Weeks Dates`";
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
                 while (getdateinfo.Read())
                 {
@@ -76,7 +76,7 @@ forthnineweeksend;
             {
                 global.oleconnection.Open();
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                getinfractioncommand.CommandText = "SELECT * FROM INFRACTIONS";
+                getinfractioncommand.CommandText = "SELECT * FROM `Reports`";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
@@ -93,7 +93,7 @@ forthnineweeksend;
             {
                 global.oleconnection.Open();
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                getinfractioncommand.CommandText = "SELECT * FROM settings";
+                getinfractioncommand.CommandText = "SELECT * FROM `Infraction List`";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
@@ -109,7 +109,7 @@ forthnineweeksend;
             if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
             {
 
-                sql = "SELECT * FROM INFRACTIONS WHERE";
+                sql = "SELECT * FROM `Reports` WHERE";
                 Boolean hasStarted = false;
 
                 if (checkBox_date_single.Checked)
@@ -119,7 +119,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
+                        //sql = "SELECT * FROM `Reports` WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
                         sql += " `Report Date` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
@@ -127,7 +127,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE dayofyear >= " + startdate + "";
+                        //sql = "SELECT * FROM `Reports` WHERE dayofyear >= " + startdate + "";
                         sql += " `Report Date` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
@@ -138,7 +138,7 @@ forthnineweeksend;
                     wtfbrah = false;
                     if (hasStarted)
                         sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE teachername = '" + combobox_teacher.Text + "'";
+                    //sql = "SELECT * FROM `Reports` WHERE teachername = '" + combobox_teacher.Text + "'";
                     sql += " Teacher = '" + combobox_teacher.Text + "'";
                     hasStarted = true;
                 }
@@ -147,7 +147,7 @@ forthnineweeksend;
                     wtfbrah = false;
                     if (hasStarted)
                         sql += " AND";
-                    //sql = "SELECT * FROM INFRACTIONS WHERE infraction = '" + comboBox_infraction_select.Text + "'";
+                    //sql = "SELECT * FROM `Reports` WHERE infraction = '" + comboBox_infraction_select.Text + "'";
                     sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
                     hasStarted = true;
                 }
@@ -158,7 +158,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
                         sql += " Period >= " + numericUpDown_period_start.Value.ToString() + " AND Period <= " + numericUpDown_period_end.Value.ToString() + "";
                         hasStarted = true;
                     }
@@ -166,7 +166,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                         sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
                         hasStarted = true;
                     }
@@ -178,16 +178,16 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
-                        sql += " Grade >= '" + numericUpDown_grade_start.Value.ToString() + "' AND Grade <= '" + numericUpDown_grade_end.Value.ToString() + "'";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
+                        sql += " Grade >= " + numericUpDown_grade_start.Value.ToString() + " AND Grade <= " + numericUpDown_grade_end.Value.ToString() + "";
                         hasStarted = true;
                     }
                     else
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
-                        sql += " Grade = '" + numericUpDown_grade_start.Value.ToString() + "'";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        sql += " Grade = " + numericUpDown_grade_start.Value.ToString() + "";
                         hasStarted = true;
                     }
                 }
@@ -259,7 +259,7 @@ forthnineweeksend;
                         {
                             enddate = forthnineweeksend;
                         }
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
                         sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
                         hasStarted = true;
                     }
@@ -267,7 +267,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                         if (comboBox_9weeksstart.Text == "1st 9 weeks")
                         {
                             sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
@@ -293,7 +293,7 @@ forthnineweeksend;
                         if (hasStarted)
                             sql += " AND";
 
-                        //sql = "SELECT * FROM INFRACTIONS WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
+                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                     if(comboBox_semster.Text == "1st semester")
                         sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
                     if (comboBox_semster.Text == "2nd semester")
@@ -302,7 +302,7 @@ forthnineweeksend;
                 }
                 if (wtfbrah)
                 {
-                    sql = "SELECT * FROM INFRACTIONS";
+                    sql = "SELECT * FROM `Reports`";
 
                 }
                 dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
@@ -563,19 +563,19 @@ forthnineweeksend;
             if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text != "")
             {
                 retrievalcode = 0;
-                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE LASTNAME='" + comboBox_student_last.Text + "'";
+                findstudentinfo = "SELECT * FROM `Student Info` WHERE LASTNAME='" + comboBox_student_last.Text + "'";
             }
             if (comboBox_student_firstname.Text != "" && comboBox_student_last.Text == "")
             {
                 retrievalcode = 1;
-                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + comboBox_student_firstname.Text + "'";
+                findstudentinfo = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + comboBox_student_firstname.Text + "'";
             }
             if (comboBox_student_last.Text != "" && comboBox_student_firstname.Text != "")
             {
                 firstname = comboBox_student_firstname.Text;
                 lastname = comboBox_student_last.Text;
                 retrievalcode = 2;
-                findstudentinfo = "SELECT * FROM STUDENTINFO WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
+                findstudentinfo = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
             }
             try
             {
