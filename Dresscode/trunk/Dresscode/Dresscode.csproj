@@ -85,6 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddPass.Designer.cs">
+      <DependentUpon>AddPass.cs</DependentUpon>
+    </Compile>
     <Compile Include="dgt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +148,9 @@
     <Compile Include="Student Editor.Designer.cs">
       <DependentUpon>Student Editor.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddPass.resx">
+      <DependentUpon>AddPass.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="dgt.resx">
       <DependentUpon>dgt.cs</DependentUpon>
     </EmbeddedResource>

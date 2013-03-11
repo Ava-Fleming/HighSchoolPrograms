@@ -107,6 +107,7 @@
             this.button_change_pass.TabIndex = 7;
             this.button_change_pass.Text = "Change Password";
             this.button_change_pass.UseVisualStyleBackColor = true;
+            this.button_change_pass.Click += new System.EventHandler(this.button_change_pass_Click);
             // 
             // label4
             // 
@@ -159,5 +160,7 @@
         private System.Windows.Forms.Button button_change_pass;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox_teacherID;
+        public string email;
+
     }
 }

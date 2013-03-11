@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Mail;
+using System.Data.OleDb;
 
 namespace Dresscode
 {
@@ -18,7 +19,6 @@ namespace Dresscode
             InitializeComponent();
         }
         //
-        string email;
         string oldPass;
         string SMTPHost;
         int Port;
@@ -26,30 +26,68 @@ namespace Dresscode
         string hostPass;
         string sendTo;
         string alphabet = "abcdefghijklmnopqrstuvwxyz";
+        globals global = new globals();
         //
 
         private void Password_Load(object sender, EventArgs e)
         {
             //pull old info here.
-            //also pull smtp info here.
+            try
+            {
+                global.oleconnection.Open();
+                OleDbCommand command = global.oleconnection.CreateCommand();
+                command.CommandText = "SELECT * FROM `Email Settings`";
+                OleDbDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    SMTPHost = reader["smtpserver"].ToString();
+                    host = reader["hostemail"].ToString();
+                    hostPass = reader["hostpassword"].ToString();
+                    Port = int.Parse(reader["portnumber"].ToString());
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                global.oleconnection.Close();
+            }
         }
 
         private void linkLabel_forgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (textBox_teacherID.Text != "")
             {
-                string message = "By clicking OK you conferm that this:\n" + email +
-                    "\nis your email address and you wish to have a new password emailed to you.";
+                string message = "By clicking OK you confirm that you wish to have a new password emailed to you.";
                 DialogResult dr = MessageBox.Show(message, "Password Reset", MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
                     try
                     {
+                        //database pull
+                        global.oleconnection.Open();
+                        OleDbCommand command = global.oleconnection.CreateCommand();
+                        command.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid ='" + textBox_teacherID.Text + "'";
+                        OleDbDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            sendTo = reader["email"].ToString();
+                        }
+                        if (sendTo == "" || sendTo == " ")
+                        {
+                            AddPass adp = new AddPass();
+                            adp.teacherid = textBox_teacherID.Text;
+                            adp.ShowDialog();
+                            sendTo = email;
+                        }
+                        // email
                         SmtpClient sm = new SmtpClient(SMTPHost, Port);
                         sm.EnableSsl = false;
                         sm.Credentials = new NetworkCredential(host, hostPass);
                         MailAddress from = new MailAddress(host);
-
                         MailAddress to = new MailAddress(sendTo);
                         MailMessage mMsg = new MailMessage(from, to);
                         mMsg.Subject = "Dresscode Password Reset";
@@ -76,11 +114,41 @@ namespace Dresscode
                     {
                         MessageBox.Show(x.Message);
                     }
+                    finally
+                    {
+                        global.oleconnection.Close();
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("You msut enter your teacher ID first.");
+                MessageBox.Show("You must enter your teacher ID first.");
+            }
+        }
+
+        private void button_change_pass_Click(object sender, EventArgs e)
+        {
+            if (textBox_teacherID.Text != "")
+            {
+                if (oldPass == textBox_old_pass.Text)
+                {
+                    if (oldPass == textBox_old_pass.Text)
+                    {
+                        // NEST ALL THE STATMENTS \(@_@)
+                    }
+                    else
+                    {
+                        MessageBox.Show("You must enter your old password.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You must enter your old password.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("You must enter your teacher ID first.");
             }
         }
     }
