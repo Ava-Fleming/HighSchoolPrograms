@@ -703,5 +703,11 @@ forthnineweeksend;
             else
                 comboBox_semster.Enabled = false;
         }
+
+        private void studentEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Student_Editor se = new Student_Editor();
+            se.ShowDialog();
+        }
     }
 }

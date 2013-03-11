@@ -29,7 +29,6 @@ namespace Dresscode
                 OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
                 while (getteacher.Read())
                 {
-                    
                     if (real == false)
                     {
                         if (textbox_teacherid.Text.Contains(getteacher["teacherid"].ToString()))

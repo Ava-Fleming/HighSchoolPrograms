@@ -81,17 +81,9 @@ namespace Dresscode
                             AddPass adp = new AddPass();
                             adp.teacherid = textBox_teacherID.Text;
                             adp.ShowDialog();
-                            sendTo = email;
+                            sendTo = adp.email;
                         }
-                        // email
-                        SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                        sm.EnableSsl = false;
-                        sm.Credentials = new NetworkCredential(host, hostPass);
-                        MailAddress from = new MailAddress(host);
-                        MailAddress to = new MailAddress(sendTo);
-                        MailMessage mMsg = new MailMessage(from, to);
-                        mMsg.Subject = "Dresscode Password Reset";
-                        // password generator
+                        global.oleconnection.Close();
                         Random rand = new Random();
                         string newPass = "";
                         for (int i = 0; i <= 8; i++)
@@ -105,6 +97,21 @@ namespace Dresscode
                                 newPass += alphabet[rand.Next(26)];
                             }
                         }
+                        global.oleconnection.Open();
+                        OleDbDataAdapter adpt = new OleDbDataAdapter();
+                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET password='" + newPass + "' WHERE teacherid='" + textBox_teacherID.Text + "'", global.oleconnection);
+                        adpt.UpdateCommand.ExecuteNonQuery();
+                        global.oleconnection.Close();
+                        // email
+                        SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                        sm.EnableSsl = false;
+                        sm.Credentials = new NetworkCredential(host, hostPass);
+                        MailAddress from = new MailAddress(host);
+                        MailAddress to = new MailAddress(sendTo);
+                        MailMessage mMsg = new MailMessage(from, to);
+                        mMsg.Subject = "Dresscode Password Reset";
+                        // password generator
+
                         //
                         mMsg.Body = "Your password has been changed to " + newPass + ".";
                         sm.Send(mMsg);
