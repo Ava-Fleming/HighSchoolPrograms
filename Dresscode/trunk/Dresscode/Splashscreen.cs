@@ -16,6 +16,7 @@ namespace Dresscode
         {
             InitializeComponent();
         }
+        int time = 950;
         int count = 1;
         bool connectable = false;
         globals global = new globals();
@@ -23,6 +24,8 @@ namespace Dresscode
         {
             try
             {
+                timer1.Interval = time * 4;
+                timer2.Interval = time;
                 timer1.Enabled = true;
                 timer2.Enabled = true;
                 if (NetworkInterface.GetIsNetworkAvailable())
@@ -84,7 +87,15 @@ namespace Dresscode
                 }
                 else
                 {
-                    pictureBox1.Image = Properties.Resources.markhor3;
+                    if (count == 2)
+                    {
+                        pictureBox1.Image = Properties.Resources.markhor3;
+                        count++;
+                    }
+                    else
+                    {
+                        pictureBox1.Image = Properties.Resources.morkhorcomputer2;
+                    }
                 }
             }
         }

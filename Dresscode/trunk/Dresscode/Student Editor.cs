@@ -94,5 +94,68 @@ namespace Dresscode
                 e.Handled = true;
             }
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Warning, this will erase all current students and repopulate with the selected Excel spreadsheet\nMake sure the Excel document is formated in this order \"Student ID\" \"LastName\" \"FirstName\" \"Grade\"\nDo you want to continue?", "Verification", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                try
+                {
+                    if (global.oleconnection.State == ConnectionState.Open)
+                        global.oleconnection.Close();
+                    System.Data.OleDb.OleDbConnection MyConnection;
+                    System.Data.DataSet DtSet;
+                    System.Data.OleDb.OleDbDataAdapter MyCommand;
+                    MyConnection = new System.Data.OleDb.OleDbConnection(@"provider=Microsoft.Jet.OLEDB.4.0;Data Source='U:\Book1.xls';Extended Properties=Excel 8.0;");
+                    MyCommand = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", MyConnection);
+                    MyCommand.TableMappings.Add("Table", "TestTable");
+                    DtSet = new System.Data.DataSet();
+                    MyCommand.Fill(DtSet);
+                    MyConnection.Close();
+                    DataTableReader dtr = DtSet.CreateDataReader(DtSet.Tables[0]);
+
+                    //
+
+                    //MessageBox.Show(dtr.GetValue(0).ToString() + " " + dtr.GetValue(1).ToString() + " " + dtr.GetValue(2).ToString());
+                    global.oleconnection.Open();
+                    OleDbDataAdapter doledbAdapter = new OleDbDataAdapter();
+                    string dsql = "DELETE * FROM `Student Info`";
+                    doledbAdapter.InsertCommand = new OleDbCommand(dsql, global.oleconnection);
+                    doledbAdapter.InsertCommand.ExecuteNonQuery();
+                    global.oleconnection.Close();
+
+                    //
+                    while (dtr.Read())
+                    {
+                        //MessageBox.Show(dtr.GetValue(0).ToString() + " " + dtr.GetValue(1).ToString() + " " + dtr.GetValue(2).ToString());
+                        global.oleconnection.Open();
+                        OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+                        string studentid = dtr.GetValue(0).ToString();
+                        string lastname = dtr.GetValue(1).ToString();
+                        string firstname = dtr.GetValue(2).ToString();
+                        string grade = dtr.GetValue(3).ToString();
+                        for (int i = 0; i < lastname.Length; i++)
+                        {
+                            if(lastname[i].ToString() == "'")
+                            lastname = lastname.Replace("'", " ");
+                        }
+                        for (int i = 0; i < firstname.Length; i++)
+                        {
+                            if (firstname[i].ToString() == "'")
+                            firstname = firstname.Replace("'", " ");
+                        }
+                        string sql = "INSERT INTO `Student Info` VALUES (" + studentid + ",'" + lastname + "','" + firstname + "'," + grade + ")";
+                        oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                        oledbAdapter.InsertCommand.ExecuteNonQuery();
+                        global.oleconnection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
     }
 }
