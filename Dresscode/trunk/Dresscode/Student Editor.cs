@@ -84,5 +84,15 @@ namespace Dresscode
         private void button1_Click(object sender, EventArgs e)
         {
         }
+
+        private void textBox_studentID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar)
+                && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

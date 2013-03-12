@@ -73,6 +73,7 @@
             this.textBox_studentID.Name = "textBox_studentID";
             this.textBox_studentID.Size = new System.Drawing.Size(100, 20);
             this.textBox_studentID.TabIndex = 1;
+            this.textBox_studentID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_studentID_KeyPress);
             // 
             // label3
             // 
