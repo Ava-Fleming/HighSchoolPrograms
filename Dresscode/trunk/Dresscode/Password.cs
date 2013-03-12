@@ -84,11 +84,12 @@ namespace Dresscode
                             sendTo = adp.email;
                         }
                         global.oleconnection.Close();
+                        // password generator
                         Random rand = new Random();
-                        string newPass = "";
-                        for (int i = 0; i <= 8; i++)
+                        String newPass = "";
+                        for (int i = 0; i < 8; i++)
                         {
-                            if (rand.NextDouble() > 0.75)
+                            if (rand.NextDouble() > 0.50)
                             {
                                 newPass += rand.Next(10);
                             }
@@ -97,9 +98,10 @@ namespace Dresscode
                                 newPass += alphabet[rand.Next(26)];
                             }
                         }
+                        //database
                         global.oleconnection.Open();
                         OleDbDataAdapter adpt = new OleDbDataAdapter();
-                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET password='" + newPass + "' WHERE teacherid='" + textBox_teacherID.Text + "'", global.oleconnection);
+                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [password]='" + newPass + "' WHERE [teacherid]='" + textBox_teacherID.Text + "'", global.oleconnection);
                         adpt.UpdateCommand.ExecuteNonQuery();
                         global.oleconnection.Close();
                         // email
@@ -110,10 +112,7 @@ namespace Dresscode
                         MailAddress to = new MailAddress(sendTo);
                         MailMessage mMsg = new MailMessage(from, to);
                         mMsg.Subject = "Dresscode Password Reset";
-                        // password generator
-
-                        //
-                        mMsg.Body = "Your password has been changed to " + newPass + ".";
+                        mMsg.Body = "Your password has been changed to \"" + newPass + "\".";
                         sm.Send(mMsg);
 
                     }
@@ -137,15 +136,37 @@ namespace Dresscode
         {
             if (textBox_teacherID.Text != "")
             {
+                global.oleconnection.Open();
+
+                OleDbCommand com = global.oleconnection.CreateCommand();
+                com.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid='" + textBox_teacherID.Text + "'";
+                OleDbDataReader read = com.ExecuteReader();
+                while (read.Read())
+                {
+                    oldPass = read["password"].ToString();
+                }
+                global.oleconnection.Close();
                 if (oldPass == textBox_old_pass.Text)
                 {
-                    if (oldPass == textBox_old_pass.Text)
+                    if (textBox_new_pass_first.Text != textBox_old_pass.Text)
                     {
-                        // NEST ALL THE STATMENTS \(@_@)
+                        if (textBox_new_pass_first.Text == textBox_new_pass_second.Text)
+                        {
+                            global.oleconnection.Open();
+                            OleDbDataAdapter adpt = new OleDbDataAdapter();
+                            adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [password]='" + textBox_new_pass_first.Text + "' WHERE [teacherid]='" + textBox_teacherID.Text + "'", global.oleconnection);
+                            adpt.UpdateCommand.ExecuteNonQuery();
+                            global.oleconnection.Close();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Your new password must be the same in both boxes.");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("You must enter your old password.");
+                        MessageBox.Show("Your new password can not match your old one.");
                     }
                 }
                 else
