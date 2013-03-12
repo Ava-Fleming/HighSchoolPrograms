@@ -56,6 +56,16 @@ forthnineweeksend;
         string sql = "";
         public void retrieval()
         {
+            for (int i = 0; i < lastname.Length; i++)
+            {
+                if (lastname[i].ToString() == "'")
+                    lastname = lastname.Replace("'", " ");
+            }
+            for (int i = 0; i < firstname.Length; i++)
+            {
+                if (firstname[i].ToString() == "'")
+                    firstname = firstname.Replace("'", " ");
+            }
             label_totalinfractions.Text = "Total Infractions: 0";
             #region Getbasicstudentinfo
             int retrievalcode = 0;
@@ -137,6 +147,7 @@ forthnineweeksend;
                 #region getinfractions
                 try
                 {
+
                     global.oleconnection.Open();
                     OleDbCommand recheck = global.oleconnection.CreateCommand();
                     recheck.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "' AND STUDENTID=" + studentid + "";
