@@ -202,6 +202,13 @@
     <Content Include="dc.mdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\100x100markhor.png" />
+    <Content Include="Images\50x50markhor.png" />
+    <Content Include="Images\computer.png" />
+    <Content Include="Images\morkhorcomputer2.png" />
+    <Content Include="Images\outofdresscode.png" />
+    <Content Include="Images\Presidentmarkhor.png" />
+    <Content Include="Images\thglife.png" />
     <None Include="Resources\morkhorcomputer2.png" />
     <None Include="Resources\Presidentmarkhor.png" />
     <None Include="Resources\computer.png" />
@@ -231,6 +238,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
