@@ -17,18 +17,28 @@ namespace Dresscode
             InitializeComponent();
         }
         globals global = new globals();
-        OleDbDataAdapter dAdapter;
         DataTable dTable = new DataTable();
-        OleDbCommandBuilder cBuilder;
         BindingSource bSource = new BindingSource();
         private void button2_Click(object sender, EventArgs e)
         {
+            string lastname = textBox_lastname.Text;
+            string firstname = textBox_firstname.Text;
             try
             {
+                for (int i = 0; i < lastname.Length; i++)
+                {
+                    if (lastname[i].ToString() == "'")
+                        lastname = lastname.Replace("'", "\\'");
+                }
+                for (int i = 0; i < firstname.Length; i++)
+                {
+                    if (firstname[i].ToString() == "'")
+                        firstname = firstname.Replace("'", "\\'");
+                }
                 bool newentry = true;
                 global.oleconnection.Open();
                 OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM `Student Info` WHERE STUDENTID=" + textBox_studentID.Text + " AND FIRSTNAME='" + textBox_firstname.Text + "' AND LASTNAME='" + textBox_lastname.Text + "'";
+                getteacherscommand.CommandText = "SELECT * FROM `Student Info` WHERE STUDENTID=" + textBox_studentID.Text + " AND FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
                 OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
                 while (getteacher.Read())
                 {

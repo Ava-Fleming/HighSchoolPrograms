@@ -56,6 +56,7 @@ forthnineweeksend;
         string sql = "";
         public void retrieval()
         {
+            OleDbCommand getstudentinfocommand = global.oleconnection.CreateCommand();
             for (int i = 0; i < lastname.Length; i++)
             {
                 if (lastname[i].ToString() == "'")
@@ -69,33 +70,34 @@ forthnineweeksend;
             label_totalinfractions.Text = "Total Infractions: 0";
             #region Getbasicstudentinfo
             int retrievalcode = 0;
+            firstname = combobox_firstname.Text;
+            lastname = combobox_lastname.Text;
             if (combobox_firstname.Text == "" && combobox_lastname.Text == "")
                 retrievalcode = -1;
             if (combobox_firstname.Text == "" && combobox_lastname.Text != "")
             {
                 retrievalcode = 0;
-                sql = "SELECT * FROM `Student Info` WHERE LASTNAME='" + combobox_lastname.Text + "'";
+                sql = "SELECT * FROM `Student Info` WHERE LASTNAME=@lastname";
             }
             if (combobox_firstname.Text != "" && combobox_lastname.Text == "")
             {
                 retrievalcode = 1;
-                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + combobox_firstname.Text + "'";
+                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname";
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
             {
                 firstname = combobox_firstname.Text;
                 lastname = combobox_lastname.Text;
                 retrievalcode = 2;
-                //sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + combobox_firstname.Text + "' AND LASTNAME='" + combobox_lastname.Text + "'";
-                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
+                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname";
             }
             try
             {
                 global.oleconnection.Open();
                 if (retrievalcode != -1)
                 {
-                    OleDbCommand getstudentinfocommand = global.oleconnection.CreateCommand();
                     getstudentinfocommand.CommandText = sql;
+                    getstudentinfocommand.CommandType = CommandType.Text;
                     OleDbDataReader getstudentinfo = getstudentinfocommand.ExecuteReader();
                     while (getstudentinfo.Read())
                     {
@@ -150,7 +152,9 @@ forthnineweeksend;
 
                     global.oleconnection.Open();
                     OleDbCommand recheck = global.oleconnection.CreateCommand();
-                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "' AND STUDENTID=" + studentid + "";
+                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname AND STUDENTID=" + studentid + "";
+                    recheck.Parameters.AddWithValue("firstname", combobox_firstname.Text);
+                    recheck.Parameters.AddWithValue("lastname", combobox_lastname.Text);
                     OleDbDataReader recheckreader = recheck.ExecuteReader();
                     while (recheckreader.Read())
                     {
@@ -167,23 +171,25 @@ forthnineweeksend;
                     currentNineWeeks = 0;
                     currentDayOfYear = DateTime.Now.DayOfYear;
                     OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                    getinfractioncommand.CommandText = "SELECT * FROM `Reports` WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'";
+                    string reportsstring = "SELECT * FROM `Reports` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`='" + studentid + "'";
+                    getinfractioncommand.CommandText = reportsstring;
+                    //--->
+                    getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
+                    getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     dataGridView1.DataSource = bindingSource1;
 
                     // Create a new data adapter based on the specified query.
-                    dataadapter = new OleDbDataAdapter("SELECT * FROM `Reports` WHERE `First Name`='" + firstname + "' AND `Last Name`='" + lastname + "' AND `Student ID`='" + studentid + "'", global.oleconnection);
-
+                    dataadapter = new OleDbDataAdapter(reportsstring, global.oleconnection);
                     // Create a command builder to generate SQL update, insert, and 
                     // delete commands based on selectCommand. These are used to 
                     // update the database.
                     OleDbCommandBuilder commandBuilder = new OleDbCommandBuilder(dataadapter);
-
+                    
 
                     // Populate a new data table and bind it to the BindingSource.
                     DataTable table = new DataTable();
                     table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-
                     dataadapter.Fill(table);
                     bindingSource1.DataSource = table;
 

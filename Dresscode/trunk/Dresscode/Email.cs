@@ -23,9 +23,6 @@ namespace Dresscode
         bool editmode = false;
         bool looping = false;
         StreamWriter SR;
-        SmtpClient smtp;
-        MailMessage message;
-        AttachmentCollection AC;
         globals global = new globals();
         OleDbDataAdapter dAdapter;
         DataTable dTable = new DataTable();
