@@ -19,7 +19,6 @@ namespace Dresscode
         }
         /**/
         globals global = new globals();
-        private OleDbDataAdapter dataadapter = null;
         private BindingSource bindingSource1 = new BindingSource();
         /**/
         string
@@ -78,11 +77,13 @@ forthnineweeksend;
             {
                 retrievalcode = 0;
                 sql = "SELECT * FROM `Student Info` WHERE LASTNAME=@lastname";
+                getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
             }
             if (combobox_firstname.Text != "" && combobox_lastname.Text == "")
             {
                 retrievalcode = 1;
                 sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname";
+                getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
             {
@@ -90,6 +91,8 @@ forthnineweeksend;
                 lastname = combobox_lastname.Text;
                 retrievalcode = 2;
                 sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname";
+                getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
+                getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
             }
             try
             {
@@ -97,6 +100,8 @@ forthnineweeksend;
                 if (retrievalcode != -1)
                 {
                     getstudentinfocommand.CommandText = sql;
+                    getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
+                    getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
                     getstudentinfocommand.CommandType = CommandType.Text;
                     OleDbDataReader getstudentinfo = getstudentinfocommand.ExecuteReader();
                     while (getstudentinfo.Read())
@@ -153,8 +158,8 @@ forthnineweeksend;
                     global.oleconnection.Open();
                     OleDbCommand recheck = global.oleconnection.CreateCommand();
                     recheck.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname AND STUDENTID=" + studentid + "";
-                    recheck.Parameters.AddWithValue("firstname", combobox_firstname.Text);
-                    recheck.Parameters.AddWithValue("lastname", combobox_lastname.Text);
+                    recheck.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                    recheck.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                     OleDbDataReader recheckreader = recheck.ExecuteReader();
                     while (recheckreader.Read())
                     {
@@ -174,34 +179,9 @@ forthnineweeksend;
                     string reportsstring = "SELECT * FROM `Reports` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`='" + studentid + "'";
                     getinfractioncommand.CommandText = reportsstring;
                     //--->
-                    getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
-                    getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
+                    getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                    getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
-                    dataGridView1.DataSource = bindingSource1;
-
-                    // Create a new data adapter based on the specified query.
-                    dataadapter = new OleDbDataAdapter(reportsstring, global.oleconnection);
-                    // Create a command builder to generate SQL update, insert, and 
-                    // delete commands based on selectCommand. These are used to 
-                    // update the database.
-                    OleDbCommandBuilder commandBuilder = new OleDbCommandBuilder(dataadapter);
-                    
-
-                    // Populate a new data table and bind it to the BindingSource.
-                    DataTable table = new DataTable();
-                    table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                    dataadapter.Fill(table);
-                    bindingSource1.DataSource = table;
-
-
-                    // Resize the DataGridView columns to fit the newly loaded content.
-
-                    dataGridView1.Columns[0].Visible = false;
-                    dataGridView1.Columns[1].Visible = false;
-                    //dataGridView1.Columns[11].Visible = false;
-
-                    dataGridView1.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
                     while (getinfraction.Read())
                     {
                         DateTime databasedate = DateTime.Parse(getinfraction["Report Date"].ToString());
@@ -245,6 +225,19 @@ forthnineweeksend;
                         MessageBox.Show("A referal is required for this report.", "Referal Required");
                         submitted = false;
                     }
+
+                    OleDbDataAdapter dataAdapter = new OleDbDataAdapter(reportsstring, global.oleconnection);
+                    dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                    dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                    DataSet ds = new DataSet();
+                    dataAdapter.Fill(ds);
+
+                    dataGridView1.DataSource = ds.Tables[0];
+                    global.oleconnection.Close();
+                    dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[1].Visible = false;
+                    dataGridView1.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
                 finally { global.oleconnection.Close(); }
@@ -304,7 +297,11 @@ forthnineweeksend;
                                     }
                                 }
                                 sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
+                                sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "',@firstname,@lastname,'" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "',@details,'" + "None" + "')";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                                oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                                oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                                oledbAdapter.InsertCommand.Parameters.Add("details", OleDbType.VarChar, 255).Value = details;
                                 oledbAdapter.InsertCommand.ExecuteNonQuery();
                                 submitted = true;
 
