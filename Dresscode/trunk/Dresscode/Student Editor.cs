@@ -107,11 +107,12 @@ namespace Dresscode
                 OpenFileDialog ofd = new OpenFileDialog();
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    DialogResult dr2 = MessageBox.Show("Warning, this will erase all current students and repopulate with the selected Excel spreadsheet\nMake sure the Excel document is formated in this order\n\"Student ID\" \"LastName\" \"FirstName\" \"Grade\"\nDo you want to continue?", "Verification", MessageBoxButtons.YesNo);
+                    DialogResult dr2 = MessageBox.Show("Warning, this will erase all current students and repopulate with the selected Excel spreadsheet\nMake sure the Excel document is formated in this order\n\"Student ID\" \"LastName\" \"FirstName\" \"Grade\"\nThis will reappear and notify when the operation is completed\n5-10 minutes is required to complete this operation.\nDo you want to continue?", "Verification", MessageBoxButtons.YesNo);
                     if (dr2 == DialogResult.Yes)
                     {
                         try
                         {
+                            this.Hide();
                             if (global.oleconnection.State == ConnectionState.Open)
                                 global.oleconnection.Close();
                             System.Data.OleDb.OleDbConnection MyConnection;
@@ -162,10 +163,12 @@ namespace Dresscode
                                 oledbAdapter.InsertCommand.ExecuteNonQuery();
                                 global.oleconnection.Close();
                             }
+                            this.Show();
                             MessageBox.Show("Add students have been added successfully");
                         }
                         catch (Exception ex)
                         {
+                            this.Show();
                             MessageBox.Show(ex.ToString());
                         }
                     }

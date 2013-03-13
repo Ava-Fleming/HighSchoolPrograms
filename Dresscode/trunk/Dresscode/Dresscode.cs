@@ -19,6 +19,7 @@ namespace Dresscode
         }
         /**/
         globals global = new globals();
+        DataSet ds = new DataSet();
         private BindingSource bindingSource1 = new BindingSource();
         /**/
         string
@@ -55,6 +56,7 @@ forthnineweeksend;
         string sql = "";
         public void retrieval()
         {
+            ds.Clear();
             OleDbCommand getstudentinfocommand = global.oleconnection.CreateCommand();
             for (int i = 0; i < lastname.Length; i++)
             {
@@ -229,7 +231,7 @@ forthnineweeksend;
                     OleDbDataAdapter dataAdapter = new OleDbDataAdapter(reportsstring, global.oleconnection);
                     dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                    DataSet ds = new DataSet();
+                    
                     dataAdapter.Fill(ds);
 
                     dataGridView1.DataSource = ds.Tables[0];
@@ -253,6 +255,10 @@ forthnineweeksend;
             firstname = "";
             lastname = "";
             grade = "";
+            firstname = combobox_firstname.Text;
+            lastname = combobox_lastname.Text;
+            combobox_lastname.Items.Clear();
+            combobox_firstname.Items.Clear();
             retrieval();
         }
 
@@ -368,7 +374,9 @@ forthnineweeksend;
 
         private void button_clear_Click(object sender, EventArgs e)
         {
+            ds.Clear();
             combobox_firstname.Text = "";
+            combobox_period.Text = "";
             combobox_lastname.Text = "";
             textbox_details.Clear();
             combobox_firstname.Items.Clear();
@@ -439,8 +447,17 @@ forthnineweeksend;
 
         private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            reports report = new reports();
-            report.ShowDialog();
+            try
+            {
+                this.Hide();
+                reports report = new reports();
+                report.ShowDialog();
+                this.Show();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
         }
     }
 }
