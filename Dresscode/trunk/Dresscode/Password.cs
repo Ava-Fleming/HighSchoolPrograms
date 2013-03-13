@@ -139,7 +139,9 @@ namespace Dresscode
                 global.oleconnection.Open();
 
                 OleDbCommand com = global.oleconnection.CreateCommand();
-                com.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid='" + textBox_teacherID.Text + "'";
+                com.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid=@tid";
+                com.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
+                com.CommandType = CommandType.Text;
                 OleDbDataReader read = com.ExecuteReader();
                 while (read.Read())
                 {
@@ -154,7 +156,10 @@ namespace Dresscode
                         {
                             global.oleconnection.Open();
                             OleDbDataAdapter adpt = new OleDbDataAdapter();
-                            adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [password]='" + textBox_new_pass_first.Text + "' WHERE [teacherid]='" + textBox_teacherID.Text + "'", global.oleconnection);
+                            adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [password]=@pass WHERE [teacherid]=@tid", global.oleconnection);
+                            adpt.UpdateCommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = textBox_new_pass_first.Text;
+                            adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
+                            adpt.UpdateCommand.CommandType = CommandType.Text;
                             adpt.UpdateCommand.ExecuteNonQuery();
                             global.oleconnection.Close();
                             this.Close();

@@ -25,20 +25,12 @@ namespace Dresscode
             string firstname = textBox_firstname.Text;
             try
             {
-                for (int i = 0; i < lastname.Length; i++)
-                {
-                    if (lastname[i].ToString() == "'")
-                        lastname = lastname.Replace("'", "\\'");
-                }
-                for (int i = 0; i < firstname.Length; i++)
-                {
-                    if (firstname[i].ToString() == "'")
-                        firstname = firstname.Replace("'", "\\'");
-                }
                 bool newentry = true;
                 global.oleconnection.Open();
                 OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM `Student Info` WHERE STUDENTID=" + textBox_studentID.Text + " AND FIRSTNAME='" + firstname + "' AND LASTNAME='" + lastname + "'";
+                getteacherscommand.CommandText = "SELECT * FROM `Student Info` WHERE STUDENTID=" + textBox_studentID.Text + " AND FIRSTNAME=@firstname AND LASTNAME=@lastname";
+                getteacherscommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                getteacherscommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
                 while (getteacher.Read())
                 {
@@ -66,8 +58,10 @@ namespace Dresscode
                     {
                         global.oleconnection.Open();
                         OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-                        string sql = "INSERT INTO `Student Info` VALUES (" + textBox_studentID.Text + ",'" + textBox_lastname.Text + "','" + textBox_firstname.Text + "'," + int.Parse(numericUpDown1.Value.ToString()) + ")";
+                        string sql = "INSERT INTO `Student Info` VALUES (" + textBox_studentID.Text + ",@lastname,@firstname," + int.Parse(numericUpDown1.Value.ToString()) + ")";
                         oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                        oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                        oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                         oledbAdapter.InsertCommand.ExecuteNonQuery();
                         MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                         textBox_studentID.Text = "";
@@ -161,8 +155,10 @@ namespace Dresscode
                                     if (firstname[i].ToString() == "'")
                                         firstname = firstname.Replace("'", " ");
                                 }
-                                string sql = "INSERT INTO `Student Info` VALUES (" + studentid + ",'" + lastname + "','" + firstname + "'," + grade + ")";
+                                string sql = "INSERT INTO `Student Info` VALUES (" + studentid + ",@lastname,@firstname," + grade + ")";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                                oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                                oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                                 oledbAdapter.InsertCommand.ExecuteNonQuery();
                                 global.oleconnection.Close();
                             }

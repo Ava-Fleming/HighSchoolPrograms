@@ -26,7 +26,10 @@ namespace Dresscode
             {
                 global.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET email='" + textBox1.Text + "' WHERE teacherid='" + teacherid + "'", global.oleconnection);
+                adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET email=@ema WHERE teacherid=@tid", global.oleconnection);
+                adpt.UpdateCommand.Parameters.Add("ema", OleDbType.VarChar, 255).Value = textBox1.Text;
+                adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = teacherid;
+                adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
                 email = textBox1.Text;
                 global.oleconnection.Close();

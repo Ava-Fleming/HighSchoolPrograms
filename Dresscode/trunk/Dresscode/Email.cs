@@ -116,9 +116,10 @@ namespace Dresscode
         private void button_start_Click(object sender, EventArgs e)
         {
             textBox_console.Text += "Starting task...\r\n";
+            looping = true;
             timer1.Enabled = true;
             //..............................................................................
-            looping = true;
+            
         }
 
 
@@ -151,6 +152,7 @@ namespace Dresscode
 
         private void button_edit_settings_Click(object sender, EventArgs e)
         {
+            
             if (!editmode)
             {
                 textBox_console.Text += "Edit Mode Active.\r\n";
@@ -165,6 +167,9 @@ namespace Dresscode
                 textBox_smtp.Enabled = true;
                 textBox_email_body.Enabled = true;
                 checkBox1.Enabled = true;
+                timer1.Enabled = false;
+                button_start.Enabled = false;
+                button_stop.Enabled = false;
             }
             else
             {
@@ -181,6 +186,8 @@ namespace Dresscode
                 textBox_smtp.Enabled = false;
                 textBox_email_body.Enabled = false;
                 checkBox1.Enabled = false;
+                button_start.Enabled = true;
+                button_stop.Enabled = true;
             }
         }
 
