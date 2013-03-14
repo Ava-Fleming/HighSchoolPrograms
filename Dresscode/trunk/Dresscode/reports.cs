@@ -18,7 +18,7 @@ namespace Dresscode
         string sql = "", firstname, lastname, studentid;
         globals global = new globals();
         OleDbDataAdapter dAdapter;
-        DataTable dTable = new DataTable();
+        DataSet ds = new DataSet();
         bool wtfbrah = true;
         //
         int county = 0,
@@ -104,6 +104,7 @@ forthnineweeksend;
 
         private void button3_Click(object sender, EventArgs e)
         {
+            ds.Clear();
             if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
             {
                 sql = "SELECT * FROM `Reports` WHERE";
@@ -116,7 +117,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE dayofyear >= " + startdate + " AND dayofyear <= " + enddate + "";
                         sql += " `Report Date` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
@@ -124,7 +124,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE dayofyear >= " + startdate + "";
                         sql += " `Report Date` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
@@ -135,7 +134,6 @@ forthnineweeksend;
                     wtfbrah = false;
                     if (hasStarted)
                         sql += " AND";
-                    //sql = "SELECT * FROM `Reports` WHERE teachername = '" + combobox_teacher.Text + "'";
                     sql += " Teacher = '" + combobox_teacher.Text + "'";
                     hasStarted = true;
                 }
@@ -144,7 +142,6 @@ forthnineweeksend;
                     wtfbrah = false;
                     if (hasStarted)
                         sql += " AND";
-                    //sql = "SELECT * FROM `Reports` WHERE infraction = '" + comboBox_infraction_select.Text + "'";
                     sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
                     hasStarted = true;
                 }
@@ -155,7 +152,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
                         sql += " Period >= " + numericUpDown_period_start.Value.ToString() + " AND Period <= " + numericUpDown_period_end.Value.ToString() + "";
                         hasStarted = true;
                     }
@@ -163,7 +159,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                         sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
                         hasStarted = true;
                     }
@@ -175,7 +170,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
                         sql += " Grade >= " + numericUpDown_grade_start.Value.ToString() + " AND Grade <= " + numericUpDown_grade_end.Value.ToString() + "";
                         hasStarted = true;
                     }
@@ -183,7 +177,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                         sql += " Grade = " + numericUpDown_grade_start.Value.ToString() + "";
                         hasStarted = true;
                     }
@@ -256,7 +249,6 @@ forthnineweeksend;
                         {
                             enddate = forthnineweeksend;
                         }
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD >= " + numericUpDown_period_start.Value.ToString() + " AND PERIOD <= " + numericUpDown_period_end.Value.ToString() + "";
                         sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
                         hasStarted = true;
                     }
@@ -264,7 +256,6 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                         if (comboBox_9weeksstart.Text == "1st 9 weeks")
                         {
                             sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
@@ -289,8 +280,6 @@ forthnineweeksend;
                     wtfbrah = false;
                         if (hasStarted)
                             sql += " AND";
-
-                        //sql = "SELECT * FROM `Reports` WHERE PERIOD = " + numericUpDown_period_start.Value.ToString() + "";
                     if(comboBox_semster.Text == "1st semester")
                         sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
                     if (comboBox_semster.Text == "2nd semester")
@@ -300,7 +289,6 @@ forthnineweeksend;
                 if (wtfbrah)
                 {
                     sql = "SELECT * FROM `Reports`";
-
                 }
                 dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
                 county = 1;
@@ -314,16 +302,14 @@ forthnineweeksend;
         }
         public void getinfractions()
         {
-
             try
             {
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, global.oleconnection);
                 dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
-                DataSet ds = new DataSet();
+                
                 dataAdapter.Fill(ds);
-
                 dataGridView_reports.DataSource = ds.Tables[0];
                 global.oleconnection.Close();
                 for (int i = 0; i <= 10; i++)
@@ -399,11 +385,6 @@ forthnineweeksend;
             {
                 global.oleconnection.Close();
             }
-        }
-
-        private void groupBox_search_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void checkBox_date_single_CheckedChanged(object sender, EventArgs e)
@@ -489,8 +470,14 @@ forthnineweeksend;
         {
             try
             {
-
-                dAdapter.Update(dTable);
+                global.oleconnection.Open();
+                OleDbDataAdapter adpt = new OleDbDataAdapter();
+                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM Reports WHERE ID=@idnum", global.oleconnection);
+                adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.CommandType = CommandType.Text;
+                adpt.UpdateCommand.ExecuteNonQuery();
+                global.oleconnection.Close();
+                button_retrieve.PerformClick();
             }
             catch (Exception exceptionObj)
             {
@@ -500,7 +487,7 @@ forthnineweeksend;
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            button_update.PerformClick();
+            //button_update.PerformClick();
         }
 
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
@@ -607,8 +594,6 @@ forthnineweeksend;
                 {
                     getstudentinfocommand.CommandType = CommandType.Text;
                     OleDbDataReader getstudentinfo = getstudentinfocommand.ExecuteReader();
-                    
-
                     while (getstudentinfo.Read())
                     {
                         if (retrievalcode == 0)
@@ -646,7 +631,6 @@ forthnineweeksend;
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     Microsoft.Office.Interop.Excel.Application ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-
                     ExcelApp.Application.Workbooks.Add(Type.Missing);
                     ExcelApp.Columns.ColumnWidth = 15;
                     for (int i = 4; i < dataGridView_reports.Columns.Count + 1; i++)
@@ -660,7 +644,6 @@ forthnineweeksend;
                             ExcelApp.Cells[i + 2, j - 2] = dataGridView_reports.Rows[i].Cells[j].Value.ToString();
                         }
                     }
-
                     ExcelApp.ActiveWorkbook.SaveCopyAs(sfd.FileName); //or .xlsx file, depending of the excel version of your system
                     ExcelApp.ActiveWorkbook.Saved = true;
                     ExcelApp.Quit();
@@ -683,10 +666,21 @@ forthnineweeksend;
         private void dataGridView_reports_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             e.Cancel = false;
+            MessageBox.Show(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
             DialogResult dr = MessageBox.Show("Are you sure you want to delete?", "Confirmation", MessageBoxButtons.YesNo);
             if (dr == DialogResult.No)
             {
                 e.Cancel = true;
+            }
+            else
+            {
+                global.oleconnection.Open();
+                OleDbDataAdapter adpt = new OleDbDataAdapter();
+                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM Reports WHERE ID=@idnum", global.oleconnection);
+                adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0,dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.CommandType = CommandType.Text;
+                adpt.UpdateCommand.ExecuteNonQuery();
+                global.oleconnection.Close();
             }
         }
 

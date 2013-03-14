@@ -169,7 +169,6 @@
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
-            this.groupBox_search.Enter += new System.EventHandler(this.groupBox_search_Enter);
             // 
             // comboBox_semster
             // 
