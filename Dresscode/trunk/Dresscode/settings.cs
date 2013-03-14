@@ -92,5 +92,27 @@ namespace Dresscode
                 global.oleconnection.Close();
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                global.oleconnection.Open();
+                OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+                sql = "INSERT INTO `Infraction List` VALUES (@infraction)";
+                oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                oledbAdapter.InsertCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = textBox1.Text;
+                oledbAdapter.InsertCommand.ExecuteNonQuery();
+                listBox1.Items.Add(textBox1.Text);
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                global.oleconnection.Close();
+            }
+        }
     }
 }

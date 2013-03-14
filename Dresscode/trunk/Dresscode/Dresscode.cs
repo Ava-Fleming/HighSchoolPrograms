@@ -294,7 +294,6 @@ forthnineweeksend;
                                 global.oleconnection.Open();
                                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                                 string sql = null;
-                                sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "','" + firstname + "','" + lastname + "','" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "','" + details + "','" + "None" + "')";
                                 sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "',@firstname,@lastname,'" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "',@details,'" + "None" + "')";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                                 oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
