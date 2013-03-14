@@ -468,26 +468,27 @@ forthnineweeksend;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                global.oleconnection.Open();
-                OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM Reports WHERE ID=@idnum", global.oleconnection);
-                adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
-                adpt.UpdateCommand.CommandType = CommandType.Text;
-                adpt.UpdateCommand.ExecuteNonQuery();
-                global.oleconnection.Close();
-                button_retrieve.PerformClick();
-            }
-            catch (Exception exceptionObj)
-            {
-                MessageBox.Show(exceptionObj.Message.ToString());
-            }
+                try
+                {
+                    global.oleconnection.Open();
+                    OleDbDataAdapter adpt = new OleDbDataAdapter();
+                    adpt.UpdateCommand = new OleDbCommand("UPDATE Reports SET [Dean Action]=@dean WHERE [ID]=@idnum", global.oleconnection);
+                    adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                    adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
+                    adpt.UpdateCommand.CommandType = CommandType.Text;
+                    adpt.UpdateCommand.ExecuteNonQuery();
+                    global.oleconnection.Close();
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message);
+                }
         }
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            //button_update.PerformClick();
+            //MessageBox.Show(dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
+            button_update.PerformClick();
         }
 
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
