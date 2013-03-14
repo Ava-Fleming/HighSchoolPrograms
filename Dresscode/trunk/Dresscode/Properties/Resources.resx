@@ -127,10 +127,10 @@
   <data name="markhor3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\markhor3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="morkhorcomputer2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\morkhorcomputer2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Presidentmarkhor" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Presidentmarkhor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="morkhorcomputerdms" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\morkhorcomputerdms.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

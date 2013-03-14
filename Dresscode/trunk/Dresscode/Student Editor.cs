@@ -146,16 +146,6 @@ namespace Dresscode
                                 string lastname = dtr.GetValue(1).ToString();
                                 string firstname = dtr.GetValue(2).ToString();
                                 string grade = dtr.GetValue(3).ToString();
-                                for (int i = 0; i < lastname.Length; i++)
-                                {
-                                    if (lastname[i].ToString() == "'")
-                                        lastname = lastname.Replace("'", " ");
-                                }
-                                for (int i = 0; i < firstname.Length; i++)
-                                {
-                                    if (firstname[i].ToString() == "'")
-                                        firstname = firstname.Replace("'", " ");
-                                }
                                 string sql = "INSERT INTO `Student Info` VALUES (" + studentid + ",@lastname,@firstname," + grade + ")";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                                 oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;

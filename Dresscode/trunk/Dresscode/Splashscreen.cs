@@ -94,7 +94,7 @@ namespace Dresscode
                     }
                     else
                     {
-                        pictureBox1.Image = Properties.Resources.morkhorcomputer2;
+                        pictureBox1.Image = Properties.Resources.morkhorcomputerdms;
                     }
                 }
             }

@@ -85,6 +85,7 @@
             // 
             // combobox_teacher
             // 
+            this.combobox_teacher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combobox_teacher.Enabled = false;
             this.combobox_teacher.FormattingEnabled = true;
             this.combobox_teacher.Location = new System.Drawing.Point(126, 95);
@@ -171,6 +172,7 @@
             // 
             // comboBox_semster
             // 
+            this.comboBox_semster.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_semster.Enabled = false;
             this.comboBox_semster.FormattingEnabled = true;
             this.comboBox_semster.Items.AddRange(new object[] {
@@ -206,6 +208,7 @@
             // 
             // comboBox_9weeksend
             // 
+            this.comboBox_9weeksend.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_9weeksend.Enabled = false;
             this.comboBox_9weeksend.FormattingEnabled = true;
             this.comboBox_9weeksend.Items.AddRange(new object[] {
@@ -220,6 +223,7 @@
             // 
             // comboBox_9weeksstart
             // 
+            this.comboBox_9weeksstart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_9weeksstart.Enabled = false;
             this.comboBox_9weeksstart.FormattingEnabled = true;
             this.comboBox_9weeksstart.Items.AddRange(new object[] {
@@ -432,6 +436,7 @@
             // 
             // comboBox_infraction_select
             // 
+            this.comboBox_infraction_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_infraction_select.Enabled = false;
             this.comboBox_infraction_select.FormattingEnabled = true;
             this.comboBox_infraction_select.Location = new System.Drawing.Point(126, 121);

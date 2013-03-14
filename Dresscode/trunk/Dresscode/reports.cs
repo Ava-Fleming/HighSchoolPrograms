@@ -131,19 +131,33 @@ forthnineweeksend;
 
                 if (checkBox_teacher.Checked)
                 {
-                    wtfbrah = false;
-                    if (hasStarted)
-                        sql += " AND";
-                    sql += " Teacher = '" + combobox_teacher.Text + "'";
-                    hasStarted = true;
+                    if (combobox_teacher.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Teacher = '" + combobox_teacher.Text + "'";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a teacher.");
+                    }
                 }
                 if (checkBox_infraction.Checked)
                 {
-                    wtfbrah = false;
-                    if (hasStarted)
-                        sql += " AND";
-                    sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
-                    hasStarted = true;
+                    if (checkBox_infraction.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select the Infraction.");
+                    }
                 }
                 if (checkBox_period_single.Checked)
                 {
@@ -152,7 +166,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Period >= " + numericUpDown_period_start.Value.ToString() + " AND Period <= " + numericUpDown_period_end.Value.ToString() + "";
+                        sql += " Period BETWEEN " + numericUpDown_period_start.Value.ToString() + " AND " + numericUpDown_period_end.Value.ToString() + "";
                         hasStarted = true;
                     }
                     else
@@ -170,7 +184,7 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Grade >= " + numericUpDown_grade_start.Value.ToString() + " AND Grade <= " + numericUpDown_grade_end.Value.ToString() + "";
+                        sql += " Grade BETWEEN " + numericUpDown_grade_start.Value.ToString() + " AND " + numericUpDown_grade_end.Value.ToString() + "";
                         hasStarted = true;
                     }
                     else
@@ -213,78 +227,101 @@ forthnineweeksend;
                     wtfbrah = false;
                     if (checkBox_9weeksend.Checked)
                     {
-                        if (hasStarted)
-                            sql += " AND";
-                        DateTime startdate = new DateTime();
-                        DateTime enddate = new DateTime();
-                        if (comboBox_9weeksstart.Text == "1st 9 weeks")
+                        if (comboBox_9weeksstart.Text != "" && comboBox_9weeksend.Text != "")
                         {
-                            startdate = firstnineweeksstart;
+                            if (hasStarted)
+                                sql += " AND";
+                            DateTime startdate = new DateTime();
+                            DateTime enddate = new DateTime();
+                            if (comboBox_9weeksstart.Text == "1st 9 weeks")
+                            {
+                                startdate = firstnineweeksstart;
+                            }
+                            if (comboBox_9weeksstart.Text == "2nd 9 weeks")
+                            {
+                                startdate = secondtnineweeksstart;
+                            }
+                            if (comboBox_9weeksstart.Text == "3rd 9 weeks")
+                            {
+                                startdate = thirdnineweeksstart;
+                            }
+                            if (comboBox_9weeksstart.Text == "4th 9 weeks")
+                            {
+                                enddate = forthnineweeksstart;
+                            }
+                            if (comboBox_9weeksend.Text == "1st 9 weeks")
+                            {
+                                enddate = firstnineweeksend;
+                            }
+                            if (comboBox_9weeksend.Text == "2nd 9 weeks")
+                            {
+                                enddate = secondnineweeksend;
+                            }
+                            if (comboBox_9weeksend.Text == "3rd 9 weeks")
+                            {
+                                enddate = thirdnineweeksend;
+                            }
+                            if (comboBox_9weeksend.Text == "4th 9 weeks")
+                            {
+                                enddate = forthnineweeksend;
+                            }
+                            sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
+                            hasStarted = true;
                         }
-                        if (comboBox_9weeksstart.Text == "2nd 9 weeks")
+
+                        else
                         {
-                            startdate = secondtnineweeksstart;
+                            MessageBox.Show("Please select the 9 weeks for both.");
                         }
-                        if (comboBox_9weeksstart.Text == "3rd 9 weeks")
-                        {
-                            startdate = thirdnineweeksstart;
-                        }
-                        if (comboBox_9weeksstart.Text == "4th 9 weeks")
-                        {
-                            enddate = forthnineweeksstart;
-                        }
-                        if (comboBox_9weeksend.Text == "1st 9 weeks")
-                        {
-                            enddate = firstnineweeksend;
-                        }
-                        if (comboBox_9weeksend.Text == "2nd 9 weeks")
-                        {
-                            enddate = secondnineweeksend;
-                        }
-                        if (comboBox_9weeksend.Text == "3rd 9 weeks")
-                        {
-                            enddate = thirdnineweeksend;
-                        }
-                        if (comboBox_9weeksend.Text == "4th 9 weeks")
-                        {
-                            enddate = forthnineweeksend;
-                        }
-                        sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
-                        hasStarted = true;
                     }
                     else
                     {
-                        if (hasStarted)
-                            sql += " AND";
-                        if (comboBox_9weeksstart.Text == "1st 9 weeks")
+                        if (comboBox_9weeksstart.Text != "")
                         {
-                            sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
+                            if (hasStarted)
+                                sql += " AND";
+                            if (comboBox_9weeksstart.Text == "1st 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
+                            }
+                            if (comboBox_9weeksstart.Text == "2nd 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                            }
+                            if (comboBox_9weeksstart.Text == "3rd 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
+                            }
+                            if (comboBox_9weeksstart.Text == "4th 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                            }
+                            hasStarted = true;
                         }
-                        if (comboBox_9weeksstart.Text == "2nd 9 weeks")
+                        else
                         {
-                            sql += " `Report Date` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                            MessageBox.Show("Please select the 9 weeks.");
                         }
-                        if (comboBox_9weeksstart.Text == "3rd 9 weeks")
-                        {
-                            sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
-                        }
-                        if (comboBox_9weeksstart.Text == "4th 9 weeks")
-                        {
-                            sql += " `Report Date` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
-                        }
-                        hasStarted = true;
                     }
                 }
                 if (checkBox_semester.Checked)
                 {
-                    wtfbrah = false;
-                    if (hasStarted)
-                        sql += " AND";
-                    if (comboBox_semster.Text == "1st semester")
-                        sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
-                    if (comboBox_semster.Text == "2nd semester")
-                        sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
-                    hasStarted = true;
+                    if (comboBox_semster.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        if (comboBox_semster.Text == "1st semester")
+                            sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                        if (comboBox_semster.Text == "2nd semester")
+                            sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                        hasStarted = true;
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Please select the semester.");
+                    }
                 }
                 if (wtfbrah)
                 {
@@ -664,7 +701,6 @@ forthnineweeksend;
         private void dataGridView_reports_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             e.Cancel = false;
-            MessageBox.Show(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
             DialogResult dr = MessageBox.Show("Are you sure you want to delete?", "Confirmation", MessageBoxButtons.YesNo);
             if (dr == DialogResult.No)
             {

@@ -376,7 +376,9 @@ forthnineweeksend;
         {
             ds.Clear();
             combobox_firstname.Text = "";
-            combobox_period.Text = "";
+            combobox_period.Items.Clear();
+            for (int i = 1; i <= 7; i++)
+                combobox_period.Items.Add(i.ToString());
             combobox_lastname.Text = "";
             textbox_details.Clear();
             combobox_firstname.Items.Clear();

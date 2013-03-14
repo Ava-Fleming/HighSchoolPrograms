@@ -81,9 +81,9 @@ namespace Dresscode.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap morkhorcomputer2 {
+        internal static System.Drawing.Bitmap morkhorcomputerdms {
             get {
-                object obj = ResourceManager.GetObject("morkhorcomputer2", resourceCulture);
+                object obj = ResourceManager.GetObject("morkhorcomputerdms", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
