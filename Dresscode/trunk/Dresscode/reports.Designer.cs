@@ -59,7 +59,6 @@
             this.datetimepicker_date_end = new System.Windows.Forms.DateTimePicker();
             this.checkBox_date_range = new System.Windows.Forms.CheckBox();
             this.dataGridView_reports = new System.Windows.Forms.DataGridView();
-            this.button_update = new System.Windows.Forms.Button();
             this.button_export_excel = new System.Windows.Forms.Button();
             this.label_nineweeks = new System.Windows.Forms.Label();
             this.label_total_reports = new System.Windows.Forms.Label();
@@ -479,18 +478,9 @@
             this.dataGridView_reports.Name = "dataGridView_reports";
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 13;
+            this.dataGridView_reports.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_reports_CellEndEdit);
             this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             this.dataGridView_reports.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_reports_UserDeletingRow);
-            // 
-            // button_update
-            // 
-            this.button_update.Location = new System.Drawing.Point(216, 451);
-            this.button_update.Name = "button_update";
-            this.button_update.Size = new System.Drawing.Size(118, 23);
-            this.button_update.TabIndex = 14;
-            this.button_update.Text = "Update";
-            this.button_update.UseVisualStyleBackColor = true;
-            this.button_update.Click += new System.EventHandler(this.button1_Click);
             // 
             // button_export_excel
             // 
@@ -553,7 +543,6 @@
             this.Controls.Add(this.label_total_reports);
             this.Controls.Add(this.label_nineweeks);
             this.Controls.Add(this.button_export_excel);
-            this.Controls.Add(this.button_update);
             this.Controls.Add(this.dataGridView_reports);
             this.Controls.Add(this.groupBox_search);
             this.Controls.Add(this.button_retrieve);
@@ -595,7 +584,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_period_start;
         private System.Windows.Forms.CheckBox checkBox_period_single;
         private System.Windows.Forms.DataGridView dataGridView_reports;
-        private System.Windows.Forms.Button button_update;
         private System.Windows.Forms.NumericUpDown numericUpDown_grade_end;
         private System.Windows.Forms.CheckBox checkBox_grade_range;
         private System.Windows.Forms.NumericUpDown numericUpDown_grade_start;

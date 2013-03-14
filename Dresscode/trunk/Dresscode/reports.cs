@@ -15,7 +15,7 @@ namespace Dresscode
     public partial class reports : Form
     {
         BindingSource bSource = new BindingSource();
-        string sql = "", firstname, lastname, studentid;
+        string sql = "", firstname, lastname, studentid, lastentry;
         globals global = new globals();
         OleDbDataAdapter dAdapter;
         DataSet ds = new DataSet();
@@ -25,7 +25,7 @@ namespace Dresscode
 nineWeeksDatabase = 0,
 currentNineWeeks = 0,
 totalinfractions = 1;
-            /**/
+        /**/
         DateTime
 firstnineweeksstart,
 firstnineweeksend,
@@ -278,13 +278,13 @@ forthnineweeksend;
                 if (checkBox_semester.Checked)
                 {
                     wtfbrah = false;
-                        if (hasStarted)
-                            sql += " AND";
-                    if(comboBox_semster.Text == "1st semester")
+                    if (hasStarted)
+                        sql += " AND";
+                    if (comboBox_semster.Text == "1st semester")
                         sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
                     if (comboBox_semster.Text == "2nd semester")
                         sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
-                        hasStarted = true;
+                    hasStarted = true;
                 }
                 if (wtfbrah)
                 {
@@ -308,7 +308,7 @@ forthnineweeksend;
                 dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
-                
+
                 dataAdapter.Fill(ds);
                 dataGridView_reports.DataSource = ds.Tables[0];
                 global.oleconnection.Close();
@@ -468,27 +468,24 @@ forthnineweeksend;
 
         private void button1_Click(object sender, EventArgs e)
         {
-                try
-                {
-                    global.oleconnection.Open();
-                    OleDbDataAdapter adpt = new OleDbDataAdapter();
-                    adpt.UpdateCommand = new OleDbCommand("UPDATE Reports SET [Dean Action]=@dean WHERE [ID]=@idnum", global.oleconnection);
-                    adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
-                    adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
-                    adpt.UpdateCommand.CommandType = CommandType.Text;
-                    adpt.UpdateCommand.ExecuteNonQuery();
-                    global.oleconnection.Close();
-                }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.Message);
-                }
+            try
+            {
+                //dataGridView_reports.Rows[dataGridView_reports.Rows.Count - 1].Selected = false;
+
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                global.oleconnection.Close();
+            }
         }
 
         private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            //MessageBox.Show(dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
-            button_update.PerformClick();
+
         }
 
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
@@ -678,7 +675,7 @@ forthnineweeksend;
                 global.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
                 adpt.UpdateCommand = new OleDbCommand("DELETE * FROM Reports WHERE ID=@idnum", global.oleconnection);
-                adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0,dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
                 global.oleconnection.Close();
@@ -727,6 +724,28 @@ forthnineweeksend;
         {
             Student_Editor se = new Student_Editor();
             se.ShowDialog();
+        }
+
+        private void dataGridView_reports_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                global.oleconnection.Open();
+                OleDbDataAdapter adpt = new OleDbDataAdapter();
+                adpt.UpdateCommand = new OleDbCommand("UPDATE Reports SET [Dean Action]=@dean WHERE [ID]=@idnum", global.oleconnection);
+                adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
+                adpt.UpdateCommand.CommandType = CommandType.Text;
+                adpt.UpdateCommand.ExecuteNonQuery();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                global.oleconnection.Close();
+            }
         }
     }
 }
