@@ -51,10 +51,11 @@ namespace Dresscode
                     try
                     {
                         global.oleconnection.Open();
-                        OleDbDataAdapter adapter = new OleDbDataAdapter();
-                        string sql = "INSERT INTO `Mailing List` VALUES ('" + textBox_add_email.Text + "')";
-                        adapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
-                        adapter.InsertCommand.ExecuteNonQuery();
+                        OleDbDataAdapter oledbd_addemail = new OleDbDataAdapter();
+                        string sql = "INSERT INTO `Mailing List` VALUES (@email)";
+                        oledbd_addemail.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                        oledbd_addemail.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textBox_add_email.Text;
+                        oledbd_addemail.InsertCommand.ExecuteNonQuery();
                         listBox_emails.Items.Add(textBox_add_email.Text);
                         textBox_console.Text += "Added Email: " + textBox_add_email.Text + " \r\n";
                         textBox_add_email.Clear();
@@ -78,28 +79,28 @@ namespace Dresscode
             try
             {
                 global.oleconnection.Open();
-                OleDbCommand command = global.oleconnection.CreateCommand();
-                command.CommandText = "SELECT * FROM `Email Settings`";
-                OleDbDataReader reader = command.ExecuteReader();
-                while (reader.Read())
+                OleDbCommand oledbc_loadsettings = global.oleconnection.CreateCommand();
+                oledbc_loadsettings.CommandText = "SELECT * FROM `Email Settings`";
+                OleDbDataReader oledbdr_readersettings = oledbc_loadsettings.ExecuteReader();
+                while (oledbdr_readersettings.Read())
                 {
-                    numericUpDown_hours.Value = int.Parse(reader["timehour"].ToString());
-                    numericUpDown_minutes.Value = int.Parse(reader["timeminute"].ToString());
-                    textBox_smtp.Text = reader["smtpserver"].ToString();
-                    textBox_host_email.Text = reader["hostemail"].ToString();
-                    textBox_email_password.Text = reader["hostpassword"].ToString();
-                    textBox_email_subject.Text = reader["emailsubject"].ToString();
-                    textBox_email_body.Text = reader["emailbody"].ToString();
-                    numericUpDown_port.Value = int.Parse(reader["portnumber"].ToString());
+                    numericUpDown_hours.Value = int.Parse(oledbdr_readersettings["timehour"].ToString());
+                    numericUpDown_minutes.Value = int.Parse(oledbdr_readersettings["timeminute"].ToString());
+                    textBox_smtp.Text = oledbdr_readersettings["smtpserver"].ToString();
+                    textBox_host_email.Text = oledbdr_readersettings["hostemail"].ToString();
+                    textBox_email_password.Text = oledbdr_readersettings["hostpassword"].ToString();
+                    textBox_email_subject.Text = oledbdr_readersettings["emailsubject"].ToString();
+                    textBox_email_body.Text = oledbdr_readersettings["emailbody"].ToString();
+                    numericUpDown_port.Value = int.Parse(oledbdr_readersettings["portnumber"].ToString());
                 }
                 global.oleconnection.Close();
                 global.oleconnection.Open();
-                command = global.oleconnection.CreateCommand();
-                command.CommandText = "SELECT * FROM `Mailing List`";
-                reader = command.ExecuteReader();
-                while (reader.Read())
+                OleDbCommand oledbc_reademailscommand = global.oleconnection.CreateCommand();
+                oledbc_reademailscommand.CommandText = "SELECT * FROM `Mailing List`";
+                OleDbDataReader oledbc_reademails = oledbc_reademailscommand.ExecuteReader();
+                while (oledbc_reademails.Read())
                 {
-                    listBox_emails.Items.Add(reader["emaillist"].ToString());
+                    listBox_emails.Items.Add(oledbc_reademails["emaillist"].ToString());
                 }
             }
             catch (Exception x)
@@ -118,8 +119,6 @@ namespace Dresscode
             textBox_console.Text += "Starting task...\r\n";
             looping = true;
             timer1.Enabled = true;
-            //..............................................................................
-            
         }
 
 
@@ -152,7 +151,6 @@ namespace Dresscode
 
         private void button_edit_settings_Click(object sender, EventArgs e)
         {
-            
             if (!editmode)
             {
                 textBox_console.Text += "Edit Mode Active.\r\n";
@@ -166,7 +164,7 @@ namespace Dresscode
                 textBox_email_password.Enabled = true;
                 textBox_smtp.Enabled = true;
                 textBox_email_body.Enabled = true;
-                checkBox1.Enabled = true;
+                checkbox_showpassword.Enabled = true;
                 timer1.Enabled = false;
                 button_start.Enabled = false;
                 button_stop.Enabled = false;
@@ -185,7 +183,7 @@ namespace Dresscode
                 textBox_email_password.Enabled = false;
                 textBox_smtp.Enabled = false;
                 textBox_email_body.Enabled = false;
-                checkBox1.Enabled = false;
+                checkbox_showpassword.Enabled = false;
                 button_start.Enabled = true;
                 button_stop.Enabled = true;
             }
@@ -241,6 +239,9 @@ namespace Dresscode
         {
             textBox_console.Text += "Stopping task.\r\n";
             looping = false;
+            timer1.Enabled = false;
+            button_start.Enabled = true;
+            button_stop.Enabled = false;
         }
 
         private void button_save_console_Click(object sender, EventArgs e)
@@ -258,7 +259,7 @@ namespace Dresscode
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
+            button_start.Enabled = false;
             int hour = (int)numericUpDown_hours.Value;
             int min = (int)numericUpDown_minutes.Value;
             if (looping && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min)
@@ -328,7 +329,7 @@ namespace Dresscode
 
                 try
                 {
-                    textBox_console.Text += "Attempting to send email with current settings...\r\n";
+                    textBox_console.Text += "Sending email(s) with current settings...\r\n";
                     SmtpClient sm = new SmtpClient(SMTPHost, Port);
                     sm.EnableSsl = false;
                     sm.Credentials = new NetworkCredential(textBox_host_email.Text, textBox_email_password.Text);
@@ -342,9 +343,8 @@ namespace Dresscode
                         Attachment att = new Attachment("Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx");
                         mMsg.Attachments.Add(att);
                         sm.Send(mMsg);
-                        textBox_console.Text += "Email sent!\r\n";
+                        textBox_console.Text += "Email sent to " + listBox_emails.Items[i].ToString() +"!\r\n";
                     }
-                    looping = false;
                 }
                 catch (Exception x)
                 {
@@ -359,16 +359,14 @@ namespace Dresscode
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (checkbox_showpassword.Checked)
             {
                 textBox_email_password.PasswordChar = (char)0;
-                
             }
             else
             {
                 textBox_email_password.PasswordChar = '*';
             }
-
         }
     }
 }

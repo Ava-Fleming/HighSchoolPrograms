@@ -32,8 +32,8 @@
             this.textbox_password = new System.Windows.Forms.TextBox();
             this.label_user = new System.Windows.Forms.Label();
             this.label_password = new System.Windows.Forms.Label();
-            this.button_login_click = new System.Windows.Forms.Button();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.button_login = new System.Windows.Forms.Button();
+            this.linklabel_changepassword = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // textbox_teacherid
@@ -70,34 +70,34 @@
             this.label_password.TabIndex = 3;
             this.label_password.Text = "Password";
             // 
-            // button_login_click
+            // button_login
             // 
-            this.button_login_click.Location = new System.Drawing.Point(12, 90);
-            this.button_login_click.Name = "button_login_click";
-            this.button_login_click.Size = new System.Drawing.Size(135, 40);
-            this.button_login_click.TabIndex = 4;
-            this.button_login_click.Text = "Login";
-            this.button_login_click.UseVisualStyleBackColor = true;
-            this.button_login_click.Click += new System.EventHandler(this.button_login_click_Click);
+            this.button_login.Location = new System.Drawing.Point(12, 90);
+            this.button_login.Name = "button_login";
+            this.button_login.Size = new System.Drawing.Size(135, 40);
+            this.button_login.TabIndex = 4;
+            this.button_login.Text = "Login";
+            this.button_login.UseVisualStyleBackColor = true;
+            this.button_login.Click += new System.EventHandler(this.button_login_Click);
             // 
-            // linkLabel1
+            // linklabel_changepassword
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(30, 135);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(93, 13);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Change Password";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.linklabel_changepassword.AutoSize = true;
+            this.linklabel_changepassword.Location = new System.Drawing.Point(30, 135);
+            this.linklabel_changepassword.Name = "linklabel_changepassword";
+            this.linklabel_changepassword.Size = new System.Drawing.Size(93, 13);
+            this.linklabel_changepassword.TabIndex = 5;
+            this.linklabel_changepassword.TabStop = true;
+            this.linklabel_changepassword.Text = "Change Password";
+            this.linklabel_changepassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(159, 157);
-            this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.button_login_click);
+            this.Controls.Add(this.linklabel_changepassword);
+            this.Controls.Add(this.button_login);
             this.Controls.Add(this.label_password);
             this.Controls.Add(this.label_user);
             this.Controls.Add(this.textbox_password);
@@ -117,7 +117,7 @@
         private System.Windows.Forms.TextBox textbox_password;
         private System.Windows.Forms.Label label_user;
         private System.Windows.Forms.Label label_password;
-        private System.Windows.Forms.Button button_login_click;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button button_login;
+        private System.Windows.Forms.LinkLabel linklabel_changepassword;
     }
 }

@@ -19,7 +19,32 @@ namespace Dresscode
         globals global = new globals();
         form_dresscode frm_dresscode = new form_dresscode();
         bool real = false;
-        private void button_login_click_Click(object sender, EventArgs e)
+
+        private void Login_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            MessageBox.Show("Adios!", "Good bye");
+            Application.Exit();
+        }
+
+        private void textbox_password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button_login.PerformClick();
+            }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Password pass = new Password();
+            pass.ShowDialog();
+        }
+
+        private void button_login_Click(object sender, EventArgs e)
         {
             try
             {
@@ -41,7 +66,7 @@ namespace Dresscode
                                 frm_dresscode.teacherfirstname = getteacher["firstname"].ToString();
                                 frm_dresscode.teacherlastname = getteacher["lastname"].ToString();
                                 frm_dresscode.teacherid = getteacher["teacherid"].ToString();
-                                if(getteacher["admin"].ToString() == "yes" || getteacher["admin"].ToString() == "Yes")
+                                if (getteacher["admin"].ToString() == "yes" || getteacher["admin"].ToString() == "Yes")
                                 {
                                     frm_dresscode.admin = true;
                                 }
@@ -66,30 +91,6 @@ namespace Dresscode
                 else
                     MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");
             }
-        }
-
-        private void Login_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            MessageBox.Show("Adios!", "Good bye");
-            Application.Exit();
-        }
-
-        private void textbox_password_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                button_login_click.PerformClick();
-            }
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Password pass = new Password();
-            pass.ShowDialog();
         }
     }
 }

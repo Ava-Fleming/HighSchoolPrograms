@@ -29,30 +29,30 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_savedates = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker7 = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.dateTimePicker8 = new System.Windows.Forms.DateTimePicker();
+            this.label_thr9weeks_start = new System.Windows.Forms.Label();
+            this.label_for9weeks_end = new System.Windows.Forms.Label();
+            this.datetimepicker_5 = new System.Windows.Forms.DateTimePicker();
+            this.datetimepicker_6 = new System.Windows.Forms.DateTimePicker();
+            this.datetimepicker_7 = new System.Windows.Forms.DateTimePicker();
+            this.label_for9weeks_start = new System.Windows.Forms.Label();
+            this.label_thr9weeks_end = new System.Windows.Forms.Label();
+            this.datetimepicker_8 = new System.Windows.Forms.DateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.label_fst9weeks_start = new System.Windows.Forms.Label();
+            this.label_snd9weeks_end = new System.Windows.Forms.Label();
+            this.datetimepicker_1 = new System.Windows.Forms.DateTimePicker();
+            this.datetimepicker_4 = new System.Windows.Forms.DateTimePicker();
+            this.datetimepicker_2 = new System.Windows.Forms.DateTimePicker();
+            this.label_snd9weeks_start = new System.Windows.Forms.Label();
+            this.label_fst9weeks_end = new System.Windows.Forms.Label();
+            this.datetimepicker_3 = new System.Windows.Forms.DateTimePicker();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button_removeinfraction = new System.Windows.Forms.Button();
+            this.listBox_infractions = new System.Windows.Forms.ListBox();
+            this.textBox_infraction = new System.Windows.Forms.TextBox();
+            this.button_addinfraction = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -61,7 +61,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.button_savedates);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -71,26 +71,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "9 Weeks Dates";
             // 
-            // button1
+            // button_savedates
             // 
-            this.button1.Location = new System.Drawing.Point(377, 154);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_savedates.Location = new System.Drawing.Point(377, 154);
+            this.button_savedates.Name = "button_savedates";
+            this.button_savedates.Size = new System.Drawing.Size(75, 23);
+            this.button_savedates.TabIndex = 11;
+            this.button_savedates.Text = "Save";
+            this.button_savedates.UseVisualStyleBackColor = true;
+            this.button_savedates.Click += new System.EventHandler(this.button_savedates_Click);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.dateTimePicker5);
-            this.groupBox3.Controls.Add(this.dateTimePicker6);
-            this.groupBox3.Controls.Add(this.dateTimePicker7);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.dateTimePicker8);
+            this.groupBox3.Controls.Add(this.label_thr9weeks_start);
+            this.groupBox3.Controls.Add(this.label_for9weeks_end);
+            this.groupBox3.Controls.Add(this.datetimepicker_5);
+            this.groupBox3.Controls.Add(this.datetimepicker_6);
+            this.groupBox3.Controls.Add(this.datetimepicker_7);
+            this.groupBox3.Controls.Add(this.label_for9weeks_start);
+            this.groupBox3.Controls.Add(this.label_thr9weeks_end);
+            this.groupBox3.Controls.Add(this.datetimepicker_8);
             this.groupBox3.Location = new System.Drawing.Point(230, 19);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(222, 129);
@@ -98,84 +98,84 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "2nd Semester";
             // 
-            // label5
+            // label_thr9weeks_start
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(93, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "3rd 9 Weeks Start";
+            this.label_thr9weeks_start.AutoSize = true;
+            this.label_thr9weeks_start.Location = new System.Drawing.Point(6, 22);
+            this.label_thr9weeks_start.Name = "label_thr9weeks_start";
+            this.label_thr9weeks_start.Size = new System.Drawing.Size(93, 13);
+            this.label_thr9weeks_start.TabIndex = 2;
+            this.label_thr9weeks_start.Text = "3rd 9 Weeks Start";
             // 
-            // label6
+            // label_for9weeks_end
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 100);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(90, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "4th 9 Weeks End";
+            this.label_for9weeks_end.AutoSize = true;
+            this.label_for9weeks_end.Location = new System.Drawing.Point(6, 100);
+            this.label_for9weeks_end.Name = "label_for9weeks_end";
+            this.label_for9weeks_end.Size = new System.Drawing.Size(90, 13);
+            this.label_for9weeks_end.TabIndex = 8;
+            this.label_for9weeks_end.Text = "4th 9 Weeks End";
             // 
-            // dateTimePicker5
+            // datetimepicker_5
             // 
-            this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker5.Location = new System.Drawing.Point(109, 16);
-            this.dateTimePicker5.Name = "dateTimePicker5";
-            this.dateTimePicker5.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker5.TabIndex = 1;
+            this.datetimepicker_5.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_5.Location = new System.Drawing.Point(109, 16);
+            this.datetimepicker_5.Name = "datetimepicker_5";
+            this.datetimepicker_5.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_5.TabIndex = 1;
             // 
-            // dateTimePicker6
+            // datetimepicker_6
             // 
-            this.dateTimePicker6.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker6.Location = new System.Drawing.Point(109, 42);
-            this.dateTimePicker6.Name = "dateTimePicker6";
-            this.dateTimePicker6.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker6.TabIndex = 7;
+            this.datetimepicker_6.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_6.Location = new System.Drawing.Point(109, 42);
+            this.datetimepicker_6.Name = "datetimepicker_6";
+            this.datetimepicker_6.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_6.TabIndex = 7;
             // 
-            // dateTimePicker7
+            // datetimepicker_7
             // 
-            this.dateTimePicker7.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker7.Location = new System.Drawing.Point(109, 68);
-            this.dateTimePicker7.Name = "dateTimePicker7";
-            this.dateTimePicker7.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker7.TabIndex = 3;
+            this.datetimepicker_7.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_7.Location = new System.Drawing.Point(109, 68);
+            this.datetimepicker_7.Name = "datetimepicker_7";
+            this.datetimepicker_7.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_7.TabIndex = 3;
             // 
-            // label7
+            // label_for9weeks_start
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 75);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 13);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "4th 9 Weeks Start";
+            this.label_for9weeks_start.AutoSize = true;
+            this.label_for9weeks_start.Location = new System.Drawing.Point(6, 75);
+            this.label_for9weeks_start.Name = "label_for9weeks_start";
+            this.label_for9weeks_start.Size = new System.Drawing.Size(93, 13);
+            this.label_for9weeks_start.TabIndex = 6;
+            this.label_for9weeks_start.Text = "4th 9 Weeks Start";
             // 
-            // label8
+            // label_thr9weeks_end
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 48);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(90, 13);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "3rd 9 Weeks End";
+            this.label_thr9weeks_end.AutoSize = true;
+            this.label_thr9weeks_end.Location = new System.Drawing.Point(6, 48);
+            this.label_thr9weeks_end.Name = "label_thr9weeks_end";
+            this.label_thr9weeks_end.Size = new System.Drawing.Size(90, 13);
+            this.label_thr9weeks_end.TabIndex = 4;
+            this.label_thr9weeks_end.Text = "3rd 9 Weeks End";
             // 
-            // dateTimePicker8
+            // datetimepicker_8
             // 
-            this.dateTimePicker8.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker8.Location = new System.Drawing.Point(109, 94);
-            this.dateTimePicker8.Name = "dateTimePicker8";
-            this.dateTimePicker8.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker8.TabIndex = 5;
+            this.datetimepicker_8.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_8.Location = new System.Drawing.Point(109, 94);
+            this.datetimepicker_8.Name = "datetimepicker_8";
+            this.datetimepicker_8.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_8.TabIndex = 5;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.dateTimePicker1);
-            this.groupBox2.Controls.Add(this.dateTimePicker4);
-            this.groupBox2.Controls.Add(this.dateTimePicker2);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.dateTimePicker3);
+            this.groupBox2.Controls.Add(this.label_fst9weeks_start);
+            this.groupBox2.Controls.Add(this.label_snd9weeks_end);
+            this.groupBox2.Controls.Add(this.datetimepicker_1);
+            this.groupBox2.Controls.Add(this.datetimepicker_4);
+            this.groupBox2.Controls.Add(this.datetimepicker_2);
+            this.groupBox2.Controls.Add(this.label_snd9weeks_start);
+            this.groupBox2.Controls.Add(this.label_fst9weeks_end);
+            this.groupBox2.Controls.Add(this.datetimepicker_3);
             this.groupBox2.Location = new System.Drawing.Point(6, 19);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(218, 129);
@@ -183,80 +183,80 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "1st Semester";
             // 
-            // label1
+            // label_fst9weeks_start
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "1st 9 Weeks Start";
+            this.label_fst9weeks_start.AutoSize = true;
+            this.label_fst9weeks_start.Location = new System.Drawing.Point(6, 22);
+            this.label_fst9weeks_start.Name = "label_fst9weeks_start";
+            this.label_fst9weeks_start.Size = new System.Drawing.Size(92, 13);
+            this.label_fst9weeks_start.TabIndex = 2;
+            this.label_fst9weeks_start.Text = "1st 9 Weeks Start";
             // 
-            // label4
+            // label_snd9weeks_end
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 100);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(93, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "2nd 9 Weeks End";
+            this.label_snd9weeks_end.AutoSize = true;
+            this.label_snd9weeks_end.Location = new System.Drawing.Point(6, 100);
+            this.label_snd9weeks_end.Name = "label_snd9weeks_end";
+            this.label_snd9weeks_end.Size = new System.Drawing.Size(93, 13);
+            this.label_snd9weeks_end.TabIndex = 8;
+            this.label_snd9weeks_end.Text = "2nd 9 Weeks End";
             // 
-            // dateTimePicker1
+            // datetimepicker_1
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(109, 16);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker1.TabIndex = 1;
+            this.datetimepicker_1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_1.Location = new System.Drawing.Point(109, 16);
+            this.datetimepicker_1.Name = "datetimepicker_1";
+            this.datetimepicker_1.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_1.TabIndex = 1;
             // 
-            // dateTimePicker4
+            // datetimepicker_4
             // 
-            this.dateTimePicker4.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker4.Location = new System.Drawing.Point(109, 94);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker4.TabIndex = 7;
+            this.datetimepicker_4.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_4.Location = new System.Drawing.Point(109, 94);
+            this.datetimepicker_4.Name = "datetimepicker_4";
+            this.datetimepicker_4.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_4.TabIndex = 7;
             // 
-            // dateTimePicker2
+            // datetimepicker_2
             // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(109, 42);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker2.TabIndex = 3;
+            this.datetimepicker_2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_2.Location = new System.Drawing.Point(109, 42);
+            this.datetimepicker_2.Name = "datetimepicker_2";
+            this.datetimepicker_2.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_2.TabIndex = 3;
             // 
-            // label3
+            // label_snd9weeks_start
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "2nd 9 Weeks Start";
+            this.label_snd9weeks_start.AutoSize = true;
+            this.label_snd9weeks_start.Location = new System.Drawing.Point(6, 75);
+            this.label_snd9weeks_start.Name = "label_snd9weeks_start";
+            this.label_snd9weeks_start.Size = new System.Drawing.Size(96, 13);
+            this.label_snd9weeks_start.TabIndex = 6;
+            this.label_snd9weeks_start.Text = "2nd 9 Weeks Start";
             // 
-            // label2
+            // label_fst9weeks_end
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "1st 9 Weeks End";
+            this.label_fst9weeks_end.AutoSize = true;
+            this.label_fst9weeks_end.Location = new System.Drawing.Point(6, 48);
+            this.label_fst9weeks_end.Name = "label_fst9weeks_end";
+            this.label_fst9weeks_end.Size = new System.Drawing.Size(89, 13);
+            this.label_fst9weeks_end.TabIndex = 4;
+            this.label_fst9weeks_end.Text = "1st 9 Weeks End";
             // 
-            // dateTimePicker3
+            // datetimepicker_3
             // 
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker3.Location = new System.Drawing.Point(108, 68);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(95, 20);
-            this.dateTimePicker3.TabIndex = 5;
+            this.datetimepicker_3.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_3.Location = new System.Drawing.Point(108, 68);
+            this.datetimepicker_3.Name = "datetimepicker_3";
+            this.datetimepicker_3.Size = new System.Drawing.Size(95, 20);
+            this.datetimepicker_3.TabIndex = 5;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Controls.Add(this.listBox1);
-            this.groupBox4.Controls.Add(this.textBox1);
-            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.button_removeinfraction);
+            this.groupBox4.Controls.Add(this.listBox_infractions);
+            this.groupBox4.Controls.Add(this.textBox_infraction);
+            this.groupBox4.Controls.Add(this.button_addinfraction);
             this.groupBox4.Location = new System.Drawing.Point(476, 12);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(325, 200);
@@ -264,39 +264,41 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Infractions";
             // 
-            // button2
+            // button_removeinfraction
             // 
-            this.button2.Location = new System.Drawing.Point(244, 22);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 59);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Add";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button_removeinfraction.Location = new System.Drawing.Point(244, 87);
+            this.button_removeinfraction.Name = "button_removeinfraction";
+            this.button_removeinfraction.Size = new System.Drawing.Size(75, 59);
+            this.button_removeinfraction.TabIndex = 3;
+            this.button_removeinfraction.Text = "Remove";
+            this.button_removeinfraction.UseVisualStyleBackColor = true;
+            this.button_removeinfraction.Click += new System.EventHandler(this.button_removeinfraction_Click);
             // 
-            // textBox1
+            // listBox_infractions
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(232, 20);
-            this.textBox1.TabIndex = 1;
+            this.listBox_infractions.FormattingEnabled = true;
+            this.listBox_infractions.Location = new System.Drawing.Point(6, 50);
+            this.listBox_infractions.Name = "listBox_infractions";
+            this.listBox_infractions.Size = new System.Drawing.Size(232, 134);
+            this.listBox_infractions.TabIndex = 2;
             // 
-            // listBox1
+            // textBox_infraction
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 50);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(232, 134);
-            this.listBox1.TabIndex = 2;
+            this.textBox_infraction.Location = new System.Drawing.Point(6, 24);
+            this.textBox_infraction.Name = "textBox_infraction";
+            this.textBox_infraction.Size = new System.Drawing.Size(232, 20);
+            this.textBox_infraction.TabIndex = 1;
+            this.textBox_infraction.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_infraction_KeyDown);
             // 
-            // button3
+            // button_addinfraction
             // 
-            this.button3.Location = new System.Drawing.Point(244, 87);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 59);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Remove";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button_addinfraction.Location = new System.Drawing.Point(244, 22);
+            this.button_addinfraction.Name = "button_addinfraction";
+            this.button_addinfraction.Size = new System.Drawing.Size(75, 59);
+            this.button_addinfraction.TabIndex = 0;
+            this.button_addinfraction.Text = "Add";
+            this.button_addinfraction.UseVisualStyleBackColor = true;
+            this.button_addinfraction.Click += new System.EventHandler(this.button_addinfraction_Click);
             // 
             // settings
             // 
@@ -322,29 +324,29 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_savedates;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker5;
-        private System.Windows.Forms.DateTimePicker dateTimePicker6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker7;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.DateTimePicker dateTimePicker8;
+        private System.Windows.Forms.Label label_thr9weeks_start;
+        private System.Windows.Forms.Label label_for9weeks_end;
+        private System.Windows.Forms.DateTimePicker datetimepicker_5;
+        private System.Windows.Forms.DateTimePicker datetimepicker_6;
+        private System.Windows.Forms.DateTimePicker datetimepicker_7;
+        private System.Windows.Forms.Label label_for9weeks_start;
+        private System.Windows.Forms.Label label_thr9weeks_end;
+        private System.Windows.Forms.DateTimePicker datetimepicker_8;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.Label label_fst9weeks_start;
+        private System.Windows.Forms.Label label_snd9weeks_end;
+        private System.Windows.Forms.DateTimePicker datetimepicker_1;
+        private System.Windows.Forms.DateTimePicker datetimepicker_4;
+        private System.Windows.Forms.DateTimePicker datetimepicker_2;
+        private System.Windows.Forms.Label label_snd9weeks_start;
+        private System.Windows.Forms.Label label_fst9weeks_end;
+        private System.Windows.Forms.DateTimePicker datetimepicker_3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button_removeinfraction;
+        private System.Windows.Forms.ListBox listBox_infractions;
+        private System.Windows.Forms.TextBox textBox_infraction;
+        private System.Windows.Forms.Button button_addinfraction;
     }
 }

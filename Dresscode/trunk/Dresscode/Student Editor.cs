@@ -27,22 +27,22 @@ namespace Dresscode
             {
                 bool newentry = true;
                 global.oleconnection.Open();
-                OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM `Student Info` WHERE STUDENTID=" + textBox_studentID.Text + " AND FIRSTNAME=@firstname AND LASTNAME=@lastname";
-                getteacherscommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                getteacherscommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
-                while (getteacher.Read())
+                OleDbCommand checkforstudent = global.oleconnection.CreateCommand();
+                checkforstudent.CommandText = "SELECT * FROM `Student Info` WHERE STUDENTID=" + textBox_studentID.Text + " AND FIRSTNAME=@firstname AND LASTNAME=@lastname";
+                checkforstudent.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                checkforstudent.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                OleDbDataReader checkexistingstudent = checkforstudent.ExecuteReader();
+                while (checkexistingstudent.Read())
                 {
                     if (newentry == true)
                     {
 
-                        if (textBox_studentID.Text.Contains(getteacher["STUDENTID"].ToString()))
+                        if (textBox_studentID.Text.Contains(checkexistingstudent["STUDENTID"].ToString()))
                         {
 
-                            if (textBox_firstname.Text.Contains(getteacher["FIRSTNAME"].ToString()))
+                            if (textBox_firstname.Text.Contains(checkexistingstudent["FIRSTNAME"].ToString()))
                             {
-                                if (textBox_lastname.Text.Contains(getteacher["LASTNAME"].ToString()))
+                                if (textBox_lastname.Text.Contains(checkexistingstudent["LASTNAME"].ToString()))
                                 {
                                     newentry = false;
                                 }
@@ -57,12 +57,12 @@ namespace Dresscode
                     if (dr == DialogResult.Yes)
                     {
                         global.oleconnection.Open();
-                        OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+                        OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
                         string sql = "INSERT INTO `Student Info` VALUES (" + textBox_studentID.Text + ",@lastname,@firstname," + int.Parse(numericUpDown1.Value.ToString()) + ")";
-                        oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
-                        oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                        oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                        oledbAdapter.InsertCommand.ExecuteNonQuery();
+                        oledba_addstudent.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                        oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                        oledba_addstudent.InsertCommand.ExecuteNonQuery();
                         MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                         textBox_studentID.Text = "";
                         textBox_firstname.Text = "";
@@ -83,10 +83,6 @@ namespace Dresscode
             {
                 global.oleconnection.Close();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
         }
 
         private void textBox_studentID_KeyPress(object sender, KeyPressEventArgs e)
@@ -115,21 +111,14 @@ namespace Dresscode
                             this.Hide();
                             if (global.oleconnection.State == ConnectionState.Open)
                                 global.oleconnection.Close();
-                            System.Data.OleDb.OleDbConnection MyConnection;
-                            System.Data.DataSet DtSet;
-                            System.Data.OleDb.OleDbDataAdapter MyCommand;
-                            MyConnection = new System.Data.OleDb.OleDbConnection(@"provider=Microsoft.Jet.OLEDB.4.0;Data Source='" + ofd.FileName + "';Extended Properties=Excel 8.0;");
-                            MyCommand = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", MyConnection);
-                            MyCommand.TableMappings.Add("Table", "TestTable");
-                            DtSet = new System.Data.DataSet();
-                            MyCommand.Fill(DtSet);
-                            MyConnection.Close();
-                            DataTableReader dtr = DtSet.CreateDataReader(DtSet.Tables[0]);
-
-                            //
-
-                            //MessageBox.Show(dtr.GetValue(0).ToString() + " " + dtr.GetValue(1).ToString() + " " + dtr.GetValue(2).ToString());
+                            System.Data.OleDb.OleDbConnection excelconnection = new System.Data.OleDb.OleDbConnection(@"provider=Microsoft.Jet.OLEDB.4.0;Data Source='" + ofd.FileName + "';Extended Properties=Excel 8.0;");
+                            System.Data.DataSet DtSet = new System.Data.DataSet();
+                            System.Data.OleDb.OleDbDataAdapter oledbd_readexcel = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", excelconnection);
+                            //oledbd_readexcel.TableMappings.Add("Table", "TestTable");
+                            oledbd_readexcel.Fill(DtSet);
+                            excelconnection.Close();
                             global.oleconnection.Open();
+                            DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
                             OleDbDataAdapter doledbAdapter = new OleDbDataAdapter();
                             string dsql = "DELETE * FROM `Student Info`";
                             doledbAdapter.InsertCommand = new OleDbCommand(dsql, global.oleconnection);
@@ -137,20 +126,20 @@ namespace Dresscode
                             global.oleconnection.Close();
 
                             //
-                            while (dtr.Read())
+                            while (dtr_excel.Read())
                             {
                                 //MessageBox.Show(dtr.GetValue(0).ToString() + " " + dtr.GetValue(1).ToString() + " " + dtr.GetValue(2).ToString());
                                 global.oleconnection.Open();
-                                OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-                                string studentid = dtr.GetValue(0).ToString();
-                                string lastname = dtr.GetValue(1).ToString();
-                                string firstname = dtr.GetValue(2).ToString();
-                                string grade = dtr.GetValue(3).ToString();
+                                OleDbDataAdapter oledba_massadd = new OleDbDataAdapter();
+                                string studentid = dtr_excel.GetValue(0).ToString();
+                                string lastname = dtr_excel.GetValue(1).ToString();
+                                string firstname = dtr_excel.GetValue(2).ToString();
+                                string grade = dtr_excel.GetValue(3).ToString();
                                 string sql = "INSERT INTO `Student Info` VALUES (" + studentid + ",@lastname,@firstname," + grade + ")";
-                                oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
-                                oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                                oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                                oledbAdapter.InsertCommand.ExecuteNonQuery();
+                                oledba_massadd.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                                oledba_massadd.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                                oledba_massadd.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                                oledba_massadd.InsertCommand.ExecuteNonQuery();
                                 global.oleconnection.Close();
                             }
                             this.Show();

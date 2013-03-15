@@ -15,7 +15,7 @@ namespace Dresscode
     public partial class reports : Form
     {
         BindingSource bSource = new BindingSource();
-        string sql = "", firstname, lastname, studentid, lastentry;
+        string sql = "", firstname, lastname, studentid;
         globals global = new globals();
         OleDbDataAdapter dAdapter;
         DataSet ds = new DataSet();
@@ -694,8 +694,10 @@ forthnineweeksend;
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Hide();
             settings sets = new settings();
             sets.ShowDialog();
+            this.Show();
         }
 
         private void dataGridView_reports_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -758,8 +760,10 @@ forthnineweeksend;
 
         private void studentEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Hide();
             Student_Editor se = new Student_Editor();
             se.ShowDialog();
+            this.Show();
         }
 
         private void dataGridView_reports_CellEndEdit(object sender, DataGridViewCellEventArgs e)

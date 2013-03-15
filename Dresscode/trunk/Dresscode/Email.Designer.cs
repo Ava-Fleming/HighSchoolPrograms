@@ -38,23 +38,23 @@
             this.button_stop = new System.Windows.Forms.Button();
             this.button_start = new System.Windows.Forms.Button();
             this.groupBox_settings = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.checkbox_showpassword = new System.Windows.Forms.CheckBox();
+            this.label_smtpserver = new System.Windows.Forms.Label();
             this.textBox_smtp = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label_hostpassword = new System.Windows.Forms.Label();
             this.textBox_email_password = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label_emailbody = new System.Windows.Forms.Label();
             this.textBox_email_body = new System.Windows.Forms.TextBox();
             this.numericUpDown_port = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label_port = new System.Windows.Forms.Label();
+            this.label_hostemail = new System.Windows.Forms.Label();
             this.textBox_host_email = new System.Windows.Forms.TextBox();
             this.button_edit_settings = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label_emailsubject = new System.Windows.Forms.Label();
             this.textBox_email_subject = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_minute = new System.Windows.Forms.Label();
+            this.label_hour = new System.Windows.Forms.Label();
+            this.label_sendtime = new System.Windows.Forms.Label();
             this.numericUpDown_minutes = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_hours = new System.Windows.Forms.NumericUpDown();
             this.groupBox_emailing_list = new System.Windows.Forms.GroupBox();
@@ -160,23 +160,23 @@
             // 
             // groupBox_settings
             // 
-            this.groupBox_settings.Controls.Add(this.checkBox1);
-            this.groupBox_settings.Controls.Add(this.label9);
+            this.groupBox_settings.Controls.Add(this.checkbox_showpassword);
+            this.groupBox_settings.Controls.Add(this.label_smtpserver);
             this.groupBox_settings.Controls.Add(this.textBox_smtp);
-            this.groupBox_settings.Controls.Add(this.label8);
+            this.groupBox_settings.Controls.Add(this.label_hostpassword);
             this.groupBox_settings.Controls.Add(this.textBox_email_password);
-            this.groupBox_settings.Controls.Add(this.label7);
+            this.groupBox_settings.Controls.Add(this.label_emailbody);
             this.groupBox_settings.Controls.Add(this.textBox_email_body);
             this.groupBox_settings.Controls.Add(this.numericUpDown_port);
-            this.groupBox_settings.Controls.Add(this.label6);
-            this.groupBox_settings.Controls.Add(this.label5);
+            this.groupBox_settings.Controls.Add(this.label_port);
+            this.groupBox_settings.Controls.Add(this.label_hostemail);
             this.groupBox_settings.Controls.Add(this.textBox_host_email);
             this.groupBox_settings.Controls.Add(this.button_edit_settings);
-            this.groupBox_settings.Controls.Add(this.label4);
+            this.groupBox_settings.Controls.Add(this.label_emailsubject);
             this.groupBox_settings.Controls.Add(this.textBox_email_subject);
-            this.groupBox_settings.Controls.Add(this.label3);
-            this.groupBox_settings.Controls.Add(this.label2);
-            this.groupBox_settings.Controls.Add(this.label1);
+            this.groupBox_settings.Controls.Add(this.label_minute);
+            this.groupBox_settings.Controls.Add(this.label_hour);
+            this.groupBox_settings.Controls.Add(this.label_sendtime);
             this.groupBox_settings.Controls.Add(this.numericUpDown_minutes);
             this.groupBox_settings.Controls.Add(this.numericUpDown_hours);
             this.groupBox_settings.Location = new System.Drawing.Point(7, 183);
@@ -186,26 +186,26 @@
             this.groupBox_settings.TabStop = false;
             this.groupBox_settings.Text = "Settings";
             // 
-            // checkBox1
+            // checkbox_showpassword
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(362, 141);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(53, 17);
-            this.checkBox1.TabIndex = 19;
-            this.checkBox1.Text = "Show";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkbox_showpassword.AutoSize = true;
+            this.checkbox_showpassword.Enabled = false;
+            this.checkbox_showpassword.Location = new System.Drawing.Point(362, 141);
+            this.checkbox_showpassword.Name = "checkbox_showpassword";
+            this.checkbox_showpassword.Size = new System.Drawing.Size(53, 17);
+            this.checkbox_showpassword.TabIndex = 19;
+            this.checkbox_showpassword.Text = "Show";
+            this.checkbox_showpassword.UseVisualStyleBackColor = true;
+            this.checkbox_showpassword.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // label9
+            // label_smtpserver
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 63);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(72, 13);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "SMTP server:";
+            this.label_smtpserver.AutoSize = true;
+            this.label_smtpserver.Location = new System.Drawing.Point(10, 63);
+            this.label_smtpserver.Name = "label_smtpserver";
+            this.label_smtpserver.Size = new System.Drawing.Size(72, 13);
+            this.label_smtpserver.TabIndex = 18;
+            this.label_smtpserver.Text = "SMTP server:";
             // 
             // textBox_smtp
             // 
@@ -215,14 +215,14 @@
             this.textBox_smtp.Size = new System.Drawing.Size(327, 20);
             this.textBox_smtp.TabIndex = 17;
             // 
-            // label8
+            // label_hostpassword
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(1, 141);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Host Password:";
+            this.label_hostpassword.AutoSize = true;
+            this.label_hostpassword.Location = new System.Drawing.Point(1, 141);
+            this.label_hostpassword.Name = "label_hostpassword";
+            this.label_hostpassword.Size = new System.Drawing.Size(81, 13);
+            this.label_hostpassword.TabIndex = 16;
+            this.label_hostpassword.Text = "Host Password:";
             // 
             // textBox_email_password
             // 
@@ -233,14 +233,14 @@
             this.textBox_email_password.Size = new System.Drawing.Size(268, 20);
             this.textBox_email_password.TabIndex = 15;
             // 
-            // label7
+            // label_emailbody
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 193);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(62, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Email Body:";
+            this.label_emailbody.AutoSize = true;
+            this.label_emailbody.Location = new System.Drawing.Point(21, 193);
+            this.label_emailbody.Name = "label_emailbody";
+            this.label_emailbody.Size = new System.Drawing.Size(62, 13);
+            this.label_emailbody.TabIndex = 14;
+            this.label_emailbody.Text = "Email Body:";
             // 
             // textBox_email_body
             // 
@@ -268,23 +268,23 @@
             0,
             0});
             // 
-            // label6
+            // label_port
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(53, 88);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "Port:";
+            this.label_port.AutoSize = true;
+            this.label_port.Location = new System.Drawing.Point(53, 88);
+            this.label_port.Name = "label_port";
+            this.label_port.Size = new System.Drawing.Size(29, 13);
+            this.label_port.TabIndex = 11;
+            this.label_port.Text = "Port:";
             // 
-            // label5
+            // label_hostemail
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 115);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Host Email:";
+            this.label_hostemail.AutoSize = true;
+            this.label_hostemail.Location = new System.Drawing.Point(23, 115);
+            this.label_hostemail.Name = "label_hostemail";
+            this.label_hostemail.Size = new System.Drawing.Size(60, 13);
+            this.label_hostemail.TabIndex = 9;
+            this.label_hostemail.Text = "Host Email:";
             // 
             // textBox_host_email
             // 
@@ -304,14 +304,14 @@
             this.button_edit_settings.UseVisualStyleBackColor = true;
             this.button_edit_settings.Click += new System.EventHandler(this.button_edit_settings_Click);
             // 
-            // label4
+            // label_emailsubject
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 167);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Email Subject:";
+            this.label_emailsubject.AutoSize = true;
+            this.label_emailsubject.Location = new System.Drawing.Point(9, 167);
+            this.label_emailsubject.Name = "label_emailsubject";
+            this.label_emailsubject.Size = new System.Drawing.Size(74, 13);
+            this.label_emailsubject.TabIndex = 6;
+            this.label_emailsubject.Text = "Email Subject:";
             // 
             // textBox_email_subject
             // 
@@ -321,32 +321,32 @@
             this.textBox_email_subject.Size = new System.Drawing.Size(327, 20);
             this.textBox_email_subject.TabIndex = 5;
             // 
-            // label3
+            // label_minute
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(137, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Minute";
+            this.label_minute.AutoSize = true;
+            this.label_minute.Location = new System.Drawing.Point(137, 14);
+            this.label_minute.Name = "label_minute";
+            this.label_minute.Size = new System.Drawing.Size(39, 13);
+            this.label_minute.TabIndex = 4;
+            this.label_minute.Text = "Minute";
             // 
-            // label2
+            // label_hour
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(90, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Hour";
+            this.label_hour.AutoSize = true;
+            this.label_hour.Location = new System.Drawing.Point(90, 14);
+            this.label_hour.Name = "label_hour";
+            this.label_hour.Size = new System.Drawing.Size(30, 13);
+            this.label_hour.TabIndex = 3;
+            this.label_hour.Text = "Hour";
             // 
-            // label1
+            // label_sendtime
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Send Time:";
+            this.label_sendtime.AutoSize = true;
+            this.label_sendtime.Location = new System.Drawing.Point(22, 35);
+            this.label_sendtime.Name = "label_sendtime";
+            this.label_sendtime.Size = new System.Drawing.Size(61, 13);
+            this.label_sendtime.TabIndex = 2;
+            this.label_sendtime.Text = "Send Time:";
             // 
             // numericUpDown_minutes
             // 
@@ -502,26 +502,26 @@
         private System.Windows.Forms.Button button_save_console;
         private System.Windows.Forms.Button button_stop;
         private System.Windows.Forms.Button button_start;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label_emailsubject;
         private System.Windows.Forms.TextBox textBox_email_subject;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_minute;
+        private System.Windows.Forms.Label label_hour;
+        private System.Windows.Forms.Label label_sendtime;
         private System.Windows.Forms.NumericUpDown numericUpDown_minutes;
         private System.Windows.Forms.NumericUpDown numericUpDown_hours;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_hostemail;
         private System.Windows.Forms.TextBox textBox_host_email;
         private System.Windows.Forms.Button button_edit_settings;
         private System.Windows.Forms.NumericUpDown numericUpDown_port;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label_port;
+        private System.Windows.Forms.Label label_emailbody;
         private System.Windows.Forms.TextBox textBox_email_body;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label_smtpserver;
         private System.Windows.Forms.TextBox textBox_smtp;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label_hostpassword;
         private System.Windows.Forms.TextBox textBox_email_password;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkbox_showpassword;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
     }
