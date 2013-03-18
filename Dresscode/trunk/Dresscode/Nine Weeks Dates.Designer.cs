@@ -69,7 +69,7 @@
             // 
             this.button_savedates.Location = new System.Drawing.Point(377, 154);
             this.button_savedates.Name = "button_savedates";
-            this.button_savedates.Size = new System.Drawing.Size(75, 23);
+            this.button_savedates.Size = new System.Drawing.Size(75, 20);
             this.button_savedates.TabIndex = 11;
             this.button_savedates.Text = "Save";
             this.button_savedates.UseVisualStyleBackColor = true;
