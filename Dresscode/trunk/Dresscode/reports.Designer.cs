@@ -1,6 +1,6 @@
 ﻿namespace Dresscode
 {
-    partial class reports
+    partial class Reports
     {
         /// <summary>
         /// Required designer variable.
@@ -64,8 +64,11 @@
             this.label_total_reports = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weeksDatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infractionsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.teacherEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.studentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teacherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -520,8 +523,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
-            this.studentEditorToolStripMenuItem,
-            this.teacherEditorToolStripMenuItem});
+            this.studentEditorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(513, 24);
@@ -530,26 +532,53 @@
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.weeksDatesToolStripMenuItem,
+            this.infractionsListToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // weeksDatesToolStripMenuItem
+            // 
+            this.weeksDatesToolStripMenuItem.Name = "weeksDatesToolStripMenuItem";
+            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.weeksDatesToolStripMenuItem.Text = "9 Weeks Dates";
+            this.weeksDatesToolStripMenuItem.Click += new System.EventHandler(this.weeksDatesToolStripMenuItem_Click);
+            // 
+            // infractionsListToolStripMenuItem
+            // 
+            this.infractionsListToolStripMenuItem.Name = "infractionsListToolStripMenuItem";
+            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.infractionsListToolStripMenuItem.Text = "Infractions List";
+            this.infractionsListToolStripMenuItem.Click += new System.EventHandler(this.infractionsListToolStripMenuItem_Click);
+            // 
             // studentEditorToolStripMenuItem
             // 
+            this.studentEditorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.studentToolStripMenuItem,
+            this.teacherToolStripMenuItem});
             this.studentEditorToolStripMenuItem.Name = "studentEditorToolStripMenuItem";
-            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.studentEditorToolStripMenuItem.Text = "Student Editor";
+            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.studentEditorToolStripMenuItem.Text = "Add";
             this.studentEditorToolStripMenuItem.Click += new System.EventHandler(this.studentEditorToolStripMenuItem_Click);
             // 
-            // teacherEditorToolStripMenuItem
+            // studentToolStripMenuItem
             // 
-            this.teacherEditorToolStripMenuItem.Name = "teacherEditorToolStripMenuItem";
-            this.teacherEditorToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.teacherEditorToolStripMenuItem.Text = "Teacher Editor";
-            this.teacherEditorToolStripMenuItem.Click += new System.EventHandler(this.teacherEditorToolStripMenuItem_Click);
+            this.studentToolStripMenuItem.Name = "studentToolStripMenuItem";
+            this.studentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.studentToolStripMenuItem.Text = "Student";
+            this.studentToolStripMenuItem.Click += new System.EventHandler(this.studentToolStripMenuItem_Click);
             // 
-            // reports
+            // teacherToolStripMenuItem
+            // 
+            this.teacherToolStripMenuItem.Name = "teacherToolStripMenuItem";
+            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.teacherToolStripMenuItem.Text = "Teacher";
+            this.teacherToolStripMenuItem.Click += new System.EventHandler(this.teacherToolStripMenuItem_Click);
+            // 
+            // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -563,7 +592,7 @@
             this.Controls.Add(this.label_viewing);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "reports";
+            this.Name = "Reports";
             this.Text = "Reports";
             this.Load += new System.EventHandler(this.reports_Load);
             this.groupBox_search.ResumeLayout(false);
@@ -619,7 +648,10 @@
         private System.Windows.Forms.ComboBox comboBox_semster;
         private System.Windows.Forms.CheckBox checkBox_semester;
         private System.Windows.Forms.ToolStripMenuItem studentEditorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem teacherEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem weeksDatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem infractionsListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem studentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teacherToolStripMenuItem;
 
     }
 }

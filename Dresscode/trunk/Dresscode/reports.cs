@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Dresscode
 {
-    public partial class reports : Form
+    public partial class Reports : Form
     {
         BindingSource bSource = new BindingSource();
         string sql = "", firstname, lastname, studentid;
@@ -39,7 +39,7 @@ thirdnineweeksend,
 forthnineweeksstart,
 forthnineweeksend;
         //
-        public reports()
+        public Reports()
         {
             InitializeComponent();
         }
@@ -695,7 +695,7 @@ forthnineweeksend;
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            settings sets = new settings();
+            Nine_Weeks_Dates sets = new Nine_Weeks_Dates();
             sets.ShowDialog();
             this.Show();
         }
@@ -760,10 +760,7 @@ forthnineweeksend;
 
         private void studentEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Student_Editor se = new Student_Editor();
-            se.ShowDialog();
-            this.Show();
+
         }
 
         private void dataGridView_reports_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -790,8 +787,40 @@ forthnineweeksend;
 
         private void teacherEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void weeksDatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Nine_Weeks_Dates nwd = new Nine_Weeks_Dates();
+            nwd.ShowDialog();
+            this.Show();
+
+        }
+
+        private void teacherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
             Teacher_Editor te = new Teacher_Editor();
             te.ShowDialog();
+            this.Show();
+        }
+
+        private void studentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Student_Editor se = new Student_Editor();
+            se.ShowDialog();
+            this.Show();
+        }
+
+        private void infractionsListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Infractions_List il = new Infractions_List();
+            il.ShowDialog();
+            this.Show();
         }
     }
 }

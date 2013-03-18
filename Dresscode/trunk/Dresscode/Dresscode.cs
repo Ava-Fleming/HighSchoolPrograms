@@ -451,7 +451,7 @@ forthnineweeksend;
             try
             {
                 this.Hide();
-                reports report = new reports();
+                Reports report = new Reports();
                 report.ShowDialog();
                 this.Show();
             }
