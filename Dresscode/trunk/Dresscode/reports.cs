@@ -787,5 +787,11 @@ forthnineweeksend;
                 global.oleconnection.Close();
             }
         }
+
+        private void teacherEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Teacher_Editor te = new Teacher_Editor();
+            te.ShowDialog();
+        }
     }
 }

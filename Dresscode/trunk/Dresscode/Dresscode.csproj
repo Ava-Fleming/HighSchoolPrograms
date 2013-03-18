@@ -148,6 +148,12 @@
     <Compile Include="Student Editor.Designer.cs">
       <DependentUpon>Student Editor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Teacher Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Teacher Editor.Designer.cs">
+      <DependentUpon>Teacher Editor.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddPass.resx">
       <DependentUpon>AddPass.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Student Editor.resx">
       <DependentUpon>Student Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher Editor.resx">
+      <DependentUpon>Teacher Editor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

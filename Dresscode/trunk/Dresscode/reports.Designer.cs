@@ -65,6 +65,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.teacherEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -519,7 +520,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem,
-            this.studentEditorToolStripMenuItem});
+            this.studentEditorToolStripMenuItem,
+            this.teacherEditorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(513, 24);
@@ -539,6 +541,13 @@
             this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.studentEditorToolStripMenuItem.Text = "Student Editor";
             this.studentEditorToolStripMenuItem.Click += new System.EventHandler(this.studentEditorToolStripMenuItem_Click);
+            // 
+            // teacherEditorToolStripMenuItem
+            // 
+            this.teacherEditorToolStripMenuItem.Name = "teacherEditorToolStripMenuItem";
+            this.teacherEditorToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.teacherEditorToolStripMenuItem.Text = "Teacher Editor";
+            this.teacherEditorToolStripMenuItem.Click += new System.EventHandler(this.teacherEditorToolStripMenuItem_Click);
             // 
             // reports
             // 
@@ -610,6 +619,7 @@
         private System.Windows.Forms.ComboBox comboBox_semster;
         private System.Windows.Forms.CheckBox checkBox_semester;
         private System.Windows.Forms.ToolStripMenuItem studentEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem teacherEditorToolStripMenuItem;
 
     }
 }
