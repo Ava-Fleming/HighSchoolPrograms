@@ -137,6 +137,7 @@ namespace Dresscode
         {
             if (textBox_teacherID.Text != "")
             {
+
                 global.oleconnection.Open();
 
                 OleDbCommand com = global.oleconnection.CreateCommand();
@@ -151,8 +152,8 @@ namespace Dresscode
                 global.oleconnection.Close();
 
                 MD5 md5 = new MD5CryptoServiceProvider();
-
                 //compute hash from the bytes of text
+
                 md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_old_pass.Text));
 
                 //get hash result after compute it
@@ -172,14 +173,30 @@ namespace Dresscode
                     {
                         if (textBox_new_pass_first.Text == textBox_new_pass_second.Text)
                         {
+                            MD5 md51 = new MD5CryptoServiceProvider();
+                            //compute hash from the bytes of text
+
+                            md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_new_pass_second.Text));
+
+                            //get hash result after compute it
+                            byte[] result1 = md51.Hash;
+
+                            StringBuilder strBuilder1 = new StringBuilder();
+                            for (int i = 0; i < result1.Length; i++)
+                            {
+                                //change it into 2 hexadecimal digits
+                                //for each byte
+                                strBuilder1.Append(result1[i].ToString("x2"));
+                            }
                             global.oleconnection.Open();
                             OleDbDataAdapter adpt = new OleDbDataAdapter();
                             adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]=@pass WHERE [Teacher ID]=@tid", global.oleconnection);
-                            adpt.UpdateCommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = textBox_new_pass_first.Text;
+                            adpt.UpdateCommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
                             adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
                             adpt.UpdateCommand.CommandType = CommandType.Text;
                             adpt.UpdateCommand.ExecuteNonQuery();
                             global.oleconnection.Close();
+                            MessageBox.Show("Your password has been successfully updated","Error");
                             this.Close();
                         }
                         else

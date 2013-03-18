@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Net.Mail;
 using System.Net;
+using System.Security.Cryptography;
 
 namespace Dresscode
 {
@@ -65,13 +66,28 @@ namespace Dresscode
                             newPass += alphabet[rand.Next(26)];
                         }
                     }
+                    MD5 md51 = new MD5CryptoServiceProvider();
+                    //compute hash from the bytes of text
+
+                    md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
+
+                    //get hash result after compute it
+                    byte[] result1 = md51.Hash;
+
+                    StringBuilder strBuilder1 = new StringBuilder();
+                    for (int i = 0; i < result1.Length; i++)
+                    {
+                        //change it into 2 hexadecimal digits
+                        //for each byte
+                        strBuilder1.Append(result1[i].ToString("x2"));
+                    }
                     //database
                     gl.oleconnection.Open();
                     OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
                     string sql = "INSERT INTO `Teacher Info` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
                     oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                     oledba_addstudent.InsertCommand.Parameters.Add("teacherid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
-                    oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = newPass;
+                    oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
                     oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = textbox_lastname.Text;
                     oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = textbox_firstname.Text;
                     oledba_addstudent.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textbox_email.Text;

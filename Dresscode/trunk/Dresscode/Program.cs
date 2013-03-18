@@ -15,7 +15,7 @@ namespace Dresscode
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Teacher_Editor()/*Splashscreen()*/);
+            Application.Run(new Login()/*Splashscreen()*/);
         }
     }
 }

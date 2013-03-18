@@ -55,6 +55,7 @@
             // 
             this.textBox_old_pass.Location = new System.Drawing.Point(133, 38);
             this.textBox_old_pass.Name = "textBox_old_pass";
+            this.textBox_old_pass.PasswordChar = '*';
             this.textBox_old_pass.Size = new System.Drawing.Size(191, 20);
             this.textBox_old_pass.TabIndex = 1;
             // 
@@ -62,6 +63,7 @@
             // 
             this.textBox_new_pass_first.Location = new System.Drawing.Point(133, 77);
             this.textBox_new_pass_first.Name = "textBox_new_pass_first";
+            this.textBox_new_pass_first.PasswordChar = '*';
             this.textBox_new_pass_first.Size = new System.Drawing.Size(191, 20);
             this.textBox_new_pass_first.TabIndex = 2;
             // 
@@ -69,6 +71,7 @@
             // 
             this.textBox_new_pass_second.Location = new System.Drawing.Point(133, 103);
             this.textBox_new_pass_second.Name = "textBox_new_pass_second";
+            this.textBox_new_pass_second.PasswordChar = '*';
             this.textBox_new_pass_second.Size = new System.Drawing.Size(191, 20);
             this.textBox_new_pass_second.TabIndex = 3;
             // 

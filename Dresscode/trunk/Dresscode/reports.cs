@@ -694,10 +694,6 @@ forthnineweeksend;
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Nine_Weeks_Dates sets = new Nine_Weeks_Dates();
-            sets.ShowDialog();
-            this.Show();
         }
 
         private void dataGridView_reports_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -784,12 +780,6 @@ forthnineweeksend;
                 global.oleconnection.Close();
             }
         }
-
-        private void teacherEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void weeksDatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();

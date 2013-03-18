@@ -45,13 +45,6 @@ namespace Dresscode
         {
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid AND Password=@pass";
-                getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
-                getteacherscommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = textbox_password.Text;
-                getteacherscommand.CommandType = CommandType.Text;
-                OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
                 MD5 md5 = new MD5CryptoServiceProvider();
                 //compute hash from the bytes of text
                 md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textbox_password.Text));
@@ -67,13 +60,21 @@ namespace Dresscode
                     strBuilder.Append(result[i].ToString("x2"));
                 }
 
+                global.oleconnection.Open();
+                OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
+                getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid AND Password=@pass";
+                getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
+                getteacherscommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = strBuilder.ToString();
+                getteacherscommand.CommandType = CommandType.Text;
+                OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
+
                 while (getteacher.Read())
                 {
                     if (real == false)
                     {
                         if (textbox_teacherid.Text.Contains(getteacher["Teacher ID"].ToString()))
                         {
-                            if (strBuilder.ToString().Contains(getteacher["Password"].ToString()))
+                            if (strBuilder.ToString() == getteacher["Password"].ToString())
                             {
                                 frm_dresscode.teacherfirstname = getteacher["First Name"].ToString();
                                 frm_dresscode.teacherlastname = getteacher["Last Name"].ToString();
