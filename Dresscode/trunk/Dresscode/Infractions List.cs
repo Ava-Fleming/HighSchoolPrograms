@@ -17,6 +17,24 @@ namespace Dresscode
         }
         globals gl = new globals();
         string sql = "";
+        private void Infractions_List_Load(object sender, EventArgs e)
+        {
+            gl.oleconnection.Open();
+            OleDbCommand getinfractionscommand = gl.oleconnection.CreateCommand();
+            getinfractionscommand.CommandText = "SELECT * FROM `Infraction List`";
+            OleDbDataReader getinfraction = getinfractionscommand.ExecuteReader();
+            while (getinfraction.Read())
+            {
+                listBox_infractions.Items.Add(getinfraction["infractions"].ToString());
+            }
+        }
+
+        private void textBox_infraction_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                button_addinfraction.PerformClick();
+        }
+
         private void button_addinfraction_Click(object sender, EventArgs e)
         {
             bool words = false;
@@ -80,24 +98,6 @@ namespace Dresscode
             {
                 gl.oleconnection.Close();
             }
-        }
-
-        private void Infractions_List_Load(object sender, EventArgs e)
-        {
-            gl.oleconnection.Open();
-            OleDbCommand getinfractionscommand = gl.oleconnection.CreateCommand();
-            getinfractionscommand.CommandText = "SELECT * FROM `Infraction List`";
-            OleDbDataReader getinfraction = getinfractionscommand.ExecuteReader();
-            while (getinfraction.Read())
-            {
-                listBox_infractions.Items.Add(getinfraction["infractions"].ToString());
-            }
-        }
-
-        private void textBox_infraction_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                button_addinfraction.PerformClick();
         }
     }
 }

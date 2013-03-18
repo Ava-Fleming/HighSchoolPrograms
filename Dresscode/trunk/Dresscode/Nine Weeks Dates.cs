@@ -59,7 +59,6 @@ namespace Dresscode
                 global.oleconnection.Open();
                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                 sql = "UPDATE `Nine Weeks Dates` SET [firstnineweeksstart]=@firststart,[firstnineweeksend]=@firstend,[secondnineweeksstart]=@secondstart,[secondnineweeksend]=@secondend,[thirdnineweeksstart]=@thirdstart,[thirdnineweeksend]=@thirdend,[forthnineweeksstart]=@forthstart,[forthnineweeksend]=@forthend";
-                
                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                 oledbAdapter.InsertCommand.Parameters.Add("firststart", OleDbType.Date, 255).Value = datetimepicker_1.Value.ToShortDateString();
                 oledbAdapter.InsertCommand.Parameters.Add("firstend", OleDbType.Date, 255).Value = datetimepicker_2.Value.ToShortDateString();

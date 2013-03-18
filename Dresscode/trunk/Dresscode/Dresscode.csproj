@@ -227,6 +227,8 @@
     <Content Include="Images\outofdresscode.png" />
     <Content Include="Images\Presidentmarkhor.png" />
     <Content Include="Images\thglife.png" />
+    <None Include="Resources\161-202markor2.png" />
+    <None Include="Resources\161-202markor1.png" />
     <None Include="Resources\morkhorcomputerdms.png" />
     <None Include="Resources\morkhorcomputer2.png" />
     <None Include="Resources\Presidentmarkhor.png" />

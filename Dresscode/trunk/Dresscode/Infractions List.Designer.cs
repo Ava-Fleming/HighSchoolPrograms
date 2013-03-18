@@ -44,16 +44,16 @@
             this.groupBox4.Controls.Add(this.button_addinfraction);
             this.groupBox4.Location = new System.Drawing.Point(12, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(325, 200);
+            this.groupBox4.Size = new System.Drawing.Size(232, 200);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Infractions";
             // 
             // button_removeinfraction
             // 
-            this.button_removeinfraction.Location = new System.Drawing.Point(244, 87);
+            this.button_removeinfraction.Location = new System.Drawing.Point(139, 104);
             this.button_removeinfraction.Name = "button_removeinfraction";
-            this.button_removeinfraction.Size = new System.Drawing.Size(75, 59);
+            this.button_removeinfraction.Size = new System.Drawing.Size(75, 80);
             this.button_removeinfraction.TabIndex = 3;
             this.button_removeinfraction.Text = "Remove";
             this.button_removeinfraction.UseVisualStyleBackColor = true;
@@ -64,22 +64,22 @@
             this.listBox_infractions.FormattingEnabled = true;
             this.listBox_infractions.Location = new System.Drawing.Point(6, 50);
             this.listBox_infractions.Name = "listBox_infractions";
-            this.listBox_infractions.Size = new System.Drawing.Size(232, 134);
+            this.listBox_infractions.Size = new System.Drawing.Size(127, 134);
             this.listBox_infractions.TabIndex = 2;
             // 
             // textBox_infraction
             // 
             this.textBox_infraction.Location = new System.Drawing.Point(6, 24);
             this.textBox_infraction.Name = "textBox_infraction";
-            this.textBox_infraction.Size = new System.Drawing.Size(232, 20);
+            this.textBox_infraction.Size = new System.Drawing.Size(127, 20);
             this.textBox_infraction.TabIndex = 1;
             this.textBox_infraction.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_infraction_KeyDown);
             // 
             // button_addinfraction
             // 
-            this.button_addinfraction.Location = new System.Drawing.Point(244, 22);
+            this.button_addinfraction.Location = new System.Drawing.Point(139, 24);
             this.button_addinfraction.Name = "button_addinfraction";
-            this.button_addinfraction.Size = new System.Drawing.Size(75, 59);
+            this.button_addinfraction.Size = new System.Drawing.Size(75, 74);
             this.button_addinfraction.TabIndex = 0;
             this.button_addinfraction.Text = "Add";
             this.button_addinfraction.UseVisualStyleBackColor = true;
@@ -89,10 +89,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 222);
+            this.ClientSize = new System.Drawing.Size(256, 222);
             this.Controls.Add(this.groupBox4);
             this.Name = "Infractions_List";
-            this.Text = "Infractions_List";
+            this.Text = "Infraction List";
             this.Load += new System.EventHandler(this.Infractions_List_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();

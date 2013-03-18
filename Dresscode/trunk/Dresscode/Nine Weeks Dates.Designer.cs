@@ -60,7 +60,7 @@
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(458, 200);
+            this.groupBox1.Size = new System.Drawing.Size(458, 181);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "9 Weeks Dates";
@@ -249,7 +249,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 224);
+            this.ClientSize = new System.Drawing.Size(480, 198);
             this.Controls.Add(this.groupBox1);
             this.Name = "Nine_Weeks_Dates";
             this.Text = "settings";

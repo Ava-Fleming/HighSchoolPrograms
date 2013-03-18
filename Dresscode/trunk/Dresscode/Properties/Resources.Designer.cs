@@ -60,6 +60,20 @@ namespace Dresscode.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap _161_202markor1 {
+            get {
+                object obj = ResourceManager.GetObject("_161_202markor1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap _161_202markor2 {
+            get {
+                object obj = ResourceManager.GetObject("_161_202markor2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap markhor1 {
             get {
                 object obj = ResourceManager.GetObject("markhor1", resourceCulture);

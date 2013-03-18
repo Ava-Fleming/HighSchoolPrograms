@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Mail;
 using System.Data.OleDb;
+using System.Security.Cryptography;
 
 namespace Dresscode
 {
@@ -70,11 +71,11 @@ namespace Dresscode
                         //database pull
                         global.oleconnection.Open();
                         OleDbCommand command = global.oleconnection.CreateCommand();
-                        command.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid ='" + textBox_teacherID.Text + "'";
+                        command.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`='" + textBox_teacherID.Text + "'";
                         OleDbDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-                            sendTo = reader["email"].ToString();
+                            sendTo = reader["Email"].ToString();
                         }
                         if (sendTo == "" || sendTo == " ")
                         {
@@ -101,7 +102,7 @@ namespace Dresscode
                         //database
                         global.oleconnection.Open();
                         OleDbDataAdapter adpt = new OleDbDataAdapter();
-                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [password]='" + newPass + "' WHERE [teacherid]='" + textBox_teacherID.Text + "'", global.oleconnection);
+                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]='" + newPass + "' WHERE [Teacher ID]='" + textBox_teacherID.Text + "'", global.oleconnection);
                         adpt.UpdateCommand.ExecuteNonQuery();
                         global.oleconnection.Close();
                         // email
@@ -139,7 +140,7 @@ namespace Dresscode
                 global.oleconnection.Open();
 
                 OleDbCommand com = global.oleconnection.CreateCommand();
-                com.CommandText = "SELECT * FROM `Teacher Info` WHERE teacherid=@tid";
+                com.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid";
                 com.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
                 com.CommandType = CommandType.Text;
                 OleDbDataReader read = com.ExecuteReader();
@@ -148,7 +149,24 @@ namespace Dresscode
                     oldPass = read["password"].ToString();
                 }
                 global.oleconnection.Close();
-                if (oldPass == textBox_old_pass.Text)
+
+                MD5 md5 = new MD5CryptoServiceProvider();
+
+                //compute hash from the bytes of text
+                md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_old_pass.Text));
+
+                //get hash result after compute it
+                byte[] result = md5.Hash;
+
+                StringBuilder strBuilder = new StringBuilder();
+                for (int i = 0; i < result.Length; i++)
+                {
+                    //change it into 2 hexadecimal digits
+                    //for each byte
+                    strBuilder.Append(result[i].ToString("x2"));
+                }
+
+                if (oldPass == strBuilder.ToString())
                 {
                     if (textBox_new_pass_first.Text != textBox_old_pass.Text)
                     {
@@ -156,7 +174,7 @@ namespace Dresscode
                         {
                             global.oleconnection.Open();
                             OleDbDataAdapter adpt = new OleDbDataAdapter();
-                            adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [password]=@pass WHERE [teacherid]=@tid", global.oleconnection);
+                            adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]=@pass WHERE [Teacher ID]=@tid", global.oleconnection);
                             adpt.UpdateCommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = textBox_new_pass_first.Text;
                             adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
                             adpt.UpdateCommand.CommandType = CommandType.Text;
