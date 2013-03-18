@@ -78,7 +78,7 @@ namespace Dresscode
                         }
                         if (sendTo == "" || sendTo == " ")
                         {
-                            AddPass adp = new AddPass();
+                            AddEmail adp = new AddEmail();
                             adp.teacherid = textBox_teacherID.Text;
                             adp.ShowDialog();
                             sendTo = adp.email;

@@ -1,6 +1,6 @@
 ﻿namespace Dresscode
 {
-    partial class AddPass
+    partial class AddEmail
     {
         /// <summary>
         /// Required designer variable.
@@ -70,7 +70,7 @@
             this.label_notification.Text = "We do not have an email for you on record. Please\r\nenter a working email to conti" +
     "nue changing your password.";
             // 
-            // AddPass
+            // AddEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,8 +79,8 @@
             this.Controls.Add(this.textbox_email);
             this.Controls.Add(this.button_saveemail);
             this.Controls.Add(this.label_email);
-            this.Name = "AddPass";
-            this.Text = "AddPass";
+            this.Name = "AddEmail";
+            this.Text = "AddEmail";
             this.ResumeLayout(false);
             this.PerformLayout();
 

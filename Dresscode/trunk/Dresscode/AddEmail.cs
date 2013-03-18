@@ -10,9 +10,9 @@ using System.Data.OleDb;
 
 namespace Dresscode
 {
-    public partial class AddPass : Form
+    public partial class AddEmail : Form
     {
-        public AddPass()
+        public AddEmail()
         {
             InitializeComponent();
         }

@@ -162,6 +162,7 @@
             this.Controls.Add(this.textbox_teacherid);
             this.Name = "Teacher_Editor";
             this.Text = "Teacher_Editor";
+            this.Load += new System.EventHandler(this.Teacher_Editor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

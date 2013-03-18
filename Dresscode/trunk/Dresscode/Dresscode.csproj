@@ -85,11 +85,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddPass.cs">
+    <Compile Include="AddEmail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddPass.Designer.cs">
-      <DependentUpon>AddPass.cs</DependentUpon>
+    <Compile Include="AddEmail.Designer.cs">
+      <DependentUpon>AddEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="dgt.cs">
       <SubType>Form</SubType>
@@ -154,8 +154,8 @@
     <Compile Include="Teacher Editor.Designer.cs">
       <DependentUpon>Teacher Editor.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddPass.resx">
-      <DependentUpon>AddPass.cs</DependentUpon>
+    <EmbeddedResource Include="AddEmail.resx">
+      <DependentUpon>AddEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dgt.resx">
       <DependentUpon>dgt.cs</DependentUpon>
