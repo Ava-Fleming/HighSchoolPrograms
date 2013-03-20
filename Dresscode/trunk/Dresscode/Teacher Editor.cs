@@ -49,7 +49,7 @@ namespace Dresscode
             {
                 try
                 {
-                    bool newuser = false;
+                    bool newuser = true; //Change when verification code is in place.
                     if (newuser)
                     {
                         //var initialization
