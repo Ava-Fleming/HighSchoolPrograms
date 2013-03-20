@@ -91,12 +91,6 @@
     <Compile Include="AddEmail.Designer.cs">
       <DependentUpon>AddEmail.cs</DependentUpon>
     </Compile>
-    <Compile Include="dgt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="dgt.Designer.cs">
-      <DependentUpon>dgt.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dresscode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,9 +156,6 @@
     </Compile>
     <EmbeddedResource Include="AddEmail.resx">
       <DependentUpon>AddEmail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="dgt.resx">
-      <DependentUpon>dgt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dresscode.resx">
       <DependentUpon>Dresscode.cs</DependentUpon>

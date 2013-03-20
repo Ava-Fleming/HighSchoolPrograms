@@ -70,7 +70,7 @@
             this.button_savedates.Location = new System.Drawing.Point(377, 154);
             this.button_savedates.Name = "button_savedates";
             this.button_savedates.Size = new System.Drawing.Size(75, 20);
-            this.button_savedates.TabIndex = 11;
+            this.button_savedates.TabIndex = 9;
             this.button_savedates.Text = "Save";
             this.button_savedates.UseVisualStyleBackColor = true;
             this.button_savedates.Click += new System.EventHandler(this.button_savedates_Click);
@@ -116,7 +116,7 @@
             this.datetimepicker_5.Location = new System.Drawing.Point(109, 16);
             this.datetimepicker_5.Name = "datetimepicker_5";
             this.datetimepicker_5.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_5.TabIndex = 1;
+            this.datetimepicker_5.TabIndex = 5;
             // 
             // datetimepicker_6
             // 
@@ -124,7 +124,7 @@
             this.datetimepicker_6.Location = new System.Drawing.Point(109, 42);
             this.datetimepicker_6.Name = "datetimepicker_6";
             this.datetimepicker_6.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_6.TabIndex = 7;
+            this.datetimepicker_6.TabIndex = 6;
             // 
             // datetimepicker_7
             // 
@@ -132,7 +132,7 @@
             this.datetimepicker_7.Location = new System.Drawing.Point(109, 68);
             this.datetimepicker_7.Name = "datetimepicker_7";
             this.datetimepicker_7.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_7.TabIndex = 3;
+            this.datetimepicker_7.TabIndex = 7;
             // 
             // label_for9weeks_start
             // 
@@ -158,7 +158,7 @@
             this.datetimepicker_8.Location = new System.Drawing.Point(109, 94);
             this.datetimepicker_8.Name = "datetimepicker_8";
             this.datetimepicker_8.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_8.TabIndex = 5;
+            this.datetimepicker_8.TabIndex = 8;
             // 
             // groupBox2
             // 
@@ -209,7 +209,7 @@
             this.datetimepicker_4.Location = new System.Drawing.Point(109, 94);
             this.datetimepicker_4.Name = "datetimepicker_4";
             this.datetimepicker_4.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_4.TabIndex = 7;
+            this.datetimepicker_4.TabIndex = 4;
             // 
             // datetimepicker_2
             // 
@@ -217,7 +217,7 @@
             this.datetimepicker_2.Location = new System.Drawing.Point(109, 42);
             this.datetimepicker_2.Name = "datetimepicker_2";
             this.datetimepicker_2.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_2.TabIndex = 3;
+            this.datetimepicker_2.TabIndex = 2;
             // 
             // label_snd9weeks_start
             // 
@@ -243,7 +243,7 @@
             this.datetimepicker_3.Location = new System.Drawing.Point(108, 68);
             this.datetimepicker_3.Name = "datetimepicker_3";
             this.datetimepicker_3.Size = new System.Drawing.Size(95, 20);
-            this.datetimepicker_3.TabIndex = 5;
+            this.datetimepicker_3.TabIndex = 3;
             // 
             // Nine_Weeks_Dates
             // 

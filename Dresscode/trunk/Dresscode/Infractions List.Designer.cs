@@ -54,7 +54,7 @@
             this.button_removeinfraction.Location = new System.Drawing.Point(139, 104);
             this.button_removeinfraction.Name = "button_removeinfraction";
             this.button_removeinfraction.Size = new System.Drawing.Size(75, 80);
-            this.button_removeinfraction.TabIndex = 3;
+            this.button_removeinfraction.TabIndex = 4;
             this.button_removeinfraction.Text = "Remove";
             this.button_removeinfraction.UseVisualStyleBackColor = true;
             this.button_removeinfraction.Click += new System.EventHandler(this.button_removeinfraction_Click);
@@ -65,7 +65,7 @@
             this.listBox_infractions.Location = new System.Drawing.Point(6, 50);
             this.listBox_infractions.Name = "listBox_infractions";
             this.listBox_infractions.Size = new System.Drawing.Size(127, 134);
-            this.listBox_infractions.TabIndex = 2;
+            this.listBox_infractions.TabIndex = 3;
             // 
             // textBox_infraction
             // 
@@ -80,7 +80,7 @@
             this.button_addinfraction.Location = new System.Drawing.Point(139, 24);
             this.button_addinfraction.Name = "button_addinfraction";
             this.button_addinfraction.Size = new System.Drawing.Size(75, 74);
-            this.button_addinfraction.TabIndex = 0;
+            this.button_addinfraction.TabIndex = 2;
             this.button_addinfraction.Text = "Add";
             this.button_addinfraction.UseVisualStyleBackColor = true;
             this.button_addinfraction.Click += new System.EventHandler(this.button_addinfraction_Click);

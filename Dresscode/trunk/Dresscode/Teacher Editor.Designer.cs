@@ -76,7 +76,7 @@
             this.textbox_firstname.Location = new System.Drawing.Point(179, 64);
             this.textbox_firstname.Name = "textbox_firstname";
             this.textbox_firstname.Size = new System.Drawing.Size(100, 20);
-            this.textbox_firstname.TabIndex = 3;
+            this.textbox_firstname.TabIndex = 2;
             // 
             // label_lastname
             // 
@@ -92,7 +92,7 @@
             this.textbox_lastname.Location = new System.Drawing.Point(179, 103);
             this.textbox_lastname.Name = "textbox_lastname";
             this.textbox_lastname.Size = new System.Drawing.Size(100, 20);
-            this.textbox_lastname.TabIndex = 5;
+            this.textbox_lastname.TabIndex = 3;
             // 
             // label_email
             // 
@@ -108,14 +108,14 @@
             this.textbox_email.Location = new System.Drawing.Point(179, 142);
             this.textbox_email.Name = "textbox_email";
             this.textbox_email.Size = new System.Drawing.Size(100, 20);
-            this.textbox_email.TabIndex = 8;
+            this.textbox_email.TabIndex = 4;
             // 
             // button_addteacher
             // 
             this.button_addteacher.Location = new System.Drawing.Point(179, 191);
             this.button_addteacher.Name = "button_addteacher";
             this.button_addteacher.Size = new System.Drawing.Size(100, 23);
-            this.button_addteacher.TabIndex = 9;
+            this.button_addteacher.TabIndex = 6;
             this.button_addteacher.Text = "Add Teacher";
             this.button_addteacher.UseVisualStyleBackColor = true;
             this.button_addteacher.Click += new System.EventHandler(this.button_addteacher_Click);
@@ -126,7 +126,7 @@
             this.checkbox_dean.Location = new System.Drawing.Point(199, 168);
             this.checkbox_dean.Name = "checkbox_dean";
             this.checkbox_dean.Size = new System.Drawing.Size(52, 17);
-            this.checkbox_dean.TabIndex = 11;
+            this.checkbox_dean.TabIndex = 5;
             this.checkbox_dean.Text = "Dean";
             this.checkbox_dean.UseVisualStyleBackColor = true;
             // 

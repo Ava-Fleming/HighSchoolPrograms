@@ -40,5 +40,11 @@ namespace Dresscode
                 MessageBox.Show(x.Message, "Error");
             }
         }
+
+        private void textbox_email_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                button_saveemail.PerformClick();
+        }
     }
 }

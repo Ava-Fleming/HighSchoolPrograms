@@ -81,7 +81,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(407, 151);
-            this.dataGridView1.TabIndex = 18;
+            this.dataGridView1.TabIndex = 9;
             // 
             // combobox_lastname
             // 
@@ -207,7 +207,7 @@
             this.combobox_period.Location = new System.Drawing.Point(150, 32);
             this.combobox_period.Name = "combobox_period";
             this.combobox_period.Size = new System.Drawing.Size(34, 21);
-            this.combobox_period.TabIndex = 5;
+            this.combobox_period.TabIndex = 4;
             // 
             // textbox_details
             // 
@@ -215,7 +215,7 @@
             this.textbox_details.Multiline = true;
             this.textbox_details.Name = "textbox_details";
             this.textbox_details.Size = new System.Drawing.Size(407, 80);
-            this.textbox_details.TabIndex = 8;
+            this.textbox_details.TabIndex = 6;
             this.textbox_details.Text = "Details";
             this.textbox_details.Click += new System.EventHandler(this.textbox_details_Click);
             this.textbox_details.TextChanged += new System.EventHandler(this.textbox_details_TextChanged);
@@ -226,7 +226,7 @@
             this.button_submit.Location = new System.Drawing.Point(6, 158);
             this.button_submit.Name = "button_submit";
             this.button_submit.Size = new System.Drawing.Size(161, 23);
-            this.button_submit.TabIndex = 9;
+            this.button_submit.TabIndex = 7;
             this.button_submit.Text = "Submit";
             this.button_submit.UseVisualStyleBackColor = true;
             this.button_submit.Click += new System.EventHandler(this.button_submit_Click);
@@ -236,7 +236,7 @@
             this.button_clear.Location = new System.Drawing.Point(255, 158);
             this.button_clear.Name = "button_clear";
             this.button_clear.Size = new System.Drawing.Size(158, 23);
-            this.button_clear.TabIndex = 10;
+            this.button_clear.TabIndex = 8;
             this.button_clear.Text = "Clear";
             this.button_clear.UseVisualStyleBackColor = true;
             this.button_clear.Click += new System.EventHandler(this.button_clear_Click);
@@ -248,7 +248,7 @@
             this.combobox_infraction.Location = new System.Drawing.Point(213, 34);
             this.combobox_infraction.Name = "combobox_infraction";
             this.combobox_infraction.Size = new System.Drawing.Size(181, 21);
-            this.combobox_infraction.TabIndex = 7;
+            this.combobox_infraction.TabIndex = 5;
             // 
             // label_teacherid
             // 
@@ -272,7 +272,7 @@
             // reportsToolStripMenuItem
             // 
             this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 

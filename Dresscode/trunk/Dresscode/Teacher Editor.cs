@@ -49,72 +49,76 @@ namespace Dresscode
             {
                 try
                 {
-                    //var initialization
-                    sendTo = textbox_email.Text;
-                    //pass gen
-                    string alphabet = "abcdefghijklmnopqrstuvwxyz";
-                    Random rand = new Random();
-                    String newPass = "";
-                    for (int i = 0; i < 8; i++)
+                    bool newuser = false;
+                    if (newuser)
                     {
-                        if (rand.NextDouble() > 0.50)
+                        //var initialization
+                        sendTo = textbox_email.Text;
+                        //pass gen
+                        string alphabet = "abcdefghijklmnopqrstuvwxyz";
+                        Random rand = new Random();
+                        String newPass = "";
+                        for (int i = 0; i < 8; i++)
                         {
-                            newPass += rand.Next(10);
+                            if (rand.NextDouble() > 0.50)
+                            {
+                                newPass += rand.Next(10);
+                            }
+                            else
+                            {
+                                newPass += alphabet[rand.Next(26)];
+                            }
                         }
-                        else
+                        MD5 md51 = new MD5CryptoServiceProvider();
+                        //compute hash from the bytes of text
+
+                        md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
+
+                        //get hash result after compute it
+                        byte[] result1 = md51.Hash;
+
+                        StringBuilder strBuilder1 = new StringBuilder();
+                        for (int i = 0; i < result1.Length; i++)
                         {
-                            newPass += alphabet[rand.Next(26)];
+                            //change it into 2 hexadecimal digits
+                            //for each byte
+                            strBuilder1.Append(result1[i].ToString("x2"));
                         }
+                        //database
+                        gl.oleconnection.Open();
+                        OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
+                        string sql = "INSERT INTO `Teacher Info` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
+                        oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
+                        oledba_addstudent.InsertCommand.Parameters.Add("teacherid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
+                        oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
+                        oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = textbox_lastname.Text;
+                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = textbox_firstname.Text;
+                        oledba_addstudent.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textbox_email.Text;
+
+                        if (checkbox_dean.Checked)
+                        {
+                            oledba_addstudent.InsertCommand.Parameters.Add("admin", OleDbType.VarChar, 255).Value = "Yes";
+                        }
+                        else { oledba_addstudent.InsertCommand.Parameters.Add("admin", OleDbType.VarChar, 255).Value = ""; }
+                        oledba_addstudent.InsertCommand.ExecuteNonQuery();
+                        //email
+                        SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                        sm.EnableSsl = false;
+                        sm.Credentials = new NetworkCredential(host, hostPass);
+                        MailAddress from = new MailAddress(host);
+                        MailAddress to = new MailAddress(sendTo);
+                        MailMessage mMsg = new MailMessage(from, to);
+                        mMsg.Subject = "Dresscode User Creation";
+                        mMsg.Body = "Hello " + textbox_firstname.Text + " " + textbox_lastname.Text + "\nYour Login information is, ID: \"" + textbox_teacherid.Text + "\" Password:\"" + newPass + "\".";
+                        sm.Send(mMsg);
+                        datagridupdate();
+                        MessageBox.Show(textbox_firstname.Text + " " + textbox_lastname.Text + " was successfully added");
+                        textbox_email.Clear();
+                        textbox_firstname.Clear();
+                        textbox_teacherid.Clear();
+                        textbox_lastname.Clear();
+                        checkbox_dean.Checked = false;
                     }
-                    MD5 md51 = new MD5CryptoServiceProvider();
-                    //compute hash from the bytes of text
-
-                    md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
-
-                    //get hash result after compute it
-                    byte[] result1 = md51.Hash;
-
-                    StringBuilder strBuilder1 = new StringBuilder();
-                    for (int i = 0; i < result1.Length; i++)
-                    {
-                        //change it into 2 hexadecimal digits
-                        //for each byte
-                        strBuilder1.Append(result1[i].ToString("x2"));
-                    }
-                    //database
-                    gl.oleconnection.Open();
-                    OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
-                    string sql = "INSERT INTO `Teacher Info` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
-                    oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                    oledba_addstudent.InsertCommand.Parameters.Add("teacherid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
-                    oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
-                    oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = textbox_lastname.Text;
-                    oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = textbox_firstname.Text;
-                    oledba_addstudent.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textbox_email.Text;
-
-                    if (checkbox_dean.Checked)
-                    {
-                        oledba_addstudent.InsertCommand.Parameters.Add("admin", OleDbType.VarChar, 255).Value = "Yes";
-                    }
-                    else { oledba_addstudent.InsertCommand.Parameters.Add("admin", OleDbType.VarChar, 255).Value = ""; }
-                    oledba_addstudent.InsertCommand.ExecuteNonQuery();
-                    //email
-                    SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                    sm.EnableSsl = false;
-                    sm.Credentials = new NetworkCredential(host, hostPass);
-                    MailAddress from = new MailAddress(host);
-                    MailAddress to = new MailAddress(sendTo);
-                    MailMessage mMsg = new MailMessage(from, to);
-                    mMsg.Subject = "Dresscode User Creation";
-                    mMsg.Body = "Hello " + textbox_firstname.Text + " " + textbox_lastname.Text + "\nYour Login information is, ID: \"" + textbox_teacherid.Text + "\" Password:\"" + newPass + "\".";
-                    sm.Send(mMsg);
-                    datagridupdate();
-                    MessageBox.Show(textbox_firstname.Text + " " + textbox_lastname.Text + " was successfully added");
-                    textbox_email.Clear();
-                    textbox_firstname.Clear();
-                    textbox_teacherid.Clear();
-                    textbox_lastname.Clear();
-                    checkbox_dean.Checked = false;
                 }
                 catch (Exception x)
                 {

@@ -95,7 +95,7 @@
             this.combobox_teacher.Location = new System.Drawing.Point(126, 95);
             this.combobox_teacher.Name = "combobox_teacher";
             this.combobox_teacher.Size = new System.Drawing.Size(121, 21);
-            this.combobox_teacher.TabIndex = 5;
+            this.combobox_teacher.TabIndex = 12;
             // 
             // label_viewing
             // 
@@ -111,7 +111,7 @@
             this.button_retrieve.Location = new System.Drawing.Point(12, 451);
             this.button_retrieve.Name = "button_retrieve";
             this.button_retrieve.Size = new System.Drawing.Size(132, 23);
-            this.button_retrieve.TabIndex = 9;
+            this.button_retrieve.TabIndex = 26;
             this.button_retrieve.Text = "Retrieve";
             this.button_retrieve.UseVisualStyleBackColor = true;
             this.button_retrieve.Click += new System.EventHandler(this.button3_Click);
@@ -122,7 +122,7 @@
             this.checkBox_date_single.Location = new System.Drawing.Point(6, 19);
             this.checkBox_date_single.Name = "checkBox_date_single";
             this.checkBox_date_single.Size = new System.Drawing.Size(97, 17);
-            this.checkBox_date_single.TabIndex = 10;
+            this.checkBox_date_single.TabIndex = 1;
             this.checkBox_date_single.Text = "Select By Date";
             this.checkBox_date_single.UseVisualStyleBackColor = true;
             this.checkBox_date_single.CheckedChanged += new System.EventHandler(this.checkBox_date_single_CheckedChanged);
@@ -185,7 +185,7 @@
             this.comboBox_semster.Location = new System.Drawing.Point(129, 68);
             this.comboBox_semster.Name = "comboBox_semster";
             this.comboBox_semster.Size = new System.Drawing.Size(63, 21);
-            this.comboBox_semster.TabIndex = 35;
+            this.comboBox_semster.TabIndex = 10;
             // 
             // checkBox_semester
             // 
@@ -193,7 +193,7 @@
             this.checkBox_semester.Location = new System.Drawing.Point(6, 70);
             this.checkBox_semester.Name = "checkBox_semester";
             this.checkBox_semester.Size = new System.Drawing.Size(117, 17);
-            this.checkBox_semester.TabIndex = 34;
+            this.checkBox_semester.TabIndex = 9;
             this.checkBox_semester.Text = "Select by Semester";
             this.checkBox_semester.UseVisualStyleBackColor = true;
             this.checkBox_semester.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
@@ -205,7 +205,7 @@
             this.checkBox_9weeksend.Location = new System.Drawing.Point(195, 43);
             this.checkBox_9weeksend.Name = "checkBox_9weeksend";
             this.checkBox_9weeksend.Size = new System.Drawing.Size(58, 17);
-            this.checkBox_9weeksend.TabIndex = 33;
+            this.checkBox_9weeksend.TabIndex = 7;
             this.checkBox_9weeksend.Text = "Range";
             this.checkBox_9weeksend.UseVisualStyleBackColor = true;
             this.checkBox_9weeksend.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
@@ -223,7 +223,7 @@
             this.comboBox_9weeksend.Location = new System.Drawing.Point(259, 41);
             this.comboBox_9weeksend.Name = "comboBox_9weeksend";
             this.comboBox_9weeksend.Size = new System.Drawing.Size(63, 21);
-            this.comboBox_9weeksend.TabIndex = 32;
+            this.comboBox_9weeksend.TabIndex = 8;
             // 
             // comboBox_9weeksstart
             // 
@@ -238,7 +238,7 @@
             this.comboBox_9weeksstart.Location = new System.Drawing.Point(126, 41);
             this.comboBox_9weeksstart.Name = "comboBox_9weeksstart";
             this.comboBox_9weeksstart.Size = new System.Drawing.Size(63, 21);
-            this.comboBox_9weeksstart.TabIndex = 31;
+            this.comboBox_9weeksstart.TabIndex = 6;
             // 
             // checkBox_9weeksstart
             // 
@@ -246,7 +246,7 @@
             this.checkBox_9weeksstart.Location = new System.Drawing.Point(7, 43);
             this.checkBox_9weeksstart.Name = "checkBox_9weeksstart";
             this.checkBox_9weeksstart.Size = new System.Drawing.Size(113, 17);
-            this.checkBox_9weeksstart.TabIndex = 30;
+            this.checkBox_9weeksstart.TabIndex = 5;
             this.checkBox_9weeksstart.Text = "Select by 9 weeks";
             this.checkBox_9weeksstart.UseVisualStyleBackColor = true;
             this.checkBox_9weeksstart.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -276,7 +276,7 @@
             this.comboBox_student_last.Location = new System.Drawing.Point(363, 197);
             this.comboBox_student_last.Name = "comboBox_student_last";
             this.comboBox_student_last.Size = new System.Drawing.Size(107, 21);
-            this.comboBox_student_last.TabIndex = 27;
+            this.comboBox_student_last.TabIndex = 25;
             this.comboBox_student_last.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_student_last_KeyDown);
             // 
             // checkBox_student
@@ -285,7 +285,7 @@
             this.checkBox_student.Location = new System.Drawing.Point(6, 197);
             this.checkBox_student.Name = "checkBox_student";
             this.checkBox_student.Size = new System.Drawing.Size(111, 17);
-            this.checkBox_student.TabIndex = 26;
+            this.checkBox_student.TabIndex = 23;
             this.checkBox_student.Text = "Select By Student";
             this.checkBox_student.UseVisualStyleBackColor = true;
             this.checkBox_student.CheckedChanged += new System.EventHandler(this.checkBox_student_CheckedChanged);
@@ -297,7 +297,7 @@
             this.comboBox_student_firstname.Location = new System.Drawing.Point(181, 195);
             this.comboBox_student_firstname.Name = "comboBox_student_firstname";
             this.comboBox_student_firstname.Size = new System.Drawing.Size(109, 21);
-            this.comboBox_student_firstname.TabIndex = 25;
+            this.comboBox_student_firstname.TabIndex = 24;
             this.comboBox_student_firstname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBox_student_firstname_KeyDown);
             // 
             // numericUpDown_grade_end
@@ -316,7 +316,7 @@
             0});
             this.numericUpDown_grade_end.Name = "numericUpDown_grade_end";
             this.numericUpDown_grade_end.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDown_grade_end.TabIndex = 24;
+            this.numericUpDown_grade_end.TabIndex = 22;
             this.numericUpDown_grade_end.Value = new decimal(new int[] {
             12,
             0,
@@ -330,7 +330,7 @@
             this.checkBox_grade_range.Location = new System.Drawing.Point(177, 172);
             this.checkBox_grade_range.Name = "checkBox_grade_range";
             this.checkBox_grade_range.Size = new System.Drawing.Size(58, 17);
-            this.checkBox_grade_range.TabIndex = 23;
+            this.checkBox_grade_range.TabIndex = 21;
             this.checkBox_grade_range.Text = "Range";
             this.checkBox_grade_range.UseVisualStyleBackColor = true;
             this.checkBox_grade_range.CheckedChanged += new System.EventHandler(this.checkBox_grade_range_CheckedChanged);
@@ -351,7 +351,7 @@
             0});
             this.numericUpDown_grade_start.Name = "numericUpDown_grade_start";
             this.numericUpDown_grade_start.Size = new System.Drawing.Size(51, 20);
-            this.numericUpDown_grade_start.TabIndex = 22;
+            this.numericUpDown_grade_start.TabIndex = 20;
             this.numericUpDown_grade_start.Value = new decimal(new int[] {
             9,
             0,
@@ -364,7 +364,7 @@
             this.checkBox_grade_single.Location = new System.Drawing.Point(7, 169);
             this.checkBox_grade_single.Name = "checkBox_grade_single";
             this.checkBox_grade_single.Size = new System.Drawing.Size(107, 17);
-            this.checkBox_grade_single.TabIndex = 21;
+            this.checkBox_grade_single.TabIndex = 19;
             this.checkBox_grade_single.Text = "Search By Grade";
             this.checkBox_grade_single.UseVisualStyleBackColor = true;
             this.checkBox_grade_single.CheckedChanged += new System.EventHandler(this.checkBox_grade_single_CheckedChanged);
@@ -385,7 +385,7 @@
             0});
             this.numericUpDown_period_end.Name = "numericUpDown_period_end";
             this.numericUpDown_period_end.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDown_period_end.TabIndex = 20;
+            this.numericUpDown_period_end.TabIndex = 18;
             this.numericUpDown_period_end.Value = new decimal(new int[] {
             7,
             0,
@@ -399,7 +399,7 @@
             this.checkBox_period_range.Location = new System.Drawing.Point(177, 146);
             this.checkBox_period_range.Name = "checkBox_period_range";
             this.checkBox_period_range.Size = new System.Drawing.Size(58, 17);
-            this.checkBox_period_range.TabIndex = 19;
+            this.checkBox_period_range.TabIndex = 17;
             this.checkBox_period_range.Text = "Range";
             this.checkBox_period_range.UseVisualStyleBackColor = true;
             this.checkBox_period_range.CheckedChanged += new System.EventHandler(this.checkBox_period_range_CheckedChanged);
@@ -420,7 +420,7 @@
             0});
             this.numericUpDown_period_start.Name = "numericUpDown_period_start";
             this.numericUpDown_period_start.Size = new System.Drawing.Size(49, 20);
-            this.numericUpDown_period_start.TabIndex = 18;
+            this.numericUpDown_period_start.TabIndex = 16;
             this.numericUpDown_period_start.Value = new decimal(new int[] {
             1,
             0,
@@ -433,7 +433,7 @@
             this.checkBox_period_single.Location = new System.Drawing.Point(7, 145);
             this.checkBox_period_single.Name = "checkBox_period_single";
             this.checkBox_period_single.Size = new System.Drawing.Size(108, 17);
-            this.checkBox_period_single.TabIndex = 17;
+            this.checkBox_period_single.TabIndex = 15;
             this.checkBox_period_single.Text = "Search By Period";
             this.checkBox_period_single.UseVisualStyleBackColor = true;
             this.checkBox_period_single.CheckedChanged += new System.EventHandler(this.checkBox_period_single_CheckedChanged);
@@ -446,7 +446,7 @@
             this.comboBox_infraction_select.Location = new System.Drawing.Point(126, 121);
             this.comboBox_infraction_select.Name = "comboBox_infraction_select";
             this.comboBox_infraction_select.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_infraction_select.TabIndex = 16;
+            this.comboBox_infraction_select.TabIndex = 14;
             // 
             // checkBox_infraction
             // 
@@ -454,7 +454,7 @@
             this.checkBox_infraction.Location = new System.Drawing.Point(7, 121);
             this.checkBox_infraction.Name = "checkBox_infraction";
             this.checkBox_infraction.Size = new System.Drawing.Size(118, 17);
-            this.checkBox_infraction.TabIndex = 15;
+            this.checkBox_infraction.TabIndex = 13;
             this.checkBox_infraction.Text = "Select By Infraction";
             this.checkBox_infraction.UseVisualStyleBackColor = true;
             this.checkBox_infraction.CheckedChanged += new System.EventHandler(this.checkBox_infraction_CheckedChanged);
@@ -466,7 +466,7 @@
             this.datetimepicker_date_end.Location = new System.Drawing.Point(259, 13);
             this.datetimepicker_date_end.Name = "datetimepicker_date_end";
             this.datetimepicker_date_end.Size = new System.Drawing.Size(80, 20);
-            this.datetimepicker_date_end.TabIndex = 14;
+            this.datetimepicker_date_end.TabIndex = 4;
             // 
             // checkBox_date_range
             // 
@@ -475,7 +475,7 @@
             this.checkBox_date_range.Location = new System.Drawing.Point(195, 15);
             this.checkBox_date_range.Name = "checkBox_date_range";
             this.checkBox_date_range.Size = new System.Drawing.Size(58, 17);
-            this.checkBox_date_range.TabIndex = 13;
+            this.checkBox_date_range.TabIndex = 3;
             this.checkBox_date_range.Text = "Range";
             this.checkBox_date_range.UseVisualStyleBackColor = true;
             this.checkBox_date_range.CheckedChanged += new System.EventHandler(this.checkBox_date_range_CheckedChanged);
@@ -486,7 +486,7 @@
             this.dataGridView_reports.Location = new System.Drawing.Point(12, 264);
             this.dataGridView_reports.Name = "dataGridView_reports";
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
-            this.dataGridView_reports.TabIndex = 13;
+            this.dataGridView_reports.TabIndex = 28;
             this.dataGridView_reports.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_reports_CellEndEdit);
             this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             this.dataGridView_reports.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_reports_UserDeletingRow);
@@ -496,7 +496,7 @@
             this.button_export_excel.Location = new System.Drawing.Point(388, 451);
             this.button_export_excel.Name = "button_export_excel";
             this.button_export_excel.Size = new System.Drawing.Size(113, 23);
-            this.button_export_excel.TabIndex = 15;
+            this.button_export_excel.TabIndex = 27;
             this.button_export_excel.Text = "Export To Excel";
             this.button_export_excel.UseVisualStyleBackColor = true;
             this.button_export_excel.Click += new System.EventHandler(this.button_export_excel_Click);
@@ -527,7 +527,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(513, 24);
-            this.menuStrip1.TabIndex = 32;
+            this.menuStrip1.TabIndex = 29;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // settingsToolStripMenuItem
@@ -536,21 +536,21 @@
             this.weeksDatesToolStripMenuItem,
             this.infractionsListToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // weeksDatesToolStripMenuItem
             // 
             this.weeksDatesToolStripMenuItem.Name = "weeksDatesToolStripMenuItem";
-            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.weeksDatesToolStripMenuItem.Text = "9 Weeks Dates";
             this.weeksDatesToolStripMenuItem.Click += new System.EventHandler(this.weeksDatesToolStripMenuItem_Click);
             // 
             // infractionsListToolStripMenuItem
             // 
             this.infractionsListToolStripMenuItem.Name = "infractionsListToolStripMenuItem";
-            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.infractionsListToolStripMenuItem.Text = "Infractions List";
             this.infractionsListToolStripMenuItem.Click += new System.EventHandler(this.infractionsListToolStripMenuItem_Click);
             // 
@@ -560,21 +560,21 @@
             this.studentToolStripMenuItem,
             this.teacherToolStripMenuItem});
             this.studentEditorToolStripMenuItem.Name = "studentEditorToolStripMenuItem";
-            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.studentEditorToolStripMenuItem.Text = "Add";
             this.studentEditorToolStripMenuItem.Click += new System.EventHandler(this.studentEditorToolStripMenuItem_Click);
             // 
             // studentToolStripMenuItem
             // 
             this.studentToolStripMenuItem.Name = "studentToolStripMenuItem";
-            this.studentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.studentToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.studentToolStripMenuItem.Text = "Student";
             this.studentToolStripMenuItem.Click += new System.EventHandler(this.studentToolStripMenuItem_Click);
             // 
             // teacherToolStripMenuItem
             // 
             this.teacherToolStripMenuItem.Name = "teacherToolStripMenuItem";
-            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.teacherToolStripMenuItem.Text = "Teacher";
             this.teacherToolStripMenuItem.Click += new System.EventHandler(this.teacherToolStripMenuItem_Click);
             // 

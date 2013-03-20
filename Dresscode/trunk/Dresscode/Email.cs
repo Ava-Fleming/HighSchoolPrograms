@@ -368,5 +368,11 @@ namespace Dresscode
                 textBox_email_password.PasswordChar = '*';
             }
         }
+
+        private void textBox_add_email_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                button_add_email.PerformClick();
+        }
     }
 }

@@ -48,7 +48,7 @@
             this.button_saveemail.Location = new System.Drawing.Point(111, 77);
             this.button_saveemail.Name = "button_saveemail";
             this.button_saveemail.Size = new System.Drawing.Size(88, 23);
-            this.button_saveemail.TabIndex = 1;
+            this.button_saveemail.TabIndex = 2;
             this.button_saveemail.Text = "Save";
             this.button_saveemail.UseVisualStyleBackColor = true;
             this.button_saveemail.Click += new System.EventHandler(this.button_saveemail_Click);
@@ -58,7 +58,8 @@
             this.textbox_email.Location = new System.Drawing.Point(41, 51);
             this.textbox_email.Name = "textbox_email";
             this.textbox_email.Size = new System.Drawing.Size(247, 20);
-            this.textbox_email.TabIndex = 2;
+            this.textbox_email.TabIndex = 1;
+            this.textbox_email.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textbox_email_KeyDown);
             // 
             // label_notification
             // 
