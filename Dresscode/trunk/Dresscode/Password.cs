@@ -99,10 +99,20 @@ namespace Dresscode
                                 newPass += alphabet[rand.Next(26)];
                             }
                         }
+                        MD5 md5 = new MD5CryptoServiceProvider();
+                        md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
+                        byte[] result = md5.Hash;
+                        StringBuilder strBuilder = new StringBuilder();
+                        for (int i = 0; i < result.Length; i++)
+                        {
+                            strBuilder.Append(result[i].ToString("x2"));
+                        }
                         //database
                         global.oleconnection.Open();
                         OleDbDataAdapter adpt = new OleDbDataAdapter();
-                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]='" + newPass + "' WHERE [Teacher ID]='" + textBox_teacherID.Text + "'", global.oleconnection);
+                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]=@newpass WHERE [Teacher ID]=@tid", global.oleconnection);
+                        adpt.UpdateCommand.Parameters.Add("newpass", strBuilder.ToString());
+                        adpt.UpdateCommand.Parameters.Add("tid", textBox_teacherID.Text);
                         adpt.UpdateCommand.ExecuteNonQuery();
                         global.oleconnection.Close();
                         // email
