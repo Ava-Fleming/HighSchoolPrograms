@@ -590,13 +590,13 @@ forthnineweeksend;
             if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text != "")
             {
                 retrievalcode = 0;
-                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE LASTNAME=@lastname";
+                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE `Last Name`=@lastname";
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
             }
             if (comboBox_student_firstname.Text != "" && comboBox_student_last.Text == "")
             {
                 retrievalcode = 1;
-                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname";
+                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
             }
             if (comboBox_student_last.Text != "" && comboBox_student_firstname.Text != "")
@@ -618,7 +618,7 @@ forthnineweeksend;
                     }
                 }
                 retrievalcode = 2;
-                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname";
+                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname AND `Last Name`=@lastname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
             }

@@ -78,13 +78,13 @@ forthnineweeksend;
             if (combobox_firstname.Text == "" && combobox_lastname.Text != "")
             {
                 retrievalcode = 0;
-                sql = "SELECT * FROM `Student Info` WHERE LASTNAME=@lastname";
+                sql = "SELECT * FROM `Student Info` WHERE `Last Name`=@lastname";
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
             }
             if (combobox_firstname.Text != "" && combobox_lastname.Text == "")
             {
                 retrievalcode = 1;
-                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname";
+                sql = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
@@ -92,7 +92,7 @@ forthnineweeksend;
                 firstname = combobox_firstname.Text;
                 lastname = combobox_lastname.Text;
                 retrievalcode = 2;
-                sql = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname";
+                sql = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname AND `Last Name`=@lastname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
             }
@@ -159,15 +159,15 @@ forthnineweeksend;
 
                     global.oleconnection.Open();
                     OleDbCommand recheck = global.oleconnection.CreateCommand();
-                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE FIRSTNAME=@firstname AND LASTNAME=@lastname AND STUDENTID=" + studentid + "";
+                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`=" + studentid + "";
                     recheck.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     recheck.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                     OleDbDataReader recheckreader = recheck.ExecuteReader();
                     while (recheckreader.Read())
                     {
-                        lastname = recheckreader["LASTNAME"].ToString();
-                        firstname = recheckreader["FIRSTNAME"].ToString();
-                        grade = recheckreader["GRADE"].ToString();
+                        lastname = recheckreader["Last Name"].ToString();
+                        firstname = recheckreader["First Name"].ToString();
+                        grade = recheckreader["Grade"].ToString();
                     }
                     global.oleconnection.Close();
 

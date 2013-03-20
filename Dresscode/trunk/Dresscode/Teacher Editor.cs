@@ -50,6 +50,20 @@ namespace Dresscode
                 try
                 {
                     bool newuser = true; //Change when verification code is in place.
+                    gl.oleconnection.Open();
+                    OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
+                    getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid";
+                    getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
+                    getteacherscommand.CommandType = CommandType.Text;
+                    OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
+
+                    while (getteacher.Read())
+                    {
+                        if (getteacher["Teacher ID"].ToString() == textbox_teacherid.Text)
+                            newuser = false;
+                    }
+                    if(gl.oleconnection.State == ConnectionState.Closed)
+                        gl.oleconnection.Close();
                     if (newuser)
                     {
                         //var initialization
@@ -119,6 +133,8 @@ namespace Dresscode
                         textbox_lastname.Clear();
                         checkbox_dean.Checked = false;
                     }
+                    else
+                        MessageBox.Show("The Teacher ID: " + textbox_teacherid.Text + " is already being used.");
                 }
                 catch (Exception x)
                 {
@@ -126,6 +142,7 @@ namespace Dresscode
                 }
                 finally
                 {
+                    if(gl.oleconnection.State == ConnectionState.Open)
                     gl.oleconnection.Close();
                 }
             }
