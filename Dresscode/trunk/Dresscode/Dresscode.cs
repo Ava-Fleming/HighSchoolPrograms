@@ -108,10 +108,10 @@ forthnineweeksend;
                     OleDbDataReader getstudentinfo = getstudentinfocommand.ExecuteReader();
                     while (getstudentinfo.Read())
                     {
-                        studentid = getstudentinfo["STUDENTID"].ToString();
-                        firstname = getstudentinfo["FIRSTNAME"].ToString();
-                        lastname = getstudentinfo["LASTNAME"].ToString();
-                        grade = getstudentinfo["GRADE"].ToString();
+                        studentid = getstudentinfo["Student ID"].ToString();
+                        firstname = getstudentinfo["First Name"].ToString();
+                        lastname = getstudentinfo["Last Name"].ToString();
+                        grade = getstudentinfo["Grade"].ToString();
                         if (retrievalcode == 0)
                         {
                             combobox_firstname.Text = firstname + " " + studentid;
