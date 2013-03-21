@@ -69,6 +69,8 @@ namespace Dresscode
                 oledbAdapter.InsertCommand.Parameters.Add("forthstart", OleDbType.Date, 255).Value = datetimepicker_7.Value.ToShortDateString();
                 oledbAdapter.InsertCommand.Parameters.Add("forthend", OleDbType.Date, 255).Value = datetimepicker_8.Value.ToShortDateString();
                 oledbAdapter.InsertCommand.ExecuteNonQuery();
+                MessageBox.Show("9 Weeks Dates have been updated");
+                this.Close();
             }
             catch (Exception x)
             {

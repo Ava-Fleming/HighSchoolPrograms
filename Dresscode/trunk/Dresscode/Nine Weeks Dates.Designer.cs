@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_savedates = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label_thr9weeks_start = new System.Windows.Forms.Label();
@@ -48,29 +47,16 @@
             this.label_snd9weeks_start = new System.Windows.Forms.Label();
             this.label_fst9weeks_end = new System.Windows.Forms.Label();
             this.datetimepicker_3 = new System.Windows.Forms.DateTimePicker();
-            this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button_savedates);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(458, 181);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "9 Weeks Dates";
-            // 
             // button_savedates
             // 
-            this.button_savedates.Location = new System.Drawing.Point(377, 154);
+            this.button_savedates.Location = new System.Drawing.Point(383, 147);
             this.button_savedates.Name = "button_savedates";
             this.button_savedates.Size = new System.Drawing.Size(75, 20);
-            this.button_savedates.TabIndex = 9;
+            this.button_savedates.TabIndex = 12;
             this.button_savedates.Text = "Save";
             this.button_savedates.UseVisualStyleBackColor = true;
             this.button_savedates.Click += new System.EventHandler(this.button_savedates_Click);
@@ -85,10 +71,10 @@
             this.groupBox3.Controls.Add(this.label_for9weeks_start);
             this.groupBox3.Controls.Add(this.label_thr9weeks_end);
             this.groupBox3.Controls.Add(this.datetimepicker_8);
-            this.groupBox3.Location = new System.Drawing.Point(230, 19);
+            this.groupBox3.Location = new System.Drawing.Point(236, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(222, 129);
-            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "2nd Semester";
             // 
@@ -170,10 +156,10 @@
             this.groupBox2.Controls.Add(this.label_snd9weeks_start);
             this.groupBox2.Controls.Add(this.label_fst9weeks_end);
             this.groupBox2.Controls.Add(this.datetimepicker_3);
-            this.groupBox2.Location = new System.Drawing.Point(6, 19);
+            this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(218, 129);
-            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "1st Semester";
             // 
@@ -249,12 +235,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(480, 198);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(468, 177);
+            this.Controls.Add(this.button_savedates);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
             this.Name = "Nine_Weeks_Dates";
-            this.Text = "settings";
+            this.Text = "9 Weeks Dates";
             this.Load += new System.EventHandler(this.settings_Load);
-            this.groupBox1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -265,7 +252,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button_savedates;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label_thr9weeks_start;
@@ -285,5 +271,6 @@
         private System.Windows.Forms.Label label_snd9weeks_start;
         private System.Windows.Forms.Label label_fst9weeks_end;
         private System.Windows.Forms.DateTimePicker datetimepicker_3;
+
     }
 }
