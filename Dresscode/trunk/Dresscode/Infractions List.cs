@@ -19,13 +19,26 @@ namespace Dresscode
         string sql = "";
         private void Infractions_List_Load(object sender, EventArgs e)
         {
-            gl.oleconnection.Open();
-            OleDbCommand getinfractionscommand = gl.oleconnection.CreateCommand();
-            getinfractionscommand.CommandText = "SELECT * FROM `Infraction List`";
-            OleDbDataReader getinfraction = getinfractionscommand.ExecuteReader();
-            while (getinfraction.Read())
+            try
             {
-                listBox_infractions.Items.Add(getinfraction["infractions"].ToString());
+                if (gl.oleconnection.State == ConnectionState.Closed)
+                    gl.oleconnection.Open();
+                OleDbCommand getinfractionscommand = gl.oleconnection.CreateCommand();
+                getinfractionscommand.CommandText = "SELECT * FROM `Infraction List`";
+                OleDbDataReader getinfraction = getinfractionscommand.ExecuteReader();
+                while (getinfraction.Read())
+                {
+                    listBox_infractions.Items.Add(getinfraction["infractions"].ToString());
+                }
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                if (gl.oleconnection.State == ConnectionState.Open)
+                    gl.oleconnection.Close();
             }
         }
 
