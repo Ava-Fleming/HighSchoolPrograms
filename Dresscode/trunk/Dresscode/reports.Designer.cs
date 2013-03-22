@@ -114,7 +114,7 @@
             this.button_retrieve.TabIndex = 26;
             this.button_retrieve.Text = "Retrieve";
             this.button_retrieve.UseVisualStyleBackColor = true;
-            this.button_retrieve.Click += new System.EventHandler(this.button3_Click);
+            this.button_retrieve.Click += new System.EventHandler(this.button_retrieve_Click);
             // 
             // checkBox_date_single
             // 
@@ -488,7 +488,6 @@
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 28;
             this.dataGridView_reports.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_reports_CellEndEdit);
-            this.dataGridView_reports.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             this.dataGridView_reports.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_reports_UserDeletingRow);
             // 
             // button_export_excel
@@ -536,20 +535,20 @@
             this.weeksDatesToolStripMenuItem,
             this.infractionsListToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // weeksDatesToolStripMenuItem
             // 
             this.weeksDatesToolStripMenuItem.Name = "weeksDatesToolStripMenuItem";
-            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.weeksDatesToolStripMenuItem.Text = "9 Weeks Dates";
             this.weeksDatesToolStripMenuItem.Click += new System.EventHandler(this.weeksDatesToolStripMenuItem_Click);
             // 
             // infractionsListToolStripMenuItem
             // 
             this.infractionsListToolStripMenuItem.Name = "infractionsListToolStripMenuItem";
-            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.infractionsListToolStripMenuItem.Text = "Infractions List";
             this.infractionsListToolStripMenuItem.Click += new System.EventHandler(this.infractionsListToolStripMenuItem_Click);
             // 
@@ -559,21 +558,20 @@
             this.studentToolStripMenuItem,
             this.teacherToolStripMenuItem});
             this.studentEditorToolStripMenuItem.Name = "studentEditorToolStripMenuItem";
-            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.studentEditorToolStripMenuItem.Text = "Add";
-            this.studentEditorToolStripMenuItem.Click += new System.EventHandler(this.studentEditorToolStripMenuItem_Click);
             // 
             // studentToolStripMenuItem
             // 
             this.studentToolStripMenuItem.Name = "studentToolStripMenuItem";
-            this.studentToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.studentToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.studentToolStripMenuItem.Text = "Student";
             this.studentToolStripMenuItem.Click += new System.EventHandler(this.studentToolStripMenuItem_Click);
             // 
             // teacherToolStripMenuItem
             // 
             this.teacherToolStripMenuItem.Name = "teacherToolStripMenuItem";
-            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.teacherToolStripMenuItem.Text = "Teacher";
             this.teacherToolStripMenuItem.Click += new System.EventHandler(this.teacherToolStripMenuItem_Click);
             // 

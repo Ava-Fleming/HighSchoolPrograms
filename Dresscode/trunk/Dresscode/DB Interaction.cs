@@ -14,27 +14,31 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string selectioncommand(string sql, string firstname, string lastname)
+        public string selectioncommand(string sql, string firstname, string lastname, string frmname, string dgn)
         {
             try
             {
                 DataSet ds = new DataSet();
+                ds.Clear();
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
                 dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
                 dataAdapter.Fill(ds);
-                DataGridView dgv = Application.OpenForms["Reports"].Controls["dataGridView_reports"] as DataGridView;
+                DataGridView dgv = Application.OpenForms[frmname].Controls[dgn] as DataGridView;
                 dgv.DataSource = ds.Tables[0];
 
-                for (int i = 0; i <= 10; i++)
+                if (frmname == "Reports")
                 {
-                    if (i <= 2)
-                        dgv.Columns[i].Visible = false;
-                    dgv.Columns[i].ReadOnly = true;
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        if (i <= 2)
+                            dgv.Columns[i].Visible = false;
+                        dgv.Columns[i].ReadOnly = true;
+                    }
+                    dgv.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);
                 }
-                dgv.AutoResizeColumns(
-                    DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception x)
             {

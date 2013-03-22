@@ -101,248 +101,12 @@ forthnineweeksend;
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
             finally { global.oleconnection.Close(); }
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ds.Clear();
-            if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
-            {
-                sql = "SELECT * FROM `Reports` WHERE";
-                Boolean hasStarted = false;
-
-                if (checkBox_date_single.Checked)
-                {
-                    wtfbrah = false;
-                    if (checkBox_date_range.Checked)
-                    {
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " `Report Date` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
-                        hasStarted = true;
-                    }
-                    else
-                    {
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " `Report Date` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
-                        hasStarted = true;
-                    }
-                }
-
-                if (checkBox_teacher.Checked)
-                {
-                    if (combobox_teacher.Text != "")
-                    {
-                        wtfbrah = false;
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " Teacher = '" + combobox_teacher.Text + "'";
-                        hasStarted = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a teacher.");
-                    }
-                }
-                if (checkBox_infraction.Checked)
-                {
-                    if (checkBox_infraction.Text != "")
-                    {
-                        wtfbrah = false;
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
-                        hasStarted = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select the Infraction.");
-                    }
-                }
-                if (checkBox_period_single.Checked)
-                {
-                    wtfbrah = false;
-                    if (checkBox_period_range.Checked)
-                    {
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " Period BETWEEN " + numericUpDown_period_start.Value.ToString() + " AND " + numericUpDown_period_end.Value.ToString() + "";
-                        hasStarted = true;
-                    }
-                    else
-                    {
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
-                        hasStarted = true;
-                    }
-                }
-                if (checkBox_grade_single.Checked)
-                {
-                    wtfbrah = false;
-                    if (checkBox_grade_range.Checked)
-                    {
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " Grade BETWEEN " + numericUpDown_grade_start.Value.ToString() + " AND " + numericUpDown_grade_end.Value.ToString() + "";
-                        hasStarted = true;
-                    }
-                    else
-                    {
-                        if (hasStarted)
-                            sql += " AND";
-                        sql += " Grade = " + numericUpDown_grade_start.Value.ToString() + "";
-                        hasStarted = true;
-                    }
-                }
-                if (checkBox_student.Checked)
-                {
-
-                    getstudentinfo();
-                    wtfbrah = false;
-                    if (hasStarted)
-                        sql += " AND";
-                    //student name
-                    for (int i = 0; i < comboBox_student_firstname.Text.Length; i++)
-                    {
-                        if (comboBox_student_firstname.Text[i] == ' ')
-                        {
-                            firstname = comboBox_student_firstname.Text.Substring(0, i);
-                            studentid = comboBox_student_firstname.Text.Substring(i + 1, (comboBox_student_firstname.Text.Length - (i + 1)));
-                        }
-                    }
-                    for (int i = 0; i < comboBox_student_last.Text.Length; i++)
-                    {
-                        if (comboBox_student_last.Text[i] == ' ')
-                        {
-                            lastname = comboBox_student_last.Text.Substring(0, i);
-                            studentid = comboBox_student_last.Text.Substring(i + 1, (comboBox_student_last.Text.Length - (i + 1)));
-                        }
-                    }
-                    sql += " `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`='" + studentid + "'";
-                    hasStarted = true;
-                }
-                if (checkBox_9weeksstart.Checked)
-                {
-                    wtfbrah = false;
-                    if (checkBox_9weeksend.Checked)
-                    {
-                        if (comboBox_9weeksstart.Text != "" && comboBox_9weeksend.Text != "")
-                        {
-                            if (hasStarted)
-                                sql += " AND";
-                            DateTime startdate = new DateTime();
-                            DateTime enddate = new DateTime();
-                            if (comboBox_9weeksstart.Text == "1st 9 weeks")
-                            {
-                                startdate = firstnineweeksstart;
-                            }
-                            if (comboBox_9weeksstart.Text == "2nd 9 weeks")
-                            {
-                                startdate = secondtnineweeksstart;
-                            }
-                            if (comboBox_9weeksstart.Text == "3rd 9 weeks")
-                            {
-                                startdate = thirdnineweeksstart;
-                            }
-                            if (comboBox_9weeksstart.Text == "4th 9 weeks")
-                            {
-                                enddate = forthnineweeksstart;
-                            }
-                            if (comboBox_9weeksend.Text == "1st 9 weeks")
-                            {
-                                enddate = firstnineweeksend;
-                            }
-                            if (comboBox_9weeksend.Text == "2nd 9 weeks")
-                            {
-                                enddate = secondnineweeksend;
-                            }
-                            if (comboBox_9weeksend.Text == "3rd 9 weeks")
-                            {
-                                enddate = thirdnineweeksend;
-                            }
-                            if (comboBox_9weeksend.Text == "4th 9 weeks")
-                            {
-                                enddate = forthnineweeksend;
-                            }
-                            sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
-                            hasStarted = true;
-                        }
-
-                        else
-                        {
-                            MessageBox.Show("Please select the 9 weeks for both.");
-                        }
-                    }
-                    else
-                    {
-                        if (comboBox_9weeksstart.Text != "")
-                        {
-                            if (hasStarted)
-                                sql += " AND";
-                            if (comboBox_9weeksstart.Text == "1st 9 weeks")
-                            {
-                                sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
-                            }
-                            if (comboBox_9weeksstart.Text == "2nd 9 weeks")
-                            {
-                                sql += " `Report Date` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
-                            }
-                            if (comboBox_9weeksstart.Text == "3rd 9 weeks")
-                            {
-                                sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
-                            }
-                            if (comboBox_9weeksstart.Text == "4th 9 weeks")
-                            {
-                                sql += " `Report Date` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
-                            }
-                            hasStarted = true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Please select the 9 weeks.");
-                        }
-                    }
-                }
-                if (checkBox_semester.Checked)
-                {
-                    if (comboBox_semster.Text != "")
-                    {
-                        wtfbrah = false;
-                        if (hasStarted)
-                            sql += " AND";
-                        if (comboBox_semster.Text == "1st semester")
-                            sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
-                        if (comboBox_semster.Text == "2nd semester")
-                            sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
-                        hasStarted = true;
-                    }
-
-                    else
-                    {
-                        MessageBox.Show("Please select the semester.");
-                    }
-                }
-                if (wtfbrah)
-                {
-                    sql = "SELECT * FROM `Reports`";
-                }
-                dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
-                county = 1;
-                totalinfractions = 1;
-                getinfractions();
-            }
-            else
-            {
-                MessageBox.Show("The date range: " + datetimepicker_date_start.Value.Year.ToString() + "-" + datetimepicker_date_end.Value.Year.ToString() + " is not possible\nThe initial date can not be more than the ending date.");
-            }
-        }
         public void getinfractions()
         {
             try
             {
                 DB_Interaction dbi = new DB_Interaction();
-                dbi.selectioncommand(sql,firstname,lastname);
+                dbi.selectioncommand(sql,firstname,lastname,"Reports",dataGridView_reports.Name);
 
                 global.oleconnection.Open();
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
@@ -493,11 +257,6 @@ forthnineweeksend;
             {
                 global.oleconnection.Close();
             }
-        }
-
-        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
@@ -725,11 +484,6 @@ forthnineweeksend;
                 comboBox_semster.Enabled = false;
         }
 
-        private void studentEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView_reports_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -782,6 +536,239 @@ forthnineweeksend;
             Infractions_List il = new Infractions_List();
             il.ShowDialog();
             this.Show();
+        }
+        public void getquery()
+        {
+            if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
+            {
+                sql = "SELECT * FROM `Reports` WHERE";
+                Boolean hasStarted = false;
+
+                if (checkBox_date_single.Checked)
+                {
+                    wtfbrah = false;
+                    if (checkBox_date_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " `Report Date` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " `Report Date` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
+                        hasStarted = true;
+                    }
+                }
+
+                if (checkBox_teacher.Checked)
+                {
+                    if (combobox_teacher.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Teacher = '" + combobox_teacher.Text + "'";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a teacher.");
+                    }
+                }
+                if (checkBox_infraction.Checked)
+                {
+                    if (checkBox_infraction.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select the Infraction.");
+                    }
+                }
+                if (checkBox_period_single.Checked)
+                {
+                    wtfbrah = false;
+                    if (checkBox_period_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Period BETWEEN " + numericUpDown_period_start.Value.ToString() + " AND " + numericUpDown_period_end.Value.ToString() + "";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
+                        hasStarted = true;
+                    }
+                }
+                if (checkBox_grade_single.Checked)
+                {
+                    wtfbrah = false;
+                    if (checkBox_grade_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Grade BETWEEN " + numericUpDown_grade_start.Value.ToString() + " AND " + numericUpDown_grade_end.Value.ToString() + "";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " Grade = " + numericUpDown_grade_start.Value.ToString() + "";
+                        hasStarted = true;
+                    }
+                }
+                if (checkBox_student.Checked)
+                {
+                    getstudentinfo();
+                    wtfbrah = false;
+                    if (hasStarted)
+                        sql += " AND";
+                    for (int i = 0; i < comboBox_student_firstname.Text.Length; i++)
+                    {
+                        if (comboBox_student_firstname.Text[i] == ' ')
+                        {
+                            firstname = comboBox_student_firstname.Text.Substring(0, i);
+                            studentid = comboBox_student_firstname.Text.Substring(i + 1, (comboBox_student_firstname.Text.Length - (i + 1)));
+                        }
+                    }
+                    for (int i = 0; i < comboBox_student_last.Text.Length; i++)
+                    {
+                        if (comboBox_student_last.Text[i] == ' ')
+                        {
+                            lastname = comboBox_student_last.Text.Substring(0, i);
+                            studentid = comboBox_student_last.Text.Substring(i + 1, (comboBox_student_last.Text.Length - (i + 1)));
+                        }
+                    }
+                    sql += " `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`='" + studentid + "'";
+                    hasStarted = true;
+                }
+                if (checkBox_9weeksstart.Checked)
+                {
+                    wtfbrah = false;
+                    if (checkBox_9weeksend.Checked)
+                    {
+                        if (comboBox_9weeksstart.Text != "" && comboBox_9weeksend.Text != "")
+                        {
+                            if (hasStarted)
+                                sql += " AND";
+                            DateTime startdate = new DateTime();
+                            DateTime enddate = new DateTime();
+                            if (comboBox_9weeksstart.Text == "1st 9 weeks")
+                            {
+                                startdate = firstnineweeksstart;
+                            }
+                            if (comboBox_9weeksstart.Text == "2nd 9 weeks")
+                            {
+                                startdate = secondtnineweeksstart;
+                            }
+                            if (comboBox_9weeksstart.Text == "3rd 9 weeks")
+                            {
+                                startdate = thirdnineweeksstart;
+                            }
+                            if (comboBox_9weeksstart.Text == "4th 9 weeks")
+                            {
+                                enddate = forthnineweeksstart;
+                            }
+                            if (comboBox_9weeksend.Text == "1st 9 weeks")
+                            {
+                                enddate = firstnineweeksend;
+                            }
+                            if (comboBox_9weeksend.Text == "2nd 9 weeks")
+                            {
+                                enddate = secondnineweeksend;
+                            }
+                            if (comboBox_9weeksend.Text == "3rd 9 weeks")
+                            {
+                                enddate = thirdnineweeksend;
+                            }
+                            if (comboBox_9weeksend.Text == "4th 9 weeks")
+                            {
+                                enddate = forthnineweeksend;
+                            }
+                            sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
+                            hasStarted = true;
+                        }
+                            MessageBox.Show("Please select the 9 weeks for both.");
+                    }
+                    else
+                    {
+                        if (comboBox_9weeksstart.Text != "")
+                        {
+                            if (hasStarted)
+                                sql += " AND";
+                            if (comboBox_9weeksstart.Text == "1st 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
+                            }
+                            if (comboBox_9weeksstart.Text == "2nd 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                            }
+                            if (comboBox_9weeksstart.Text == "3rd 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
+                            }
+                            if (comboBox_9weeksstart.Text == "4th 9 weeks")
+                            {
+                                sql += " `Report Date` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                            }
+                            hasStarted = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please select the 9 weeks.");
+                        }
+                    }
+                }
+                if (checkBox_semester.Checked)
+                {
+                    if (comboBox_semster.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        if (comboBox_semster.Text == "1st semester")
+                            sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                        if (comboBox_semster.Text == "2nd semester")
+                            sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                        hasStarted = true;
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Please select the semester.");
+                    }
+                }
+                if (wtfbrah)
+                {
+                    sql = "SELECT * FROM `Reports`";
+                }
+                dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
+                county = 1;
+                totalinfractions = 1;
+            }
+            else
+            {
+                MessageBox.Show("The date range: " + datetimepicker_date_start.Value.Year.ToString() + "-" + datetimepicker_date_end.Value.Year.ToString() + " is not possible\nThe initial date can not be more than the ending date.");
+            }
+        }
+
+        private void button_retrieve_Click(object sender, EventArgs e)
+        {
+            getquery();
+            getinfractions();
         }
     }
 }
