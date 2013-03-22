@@ -341,34 +341,9 @@ forthnineweeksend;
         {
             try
             {
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, global.oleconnection);
-                dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                dataAdapter.SelectCommand.CommandType = CommandType.Text;
+                DB_Interaction dbi = new DB_Interaction();
+                dbi.selectioncommand(sql,firstname,lastname);
 
-                dataAdapter.Fill(ds);
-                dataGridView_reports.DataSource = ds.Tables[0];
-                global.oleconnection.Close();
-                for (int i = 0; i <= 10; i++)
-                {
-                    if (i <= 2)
-                        dataGridView_reports.Columns[i].Visible = false;
-                    dataGridView_reports.Columns[i].ReadOnly = true;
-                }
-                dataGridView_reports.AutoResizeColumns(
-                    DataGridViewAutoSizeColumnsMode.AllCells);
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message, "Error");
-            }
-            finally
-            {
-                global.oleconnection.Close();
-                wtfbrah = true;
-            }
-            try
-            {
                 global.oleconnection.Open();
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = sql;
@@ -690,10 +665,6 @@ forthnineweeksend;
             {
                 MessageBox.Show(x.Message);
             }
-        }
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void dataGridView_reports_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)

@@ -91,6 +91,7 @@
     <Compile Include="AddEmail.Designer.cs">
       <DependentUpon>AddEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="DB Interaction.cs" />
     <Compile Include="Dresscode.cs">
       <SubType>Form</SubType>
     </Compile>

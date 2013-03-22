@@ -29,6 +29,7 @@ namespace Dresscode
         private void button_addteacher_Click(object sender, EventArgs e)
         {
             bool legit = false;
+
             if (textbox_teacherid.Text != "")
                 legit = true;
             else
@@ -45,11 +46,12 @@ namespace Dresscode
                 legit = true;
             else
                 legit = false;
+
             if (legit)
             {
                 try
                 {
-                    bool newuser = true; //Change when verification code is in place.
+                    bool newuser = true;
                     gl.oleconnection.Open();
                     OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
                     getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid";

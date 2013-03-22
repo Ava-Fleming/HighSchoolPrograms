@@ -538,7 +538,6 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // weeksDatesToolStripMenuItem
             // 
@@ -626,7 +625,7 @@
         private System.Windows.Forms.CheckBox checkBox_period_range;
         private System.Windows.Forms.NumericUpDown numericUpDown_period_start;
         private System.Windows.Forms.CheckBox checkBox_period_single;
-        private System.Windows.Forms.DataGridView dataGridView_reports;
+        public System.Windows.Forms.DataGridView dataGridView_reports;
         private System.Windows.Forms.NumericUpDown numericUpDown_grade_end;
         private System.Windows.Forms.CheckBox checkBox_grade_range;
         private System.Windows.Forms.NumericUpDown numericUpDown_grade_start;
