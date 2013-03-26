@@ -92,85 +92,109 @@ namespace Dresscode
                 }
             }
             if (!goodop)
-                MessageBox.Show("Canceled","Operation Status");
+                MessageBox.Show("Canceled", "Operation Status");
         }
 
         private void button_addstudent_Click(object sender, EventArgs e)
         {
+            textBox_lastname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textBox_lastname.Text);
+            textBox_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textBox_firstname.Text);
             string lastname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textBox_lastname.Text);
             string firstname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textBox_firstname.Text);
-            try
+            bool properinfo = false;
+            if (lastname != "")
+                if (firstname != "")
+                    if (textBox_studentID.Text != "")
+                        properinfo = true;
+            if (properinfo)
             {
-                bool newentry = true;
-                global.oleconnection.Open();
-                OleDbCommand checkforstudent = global.oleconnection.CreateCommand();
-                checkforstudent.CommandText = "SELECT * FROM `Student Info`";
-                OleDbDataReader checkexistingstudent = checkforstudent.ExecuteReader();
-                while (checkexistingstudent.Read())
+                try
                 {
-                    if (newentry == true)
+                    bool newentry = true;
+                    global.oleconnection.Open();
+                    OleDbCommand checkforstudent = global.oleconnection.CreateCommand();
+                    checkforstudent.CommandText = "SELECT * FROM `Student Info`";
+                    OleDbDataReader checkexistingstudent = checkforstudent.ExecuteReader();
+                    while (checkexistingstudent.Read())
                     {
-                        if (textBox_studentID.Text.Contains(checkexistingstudent["Student ID"].ToString()))
+                        if (newentry == true)
                         {
-                            newentry = false;
-                            break;
+                            if (textBox_studentID.Text.Contains(checkexistingstudent["Student ID"].ToString()))
+                            {
+                                newentry = false;
+                                break;
+                            }
                         }
                     }
-                }
-                global.oleconnection.Close();
-                if (newentry)
-                {
-                    DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
-                    if (dr == DialogResult.Yes)
+                    global.oleconnection.Close();
+                    if (newentry)
+                    {
+                        DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
+                        if (dr == DialogResult.Yes)
+                        {
+                            global.oleconnection.Open();
+                            OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
+                            string sql = "INSERT INTO `Student Info` VALUES (@studentid,@lastname,@firstname,@grade)";
+                            oledba_addstudent.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                            oledba_addstudent.InsertCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = textBox_studentID.Text;
+                            oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                            oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                            oledba_addstudent.InsertCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = int.Parse(numericUpDown1.Value.ToString());
+                            oledba_addstudent.InsertCommand.ExecuteNonQuery();
+                            MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
+                            textBox_studentID.Text = "";
+                            textBox_firstname.Text = "";
+                            textBox_lastname.Text = "";
+                            numericUpDown1.Value = 9;
+                        }
+                    }
+                    else
                     {
                         global.oleconnection.Open();
-                        OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
-                        string sql = "INSERT INTO `Student Info` VALUES (@studentid,@lastname,@firstname,@grade)";
-                        oledba_addstudent.InsertCommand = new OleDbCommand(sql, global.oleconnection);
-                        oledba_addstudent.InsertCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = textBox_studentID.Text;
-                        oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                        oledba_addstudent.InsertCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = int.Parse(numericUpDown1.Value.ToString());
-                        oledba_addstudent.InsertCommand.ExecuteNonQuery();
-                        MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
-                        textBox_studentID.Text = "";
-                        textBox_firstname.Text = "";
-                        textBox_lastname.Text = "";
-                        numericUpDown1.Value = 9;
-                    }
-                }
-                else
-                {
-                    global.oleconnection.Open();
-                    OleDbCommand getexisting = global.oleconnection.CreateCommand();
-                    getexisting.CommandText = "SELECT * FROM `Student Info` WHERE `Student ID`=" + textBox_studentID.Text;
-                    OleDbDataReader getexistingstudent = checkforstudent.ExecuteReader();
-                    string efirst = "";
-                    string elast = "";
-                    string egrade = "";
-                    while (getexistingstudent.Read())
-                    {
-                        if (textBox_studentID.Text.Contains(getexistingstudent["Student ID"].ToString()))
+                        OleDbCommand getexisting = global.oleconnection.CreateCommand();
+                        getexisting.CommandText = "SELECT * FROM `Student Info` WHERE `Student ID`=" + textBox_studentID.Text;
+                        OleDbDataReader getexistingstudent = checkforstudent.ExecuteReader();
+                        string efirst = "";
+                        string elast = "";
+                        string egrade = "";
+                        while (getexistingstudent.Read())
                         {
-                            efirst = getexistingstudent["First Name"].ToString();
-                            elast = getexistingstudent["Last Name"].ToString();
-                            egrade = getexistingstudent["Grade"].ToString();
-                            break;
+                            if (textBox_studentID.Text.Contains(getexistingstudent["Student ID"].ToString()))
+                            {
+                                efirst = getexistingstudent["First Name"].ToString();
+                                elast = getexistingstudent["Last Name"].ToString();
+                                egrade = getexistingstudent["Grade"].ToString();
+                                break;
+                            }
                         }
+                        MessageBox.Show("The Student ID: " + textBox_studentID.Text + " already exists.\nExisting Student: " + efirst + " " + elast + "\nGrade: " + egrade);
+                        global.oleconnection.Close();
                     }
-                    MessageBox.Show("The Student ID: " + textBox_studentID.Text + " already exists.\nExisting Student: " + efirst + " " + elast + "\nGrade: " + egrade);
-                    global.oleconnection.Close();
+                }
+                catch (Exception x)
+                {
+                    MessageBox.Show(x.Message, "Error");
+                }
+                finally
+                {
+                    if (global.oleconnection.State == ConnectionState.Open)
+                        global.oleconnection.Close();
                 }
             }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message, "Error");
-            }
-            finally
-            {
-                if (global.oleconnection.State == ConnectionState.Open)
-                    global.oleconnection.Close();
-            }
+            else
+                MessageBox.Show("Something appears to be missing");
+        }
+
+        private void textBox_firstname_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == ' ')
+                e.Handled = true;
+        }
+
+        private void textBox_lastname_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == ' ')
+                e.Handled = true;
         }
     }
 }
