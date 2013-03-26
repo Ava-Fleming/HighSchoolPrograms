@@ -14,7 +14,7 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string selectioncommand(string sql, string firstname, string lastname, string frmname, string dgn)
+        public string selectioncommand(string sql, string firstname, string lastname, string studentid, string frmname, string dgn)
         {
             try
             {
@@ -23,10 +23,12 @@ namespace Dresscode
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
                 dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
-                dataAdapter.Fill(ds);
+                
                 DataGridView dgv = Application.OpenForms[frmname].Controls[dgn] as DataGridView;
-                dgv.DataSource = ds.Tables[0];
+                dataAdapter.Fill(ds);
+                dgv.DataSource = (ds.Tables[0]);
 
                 if (frmname == "Reports")
                 {
@@ -36,6 +38,13 @@ namespace Dresscode
                             dgv.Columns[i].Visible = false;
                         dgv.Columns[i].ReadOnly = true;
                     }
+                    dgv.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);
+                }
+                if (frmname == "form_dresscode")
+                {
+                    dgv.Columns[0].Visible = false;
+                    dgv.Columns[1].Visible = false;
                     dgv.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
                 }

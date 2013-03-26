@@ -107,7 +107,7 @@ forthnineweeksend;
             try
             {
                 DB_Interaction dbi = new DB_Interaction();
-                dbi.selectioncommand(sql,firstname,lastname,"Reports",dataGridView_reports.Name);
+                dbi.selectioncommand(sql,firstname,lastname,studentid, this.Name,dataGridView_reports.Name);
 
                 global.oleconnection.Open();
                 OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
