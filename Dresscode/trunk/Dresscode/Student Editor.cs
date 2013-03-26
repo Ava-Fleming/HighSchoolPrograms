@@ -128,10 +128,9 @@ namespace Dresscode
                         string sql = "INSERT INTO `Student Info` VALUES (@studentid,@lastname,@firstname,@grade)";
                         oledba_addstudent.InsertCommand = new OleDbCommand(sql, global.oleconnection);
                         oledba_addstudent.InsertCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = textBox_studentID.Text;
-
                         oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                         oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = int.Parse(numericUpDown1.Value.ToString());
+                        oledba_addstudent.InsertCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = int.Parse(numericUpDown1.Value.ToString());
                         oledba_addstudent.InsertCommand.ExecuteNonQuery();
                         MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                         textBox_studentID.Text = "";

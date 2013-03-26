@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 /**/
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace Dresscode
 {
@@ -159,9 +160,10 @@ forthnineweeksend;
 
                     global.oleconnection.Open();
                     OleDbCommand recheck = global.oleconnection.CreateCommand();
-                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`=" + studentid + "";
+                    recheck.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`=@studentid";
                     recheck.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     recheck.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                    recheck.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
                     OleDbDataReader recheckreader = recheck.ExecuteReader();
                     while (recheckreader.Read())
                     {
@@ -178,11 +180,11 @@ forthnineweeksend;
                     currentNineWeeks = 0;
                     currentDayOfYear = DateTime.Now.DayOfYear;
                     OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                    string reportsstring = "SELECT * FROM `Reports` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`='" + studentid + "'";
+                    string reportsstring = "SELECT * FROM `Reports` WHERE `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`=@studentid";
                     getinfractioncommand.CommandText = reportsstring;
-                    //--->
                     getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                    getinfractioncommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     while (getinfraction.Read())
                     {
@@ -231,6 +233,7 @@ forthnineweeksend;
                     OleDbDataAdapter dataAdapter = new OleDbDataAdapter(reportsstring, global.oleconnection);
                     dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                    dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
                     
                     dataAdapter.Fill(ds);
 
@@ -255,6 +258,8 @@ forthnineweeksend;
             firstname = "";
             lastname = "";
             grade = "";
+            combobox_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(combobox_firstname.Text);
+            combobox_lastname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(combobox_lastname.Text);
             firstname = combobox_firstname.Text;
             lastname = combobox_lastname.Text;
             combobox_lastname.Items.Clear();
@@ -294,8 +299,9 @@ forthnineweeksend;
                                 global.oleconnection.Open();
                                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                                 string sql = null;
-                                sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "','" + studentid + "',@firstname,@lastname,'" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "',@details,'" + "None" + "')";
+                                sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "',@studentid,@firstname,@lastname,'" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "',@details,'" + "None" + "')";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                                oledbAdapter.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid;
                                 oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                                 oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                                 oledbAdapter.InsertCommand.Parameters.Add("details", OleDbType.VarChar, 255).Value = details;

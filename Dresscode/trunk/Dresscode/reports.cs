@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.IO;
+using System.Globalization;
 
 
 namespace Dresscode
@@ -315,6 +316,8 @@ forthnineweeksend;
         {
             OleDbCommand getstudentinfocommand = global.oleconnection.CreateCommand();
             int retrievalcode = 0;
+            comboBox_student_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comboBox_student_firstname.Text);
+            comboBox_student_last.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comboBox_student_last.Text);
             firstname = comboBox_student_firstname.Text;
             lastname = comboBox_student_last.Text;
             comboBox_student_firstname.Items.Clear();
@@ -367,18 +370,18 @@ forthnineweeksend;
                     {
                         if (retrievalcode == 0)
                         {
-                            comboBox_student_firstname.Text = getstudentinfo["FIRSTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString();
-                            comboBox_student_firstname.Items.Add(getstudentinfo["FIRSTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString());
+                            comboBox_student_firstname.Text = getstudentinfo["First Name"].ToString() + " " + getstudentinfo["Student ID"].ToString();
+                            comboBox_student_firstname.Items.Add(getstudentinfo["First Name"].ToString() + " " + getstudentinfo["Student ID"].ToString());
                         }
                         if (retrievalcode == 1)
                         {
-                            comboBox_student_last.Text = getstudentinfo["LASTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString();
-                            comboBox_student_last.Items.Add(getstudentinfo["LASTNAME"].ToString() + " " + getstudentinfo["STUDENTID"].ToString());
+                            comboBox_student_last.Text = getstudentinfo["Last Name"].ToString() + " " + getstudentinfo["Student ID"].ToString();
+                            comboBox_student_last.Items.Add(getstudentinfo["Last Name"].ToString() + " " + getstudentinfo["Student ID"].ToString());
                         }
                         if (retrievalcode == 2)
                         {
-                            comboBox_student_last.Text = lastname + " " + getstudentinfo["STUDENTID"].ToString();
-                            comboBox_student_last.Items.Add(lastname + " " + getstudentinfo["STUDENTID"].ToString());
+                            comboBox_student_last.Text = lastname + " " + getstudentinfo["Student ID"].ToString();
+                            comboBox_student_last.Items.Add(lastname + " " + getstudentinfo["Student ID"].ToString());
                         }
                     }
                 }

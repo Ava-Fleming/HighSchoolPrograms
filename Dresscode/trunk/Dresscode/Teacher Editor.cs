@@ -10,6 +10,7 @@ using System.Data.OleDb;
 using System.Net.Mail;
 using System.Net;
 using System.Security.Cryptography;
+using System.Globalization;
 
 namespace Dresscode
 {
@@ -107,8 +108,8 @@ namespace Dresscode
                         oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                         oledba_addstudent.InsertCommand.Parameters.Add("teacherid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
                         oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
-                        oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = textbox_lastname.Text;
-                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = textbox_firstname.Text;
+                        oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text);
+                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text);
                         oledba_addstudent.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textbox_email.Text;
 
                         if (checkbox_dean.Checked)
