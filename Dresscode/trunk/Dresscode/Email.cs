@@ -352,21 +352,15 @@ namespace Dresscode
                 }
             }
             if (looping == false && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min + 1)
-            {
                 looping = true;
-            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkbox_showpassword.Checked)
-            {
                 textBox_email_password.PasswordChar = (char)0;
-            }
             else
-            {
                 textBox_email_password.PasswordChar = '*';
-            }
         }
 
         private void textBox_add_email_KeyDown(object sender, KeyEventArgs e)

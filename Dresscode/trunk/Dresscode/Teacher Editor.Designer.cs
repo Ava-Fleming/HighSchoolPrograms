@@ -48,7 +48,7 @@
             // 
             // textbox_teacherid
             // 
-            this.textbox_teacherid.Location = new System.Drawing.Point(179, 25);
+            this.textbox_teacherid.Location = new System.Drawing.Point(206, 25);
             this.textbox_teacherid.Name = "textbox_teacherid";
             this.textbox_teacherid.Size = new System.Drawing.Size(100, 20);
             this.textbox_teacherid.TabIndex = 1;
@@ -56,7 +56,7 @@
             // label_teacherid
             // 
             this.label_teacherid.AutoSize = true;
-            this.label_teacherid.Location = new System.Drawing.Point(196, 9);
+            this.label_teacherid.Location = new System.Drawing.Point(223, 9);
             this.label_teacherid.Name = "label_teacherid";
             this.label_teacherid.Size = new System.Drawing.Size(64, 13);
             this.label_teacherid.TabIndex = 2;
@@ -65,7 +65,7 @@
             // label_firstname
             // 
             this.label_firstname.AutoSize = true;
-            this.label_firstname.Location = new System.Drawing.Point(196, 48);
+            this.label_firstname.Location = new System.Drawing.Point(223, 48);
             this.label_firstname.Name = "label_firstname";
             this.label_firstname.Size = new System.Drawing.Size(60, 13);
             this.label_firstname.TabIndex = 4;
@@ -73,7 +73,7 @@
             // 
             // textbox_firstname
             // 
-            this.textbox_firstname.Location = new System.Drawing.Point(179, 64);
+            this.textbox_firstname.Location = new System.Drawing.Point(206, 64);
             this.textbox_firstname.Name = "textbox_firstname";
             this.textbox_firstname.Size = new System.Drawing.Size(100, 20);
             this.textbox_firstname.TabIndex = 2;
@@ -81,7 +81,7 @@
             // label_lastname
             // 
             this.label_lastname.AutoSize = true;
-            this.label_lastname.Location = new System.Drawing.Point(196, 87);
+            this.label_lastname.Location = new System.Drawing.Point(223, 87);
             this.label_lastname.Name = "label_lastname";
             this.label_lastname.Size = new System.Drawing.Size(61, 13);
             this.label_lastname.TabIndex = 6;
@@ -89,7 +89,7 @@
             // 
             // textbox_lastname
             // 
-            this.textbox_lastname.Location = new System.Drawing.Point(179, 103);
+            this.textbox_lastname.Location = new System.Drawing.Point(206, 103);
             this.textbox_lastname.Name = "textbox_lastname";
             this.textbox_lastname.Size = new System.Drawing.Size(100, 20);
             this.textbox_lastname.TabIndex = 3;
@@ -97,7 +97,7 @@
             // label_email
             // 
             this.label_email.AutoSize = true;
-            this.label_email.Location = new System.Drawing.Point(207, 126);
+            this.label_email.Location = new System.Drawing.Point(234, 126);
             this.label_email.Name = "label_email";
             this.label_email.Size = new System.Drawing.Size(32, 13);
             this.label_email.TabIndex = 7;
@@ -105,14 +105,14 @@
             // 
             // textbox_email
             // 
-            this.textbox_email.Location = new System.Drawing.Point(179, 142);
+            this.textbox_email.Location = new System.Drawing.Point(206, 142);
             this.textbox_email.Name = "textbox_email";
             this.textbox_email.Size = new System.Drawing.Size(100, 20);
             this.textbox_email.TabIndex = 4;
             // 
             // button_addteacher
             // 
-            this.button_addteacher.Location = new System.Drawing.Point(179, 191);
+            this.button_addteacher.Location = new System.Drawing.Point(206, 191);
             this.button_addteacher.Name = "button_addteacher";
             this.button_addteacher.Size = new System.Drawing.Size(100, 23);
             this.button_addteacher.TabIndex = 6;
@@ -123,7 +123,7 @@
             // checkbox_dean
             // 
             this.checkbox_dean.AutoSize = true;
-            this.checkbox_dean.Location = new System.Drawing.Point(199, 168);
+            this.checkbox_dean.Location = new System.Drawing.Point(226, 168);
             this.checkbox_dean.Name = "checkbox_dean";
             this.checkbox_dean.Size = new System.Drawing.Size(52, 17);
             this.checkbox_dean.TabIndex = 5;
@@ -137,7 +137,7 @@
             this.datagridview_teachers.Location = new System.Drawing.Point(12, 220);
             this.datagridview_teachers.Name = "datagridview_teachers";
             this.datagridview_teachers.ReadOnly = true;
-            this.datagridview_teachers.Size = new System.Drawing.Size(434, 139);
+            this.datagridview_teachers.Size = new System.Drawing.Size(493, 139);
             this.datagridview_teachers.TabIndex = 12;
             this.datagridview_teachers.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.datagridview_teachers_UserDeletingRow);
             // 
@@ -153,7 +153,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::Dresscode.Properties.Resources._161_202markor2;
-            this.pictureBox2.Location = new System.Drawing.Point(285, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(344, 12);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(161, 202);
             this.pictureBox2.TabIndex = 14;
@@ -163,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 371);
+            this.ClientSize = new System.Drawing.Size(517, 371);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.datagridview_teachers);

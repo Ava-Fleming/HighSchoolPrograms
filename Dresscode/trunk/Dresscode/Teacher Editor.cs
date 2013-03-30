@@ -30,7 +30,6 @@ namespace Dresscode
         private void button_addteacher_Click(object sender, EventArgs e)
         {
             bool legit = false;
-
             if (textbox_teacherid.Text != "")
                 legit = true;
             else
@@ -53,6 +52,7 @@ namespace Dresscode
                 try
                 {
                     bool newuser = true;
+                    if (gl.oleconnection.State == ConnectionState.Closed)
                     gl.oleconnection.Open();
                     OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
                     getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid";
@@ -61,11 +61,9 @@ namespace Dresscode
                     OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
 
                     while (getteacher.Read())
-                    {
                         if (getteacher["Teacher ID"].ToString() == textbox_teacherid.Text)
                             newuser = false;
-                    }
-                    if(gl.oleconnection.State == ConnectionState.Closed)
+                    if(gl.oleconnection.State == ConnectionState.Open)
                         gl.oleconnection.Close();
                     if (newuser)
                     {
@@ -78,30 +76,19 @@ namespace Dresscode
                         for (int i = 0; i < 8; i++)
                         {
                             if (rand.NextDouble() > 0.50)
-                            {
                                 newPass += rand.Next(10);
-                            }
                             else
-                            {
                                 newPass += alphabet[rand.Next(26)];
-                            }
                         }
                         MD5 md51 = new MD5CryptoServiceProvider();
-                        //compute hash from the bytes of text
-
                         md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
-
-                        //get hash result after compute it
                         byte[] result1 = md51.Hash;
-
                         StringBuilder strBuilder1 = new StringBuilder();
                         for (int i = 0; i < result1.Length; i++)
-                        {
-                            //change it into 2 hexadecimal digits
-                            //for each byte
                             strBuilder1.Append(result1[i].ToString("x2"));
-                        }
+
                         //database
+                        if (gl.oleconnection.State == ConnectionState.Closed)
                         gl.oleconnection.Open();
                         OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
                         string sql = "INSERT INTO `Teacher Info` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
@@ -137,7 +124,7 @@ namespace Dresscode
                         checkbox_dean.Checked = false;
                     }
                     else
-                        MessageBox.Show("The Teacher ID: " + textbox_teacherid.Text + " is already being used.");
+                        MessageBox.Show("The teacher ID: " + textbox_teacherid.Text + " is already in use.");
                 }
                 catch (Exception x)
                 {
@@ -150,13 +137,14 @@ namespace Dresscode
                 }
             }
             else
-                MessageBox.Show("Somthing appears to be empty");
+                MessageBox.Show("Something appears to be empty");
         }
 
         private void Teacher_Editor_Load(object sender, EventArgs e)
         {
             try
             {
+                if (gl.oleconnection.State == ConnectionState.Closed)
                 gl.oleconnection.Open();
                 OleDbCommand emailcommand = gl.oleconnection.CreateCommand();
                 emailcommand.CommandText = "SELECT * FROM `Email Settings`";
@@ -176,6 +164,7 @@ namespace Dresscode
             }
             finally
             {
+                if(gl.oleconnection.State == ConnectionState.Open)
                 gl.oleconnection.Close();
             }
         }
