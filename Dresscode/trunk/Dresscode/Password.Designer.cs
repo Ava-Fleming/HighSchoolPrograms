@@ -46,7 +46,7 @@
             this.linklabel_forgotpassword.Location = new System.Drawing.Point(193, 61);
             this.linklabel_forgotpassword.Name = "linklabel_forgotpassword";
             this.linklabel_forgotpassword.Size = new System.Drawing.Size(131, 13);
-            this.linklabel_forgotpassword.TabIndex = 0;
+            this.linklabel_forgotpassword.TabIndex = 3;
             this.linklabel_forgotpassword.TabStop = true;
             this.linklabel_forgotpassword.Text = "Forgot your old password?";
             this.linklabel_forgotpassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_forgot_LinkClicked);
@@ -65,7 +65,7 @@
             this.textBox_new_pass_first.Name = "textBox_new_pass_first";
             this.textBox_new_pass_first.PasswordChar = '*';
             this.textBox_new_pass_first.Size = new System.Drawing.Size(191, 20);
-            this.textBox_new_pass_first.TabIndex = 2;
+            this.textBox_new_pass_first.TabIndex = 4;
             // 
             // textBox_new_pass_second
             // 
@@ -73,7 +73,7 @@
             this.textBox_new_pass_second.Name = "textBox_new_pass_second";
             this.textBox_new_pass_second.PasswordChar = '*';
             this.textBox_new_pass_second.Size = new System.Drawing.Size(191, 20);
-            this.textBox_new_pass_second.TabIndex = 3;
+            this.textBox_new_pass_second.TabIndex = 5;
             // 
             // label_oldpassword
             // 
@@ -107,7 +107,7 @@
             this.button_change_pass.Location = new System.Drawing.Point(115, 129);
             this.button_change_pass.Name = "button_change_pass";
             this.button_change_pass.Size = new System.Drawing.Size(102, 23);
-            this.button_change_pass.TabIndex = 7;
+            this.button_change_pass.TabIndex = 6;
             this.button_change_pass.Text = "Change Password";
             this.button_change_pass.UseVisualStyleBackColor = true;
             this.button_change_pass.Click += new System.EventHandler(this.button_change_pass_Click);
@@ -126,7 +126,7 @@
             this.textBox_teacherID.Location = new System.Drawing.Point(133, 12);
             this.textBox_teacherID.Name = "textBox_teacherID";
             this.textBox_teacherID.Size = new System.Drawing.Size(191, 20);
-            this.textBox_teacherID.TabIndex = 8;
+            this.textBox_teacherID.TabIndex = 0;
             // 
             // Password
             // 

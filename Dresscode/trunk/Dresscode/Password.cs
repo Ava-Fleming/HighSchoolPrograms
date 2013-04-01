@@ -27,7 +27,7 @@ namespace Dresscode
         string hostPass;
         string sendTo;
         string alphabet = "abcdefghijklmnopqrstuvwxyz";
-        globals global = new globals();
+        globals gl = new globals();
         //
 
         private void Password_Load(object sender, EventArgs e)
@@ -35,17 +35,18 @@ namespace Dresscode
             //pull old info here.
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand command = global.oleconnection.CreateCommand();
-                command.CommandText = "SELECT * FROM `Email Settings`";
+                if (gl.oleconnection.State == ConnectionState.Closed)
+                    gl.oleconnection.Open();
+                OleDbCommand command = gl.oleconnection.CreateCommand();
+                command.CommandText = "SELECT * FROM `" + gl.tbl_emailsettings + "`";
                 OleDbDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
 
-                    SMTPHost = reader["smtpserver"].ToString();
-                    host = reader["hostemail"].ToString();
-                    hostPass = reader["hostpassword"].ToString();
-                    Port = int.Parse(reader["portnumber"].ToString());
+                    SMTPHost = reader[gl.col_smtpserver].ToString();
+                    host = reader[gl.col_hostemail].ToString();
+                    hostPass = reader[gl.col_hostpassword].ToString();
+                    Port = int.Parse(reader[gl.col_portnumber].ToString());
                 }
             }
             catch (Exception x)
@@ -54,7 +55,8 @@ namespace Dresscode
             }
             finally
             {
-                global.oleconnection.Close();
+                if (gl.oleconnection.State == ConnectionState.Open)
+                    gl.oleconnection.Close();
             }
         }
 
@@ -69,13 +71,15 @@ namespace Dresscode
                     try
                     {
                         //database pull
-                        global.oleconnection.Open();
-                        OleDbCommand command = global.oleconnection.CreateCommand();
-                        command.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`='" + textBox_teacherID.Text + "'";
+                        if (gl.oleconnection.State == ConnectionState.Closed)
+                        gl.oleconnection.Open();
+                        OleDbCommand command = gl.oleconnection.CreateCommand();
+                        command.CommandText = "SELECT * FROM `"+ gl.tbl_teacherinfo +"` WHERE `"+ gl.col_teacherid +"`=@tid";
+                        command.Parameters.Add("tid", OleDbType.Numeric, 255).Value = textBox_teacherID.Text;
                         OleDbDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                         {
-                            sendTo = reader["Email"].ToString();
+                            sendTo = reader[gl.col_email].ToString();
                         }
                         if (sendTo == "" || sendTo == " ")
                         {
@@ -84,20 +88,17 @@ namespace Dresscode
                             adp.ShowDialog();
                             sendTo = adp.email;
                         }
-                        global.oleconnection.Close();
+                        if (gl.oleconnection.State == ConnectionState.Open)
+                        gl.oleconnection.Close();
                         // password generator
                         Random rand = new Random();
                         String newPass = "";
                         for (int i = 0; i < 8; i++)
                         {
                             if (rand.NextDouble() > 0.50)
-                            {
                                 newPass += rand.Next(10);
-                            }
                             else
-                            {
                                 newPass += alphabet[rand.Next(26)];
-                            }
                         }
                         MD5 md5 = new MD5CryptoServiceProvider();
                         md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
@@ -108,13 +109,15 @@ namespace Dresscode
                             strBuilder.Append(result[i].ToString("x2"));
                         }
                         //database
-                        global.oleconnection.Open();
+                        if (gl.oleconnection.State == ConnectionState.Closed)
+                        gl.oleconnection.Open();
                         OleDbDataAdapter adpt = new OleDbDataAdapter();
-                        adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]=@newpass WHERE [Teacher ID]=@tid", global.oleconnection);
+                        adpt.UpdateCommand = new OleDbCommand("UPDATE `"+gl.tbl_teacherinfo+"` SET ["+gl.col_password+"]=@newpass WHERE ["+ gl.col_teacherid +"]=@tid", gl.oleconnection);
                         adpt.UpdateCommand.Parameters.Add("newpass", strBuilder.ToString());
                         adpt.UpdateCommand.Parameters.Add("tid", textBox_teacherID.Text);
                         adpt.UpdateCommand.ExecuteNonQuery();
-                        global.oleconnection.Close();
+                        if (gl.oleconnection.State == ConnectionState.Open)
+                        gl.oleconnection.Close();
                         // email
                         SmtpClient sm = new SmtpClient(SMTPHost, Port);
                         sm.EnableSsl = false;
@@ -125,7 +128,6 @@ namespace Dresscode
                         mMsg.Subject = "Dresscode Password Reset";
                         mMsg.Body = "Your password has been changed to \"" + newPass + "\".";
                         sm.Send(mMsg);
-
                     }
                     catch (Exception x)
                     {
@@ -133,7 +135,8 @@ namespace Dresscode
                     }
                     finally
                     {
-                        global.oleconnection.Close();
+                        if (gl.oleconnection.State == ConnectionState.Open)
+                        gl.oleconnection.Close();
                     }
                 }
             }
@@ -147,25 +150,23 @@ namespace Dresscode
         {
             if (textBox_teacherID.Text != "")
             {
-                global.oleconnection.Open();
-                OleDbCommand com = global.oleconnection.CreateCommand();
-                com.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid";
+                if (gl.oleconnection.State == ConnectionState.Closed)
+                gl.oleconnection.Open();
+                OleDbCommand com = gl.oleconnection.CreateCommand();
+                com.CommandText = "SELECT * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+ gl.col_teacherid +"`=@tid";
                 com.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
                 com.CommandType = CommandType.Text;
                 OleDbDataReader read = com.ExecuteReader();
                 while (read.Read())
-                {
-                    oldPass = read["password"].ToString();
-                }
-                global.oleconnection.Close();
+                    oldPass = read[gl.col_password].ToString();
+                if(gl.oleconnection.State == ConnectionState.Open)
+                gl.oleconnection.Close();
                 MD5 md5 = new MD5CryptoServiceProvider();
                 md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_old_pass.Text));
                 byte[] result = md5.Hash;
                 StringBuilder strBuilder = new StringBuilder();
                 for (int i = 0; i < result.Length; i++)
-                {
                     strBuilder.Append(result[i].ToString("x2"));
-                }
                 if (oldPass == strBuilder.ToString())
                 {
                     if (textBox_new_pass_first.Text != textBox_old_pass.Text)
@@ -173,47 +174,35 @@ namespace Dresscode
                         if (textBox_new_pass_first.Text == textBox_new_pass_second.Text)
                         {
                             MD5 md51 = new MD5CryptoServiceProvider();
-                            //compute hash from the bytes of text
                             md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_new_pass_second.Text));
-                            //get hash result after compute it
                             byte[] result1 = md51.Hash;
                             StringBuilder strBuilder1 = new StringBuilder();
                             for (int i = 0; i < result1.Length; i++)
-                            {
-                                //change it into 2 hexadecimal digits
-                                //for each byte
                                 strBuilder1.Append(result1[i].ToString("x2"));
-                            }
-                            global.oleconnection.Open();
+                            if (gl.oleconnection.State == ConnectionState.Closed)
+                            gl.oleconnection.Open();
                             OleDbDataAdapter adpt = new OleDbDataAdapter();
-                            adpt.UpdateCommand = new OleDbCommand("UPDATE `Teacher Info` SET [Password]=@pass WHERE [Teacher ID]=@tid", global.oleconnection);
+                            adpt.UpdateCommand = new OleDbCommand("UPDATE `"+ gl.tbl_teacherinfo+"` SET [" + gl.col_password + "]=@pass WHERE ["+gl.col_teacherid+"]=@tid", gl.oleconnection);
                             adpt.UpdateCommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
                             adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
                             adpt.UpdateCommand.CommandType = CommandType.Text;
                             adpt.UpdateCommand.ExecuteNonQuery();
-                            global.oleconnection.Close();
+                            if (gl.oleconnection.State == ConnectionState.Open)
+                            gl.oleconnection.Close();
                             MessageBox.Show("Your password has been successfully updated","Error");
                             this.Close();
                         }
                         else
-                        {
                             MessageBox.Show("Your new password must be the same in both boxes.");
-                        }
                     }
                     else
-                    {
                         MessageBox.Show("Your new password can not match your old one.");
-                    }
                 }
                 else
-                {
                     MessageBox.Show("You must enter your old password.");
-                }
             }
             else
-            {
                 MessageBox.Show("You must enter your teacher ID first.");
-            }
         }
     }
 }

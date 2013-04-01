@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Security.Cryptography;
+using System.Globalization;
 
 namespace Dresscode
 {
@@ -17,13 +18,13 @@ namespace Dresscode
         {
             InitializeComponent();
         }
-        globals global = new globals();
+        globals gl = new globals();
         form_dresscode frm_dresscode = new form_dresscode();
         bool real = false;
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show("Adios!", "Good bye");
+            MessageBox.Show("¡Adios! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa", "Good bye");
             Application.Exit();
         }
 
@@ -57,10 +58,10 @@ namespace Dresscode
                     //for each byte
                     strBuilder.Append(result[i].ToString("x2"));
                 }
-
-                global.oleconnection.Open();
-                OleDbCommand getteacherscommand = global.oleconnection.CreateCommand();
-                getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid AND Password=@pass";
+                if (gl.oleconnection.State == ConnectionState.Closed)
+                gl.oleconnection.Open();
+                OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
+                getteacherscommand.CommandText = "SELECT * FROM `" + gl.tbl_teacherinfo + "` WHERE `" + gl.col_teacherid +"`=@tid AND `" + gl.col_password + "`=@pass";
                 getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
                 getteacherscommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = strBuilder.ToString();
                 getteacherscommand.CommandType = CommandType.Text;
@@ -70,17 +71,15 @@ namespace Dresscode
                 {
                     if (real == false)
                     {
-                        if (textbox_teacherid.Text.Contains(getteacher["Teacher ID"].ToString()))
+                        if (textbox_teacherid.Text.Contains(getteacher[gl.col_teacherid].ToString()))
                         {
-                            if (strBuilder.ToString() == getteacher["Password"].ToString())
+                            if (strBuilder.ToString() == getteacher[gl.col_password].ToString())
                             {
-                                frm_dresscode.teacherfirstname = getteacher["First Name"].ToString();
-                                frm_dresscode.teacherlastname = getteacher["Last Name"].ToString();
-                                frm_dresscode.teacherid = getteacher["Teacher ID"].ToString();
-                                if (getteacher["Dean"].ToString() == "yes" || getteacher["Dean"].ToString() == "Yes")
-                                {
+                                frm_dresscode.teacherfirstname = getteacher[gl.col_firstname].ToString();
+                                frm_dresscode.teacherlastname = getteacher[gl.col_lastname].ToString();
+                                frm_dresscode.teacherid = getteacher[gl.col_teacherid].ToString();
+                                if (getteacher[gl.col_dean].ToString() == CultureInfo.CurrentCulture.TextInfo.ToLower(gl.glt_isdean) || getteacher[gl.col_dean].ToString() == CultureInfo.CurrentCulture.TextInfo.ToTitleCase(gl.glt_isdean))
                                     frm_dresscode.admin = true;
-                                }
                                 real = true;
                             }
                         }
@@ -93,7 +92,8 @@ namespace Dresscode
             }
             finally
             {
-                global.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open)
+                    gl.oleconnection.Close();
                 if (real)
                 {
                     frm_dresscode.Show();
@@ -102,6 +102,11 @@ namespace Dresscode
                 else
                     MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");
             }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

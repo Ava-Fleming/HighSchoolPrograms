@@ -16,30 +16,31 @@ namespace Dresscode
         {
             InitializeComponent();
         }
-        globals global = new globals();
+        globals gl = new globals();
         string sql = "";
 
         private void settings_Load(object sender, EventArgs e)
         {
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand getdatecommand = global.oleconnection.CreateCommand();
-                getdatecommand.CommandText = "SELECT * FROM `Nine Weeks Dates`";
+                if(gl.oleconnection.State == ConnectionState.Closed)
+                    gl.oleconnection.Open();
+                OleDbCommand getdatecommand = gl.oleconnection.CreateCommand();
+                getdatecommand.CommandText = "SELECT * FROM `" + gl.tbl_nineweeksdates + "`";
                 OleDbDataReader getdate = getdatecommand.ExecuteReader();
                 while (getdate.Read())
                 {
-                    datetimepicker_1.Value = DateTime.Parse(getdate["firstnineweeksstart"].ToString());
-                    datetimepicker_2.Value = DateTime.Parse(getdate["firstnineweeksend"].ToString());
+                    datetimepicker_1.Value = DateTime.Parse(getdate[gl.col_firstnineweeksstart].ToString());
+                    datetimepicker_2.Value = DateTime.Parse(getdate[gl.col_firstnineweeksend].ToString());
 
-                    datetimepicker_3.Value = DateTime.Parse(getdate["secondnineweeksstart"].ToString());
-                    datetimepicker_4.Value = DateTime.Parse(getdate["secondnineweeksend"].ToString());
+                    datetimepicker_3.Value = DateTime.Parse(getdate[gl.col_secondnineweeksstart].ToString());
+                    datetimepicker_4.Value = DateTime.Parse(getdate[gl.col_secondnineweeksend].ToString());
 
-                    datetimepicker_5.Value = DateTime.Parse(getdate["thirdnineweeksstart"].ToString());
-                    datetimepicker_6.Value = DateTime.Parse(getdate["thirdnineweeksend"].ToString());
+                    datetimepicker_5.Value = DateTime.Parse(getdate[gl.col_thirdnineweeksstart].ToString());
+                    datetimepicker_6.Value = DateTime.Parse(getdate[gl.col_thirdnineweeksend].ToString());
 
-                    datetimepicker_7.Value = DateTime.Parse(getdate["forthnineweeksstart"].ToString());
-                    datetimepicker_8.Value = DateTime.Parse(getdate["forthnineweeksend"].ToString());
+                    datetimepicker_7.Value = DateTime.Parse(getdate[gl.col_forthnineweeksstart].ToString());
+                    datetimepicker_8.Value = DateTime.Parse(getdate[gl.col_forthnineweeksend].ToString());
                 }
             }
             catch (Exception x)
@@ -48,7 +49,8 @@ namespace Dresscode
             }
             finally
             {
-                global.oleconnection.Close();
+                if (gl.oleconnection.State == ConnectionState.Open)
+                 gl.oleconnection.Close();
             }
         }
 
@@ -56,10 +58,11 @@ namespace Dresscode
         {
             try
             {
-                global.oleconnection.Open();
+                if (gl.oleconnection.State == ConnectionState.Closed)
+                 gl.oleconnection.Open();
                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-                sql = "UPDATE `Nine Weeks Dates` SET [firstnineweeksstart]=@firststart,[firstnineweeksend]=@firstend,[secondnineweeksstart]=@secondstart,[secondnineweeksend]=@secondend,[thirdnineweeksstart]=@thirdstart,[thirdnineweeksend]=@thirdend,[forthnineweeksstart]=@forthstart,[forthnineweeksend]=@forthend";
-                oledbAdapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                sql = "UPDATE `" + gl.tbl_nineweeksdates + "` SET [" + gl.col_firstnineweeksstart + "]=@firststart,[" + gl.col_firstnineweeksend + "]=@firstend,[" + gl.col_secondnineweeksstart + "]=@secondstart,[" + gl.col_secondnineweeksend + "]=@secondend,[" + gl.col_thirdnineweeksstart + "]=@thirdstart,[" + gl.col_thirdnineweeksend + "]=@thirdend,[" + gl.col_forthnineweeksstart + "]=@forthstart,[" + gl.col_forthnineweeksend + "]=@forthend";
+                oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                 oledbAdapter.InsertCommand.Parameters.Add("firststart", OleDbType.Date, 255).Value = datetimepicker_1.Value.ToShortDateString();
                 oledbAdapter.InsertCommand.Parameters.Add("firstend", OleDbType.Date, 255).Value = datetimepicker_2.Value.ToShortDateString();
                 oledbAdapter.InsertCommand.Parameters.Add("secondstart", OleDbType.Date, 255).Value = datetimepicker_3.Value.ToShortDateString();
@@ -78,7 +81,8 @@ namespace Dresscode
             }
             finally
             {
-                global.oleconnection.Close();
+                if (gl.oleconnection.State == ConnectionState.Open)
+                 gl.oleconnection.Close();
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string selectioncommand(string sql, string firstname, string lastname, string studentid, string frmname, string dgn)
+        public string dgvselectioncommand(string sql, string firstname, string lastname, string studentid, string frmname, string dgn)
         {
             try
             {

@@ -19,7 +19,7 @@ namespace Dresscode
         int time = 950;
         int count = 1;
         bool connectable = false;
-        globals global = new globals();
+        globals gl = new globals();
         private void Splashscreen_Load(object sender, EventArgs e)
         {
             try
@@ -30,20 +30,20 @@ namespace Dresscode
                 timer2.Enabled = true;
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    global.oleconnection.Open();
+                    if(gl.oleconnection.State == ConnectionState.Closed)
+                        gl.oleconnection.Open();
                     connectable = true;
                 }
                 else
-                {
                     MessageBox.Show("You are not connected to the internet my young padawan", "Error");
-                }
             }
             catch (Exception)
             {
             }
             finally
             {
-                global.oleconnection.Close();
+                if (gl.oleconnection.State == ConnectionState.Open)
+                    gl.oleconnection.Close();
             }
         }
 

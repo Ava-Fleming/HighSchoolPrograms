@@ -17,7 +17,7 @@ namespace Dresscode
     {
         BindingSource bSource = new BindingSource();
         string sql = "", firstname, lastname, studentid;
-        globals global = new globals();
+        globals gl = new globals();
         OleDbDataAdapter dAdapter;
         DataSet ds = new DataSet();
         bool wtfbrah = true;
@@ -49,68 +49,68 @@ forthnineweeksend;
         {
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand getdatescommand = global.oleconnection.CreateCommand();
-                getdatescommand.CommandText = "SELECT * FROM `Nine Weeks Dates`";
+                gl.oleconnection.Open();
+                OleDbCommand getdatescommand = gl.oleconnection.CreateCommand();
+                getdatescommand.CommandText = "SELECT * FROM `" + gl.tbl_nineweeksdates + "`";
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
                 while (getdateinfo.Read())
                 {
-                    firstnineweeksstart = DateTime.Parse(getdateinfo["firstnineweeksstart"].ToString());
-                    firstnineweeksend = DateTime.Parse(getdateinfo["firstnineweeksend"].ToString());
+                    firstnineweeksstart = DateTime.Parse(getdateinfo[gl.col_firstnineweeksstart].ToString());
+                    firstnineweeksend = DateTime.Parse(getdateinfo[gl.col_firstnineweeksend].ToString());
 
-                    secondtnineweeksstart = DateTime.Parse(getdateinfo["secondnineweeksstart"].ToString());
-                    secondnineweeksend = DateTime.Parse(getdateinfo["secondnineweeksend"].ToString());
+                    secondtnineweeksstart = DateTime.Parse(getdateinfo[gl.col_secondnineweeksstart].ToString());
+                    secondnineweeksend = DateTime.Parse(getdateinfo[gl.col_secondnineweeksend].ToString());
 
-                    thirdnineweeksstart = DateTime.Parse(getdateinfo["thirdnineweeksstart"].ToString());
-                    thirdnineweeksend = DateTime.Parse(getdateinfo["thirdnineweeksend"].ToString());
+                    thirdnineweeksstart = DateTime.Parse(getdateinfo[gl.col_thirdnineweeksstart].ToString());
+                    thirdnineweeksend = DateTime.Parse(getdateinfo[gl.col_thirdnineweeksend].ToString());
 
-                    forthnineweeksstart = DateTime.Parse(getdateinfo["forthnineweeksstart"].ToString());
-                    forthnineweeksend = DateTime.Parse(getdateinfo["forthnineweeksend"].ToString());
+                    forthnineweeksstart = DateTime.Parse(getdateinfo[gl.col_forthnineweeksstart].ToString());
+                    forthnineweeksend = DateTime.Parse(getdateinfo[gl.col_forthnineweeksend].ToString());
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { global.oleconnection.Close(); }
+            finally { gl.oleconnection.Close(); }
 
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                getinfractioncommand.CommandText = "SELECT * FROM `Reports`";
+                gl.oleconnection.Open();
+                OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
+                getinfractioncommand.CommandText = "SELECT * FROM `"+gl.tbl_reports+"`";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
-                    if (!combobox_teacher.Items.Contains(getinfraction["Teacher"].ToString()))
+                    if (!combobox_teacher.Items.Contains(getinfraction[gl.col_teacher].ToString()))
                     {
-                        combobox_teacher.Items.Add(getinfraction["Teacher"].ToString());
+                        combobox_teacher.Items.Add(getinfraction[gl.col_teacher].ToString());
                     }
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { global.oleconnection.Close(); }
+            finally { gl.oleconnection.Close(); }
 
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
-                getinfractioncommand.CommandText = "SELECT * FROM `Infraction List`";
+                gl.oleconnection.Open();
+                OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
+                getinfractioncommand.CommandText = "SELECT * FROM `"+gl.tbl_infractionlist+"`";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
-                    comboBox_infraction_select.Items.Add(getinfraction["infractions"].ToString());
+                    comboBox_infraction_select.Items.Add(getinfraction[gl.col_infractions].ToString());
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { global.oleconnection.Close(); }
+            finally { gl.oleconnection.Close(); }
         }
         public void getinfractions()
         {
             try
             {
                 DB_Interaction dbi = new DB_Interaction();
-                dbi.selectioncommand(sql,firstname,lastname,studentid, this.Name,dataGridView_reports.Name);
+                dbi.dgvselectioncommand(sql, firstname, lastname, studentid, this.Name, dataGridView_reports.Name);
 
-                global.oleconnection.Open();
-                OleDbCommand getinfractioncommand = global.oleconnection.CreateCommand();
+                gl.oleconnection.Open();
+                OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = sql;
                 getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
@@ -118,7 +118,7 @@ forthnineweeksend;
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
-                    DateTime databasedate = DateTime.Parse(getinfraction["Report Date"].ToString());
+                    DateTime databasedate = DateTime.Parse(getinfraction[gl.col_reportdate].ToString());
                     if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
                     {
                         nineWeeksDatabase = 1;
@@ -160,7 +160,7 @@ forthnineweeksend;
             }
             finally
             {
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
         }
 
@@ -256,7 +256,7 @@ forthnineweeksend;
             }
             finally
             {
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
         }
 
@@ -314,7 +314,7 @@ forthnineweeksend;
 
         public void getstudentinfo()
         {
-            OleDbCommand getstudentinfocommand = global.oleconnection.CreateCommand();
+            OleDbCommand getstudentinfocommand = gl.oleconnection.CreateCommand();
             int retrievalcode = 0;
             comboBox_student_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comboBox_student_firstname.Text);
             comboBox_student_last.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(comboBox_student_last.Text);
@@ -322,18 +322,19 @@ forthnineweeksend;
             lastname = comboBox_student_last.Text;
             comboBox_student_firstname.Items.Clear();
             comboBox_student_last.Items.Clear();
+            getstudentinfocommand.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"`";
             if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text == "")
                 retrievalcode = -1;
             if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text != "")
             {
                 retrievalcode = 0;
-                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE `Last Name`=@lastname";
+                getstudentinfocommand.CommandText += "WHERE `" + gl.col_lastname + "`=@lastname";
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
             }
             if (comboBox_student_firstname.Text != "" && comboBox_student_last.Text == "")
             {
                 retrievalcode = 1;
-                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname";
+                getstudentinfocommand.CommandText += " WHERE `"+gl.col_firstname+"`=@firstname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
             }
             if (comboBox_student_last.Text != "" && comboBox_student_firstname.Text != "")
@@ -355,13 +356,13 @@ forthnineweeksend;
                     }
                 }
                 retrievalcode = 2;
-                getstudentinfocommand.CommandText = "SELECT * FROM `Student Info` WHERE `First Name`=@firstname AND `Last Name`=@lastname";
+                getstudentinfocommand.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"` WHERE `"+gl.col_firstname+"`=@firstname AND `"+gl.col_lastname+"`=@lastname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
             }
             try
             {
-                global.oleconnection.Open();
+                gl.oleconnection.Open();
                 if (retrievalcode != -1)
                 {
                     getstudentinfocommand.CommandType = CommandType.Text;
@@ -370,18 +371,18 @@ forthnineweeksend;
                     {
                         if (retrievalcode == 0)
                         {
-                            comboBox_student_firstname.Text = getstudentinfo["First Name"].ToString() + " " + getstudentinfo["Student ID"].ToString();
-                            comboBox_student_firstname.Items.Add(getstudentinfo["First Name"].ToString() + " " + getstudentinfo["Student ID"].ToString());
+                            comboBox_student_firstname.Text = getstudentinfo[gl.col_firstname].ToString() + " " + getstudentinfo[gl.col_studentid].ToString();
+                            comboBox_student_firstname.Items.Add(getstudentinfo[gl.col_firstname].ToString() + " " + getstudentinfo[gl.col_studentid ].ToString());
                         }
                         if (retrievalcode == 1)
                         {
-                            comboBox_student_last.Text = getstudentinfo["Last Name"].ToString() + " " + getstudentinfo["Student ID"].ToString();
-                            comboBox_student_last.Items.Add(getstudentinfo["Last Name"].ToString() + " " + getstudentinfo["Student ID"].ToString());
+                            comboBox_student_last.Text = getstudentinfo[gl.col_lastname].ToString() + " " + getstudentinfo[gl.col_studentid ].ToString();
+                            comboBox_student_last.Items.Add(getstudentinfo[gl.col_lastname].ToString() + " " + getstudentinfo[gl.col_studentid ].ToString());
                         }
                         if (retrievalcode == 2)
                         {
-                            comboBox_student_last.Text = lastname + " " + getstudentinfo["Student ID"].ToString();
-                            comboBox_student_last.Items.Add(lastname + " " + getstudentinfo["Student ID"].ToString());
+                            comboBox_student_last.Text = lastname + " " + getstudentinfo[gl.col_studentid].ToString();
+                            comboBox_student_last.Items.Add(lastname + " " + getstudentinfo[gl.col_studentid].ToString());
                         }
                     }
                 }
@@ -391,7 +392,7 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { global.oleconnection.Close(); }
+            finally { gl.oleconnection.Close(); }
         }
 
         private void button_export_excel_Click(object sender, EventArgs e)
@@ -439,13 +440,13 @@ forthnineweeksend;
             }
             else
             {
-                global.oleconnection.Open();
+                gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM Reports WHERE ID=@idnum", global.oleconnection);
+                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM "+gl.tbl_reports+" WHERE "+gl.col_id+"=@idnum", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
         }
 
@@ -491,9 +492,9 @@ forthnineweeksend;
         {
             try
             {
-                global.oleconnection.Open();
+                gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("UPDATE Reports SET [Dean Action]=@dean WHERE [ID]=@idnum", global.oleconnection);
+                adpt.UpdateCommand = new OleDbCommand("UPDATE "+gl.tbl_reports+" SET ["+gl.col_deanaction+"]=@dean WHERE ["+gl.col_id+"]=@idnum", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
                 adpt.UpdateCommand.CommandType = CommandType.Text;
@@ -505,7 +506,7 @@ forthnineweeksend;
             }
             finally
             {
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
         }
         private void weeksDatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -514,7 +515,6 @@ forthnineweeksend;
             Nine_Weeks_Dates nwd = new Nine_Weeks_Dates();
             nwd.ShowDialog();
             this.Show();
-
         }
 
         private void teacherToolStripMenuItem_Click(object sender, EventArgs e)
@@ -544,7 +544,7 @@ forthnineweeksend;
         {
             if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
             {
-                sql = "SELECT * FROM `Reports` WHERE";
+                sql = "SELECT * FROM `"+gl.tbl_reports+"` WHERE";
                 Boolean hasStarted = false;
 
                 if (checkBox_date_single.Checked)
@@ -554,14 +554,14 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " `Report Date` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
+                        sql += " `"+ gl.col_reportdate + "` BETWEEN #" + datetimepicker_date_start.Value.ToShortDateString() + "# AND #" + datetimepicker_date_end.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
                     else
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " `Report Date` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
+                        sql += " `"+ gl.col_reportdate + "` = #" + datetimepicker_date_start.Value.ToShortDateString() + "#";
                         hasStarted = true;
                     }
                 }
@@ -573,7 +573,7 @@ forthnineweeksend;
                         wtfbrah = false;
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Teacher = '" + combobox_teacher.Text + "'";
+                        sql += " "+ gl.col_teacher + " = '" + combobox_teacher.Text + "'";
                         hasStarted = true;
                     }
                     else
@@ -588,7 +588,7 @@ forthnineweeksend;
                         wtfbrah = false;
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Infraction = '" + comboBox_infraction_select.Text + "'";
+                        sql += " "+ gl.col_infractions +" = '" + comboBox_infraction_select.Text + "'";
                         hasStarted = true;
                     }
                     else
@@ -603,14 +603,14 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Period BETWEEN " + numericUpDown_period_start.Value.ToString() + " AND " + numericUpDown_period_end.Value.ToString() + "";
+                        sql += " "+gl.col_period+" BETWEEN " + numericUpDown_period_start.Value.ToString() + " AND " + numericUpDown_period_end.Value.ToString() + "";
                         hasStarted = true;
                     }
                     else
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Period = " + numericUpDown_period_start.Value.ToString() + "";
+                        sql += " " + gl.col_period + " = " + numericUpDown_period_start.Value.ToString() + "";
                         hasStarted = true;
                     }
                 }
@@ -621,14 +621,14 @@ forthnineweeksend;
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Grade BETWEEN " + numericUpDown_grade_start.Value.ToString() + " AND " + numericUpDown_grade_end.Value.ToString() + "";
+                        sql += " " + gl.col_grade + " BETWEEN " + numericUpDown_grade_start.Value.ToString() + " AND " + numericUpDown_grade_end.Value.ToString() + "";
                         hasStarted = true;
                     }
                     else
                     {
                         if (hasStarted)
                             sql += " AND";
-                        sql += " Grade = " + numericUpDown_grade_start.Value.ToString() + "";
+                        sql += " " + gl.col_grade + " = " + numericUpDown_grade_start.Value.ToString() + "";
                         hasStarted = true;
                     }
                 }
@@ -654,7 +654,7 @@ forthnineweeksend;
                             studentid = comboBox_student_last.Text.Substring(i + 1, (comboBox_student_last.Text.Length - (i + 1)));
                         }
                     }
-                    sql += " `First Name`=@firstname AND `Last Name`=@lastname AND `Student ID`='" + studentid + "'";
+                    sql += " `"+gl.col_firstname+"`=@firstname AND `"+gl.col_lastname+"`=@lastname AND `"+gl.col_studentid+"`='" + studentid + "'";
                     hasStarted = true;
                 }
                 if (checkBox_9weeksstart.Checked)
@@ -700,7 +700,7 @@ forthnineweeksend;
                             {
                                 enddate = forthnineweeksend;
                             }
-                            sql += " `Report Date` BETWEEN #" + startdate + "# AND #" + enddate + "#";
+                            sql += " `"+ gl.col_reportdate + "` BETWEEN #" + startdate + "# AND #" + enddate + "#";
                             hasStarted = true;
                         }
                             MessageBox.Show("Please select the 9 weeks for both.");
@@ -713,19 +713,19 @@ forthnineweeksend;
                                 sql += " AND";
                             if (comboBox_9weeksstart.Text == "1st 9 weeks")
                             {
-                                sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
+                                sql += " `"+ gl.col_reportdate + "` BETWEEN #" + firstnineweeksstart + "# AND #" + firstnineweeksend + "#";
                             }
                             if (comboBox_9weeksstart.Text == "2nd 9 weeks")
                             {
-                                sql += " `Report Date` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                                sql += " `"+ gl.col_reportdate + "` BETWEEN #" + secondtnineweeksstart + "# AND #" + secondnineweeksend + "#";
                             }
                             if (comboBox_9weeksstart.Text == "3rd 9 weeks")
                             {
-                                sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
+                                sql += " `"+ gl.col_reportdate + "` BETWEEN #" + thirdnineweeksstart + "# AND #" + thirdnineweeksend + "#";
                             }
                             if (comboBox_9weeksstart.Text == "4th 9 weeks")
                             {
-                                sql += " `Report Date` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                                sql += " `"+ gl.col_reportdate + "` BETWEEN #" + forthnineweeksstart + "# AND #" + forthnineweeksend + "#";
                             }
                             hasStarted = true;
                         }
@@ -743,9 +743,9 @@ forthnineweeksend;
                         if (hasStarted)
                             sql += " AND";
                         if (comboBox_semster.Text == "1st semester")
-                            sql += " `Report Date` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
+                            sql += " `"+ gl.col_reportdate + "` BETWEEN #" + firstnineweeksstart + "# AND #" + secondnineweeksend + "#";
                         if (comboBox_semster.Text == "2nd semester")
-                            sql += " `Report Date` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
+                            sql += " `"+ gl.col_reportdate + "` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
                         hasStarted = true;
                     }
 
@@ -756,9 +756,9 @@ forthnineweeksend;
                 }
                 if (wtfbrah)
                 {
-                    sql = "SELECT * FROM `Reports`";
+                    sql = "SELECT * FROM `"+gl.tbl_reports+"`";
                 }
-                dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
+                dAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
                 county = 1;
                 totalinfractions = 1;
             }
