@@ -49,7 +49,7 @@ forthnineweeksend;
         {
             try
             {
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getdatescommand = gl.oleconnection.CreateCommand();
                 getdatescommand.CommandText = "SELECT * FROM `" + gl.tbl_nineweeksdates + "`";
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
@@ -69,11 +69,11 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { gl.oleconnection.Close(); }
+            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
 
             try
             {
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = "SELECT * FROM `"+gl.tbl_reports+"`";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
@@ -86,11 +86,11 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { gl.oleconnection.Close(); }
+            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
 
             try
             {
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = "SELECT * FROM `"+gl.tbl_infractionlist+"`";
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
@@ -100,7 +100,7 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { gl.oleconnection.Close(); }
+            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
         }
         public void getinfractions()
         {
@@ -109,7 +109,7 @@ forthnineweeksend;
                 DB_Interaction dbi = new DB_Interaction();
                 dbi.dgvselectioncommand(sql, firstname, lastname, studentid, this.Name, dataGridView_reports.Name);
 
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = sql;
                 getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
@@ -160,7 +160,7 @@ forthnineweeksend;
             }
             finally
             {
-                gl.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
             }
         }
 
@@ -256,7 +256,7 @@ forthnineweeksend;
             }
             finally
             {
-                gl.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
             }
         }
 
@@ -362,7 +362,7 @@ forthnineweeksend;
             }
             try
             {
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 if (retrievalcode != -1)
                 {
                     getstudentinfocommand.CommandType = CommandType.Text;
@@ -392,7 +392,7 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { gl.oleconnection.Close(); }
+            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
         }
 
         private void button_export_excel_Click(object sender, EventArgs e)
@@ -440,13 +440,13 @@ forthnineweeksend;
             }
             else
             {
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
                 adpt.UpdateCommand = new OleDbCommand("DELETE * FROM "+gl.tbl_reports+" WHERE "+gl.col_id+"=@idnum", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
-                gl.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
             }
         }
 
@@ -492,7 +492,7 @@ forthnineweeksend;
         {
             try
             {
-                gl.oleconnection.Open();
+                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
                 adpt.UpdateCommand = new OleDbCommand("UPDATE "+gl.tbl_reports+" SET ["+gl.col_deanaction+"]=@dean WHERE ["+gl.col_id+"]=@idnum", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
@@ -506,7 +506,7 @@ forthnineweeksend;
             }
             finally
             {
-                gl.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
             }
         }
         private void weeksDatesToolStripMenuItem_Click(object sender, EventArgs e)

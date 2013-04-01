@@ -17,7 +17,7 @@ namespace Dresscode
         {
             InitializeComponent();
         }
-        globals global = new globals();
+        globals gl = new globals();
         DataTable dTable = new DataTable();
         BindingSource bSource = new BindingSource();
 
@@ -34,7 +34,7 @@ namespace Dresscode
         private void button1_Click_1(object sender, EventArgs e)
         {
             bool goodop = false;
-            DialogResult dr = MessageBox.Show("Warning, this will erase all current students and repopulate with the selected Excel spreadsheet\nMake sure the Excel document is formated in this order and format \"Student ID\" \"LastName\" \"FirstName\" \"Grade\"\n\nExcel document type: 97-2003 *.xls\nDo you want to continue?", "Verification", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("Warning, this will erase all current students and repopulate with the selected Excel spreadsheet\nMake sure the Excel document is formated in this order and format \"Student ID\" \"LastName\" \"FirstName\" \"Grade\"\nAll student Info must be on sheet1\nExcel document type: 97-2003 *.xls\nDo you want to continue?", "Verification", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
                 OpenFileDialog ofd = new OpenFileDialog();
@@ -46,38 +46,36 @@ namespace Dresscode
                         try
                         {
                             this.Hide();
-                            if (global.oleconnection.State == ConnectionState.Open)
-                                global.oleconnection.Close();
+                            if (gl.oleconnection.State == ConnectionState.Open)
+                                gl.oleconnection.Close();
                             System.Data.OleDb.OleDbConnection excelconnection = new System.Data.OleDb.OleDbConnection(@"provider=Microsoft.Jet.OLEDB.4.0;Data Source='" + ofd.FileName + "';Extended Properties=Excel 8.0;");
                             System.Data.DataSet DtSet = new System.Data.DataSet();
                             System.Data.OleDb.OleDbDataAdapter oledbd_readexcel = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", excelconnection);
-                            //oledbd_readexcel.TableMappings.Add("Table", "TestTable");
                             oledbd_readexcel.Fill(DtSet);
                             excelconnection.Close();
-                            global.oleconnection.Open();
+                            if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
                             OleDbDataAdapter doledbAdapter = new OleDbDataAdapter();
-                            string dsql = "DELETE * FROM `Student Info`";
-                            doledbAdapter.InsertCommand = new OleDbCommand(dsql, global.oleconnection);
+                            string dsql = "DELETE * FROM `" + gl.tbl_studentinfo + "`";
+                            doledbAdapter.InsertCommand = new OleDbCommand(dsql, gl.oleconnection);
                             doledbAdapter.InsertCommand.ExecuteNonQuery();
-                            global.oleconnection.Close();
-
-                            //
+                            if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                             while (dtr_excel.Read())
                             {
-                                //MessageBox.Show(dtr.GetValue(0).ToString() + " " + dtr.GetValue(1).ToString() + " " + dtr.GetValue(2).ToString());
-                                global.oleconnection.Open();
+                                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 OleDbDataAdapter oledba_massadd = new OleDbDataAdapter();
                                 string studentid = dtr_excel.GetValue(0).ToString();
                                 string lastname = dtr_excel.GetValue(1).ToString();
                                 string firstname = dtr_excel.GetValue(2).ToString();
                                 string grade = dtr_excel.GetValue(3).ToString();
-                                string sql = "INSERT INTO `Student Info` VALUES (" + studentid + ",@lastname,@firstname," + grade + ")";
-                                oledba_massadd.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                                string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
+                                oledba_massadd.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
+                                oledba_massadd.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid;
                                 oledba_massadd.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                                 oledba_massadd.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                                oledba_massadd.InsertCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = grade;
                                 oledba_massadd.InsertCommand.ExecuteNonQuery();
-                                global.oleconnection.Close();
+                                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                             }
                             this.Show();
                             MessageBox.Show("Add students have been added successfully");
@@ -111,31 +109,31 @@ namespace Dresscode
                 try
                 {
                     bool newentry = true;
-                    global.oleconnection.Open();
-                    OleDbCommand checkforstudent = global.oleconnection.CreateCommand();
-                    checkforstudent.CommandText = "SELECT * FROM `Student Info`";
+                    if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                    OleDbCommand checkforstudent = gl.oleconnection.CreateCommand();
+                    checkforstudent.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"`";
                     OleDbDataReader checkexistingstudent = checkforstudent.ExecuteReader();
                     while (checkexistingstudent.Read())
                     {
                         if (newentry == true)
                         {
-                            if (textBox_studentID.Text.Contains(checkexistingstudent["Student ID"].ToString()))
+                            if (textBox_studentID.Text.Contains(checkexistingstudent[gl.col_studentid].ToString()))
                             {
                                 newentry = false;
                                 break;
                             }
                         }
                     }
-                    global.oleconnection.Close();
+                    if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                     if (newentry)
                     {
                         DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
                         if (dr == DialogResult.Yes)
                         {
-                            global.oleconnection.Open();
+                            if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
-                            string sql = "INSERT INTO `Student Info` VALUES (@studentid,@lastname,@firstname,@grade)";
-                            oledba_addstudent.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                            string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
+                            oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                             oledba_addstudent.InsertCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = textBox_studentID.Text;
                             oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                             oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
@@ -150,25 +148,26 @@ namespace Dresscode
                     }
                     else
                     {
-                        global.oleconnection.Open();
-                        OleDbCommand getexisting = global.oleconnection.CreateCommand();
-                        getexisting.CommandText = "SELECT * FROM `Student Info` WHERE `Student ID`=" + textBox_studentID.Text;
+                        if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                        OleDbCommand getexisting = gl.oleconnection.CreateCommand();
+                        getexisting.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"` WHERE `"+gl.col_studentid+"`=" + textBox_studentID.Text;
                         OleDbDataReader getexistingstudent = checkforstudent.ExecuteReader();
                         string efirst = "";
                         string elast = "";
                         string egrade = "";
                         while (getexistingstudent.Read())
                         {
-                            if (textBox_studentID.Text.Contains(getexistingstudent["Student ID"].ToString()))
+                            if (textBox_studentID.Text.Contains(getexistingstudent[gl.col_studentid].ToString()))
                             {
-                                efirst = getexistingstudent["First Name"].ToString();
-                                elast = getexistingstudent["Last Name"].ToString();
-                                egrade = getexistingstudent["Grade"].ToString();
+                                efirst = getexistingstudent[gl.col_firstname].ToString();
+                                elast = getexistingstudent[gl.col_lastname].ToString();
+                                egrade = getexistingstudent[gl.col_grade].ToString();
                                 break;
                             }
                         }
                         MessageBox.Show("The Student ID: " + textBox_studentID.Text + " already exists.\nExisting Student: " + efirst + " " + elast + "\nGrade: " + egrade);
-                        global.oleconnection.Close();
+                        if(gl.oleconnection.State == ConnectionState.Open)
+                        gl.oleconnection.Close();
                     }
                 }
                 catch (Exception x)
@@ -177,8 +176,8 @@ namespace Dresscode
                 }
                 finally
                 {
-                    if (global.oleconnection.State == ConnectionState.Open)
-                        global.oleconnection.Close();
+                    if (gl.oleconnection.State == ConnectionState.Open)
+                        gl.oleconnection.Close();
                 }
             }
             else

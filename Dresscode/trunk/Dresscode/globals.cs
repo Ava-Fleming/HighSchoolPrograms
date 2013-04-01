@@ -11,7 +11,7 @@ namespace Dresscode
         //public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\w03s1762d\tech\TSA\dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
         public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
 
-
+        //WARNING NO (') MODDING FOR THIS WILL BE DONE LATER.
         public string
             //Global strings
             glt_isdean = "yes", //Make this lower case (The program will check for both capitial or lower case starting letter)

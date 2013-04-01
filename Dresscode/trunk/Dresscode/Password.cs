@@ -113,8 +113,9 @@ namespace Dresscode
                         gl.oleconnection.Open();
                         OleDbDataAdapter adpt = new OleDbDataAdapter();
                         adpt.UpdateCommand = new OleDbCommand("UPDATE `"+gl.tbl_teacherinfo+"` SET ["+gl.col_password+"]=@newpass WHERE ["+ gl.col_teacherid +"]=@tid", gl.oleconnection);
-                        adpt.UpdateCommand.Parameters.Add("newpass", strBuilder.ToString());
-                        adpt.UpdateCommand.Parameters.Add("tid", textBox_teacherID.Text);
+                        adpt.UpdateCommand.Parameters.AddWithValue("newpass", strBuilder.ToString());
+                        //adpt.UpdateCommand.Parameters.Add("newpass", strBuilder.ToString());
+                        adpt.UpdateCommand.Parameters.AddWithValue("tid", textBox_teacherID.Text);
                         adpt.UpdateCommand.ExecuteNonQuery();
                         if (gl.oleconnection.State == ConnectionState.Open)
                         gl.oleconnection.Close();

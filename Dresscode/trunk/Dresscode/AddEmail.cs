@@ -16,7 +16,6 @@ namespace Dresscode
         {
             InitializeComponent();
         }
-        // globals
         globals gl = new globals();
 
         private void button_saveemail_Click(object sender, EventArgs e)
@@ -24,9 +23,10 @@ namespace Dresscode
             Password pass = new Password();
             try
             {
-                gl.oleconnection.Open();
+                if (gl.oleconnection.State == ConnectionState.Closed)
+                    gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("UPDATE `"+ gl.tbl_teacherinfo + "` SET [" + gl.col_email + "]=@ema WHERE ["+ gl.col_teacherid+"]=@tid", gl.oleconnection);
+                adpt.UpdateCommand = new OleDbCommand("UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_email + "]=@ema WHERE [" + gl.col_teacherid + "]=@tid", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("ema", OleDbType.VarChar, 255).Value = textbox_email.Text;
                 adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = teacherid;
                 adpt.UpdateCommand.CommandType = CommandType.Text;
@@ -38,6 +38,11 @@ namespace Dresscode
             catch (Exception x)
             {
                 MessageBox.Show(x.Message, "Error");
+            }
+            finally
+            {
+                if (gl.oleconnection.State == ConnectionState.Open)
+                    gl.oleconnection.Close();
             }
         }
 

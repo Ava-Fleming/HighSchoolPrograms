@@ -294,11 +294,17 @@ forthnineweeksend;
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                                 string sql = null;
-                                sql = "INSERT INTO `Reports` VALUES ('" + 0 + "','" + teacherid + "',@studentid,@firstname,@lastname,'" + grade + "','" + period + "','" + teacherlastname + ", " + teacherfirstname + "','" + DateTime.Now.ToShortDateString() + "','" + infraction + "',@details,'" + "None" + "')";
+                                sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacherlastname,@teacherfirstname,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'" + "None" + "')";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                                oledbAdapter.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid;
+                                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherid", teacherid);
+                                oledbAdapter.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid; //This can be converted to the first style but what fun would that be.
                                 oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                                 oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                                oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
+                                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherfirstname", teacherfirstname);
+                                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherlastname", teacherlastname);
+                                
+                                   
                                 oledbAdapter.InsertCommand.Parameters.Add("details", OleDbType.VarChar, 255).Value = details;
                                 oledbAdapter.InsertCommand.ExecuteNonQuery();
                                 submitted = true;

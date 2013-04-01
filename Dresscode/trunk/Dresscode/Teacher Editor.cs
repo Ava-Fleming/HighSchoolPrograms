@@ -55,13 +55,13 @@ namespace Dresscode
                     if (gl.oleconnection.State == ConnectionState.Closed)
                     gl.oleconnection.Open();
                     OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
-                    getteacherscommand.CommandText = "SELECT * FROM `Teacher Info` WHERE `Teacher ID`=@tid";
+                    getteacherscommand.CommandText = "SELECT * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+gl.col_teacherid+"`=@tid";
                     getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
                     getteacherscommand.CommandType = CommandType.Text;
                     OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
 
                     while (getteacher.Read())
-                        if (getteacher["Teacher ID"].ToString() == textbox_teacherid.Text)
+                        if (getteacher[gl.col_teacherid].ToString() == textbox_teacherid.Text)
                             newuser = false;
                     if(gl.oleconnection.State == ConnectionState.Open)
                         gl.oleconnection.Close();
@@ -91,7 +91,7 @@ namespace Dresscode
                         if (gl.oleconnection.State == ConnectionState.Closed)
                         gl.oleconnection.Open();
                         OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
-                        string sql = "INSERT INTO `Teacher Info` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
+                        string sql = "INSERT INTO `"+gl.tbl_teacherinfo+"` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
                         oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                         oledba_addstudent.InsertCommand.Parameters.Add("teacherid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
                         oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
@@ -133,7 +133,7 @@ namespace Dresscode
                 finally
                 {
                     if(gl.oleconnection.State == ConnectionState.Open)
-                    gl.oleconnection.Close();
+                        gl.oleconnection.Close();
                 }
             }
             else
@@ -147,14 +147,14 @@ namespace Dresscode
                 if (gl.oleconnection.State == ConnectionState.Closed)
                 gl.oleconnection.Open();
                 OleDbCommand emailcommand = gl.oleconnection.CreateCommand();
-                emailcommand.CommandText = "SELECT * FROM `Email Settings`";
+                emailcommand.CommandText = "SELECT * FROM `"+gl.tbl_emailsettings+"`";
                 OleDbDataReader emailreader = emailcommand.ExecuteReader();
                 while (emailreader.Read())
                 {
-                    SMTPHost = emailreader["smtpserver"].ToString();
-                    host = emailreader["hostemail"].ToString();
-                    hostPass = emailreader["hostpassword"].ToString();
-                    Port = int.Parse(emailreader["portnumber"].ToString());
+                    SMTPHost = emailreader[gl.col_smtpserver].ToString();
+                    host = emailreader[gl.col_hostemail].ToString();
+                    hostPass = emailreader[gl.col_hostpassword].ToString();
+                    Port = int.Parse(emailreader[gl.col_portnumber].ToString());
                 }
                 datagridupdate();
             }
@@ -181,7 +181,7 @@ namespace Dresscode
             {
                 gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM `Teacher Info` WHERE `Teacher ID`=@idnum", gl.oleconnection);
+                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+gl.col_teacherid+"`=@idnum", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = datagridview_teachers[0, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
@@ -195,7 +195,7 @@ namespace Dresscode
                 ds.Clear();
                 if (gl.oleconnection.State == ConnectionState.Closed)
                     gl.oleconnection.Open();
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter("SELECT * FROM `Teacher Info`", gl.oleconnection);
+                OleDbDataAdapter dataAdapter = new OleDbDataAdapter("SELECT * FROM `"+gl.tbl_teacherinfo+"`", gl.oleconnection);
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
 
                 dataAdapter.Fill(ds);
