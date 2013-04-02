@@ -19,7 +19,7 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
-        form_dresscode frm_dresscode = new form_dresscode();
+        Teacher frm_dresscode = new Teacher();
         bool real = false;
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)

@@ -178,7 +178,7 @@
             this.Controls.Add(this.label_teacherid);
             this.Controls.Add(this.textbox_teacherid);
             this.Name = "Teacher_Editor";
-            this.Text = "Teacher_Editor";
+            this.Text = "Teacher Editor";
             this.Load += new System.EventHandler(this.Teacher_Editor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.datagridview_teachers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

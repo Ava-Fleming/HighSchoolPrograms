@@ -1,6 +1,6 @@
 ﻿namespace Dresscode
 {
-    partial class form_dresscode
+    partial class Teacher
     {
         /// <summary>
         /// Required designer variable.
@@ -272,11 +272,11 @@
             // reportsToolStripMenuItem
             // 
             this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 
-            // form_dresscode
+            // Teacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -285,7 +285,7 @@
             this.Controls.Add(this.groupbox_retrieve);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "form_dresscode";
+            this.Name = "Teacher";
             this.Text = "Dress Code";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.form_dresscode_FormClosed);
             this.Load += new System.EventHandler(this.form_dresscode_Load);

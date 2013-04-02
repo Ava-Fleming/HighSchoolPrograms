@@ -12,9 +12,9 @@ using System.Globalization;
 
 namespace Dresscode
 {
-    public partial class form_dresscode : Form
+    public partial class Teacher : Form
     {
-        public form_dresscode()
+        public Teacher()
         {
             InitializeComponent();
         }
@@ -86,7 +86,7 @@ forthnineweeksend;
             if (combobox_firstname.Text != "" && combobox_lastname.Text == "")
             {
                 retrievalcode = 1;
-                sql += "` WHERE `"+gl.col_firstname+"`=@firstname";
+                sql += " WHERE `"+gl.col_firstname+"`=@firstname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
@@ -230,7 +230,9 @@ forthnineweeksend;
                         MessageBox.Show("A referal is required for this report.", "Referal Required");
                         submitted = false;
                     }
-
+                    DB_Interaction dbi = new DB_Interaction();
+                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid, this.Name, dataGridView1.Name);
+                    /*
                     OleDbDataAdapter dataAdapter = new OleDbDataAdapter(reportsstring, gl.oleconnection);
                     dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
@@ -243,7 +245,7 @@ forthnineweeksend;
                     dataGridView1.Columns[0].Visible = false;
                     dataGridView1.Columns[1].Visible = false;
                     dataGridView1.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
+                        DataGridViewAutoSizeColumnsMode.AllCells);*/
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
                 finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }

@@ -92,11 +92,11 @@
       <DependentUpon>AddEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="DB Interaction.cs" />
-    <Compile Include="Dresscode.cs">
+    <Compile Include="Teacher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dresscode.Designer.cs">
-      <DependentUpon>Dresscode.cs</DependentUpon>
+    <Compile Include="Teacher.Designer.cs">
+      <DependentUpon>Teacher.cs</DependentUpon>
     </Compile>
     <Compile Include="Email.cs">
       <SubType>Form</SubType>
@@ -158,8 +158,8 @@
     <EmbeddedResource Include="AddEmail.resx">
       <DependentUpon>AddEmail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dresscode.resx">
-      <DependentUpon>Dresscode.cs</DependentUpon>
+    <EmbeddedResource Include="Teacher.resx">
+      <DependentUpon>Teacher.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Email.resx">
       <DependentUpon>Email.cs</DependentUpon>

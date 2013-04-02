@@ -25,7 +25,7 @@ namespace Dresscode
                 dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                 dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
-                
+
                 DataGridView dgv = Application.OpenForms[frmname].Controls[dgn] as DataGridView;
                 dataAdapter.Fill(ds);
                 dgv.DataSource = (ds.Tables[0]);
@@ -44,6 +44,12 @@ namespace Dresscode
                 if (frmname == "form_dresscode")
                 {
                     dgv.Columns[0].Visible = false;
+                    dgv.Columns[1].Visible = false;
+                    dgv.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);
+                }
+                if (frmname == "Teacher_Editor")
+                {
                     dgv.Columns[1].Visible = false;
                     dgv.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);

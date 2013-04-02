@@ -190,9 +190,12 @@ namespace Dresscode
         }
         public void datagridupdate()
         {
-            try
-            {
-                ds.Clear();
+            //try
+            //{
+                //ds.Clear();
+                DB_Interaction dbi = new DB_Interaction();
+                dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "", this.Name, datagridview_teachers.Name);
+                /*
                 if (gl.oleconnection.State == ConnectionState.Closed)
                     gl.oleconnection.Open();
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter("SELECT * FROM `"+gl.tbl_teacherinfo+"`", gl.oleconnection);
@@ -213,7 +216,7 @@ namespace Dresscode
             {
                 if (gl.oleconnection.State == ConnectionState.Open)
                     gl.oleconnection.Close();
-            }
+            }*/
         }
     }
 }
