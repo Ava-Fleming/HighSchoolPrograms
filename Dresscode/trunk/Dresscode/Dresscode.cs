@@ -12,9 +12,9 @@ using System.Globalization;
 
 namespace Dresscode
 {
-    public partial class Teacher : Form
+    public partial class Dresscode : Form
     {
-        public Teacher()
+        public Dresscode()
         {
             InitializeComponent();
         }
@@ -232,6 +232,20 @@ forthnineweeksend;
                     }
                     DB_Interaction dbi = new DB_Interaction();
                     dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid, this.Name, dataGridView1.Name);
+                    /*
+                    OleDbDataAdapter dataAdapter = new OleDbDataAdapter(reportsstring, gl.oleconnection);
+                    dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                    dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                    dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
+                    
+                    dataAdapter.Fill(ds);
+
+                    dataGridView1.DataSource = ds.Tables[0];
+                    if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                    dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[1].Visible = false;
+                    dataGridView1.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);*/
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
                 finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }

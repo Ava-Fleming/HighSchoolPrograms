@@ -1,6 +1,6 @@
 ﻿namespace Dresscode
 {
-    partial class Teacher
+    partial class Dresscode
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupbox_retrieve = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.combobox_lastname = new System.Windows.Forms.ComboBox();
             this.combobox_firstname = new System.Windows.Forms.ComboBox();
             this.label_nineweeksinfractions = new System.Windows.Forms.Label();
@@ -48,15 +49,15 @@
             this.label_teacherid = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupbox_retrieve.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupbox_submit.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupbox_retrieve
             // 
+            this.groupbox_retrieve.Controls.Add(this.dataGridView1);
             this.groupbox_retrieve.Controls.Add(this.combobox_lastname);
             this.groupbox_retrieve.Controls.Add(this.combobox_firstname);
             this.groupbox_retrieve.Controls.Add(this.label_nineweeksinfractions);
@@ -66,10 +67,21 @@
             this.groupbox_retrieve.Controls.Add(this.label_lastname);
             this.groupbox_retrieve.Location = new System.Drawing.Point(12, 26);
             this.groupbox_retrieve.Name = "groupbox_retrieve";
-            this.groupbox_retrieve.Size = new System.Drawing.Size(419, 77);
+            this.groupbox_retrieve.Size = new System.Drawing.Size(419, 232);
             this.groupbox_retrieve.TabIndex = 1;
             this.groupbox_retrieve.TabStop = false;
             this.groupbox_retrieve.Text = "Retrieval";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 75);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(407, 151);
+            this.dataGridView1.TabIndex = 9;
             // 
             // combobox_lastname
             // 
@@ -264,23 +276,11 @@
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 109);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(419, 149);
-            this.dataGridView1.TabIndex = 18;
-            // 
             // Teacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 463);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupbox_submit);
             this.Controls.Add(this.groupbox_retrieve);
             this.Controls.Add(this.menuStrip1);
@@ -291,11 +291,11 @@
             this.Load += new System.EventHandler(this.form_dresscode_Load);
             this.groupbox_retrieve.ResumeLayout(false);
             this.groupbox_retrieve.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupbox_submit.ResumeLayout(false);
             this.groupbox_submit.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,7 +303,7 @@
 
         #endregion
 
-        public System.Windows.Forms.GroupBox groupbox_retrieve;
+        private System.Windows.Forms.GroupBox groupbox_retrieve;
         private System.Windows.Forms.GroupBox groupbox_submit;
         private System.Windows.Forms.Button button_submit;
         private System.Windows.Forms.Button button_clear;

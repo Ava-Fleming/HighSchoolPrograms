@@ -19,7 +19,7 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
-        Teacher frm_dresscode = new Teacher();
+        Teacher teachr = new Teacher();
         bool real = false;
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
@@ -75,11 +75,11 @@ namespace Dresscode
                         {
                             if (strBuilder.ToString() == getteacher[gl.col_password].ToString())
                             {
-                                frm_dresscode.teacherfirstname = getteacher[gl.col_firstname].ToString();
-                                frm_dresscode.teacherlastname = getteacher[gl.col_lastname].ToString();
-                                frm_dresscode.teacherid = getteacher[gl.col_teacherid].ToString();
+                                teachr.teacherfirstname = getteacher[gl.col_firstname].ToString();
+                                teachr.teacherlastname = getteacher[gl.col_lastname].ToString();
+                                teachr.teacherid = getteacher[gl.col_teacherid].ToString();
                                 if (getteacher[gl.col_dean].ToString() == CultureInfo.CurrentCulture.TextInfo.ToLower(gl.glt_isdean) || getteacher[gl.col_dean].ToString() == CultureInfo.CurrentCulture.TextInfo.ToTitleCase(gl.glt_isdean))
-                                    frm_dresscode.admin = true;
+                                    teachr.admin = true;
                                 real = true;
                             }
                         }
@@ -96,8 +96,10 @@ namespace Dresscode
                     gl.oleconnection.Close();
                 if (real)
                 {
-                    frm_dresscode.Show();
                     this.Hide();
+                    teachr.ShowDialog();
+                    this.Show();
+                    
                 }
                 else
                     MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");
