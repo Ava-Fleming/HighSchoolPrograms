@@ -11,7 +11,7 @@ namespace Dresscode
         public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\w03s1762d\tech\TSA\dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
         //public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
 
-        //WARNING NO (') MODDING FOR THIS WILL BE DONE LATER.
+        
         public string
             //Global strings
             glt_isdean = "yes", //Make this lower case (The program will check for both capitial or lower case starting letter)
@@ -22,6 +22,7 @@ namespace Dresscode
             tbl_nineweeksdates = "Nine Weeks Dates",
             tbl_reports = "Reports",
             tbl_infractionlist = "Infraction List",
+            tbl_mailinglist = "Mailing List",
             //Global Column Names (Some share, such as First Name on student and teacher) [There is absolutely no need to make seperate variables for things such as names]
             col_id = "ID", // <-- Hidden Column (Can't be seen by the user, unless they view the Database)
             col_grade = "Grade",
@@ -29,18 +30,24 @@ namespace Dresscode
             col_deanaction = "Dean Action",
             col_reportdate = "Report Date",
             col_teacher = "Teacher",
-            col_infractions = "infractions",
+            col_infractions = "Infractions",
             col_dean = "Dean",
             col_password = "Password",
             col_teacherid = "Teacher ID",
             col_studentid = "Student ID",
             col_firstname = "First Name",
             col_lastname = "Last Name",
-            col_smtpserver = "smtpserver",
-            col_hostemail = "hostemail",
-            col_hostpassword = "hostpassword",
-            col_portnumber = "portnumber",
+            col_smtpserver = "SMTP Server",
+            col_hostemail = "Host Email",
+            col_hostpassword = "Host Password",
+            col_portnumber = "Port Number",
             col_email = "Email",
+            col_timehour = "Time Hour",
+            col_timeminute = "Time Minute",
+            col_emailsubject = "Email Subject",
+            col_emailbody = "Email Body",
+            col_emaillist = "Email List",
+            
             col_firstnineweeksstart = "firstnineweeksstart",
             col_firstnineweeksend = "firstnineweeksend",
             col_secondnineweeksstart = "secondnineweeksstart",

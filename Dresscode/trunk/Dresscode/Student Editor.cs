@@ -150,7 +150,8 @@ namespace Dresscode
                     {
                         if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                         OleDbCommand getexisting = gl.oleconnection.CreateCommand();
-                        getexisting.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"` WHERE `"+gl.col_studentid+"`=" + textBox_studentID.Text;
+                        getexisting.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"` WHERE `"+gl.col_studentid+"`=@studentid";
+                        getexisting.Parameters.AddWithValue("studentid", textBox_studentID.Text);
                         OleDbDataReader getexistingstudent = checkforstudent.ExecuteReader();
                         string efirst = "";
                         string elast = "";

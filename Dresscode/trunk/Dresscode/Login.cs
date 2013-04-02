@@ -105,10 +105,5 @@ namespace Dresscode
                     MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");
             }
         }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -23,7 +23,7 @@ namespace Dresscode
         bool editmode = false;
         bool looping = false;
         StreamWriter SR;
-        globals global = new globals();
+        globals gl = new globals();
         OleDbDataAdapter dAdapter;
         DataTable dTable = new DataTable();
         OleDbCommandBuilder cBuilder;
@@ -50,10 +50,10 @@ namespace Dresscode
                 {
                     try
                     {
-                        global.oleconnection.Open();
+                        gl.oleconnection.Open();
                         OleDbDataAdapter oledbd_addemail = new OleDbDataAdapter();
-                        string sql = "INSERT INTO `Mailing List` VALUES (@email)";
-                        oledbd_addemail.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                        string sql = "INSERT INTO `"+gl.tbl_mailinglist+"` VALUES (@email)";
+                        oledbd_addemail.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                         oledbd_addemail.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textBox_add_email.Text;
                         oledbd_addemail.InsertCommand.ExecuteNonQuery();
                         listBox_emails.Items.Add(textBox_add_email.Text);
@@ -67,7 +67,7 @@ namespace Dresscode
                     }
                     finally
                     {
-                        global.oleconnection.Close();
+                        gl.oleconnection.Close();
                     }
                 }
             }
@@ -78,29 +78,29 @@ namespace Dresscode
             textBox_console.Text += "Initializing Settings from database.\r\n";
             try
             {
-                global.oleconnection.Open();
-                OleDbCommand oledbc_loadsettings = global.oleconnection.CreateCommand();
-                oledbc_loadsettings.CommandText = "SELECT * FROM `Email Settings`";
+                gl.oleconnection.Open();
+                OleDbCommand oledbc_loadsettings = gl.oleconnection.CreateCommand();
+                oledbc_loadsettings.CommandText = "SELECT * FROM `"+gl.tbl_emailsettings+"`";
                 OleDbDataReader oledbdr_readersettings = oledbc_loadsettings.ExecuteReader();
                 while (oledbdr_readersettings.Read())
                 {
-                    numericUpDown_hours.Value = int.Parse(oledbdr_readersettings["timehour"].ToString());
-                    numericUpDown_minutes.Value = int.Parse(oledbdr_readersettings["timeminute"].ToString());
-                    textBox_smtp.Text = oledbdr_readersettings["smtpserver"].ToString();
-                    textBox_host_email.Text = oledbdr_readersettings["hostemail"].ToString();
-                    textBox_email_password.Text = oledbdr_readersettings["hostpassword"].ToString();
-                    textBox_email_subject.Text = oledbdr_readersettings["emailsubject"].ToString();
-                    textBox_email_body.Text = oledbdr_readersettings["emailbody"].ToString();
-                    numericUpDown_port.Value = int.Parse(oledbdr_readersettings["portnumber"].ToString());
+                    numericUpDown_hours.Value = int.Parse(oledbdr_readersettings[gl.col_timehour].ToString());
+                    numericUpDown_minutes.Value = int.Parse(oledbdr_readersettings[gl.col_timeminute].ToString());
+                    textBox_smtp.Text = oledbdr_readersettings[gl.col_smtpserver].ToString();
+                    textBox_host_email.Text = oledbdr_readersettings[gl.col_hostemail].ToString();
+                    textBox_email_password.Text = oledbdr_readersettings[gl.col_hostpassword].ToString();
+                    textBox_email_subject.Text = oledbdr_readersettings[gl.col_emailsubject].ToString();
+                    textBox_email_body.Text = oledbdr_readersettings[gl.col_emailbody].ToString();
+                    numericUpDown_port.Value = int.Parse(oledbdr_readersettings[gl.col_portnumber].ToString());
                 }
-                global.oleconnection.Close();
-                global.oleconnection.Open();
-                OleDbCommand oledbc_reademailscommand = global.oleconnection.CreateCommand();
-                oledbc_reademailscommand.CommandText = "SELECT * FROM `Mailing List`";
+                gl.oleconnection.Close();
+                gl.oleconnection.Open();
+                OleDbCommand oledbc_reademailscommand = gl.oleconnection.CreateCommand();
+                oledbc_reademailscommand.CommandText = "SELECT * FROM `"+gl.tbl_mailinglist+"`";
                 OleDbDataReader oledbc_reademails = oledbc_reademailscommand.ExecuteReader();
                 while (oledbc_reademails.Read())
                 {
-                    listBox_emails.Items.Add(oledbc_reademails["emaillist"].ToString());
+                    listBox_emails.Items.Add(oledbc_reademails[gl.col_emaillist].ToString());
                 }
             }
             catch (Exception x)
@@ -110,7 +110,7 @@ namespace Dresscode
             }
             finally
             {
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
         }
 
@@ -129,10 +129,11 @@ namespace Dresscode
             {
                 try
                 {
-                    global.oleconnection.Open();
+                    gl.oleconnection.Open();
                     OleDbDataAdapter adapter = new OleDbDataAdapter();
-                    string sql = "DELETE * FROM `Mailing List` WHERE emaillist ='" + listBox_emails.SelectedItem + "'";
-                    adapter.InsertCommand = new OleDbCommand(sql, global.oleconnection);
+                    string sql = "DELETE * FROM `"+gl.tbl_mailinglist+"` WHERE `"+gl.col_emaillist+"`=@demail";
+                    adapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
+                    //adapter.InsertCommand.Parameters.Add(gl. listBox_emails.SelectedItem
                     adapter.InsertCommand.ExecuteNonQuery();
                     textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
                     listBox_emails.Items.Remove(listBox_emails.SelectedItem);

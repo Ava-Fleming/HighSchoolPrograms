@@ -243,23 +243,6 @@ forthnineweeksend;
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                //dataGridView_reports.Rows[dataGridView_reports.Rows.Count - 1].Selected = false;
-
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message);
-            }
-            finally
-            {
-                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
-            }
-        }
-
         private void checkBox_grade_single_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_grade_single.Checked == true)
@@ -328,7 +311,7 @@ forthnineweeksend;
             if (comboBox_student_firstname.Text == "" && comboBox_student_last.Text != "")
             {
                 retrievalcode = 0;
-                getstudentinfocommand.CommandText += "WHERE `" + gl.col_lastname + "`=@lastname";
+                getstudentinfocommand.CommandText += " WHERE `" + gl.col_lastname + "`=@lastname";
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
             }
             if (comboBox_student_firstname.Text != "" && comboBox_student_last.Text == "")

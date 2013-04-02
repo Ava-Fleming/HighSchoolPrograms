@@ -32,7 +32,7 @@ namespace Dresscode
                 {
                     for (int i = 0; i <= 10; i++)
                     {
-                        if (i <= 2)
+                        if (i <= 1)
                             dgv.Columns[i].Visible = false;
                         dgv.Columns[i].ReadOnly = true;
                     }

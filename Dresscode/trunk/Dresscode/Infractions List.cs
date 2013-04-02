@@ -69,9 +69,11 @@ namespace Dresscode
                 {
                     gl.oleconnection.Open();
                     OleDbDataAdapter oledba_addinfraction = new OleDbDataAdapter();
-                    sql = "INSERT INTO `Infraction List` VALUES (@infraction)";
+                    sql = "INSERT INTO `"+gl.tbl_infractionlist+"` VALUES (@infraction)";
                     oledba_addinfraction.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
+                    //oledba_addinfraction.InsertCommand.Parameters.AddWithValue("infractionlist", gl.tbl_infractionlist);
                     oledba_addinfraction.InsertCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = textBox_infraction.Text;
+                    oledba_addinfraction.InsertCommand.CommandType = CommandType.Text;
                     oledba_addinfraction.InsertCommand.ExecuteNonQuery();
                     listBox_infractions.Items.Add(textBox_infraction.Text);
                     textBox_infraction.Clear();
@@ -96,9 +98,10 @@ namespace Dresscode
                 {
                     gl.oleconnection.Open();
                     OleDbDataAdapter oledba_deleteinfraction = new OleDbDataAdapter();
-                    sql = "DELETE * FROM `Infraction List` WHERE infractions=@infraction";
+                    sql = "DELETE * FROM `" + gl.tbl_infractionlist + "` WHERE " + gl.col_infractions + "=@infraction";
                     oledba_deleteinfraction.DeleteCommand = new OleDbCommand(sql, gl.oleconnection);
                     oledba_deleteinfraction.DeleteCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = listBox_infractions.SelectedItem;
+                    oledba_deleteinfraction.DeleteCommand.CommandType = CommandType.Text;
                     oledba_deleteinfraction.DeleteCommand.ExecuteNonQuery();
                     listBox_infractions.Items.Remove(listBox_infractions.SelectedItem);
                 }

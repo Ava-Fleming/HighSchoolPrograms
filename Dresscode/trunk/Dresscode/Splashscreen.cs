@@ -39,6 +39,7 @@ namespace Dresscode
             }
             catch (Exception)
             {
+                
             }
             finally
             {
@@ -62,13 +63,9 @@ namespace Dresscode
             }
             else
             {
-                MessageBox.Show("Your connection to the database is inaccessible\nPlease relaunch the application.\nIf the problem persists, contact an administrator.", "Error");
+                MessageBox.Show("Your connection to the Reporting system is inaccessible\nPlease relaunch the application.\nIf the problem persists, contact an administrator.", "Error");
                 Application.Exit();
             }
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -93,9 +90,7 @@ namespace Dresscode
                         count++;
                     }
                     else
-                    {
                         pictureBox1.Image = Properties.Resources.morkhorcomputerdms;
-                    }
                 }
             }
         }

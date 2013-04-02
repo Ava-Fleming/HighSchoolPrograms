@@ -181,42 +181,17 @@ namespace Dresscode
             {
                 gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("DELETE * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+gl.col_teacherid+"`=@idnum", gl.oleconnection);
-                adpt.UpdateCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = datagridview_teachers[0, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
-                adpt.UpdateCommand.CommandType = CommandType.Text;
-                adpt.UpdateCommand.ExecuteNonQuery();
+                adpt.DeleteCommand = new OleDbCommand("DELETE * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+gl.col_teacherid+"`=@idnum", gl.oleconnection);
+                adpt.DeleteCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = datagridview_teachers[0, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
+                adpt.DeleteCommand.CommandType = CommandType.Text;
+                adpt.DeleteCommand.ExecuteNonQuery();
                 gl.oleconnection.Close();
             }
         }
         public void datagridupdate()
         {
-            //try
-            //{
-                //ds.Clear();
                 DB_Interaction dbi = new DB_Interaction();
                 dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "", this.Name, datagridview_teachers.Name);
-                /*
-                if (gl.oleconnection.State == ConnectionState.Closed)
-                    gl.oleconnection.Open();
-                OleDbDataAdapter dataAdapter = new OleDbDataAdapter("SELECT * FROM `"+gl.tbl_teacherinfo+"`", gl.oleconnection);
-                dataAdapter.SelectCommand.CommandType = CommandType.Text;
-
-                dataAdapter.Fill(ds);
-                datagridview_teachers.DataSource = ds.Tables[0];
-                gl.oleconnection.Close();
-                datagridview_teachers.Columns[1].Visible = false;
-                datagridview_teachers.AutoResizeColumns(
-                    DataGridViewAutoSizeColumnsMode.AllCells);
-            }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message, "Errorz");
-            }
-            finally
-            {
-                if (gl.oleconnection.State == ConnectionState.Open)
-                    gl.oleconnection.Close();
-            }*/
         }
     }
 }
