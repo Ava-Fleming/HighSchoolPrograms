@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Data.OleDb;
 using System.Net;
+using Microsoft.Office.Interop;
 
 namespace Dresscode
 {
@@ -55,6 +56,7 @@ namespace Dresscode
                         string sql = "INSERT INTO `"+gl.tbl_mailinglist+"` VALUES (@email)";
                         oledbd_addemail.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                         oledbd_addemail.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textBox_add_email.Text;
+                        oledbd_addemail.InsertCommand.CommandType = CommandType.Text;
                         oledbd_addemail.InsertCommand.ExecuteNonQuery();
                         listBox_emails.Items.Add(textBox_add_email.Text);
                         textBox_console.Text += "Added Email: " + textBox_add_email.Text + " \r\n";
@@ -145,7 +147,7 @@ namespace Dresscode
                 }
             finally
             {
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
             }
         }
@@ -195,18 +197,17 @@ namespace Dresscode
             //send new settings to database here.
             try
             {
-                global.oleconnection.Open();
+                gl.oleconnection.Open();
                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                 string sql = "";
-                sql = "UPDATE `Email Settings` SET timehour='" + numericUpDown_hours.Value.ToString() + "', timeminute='" + numericUpDown_minutes.Value.ToString() + "'";
-                oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
+                sql = "UPDATE `"+ gl.tbl_emailsettings +"` SET [" + gl.col_timehour + "]='" + numericUpDown_hours.Value.ToString() + "', [" + gl.col_timeminute + "]='" + numericUpDown_minutes.Value.ToString() + "'";
+                oledbAdapter.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                sql = "UPDATE `Email Settings` SET smtpserver='" + textBox_smtp.Text + "', portnumber='" + numericUpDown_port.Value.ToString() + "'";
-                oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
+                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_smtpserver + "]='" + textBox_smtp.Text + "', [" + gl.col_portnumber + "]='" + numericUpDown_port.Value.ToString() + "'";
+                oledbAdapter.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
-
-                sql = "UPDATE `Email Settings` SET hostemail='" + textBox_host_email.Text + "', hostpassword='" + textBox_email_password.Text + "', emailsubject='" + textBox_email_subject.Text + "', emailbody='" + textBox_email_body.Text + "'";
-                oledbAdapter.UpdateCommand = new OleDbCommand(sql, global.oleconnection);
+                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_hostemail + "]='" + textBox_host_email.Text + "', [" + gl.col_hostpassword + "]='" + textBox_email_password.Text + "', [" + gl.col_emailsubject + "]='" + textBox_email_subject.Text + "', [" + gl.col_emailbody + "]='" + textBox_email_body.Text + "'";
+                oledbAdapter.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
                 oledbAdapter.UpdateCommand.ExecuteNonQuery();
                 //Console output.
                 textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
@@ -223,7 +224,7 @@ namespace Dresscode
             }
             finally
             {
-                global.oleconnection.Close();
+                gl.oleconnection.Close();
             }
         }
 
@@ -269,8 +270,8 @@ namespace Dresscode
                 //--------Datagrid start ========
                 try
                 {
-                    string sql = "SELECT  * FROM `Reports` WHERE `Dean Action`='None'";
-                    dAdapter = new OleDbDataAdapter(sql, global.oleconnection);
+                    string sql = "SELECT  * FROM `"+gl.tbl_reports+"` WHERE `"+gl.col_deanaction+"`='None'";
+                    dAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
                     dTable.Rows.Clear();
                     cBuilder = new OleDbCommandBuilder(dAdapter);
                     cBuilder.QuotePrefix = "[";
@@ -294,7 +295,7 @@ namespace Dresscode
                 }
                 finally
                 {
-                    global.oleconnection.Close();
+                    gl.oleconnection.Close();
                 }
                 //--------Datagrid stop ========
                 //--Excel export ---
