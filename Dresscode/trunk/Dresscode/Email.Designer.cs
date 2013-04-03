@@ -62,9 +62,9 @@
             this.tabPage_console = new System.Windows.Forms.TabPage();
             this.button_clear_console = new System.Windows.Forms.Button();
             this.button_save_console = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
@@ -73,7 +73,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_hours)).BeginInit();
             this.groupBox_emailing_list.SuspendLayout();
             this.tabPage_console.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,7 +81,7 @@
             this.textBox_console.Location = new System.Drawing.Point(6, 6);
             this.textBox_console.Multiline = true;
             this.textBox_console.Name = "textBox_console";
-            this.textBox_console.Size = new System.Drawing.Size(423, 397);
+            this.textBox_console.Size = new System.Drawing.Size(423, 263);
             this.textBox_console.TabIndex = 0;
             // 
             // listBox_emails
@@ -117,7 +116,6 @@
             // 
             this.tabControl_main.Controls.Add(this.tabPage_main);
             this.tabControl_main.Controls.Add(this.tabPage_console);
-            this.tabControl_main.Controls.Add(this.tabPage1);
             this.tabControl_main.Location = new System.Drawing.Point(2, 2);
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
@@ -420,7 +418,7 @@
             // 
             // button_clear_console
             // 
-            this.button_clear_console.Location = new System.Drawing.Point(354, 409);
+            this.button_clear_console.Location = new System.Drawing.Point(354, 275);
             this.button_clear_console.Name = "button_clear_console";
             this.button_clear_console.Size = new System.Drawing.Size(75, 23);
             this.button_clear_console.TabIndex = 2;
@@ -430,7 +428,7 @@
             // 
             // button_save_console
             // 
-            this.button_save_console.Location = new System.Drawing.Point(6, 409);
+            this.button_save_console.Location = new System.Drawing.Point(6, 275);
             this.button_save_console.Name = "button_save_console";
             this.button_save_console.Size = new System.Drawing.Size(101, 23);
             this.button_save_console.TabIndex = 1;
@@ -438,34 +436,34 @@
             this.button_save_console.UseVisualStyleBackColor = true;
             this.button_save_console.Click += new System.EventHandler(this.button_save_console_Click);
             // 
-            // tabPage1
+            // timer1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(438, 438);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Data Preview";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 6);
+            this.dataGridView1.Location = new System.Drawing.Point(450, 24);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(423, 426);
+            this.dataGridView1.Size = new System.Drawing.Size(442, 432);
             this.dataGridView1.TabIndex = 0;
             // 
-            // timer1
+            // label1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(447, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Report Data Preview:";
             // 
             // Email
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 468);
+            this.ClientSize = new System.Drawing.Size(904, 468);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControl_main);
             this.Name = "Email";
             this.Text = "Email";
@@ -481,9 +479,9 @@
             this.groupBox_emailing_list.PerformLayout();
             this.tabPage_console.ResumeLayout(false);
             this.tabPage_console.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -523,7 +521,7 @@
         private System.Windows.Forms.TextBox textBox_email_password;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox checkbox_showpassword;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label1;
     }
 }

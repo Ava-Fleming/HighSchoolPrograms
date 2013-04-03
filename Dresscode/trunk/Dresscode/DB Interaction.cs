@@ -52,6 +52,17 @@ namespace Dresscode
                     dgv.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
                 }
+                if (frmname == "Email")
+                {
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        if (i <= 1)
+                            dgv.Columns[i].Visible = false;
+                        dgv.Columns[i].ReadOnly = true;
+                    }
+                    dgv.AutoResizeColumns(
+                        DataGridViewAutoSizeColumnsMode.AllCells);
+                }
             }
             catch (Exception x)
             {

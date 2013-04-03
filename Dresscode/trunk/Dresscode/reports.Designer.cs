@@ -69,6 +69,7 @@
             this.studentEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teacherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkbox_deanaction = new System.Windows.Forms.CheckBox();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -100,7 +101,7 @@
             // label_viewing
             // 
             this.label_viewing.AutoSize = true;
-            this.label_viewing.Location = new System.Drawing.Point(15, 248);
+            this.label_viewing.Location = new System.Drawing.Point(15, 276);
             this.label_viewing.Name = "label_viewing";
             this.label_viewing.Size = new System.Drawing.Size(94, 13);
             this.label_viewing.TabIndex = 7;
@@ -108,7 +109,7 @@
             // 
             // button_retrieve
             // 
-            this.button_retrieve.Location = new System.Drawing.Point(12, 451);
+            this.button_retrieve.Location = new System.Drawing.Point(12, 479);
             this.button_retrieve.Name = "button_retrieve";
             this.button_retrieve.Size = new System.Drawing.Size(132, 23);
             this.button_retrieve.TabIndex = 26;
@@ -140,6 +141,7 @@
             // 
             // groupBox_search
             // 
+            this.groupBox_search.Controls.Add(this.checkbox_deanaction);
             this.groupBox_search.Controls.Add(this.comboBox_semster);
             this.groupBox_search.Controls.Add(this.checkBox_semester);
             this.groupBox_search.Controls.Add(this.checkBox_9weeksend);
@@ -169,7 +171,7 @@
             this.groupBox_search.Controls.Add(this.combobox_teacher);
             this.groupBox_search.Location = new System.Drawing.Point(12, 25);
             this.groupBox_search.Name = "groupBox_search";
-            this.groupBox_search.Size = new System.Drawing.Size(489, 220);
+            this.groupBox_search.Size = new System.Drawing.Size(489, 248);
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
@@ -483,7 +485,7 @@
             // dataGridView_reports
             // 
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_reports.Location = new System.Drawing.Point(12, 264);
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 292);
             this.dataGridView_reports.Name = "dataGridView_reports";
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 28;
@@ -492,7 +494,7 @@
             // 
             // button_export_excel
             // 
-            this.button_export_excel.Location = new System.Drawing.Point(388, 451);
+            this.button_export_excel.Location = new System.Drawing.Point(388, 479);
             this.button_export_excel.Name = "button_export_excel";
             this.button_export_excel.Size = new System.Drawing.Size(113, 23);
             this.button_export_excel.TabIndex = 27;
@@ -503,7 +505,7 @@
             // label_nineweeks
             // 
             this.label_nineweeks.AutoSize = true;
-            this.label_nineweeks.Location = new System.Drawing.Point(156, 248);
+            this.label_nineweeks.Location = new System.Drawing.Point(156, 276);
             this.label_nineweeks.Name = "label_nineweeks";
             this.label_nineweeks.Size = new System.Drawing.Size(109, 13);
             this.label_nineweeks.TabIndex = 30;
@@ -512,7 +514,7 @@
             // label_total_reports
             // 
             this.label_total_reports.AutoSize = true;
-            this.label_total_reports.Location = new System.Drawing.Point(327, 248);
+            this.label_total_reports.Location = new System.Drawing.Point(327, 276);
             this.label_total_reports.Name = "label_total_reports";
             this.label_total_reports.Size = new System.Drawing.Size(77, 13);
             this.label_total_reports.TabIndex = 31;
@@ -575,11 +577,22 @@
             this.teacherToolStripMenuItem.Text = "Teacher";
             this.teacherToolStripMenuItem.Click += new System.EventHandler(this.teacherToolStripMenuItem_Click);
             // 
+            // checkbox_deanaction
+            // 
+            this.checkbox_deanaction.AutoSize = true;
+            this.checkbox_deanaction.Location = new System.Drawing.Point(7, 220);
+            this.checkbox_deanaction.Name = "checkbox_deanaction";
+            this.checkbox_deanaction.Size = new System.Drawing.Size(102, 17);
+            this.checkbox_deanaction.TabIndex = 30;
+            this.checkbox_deanaction.Text = "No Dean Action";
+            this.checkbox_deanaction.UseVisualStyleBackColor = true;
+            this.checkbox_deanaction.CheckedChanged += new System.EventHandler(this.checkbox_deanaction_CheckedChanged);
+            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 486);
+            this.ClientSize = new System.Drawing.Size(513, 514);
             this.Controls.Add(this.label_total_reports);
             this.Controls.Add(this.label_nineweeks);
             this.Controls.Add(this.button_export_excel);
@@ -649,6 +662,7 @@
         private System.Windows.Forms.ToolStripMenuItem infractionsListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem studentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem teacherToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkbox_deanaction;
 
     }
 }

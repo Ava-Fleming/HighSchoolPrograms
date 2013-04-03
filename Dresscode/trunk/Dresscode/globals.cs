@@ -41,7 +41,7 @@ namespace Dresscode
             col_hostemail = "Host Email",
             col_hostpassword = "Host Password",
             col_portnumber = "Port Number",
-            col_email = "Email",
+            col_email = "Email List",
             col_timehour = "Time Hour",
             col_timeminute = "Time Minute",
             col_emailsubject = "Email Subject",

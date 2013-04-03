@@ -525,6 +525,7 @@ forthnineweeksend;
         }
         public void getquery()
         {
+            wtfbrah = true;
             if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
             {
                 sql = "SELECT * FROM `"+gl.tbl_reports+"` WHERE";
@@ -737,6 +738,14 @@ forthnineweeksend;
                         MessageBox.Show("Please select the semester.");
                     }
                 }
+                if (checkbox_deanaction.Checked)
+                {
+                    wtfbrah = false;
+                    if (hasStarted)
+                        sql += " AND";
+                    sql += " `"+gl.col_deanaction+"`='None'";
+                    hasStarted = true;
+                }
                 if (wtfbrah)
                 {
                     sql = "SELECT * FROM `"+gl.tbl_reports+"`";
@@ -755,6 +764,11 @@ forthnineweeksend;
         {
             getquery();
             getinfractions();
+        }
+
+        private void checkbox_deanaction_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

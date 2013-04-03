@@ -275,35 +275,10 @@ namespace Dresscode
             {
                 looping = false;
                 //--------Datagrid start ========
-                try
-                {
-                    string sql = "SELECT  * FROM `" + gl.tbl_reports + "` WHERE `" + gl.col_deanaction + "`='None'";
-                    dAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
-                    dTable.Rows.Clear();
-                    cBuilder = new OleDbCommandBuilder(dAdapter);
-                    cBuilder.QuotePrefix = "[";
-                    cBuilder.QuoteSuffix = "]";
+                string sql = "SELECT  * FROM `" + gl.tbl_reports + "` WHERE `" + gl.col_deanaction + "`='None'";
+                DB_Interaction dbi = new DB_Interaction();
+                dbi.dgvselectioncommand(sql,"","","",this.Name,dataGridView1.Name);
 
-                    dAdapter.Fill(dTable);
-                    bSource.DataSource = dTable;
-                    dataGridView1.DataSource = bSource;
-                    for (int i = 0; i <= 10; i++)
-                    {
-                        if (i <= 2)
-                            dataGridView1.Columns[i].Visible = false;
-                        dataGridView1.Columns[i].ReadOnly = true;
-                    }
-                    dataGridView1.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
-                }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.Message, "Error");
-                }
-                finally
-                {
-                    gl.oleconnection.Close();
-                }
                 //--------Datagrid stop ========
                 //--Excel export ---
                 try
@@ -312,15 +287,15 @@ namespace Dresscode
 
                     ExcelApp.Application.Workbooks.Add(Type.Missing);
                     ExcelApp.Columns.ColumnWidth = 15;
-                    for (int i = 4; i < dataGridView1.Columns.Count + 1; i++)
+                    for (int i = 3; i < dataGridView1.Columns.Count + 1; i++) //4
                     {
-                        ExcelApp.Cells[1, i - 3] = dataGridView1.Columns[i - 1].HeaderText;
+                        ExcelApp.Cells[1, i - 2] = dataGridView1.Columns[i - 1].HeaderText; //1 3
                     }
                     for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
                     {
-                        for (int j = 3; j < dataGridView1.Columns.Count; j++)
+                        for (int j = 2; j < dataGridView1.Columns.Count; j++) //3
                         {
-                            ExcelApp.Cells[i + 2, j - 2] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                            ExcelApp.Cells[i + 2, j - 1] = dataGridView1.Rows[i].Cells[j].Value.ToString(); //2 2
                         }
                     }
                     ExcelApp.ActiveWorkbook.SaveCopyAs(AppDomain.CurrentDomain.BaseDirectory + "Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx"); //or .xlsx file, depending of the excel version of your system
