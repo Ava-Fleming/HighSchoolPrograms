@@ -81,6 +81,7 @@
             this.textBox_console.Location = new System.Drawing.Point(6, 6);
             this.textBox_console.Multiline = true;
             this.textBox_console.Name = "textBox_console";
+            this.textBox_console.ReadOnly = true;
             this.textBox_console.Size = new System.Drawing.Size(423, 263);
             this.textBox_console.TabIndex = 0;
             // 
