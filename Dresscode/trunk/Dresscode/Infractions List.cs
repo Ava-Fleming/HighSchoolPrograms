@@ -24,11 +24,11 @@ namespace Dresscode
                 if (gl.oleconnection.State == ConnectionState.Closed)
                     gl.oleconnection.Open();
                 OleDbCommand getinfractionscommand = gl.oleconnection.CreateCommand();
-                getinfractionscommand.CommandText = "SELECT * FROM `Infraction List`";
+                getinfractionscommand.CommandText = "SELECT * FROM `"+gl.tbl_infractionlist+"`";
                 OleDbDataReader getinfraction = getinfractionscommand.ExecuteReader();
                 while (getinfraction.Read())
                 {
-                    listBox_infractions.Items.Add(getinfraction["infractions"].ToString());
+                    listBox_infractions.Items.Add(getinfraction[gl.col_infractions].ToString());
                 }
             }
             catch (Exception x)

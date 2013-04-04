@@ -22,12 +22,8 @@ namespace Dresscode
         //globals
         bool editmode = false;
         bool looping = false;
-        StreamWriter SR;
+        StreamWriter SW;
         globals gl = new globals();
-        OleDbDataAdapter dAdapter;
-        DataTable dTable = new DataTable();
-        OleDbCommandBuilder cBuilder;
-        BindingSource bSource = new BindingSource();
         //textBox_console.Text += "\r\n";
         //
 
@@ -259,10 +255,10 @@ namespace Dresscode
             sfd.Filter = "Text document | *.txt";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                SR = new System.IO.StreamWriter(sfd.FileName);
-                SR.WriteLine(textBox_console.Text);
-                SR.Flush();
-                SR.Close();
+                SW = new System.IO.StreamWriter(sfd.FileName);
+                SW.WriteLine(textBox_console.Text);
+                SW.Flush();
+                SW.Close();
             }
         }
 

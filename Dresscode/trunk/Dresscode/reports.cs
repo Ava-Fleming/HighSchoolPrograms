@@ -526,8 +526,6 @@ forthnineweeksend;
         public void getquery()
         {
             wtfbrah = true;
-            if (int.Parse(datetimepicker_date_start.Value.Year.ToString()) <= int.Parse(datetimepicker_date_end.Value.Year.ToString()))
-            {
                 sql = "SELECT * FROM `"+gl.tbl_reports+"` WHERE";
                 Boolean hasStarted = false;
 
@@ -753,11 +751,6 @@ forthnineweeksend;
                 dAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
                 county = 1;
                 totalinfractions = 1;
-            }
-            else
-            {
-                MessageBox.Show("The date range: " + datetimepicker_date_start.Value.Year.ToString() + "-" + datetimepicker_date_end.Value.Year.ToString() + " is not possible\nThe initial date can not be more than the ending date.");
-            }
         }
 
         private void button_retrieve_Click(object sender, EventArgs e)
