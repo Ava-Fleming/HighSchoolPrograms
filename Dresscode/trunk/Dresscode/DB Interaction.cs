@@ -14,7 +14,7 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string dgvselectioncommand(string sql, string firstname, string lastname, string studentid, string frmname, string dgn)
+        public string dgvselectioncommand(string sql, string firstname, string lastname, string studentid,string teacher, string infraction, string frmname, string dgn)
         {
             try
             {
@@ -24,6 +24,8 @@ namespace Dresscode
                 dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                 dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                 dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
+                dataAdapter.SelectCommand.Parameters.Add("teacher", OleDbType.VarChar, 255).Value = teacher;
+                dataAdapter.SelectCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = infraction;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
                 DataGridView dgv = Application.OpenForms[frmname].Controls[dgn] as DataGridView;
                 dataAdapter.Fill(ds);

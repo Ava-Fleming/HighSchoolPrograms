@@ -16,7 +16,7 @@ namespace Dresscode
     public partial class Reports : Form
     {
         BindingSource bSource = new BindingSource();
-        string sql = "", firstname, lastname, studentid;
+        string sql = "", firstname, lastname, studentid,teacher,infraction;
         globals gl = new globals();
         OleDbDataAdapter dAdapter;
         DataSet ds = new DataSet();
@@ -107,7 +107,7 @@ forthnineweeksend;
             try
             {
                 DB_Interaction dbi = new DB_Interaction();
-                dbi.dgvselectioncommand(sql, firstname, lastname, studentid, this.Name, dataGridView_reports.Name);
+                dbi.dgvselectioncommand(sql, firstname, lastname, studentid,teacher,infraction, this.Name, dataGridView_reports.Name);
 
                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
@@ -555,7 +555,8 @@ forthnineweeksend;
                         wtfbrah = false;
                         if (hasStarted)
                             sql += " AND";
-                        sql += " "+ gl.col_teacher + " = '" + combobox_teacher.Text + "'";
+                        teacher = combobox_teacher.Text;
+                        sql += " "+ gl.col_teacher + " =@teacher";
                         hasStarted = true;
                     }
                     else
@@ -570,7 +571,8 @@ forthnineweeksend;
                         wtfbrah = false;
                         if (hasStarted)
                             sql += " AND";
-                        sql += " "+ gl.col_infractions +" = '" + comboBox_infraction_select.Text + "'";
+                        infraction = comboBox_infraction_select.Text;
+                        sql += " "+ gl.col_infractions +" =@infraction";
                         hasStarted = true;
                     }
                     else

@@ -231,7 +231,7 @@ forthnineweeksend;
                         submitted = false;
                     }
                     DB_Interaction dbi = new DB_Interaction();
-                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid, this.Name, dataGridView1.Name);
+                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid,"","", this.Name, dataGridView1.Name);
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
                 finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
