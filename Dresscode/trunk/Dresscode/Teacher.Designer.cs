@@ -48,11 +48,11 @@
             this.label_teacherid = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView_students = new System.Windows.Forms.DataGridView();
             this.groupbox_retrieve.SuspendLayout();
             this.groupbox_submit.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_students)).BeginInit();
             this.SuspendLayout();
             // 
             // groupbox_retrieve
@@ -264,23 +264,23 @@
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 
-            // dataGridView1
+            // dataGridView_students
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 109);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(419, 149);
-            this.dataGridView1.TabIndex = 18;
+            this.dataGridView_students.AllowUserToAddRows = false;
+            this.dataGridView_students.AllowUserToDeleteRows = false;
+            this.dataGridView_students.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_students.Location = new System.Drawing.Point(12, 109);
+            this.dataGridView_students.Name = "dataGridView_students";
+            this.dataGridView_students.ReadOnly = true;
+            this.dataGridView_students.Size = new System.Drawing.Size(419, 149);
+            this.dataGridView_students.TabIndex = 18;
             // 
             // Teacher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(443, 463);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView_students);
             this.Controls.Add(this.groupbox_submit);
             this.Controls.Add(this.groupbox_retrieve);
             this.Controls.Add(this.menuStrip1);
@@ -295,7 +295,7 @@
             this.groupbox_submit.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_students)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -327,7 +327,7 @@
         private System.Windows.Forms.Label label_selecttheinfraction;
         private System.Windows.Forms.Label label_date;
         private System.Windows.Forms.Label label_period;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_students;
         
     }
 }

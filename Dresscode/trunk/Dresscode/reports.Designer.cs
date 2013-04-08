@@ -35,6 +35,11 @@
             this.checkBox_date_single = new System.Windows.Forms.CheckBox();
             this.checkBox_teacher = new System.Windows.Forms.CheckBox();
             this.groupBox_search = new System.Windows.Forms.GroupBox();
+            this.datetimepicker_dateofdean_end = new System.Windows.Forms.DateTimePicker();
+            this.checkbox_dateofdeanaction_range = new System.Windows.Forms.CheckBox();
+            this.datetimepicker_dateofdean_start = new System.Windows.Forms.DateTimePicker();
+            this.checkbox_dateofdeanaction_single = new System.Windows.Forms.CheckBox();
+            this.checkbox_deanaction = new System.Windows.Forms.CheckBox();
             this.comboBox_semster = new System.Windows.Forms.ComboBox();
             this.checkBox_semester = new System.Windows.Forms.CheckBox();
             this.checkBox_9weeksend = new System.Windows.Forms.CheckBox();
@@ -69,7 +74,6 @@
             this.studentEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teacherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkbox_deanaction = new System.Windows.Forms.CheckBox();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -101,7 +105,7 @@
             // label_viewing
             // 
             this.label_viewing.AutoSize = true;
-            this.label_viewing.Location = new System.Drawing.Point(15, 276);
+            this.label_viewing.Location = new System.Drawing.Point(15, 309);
             this.label_viewing.Name = "label_viewing";
             this.label_viewing.Size = new System.Drawing.Size(94, 13);
             this.label_viewing.TabIndex = 7;
@@ -109,7 +113,7 @@
             // 
             // button_retrieve
             // 
-            this.button_retrieve.Location = new System.Drawing.Point(12, 479);
+            this.button_retrieve.Location = new System.Drawing.Point(12, 512);
             this.button_retrieve.Name = "button_retrieve";
             this.button_retrieve.Size = new System.Drawing.Size(132, 23);
             this.button_retrieve.TabIndex = 26;
@@ -141,6 +145,10 @@
             // 
             // groupBox_search
             // 
+            this.groupBox_search.Controls.Add(this.datetimepicker_dateofdean_end);
+            this.groupBox_search.Controls.Add(this.checkbox_dateofdeanaction_range);
+            this.groupBox_search.Controls.Add(this.datetimepicker_dateofdean_start);
+            this.groupBox_search.Controls.Add(this.checkbox_dateofdeanaction_single);
             this.groupBox_search.Controls.Add(this.checkbox_deanaction);
             this.groupBox_search.Controls.Add(this.comboBox_semster);
             this.groupBox_search.Controls.Add(this.checkBox_semester);
@@ -171,10 +179,61 @@
             this.groupBox_search.Controls.Add(this.combobox_teacher);
             this.groupBox_search.Location = new System.Drawing.Point(12, 25);
             this.groupBox_search.Name = "groupBox_search";
-            this.groupBox_search.Size = new System.Drawing.Size(489, 248);
+            this.groupBox_search.Size = new System.Drawing.Size(489, 281);
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
+            // 
+            // datetimepicker_dateofdean_end
+            // 
+            this.datetimepicker_dateofdean_end.Enabled = false;
+            this.datetimepicker_dateofdean_end.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.datetimepicker_dateofdean_end.Location = new System.Drawing.Point(285, 243);
+            this.datetimepicker_dateofdean_end.Name = "datetimepicker_dateofdean_end";
+            this.datetimepicker_dateofdean_end.Size = new System.Drawing.Size(80, 20);
+            this.datetimepicker_dateofdean_end.TabIndex = 34;
+            // 
+            // checkbox_dateofdeanaction_range
+            // 
+            this.checkbox_dateofdeanaction_range.AutoSize = true;
+            this.checkbox_dateofdeanaction_range.Enabled = false;
+            this.checkbox_dateofdeanaction_range.Location = new System.Drawing.Point(221, 246);
+            this.checkbox_dateofdeanaction_range.Name = "checkbox_dateofdeanaction_range";
+            this.checkbox_dateofdeanaction_range.Size = new System.Drawing.Size(58, 17);
+            this.checkbox_dateofdeanaction_range.TabIndex = 33;
+            this.checkbox_dateofdeanaction_range.Text = "Range";
+            this.checkbox_dateofdeanaction_range.UseVisualStyleBackColor = true;
+            this.checkbox_dateofdeanaction_range.CheckedChanged += new System.EventHandler(this.checkbox_dateofdean_range_CheckedChanged);
+            // 
+            // datetimepicker_dateofdean_start
+            // 
+            this.datetimepicker_dateofdean_start.Enabled = false;
+            this.datetimepicker_dateofdean_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datetimepicker_dateofdean_start.Location = new System.Drawing.Point(135, 243);
+            this.datetimepicker_dateofdean_start.Name = "datetimepicker_dateofdean_start";
+            this.datetimepicker_dateofdean_start.Size = new System.Drawing.Size(80, 20);
+            this.datetimepicker_dateofdean_start.TabIndex = 32;
+            // 
+            // checkbox_dateofdeanaction_single
+            // 
+            this.checkbox_dateofdeanaction_single.AutoSize = true;
+            this.checkbox_dateofdeanaction_single.Location = new System.Drawing.Point(6, 246);
+            this.checkbox_dateofdeanaction_single.Name = "checkbox_dateofdeanaction_single";
+            this.checkbox_dateofdeanaction_single.Size = new System.Drawing.Size(123, 17);
+            this.checkbox_dateofdeanaction_single.TabIndex = 31;
+            this.checkbox_dateofdeanaction_single.Text = "Date of Dean Action";
+            this.checkbox_dateofdeanaction_single.UseVisualStyleBackColor = true;
+            this.checkbox_dateofdeanaction_single.CheckedChanged += new System.EventHandler(this.checkbox_dateofdeanaction_CheckedChanged);
+            // 
+            // checkbox_deanaction
+            // 
+            this.checkbox_deanaction.AutoSize = true;
+            this.checkbox_deanaction.Location = new System.Drawing.Point(7, 223);
+            this.checkbox_deanaction.Name = "checkbox_deanaction";
+            this.checkbox_deanaction.Size = new System.Drawing.Size(102, 17);
+            this.checkbox_deanaction.TabIndex = 30;
+            this.checkbox_deanaction.Text = "No Dean Action";
+            this.checkbox_deanaction.UseVisualStyleBackColor = true;
             // 
             // comboBox_semster
             // 
@@ -485,7 +544,7 @@
             // dataGridView_reports
             // 
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_reports.Location = new System.Drawing.Point(12, 292);
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 325);
             this.dataGridView_reports.Name = "dataGridView_reports";
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 28;
@@ -494,7 +553,7 @@
             // 
             // button_export_excel
             // 
-            this.button_export_excel.Location = new System.Drawing.Point(388, 479);
+            this.button_export_excel.Location = new System.Drawing.Point(388, 512);
             this.button_export_excel.Name = "button_export_excel";
             this.button_export_excel.Size = new System.Drawing.Size(113, 23);
             this.button_export_excel.TabIndex = 27;
@@ -505,7 +564,7 @@
             // label_nineweeks
             // 
             this.label_nineweeks.AutoSize = true;
-            this.label_nineweeks.Location = new System.Drawing.Point(156, 276);
+            this.label_nineweeks.Location = new System.Drawing.Point(156, 309);
             this.label_nineweeks.Name = "label_nineweeks";
             this.label_nineweeks.Size = new System.Drawing.Size(109, 13);
             this.label_nineweeks.TabIndex = 30;
@@ -514,7 +573,7 @@
             // label_total_reports
             // 
             this.label_total_reports.AutoSize = true;
-            this.label_total_reports.Location = new System.Drawing.Point(327, 276);
+            this.label_total_reports.Location = new System.Drawing.Point(327, 309);
             this.label_total_reports.Name = "label_total_reports";
             this.label_total_reports.Size = new System.Drawing.Size(77, 13);
             this.label_total_reports.TabIndex = 31;
@@ -577,22 +636,11 @@
             this.teacherToolStripMenuItem.Text = "Teacher";
             this.teacherToolStripMenuItem.Click += new System.EventHandler(this.teacherToolStripMenuItem_Click);
             // 
-            // checkbox_deanaction
-            // 
-            this.checkbox_deanaction.AutoSize = true;
-            this.checkbox_deanaction.Location = new System.Drawing.Point(7, 220);
-            this.checkbox_deanaction.Name = "checkbox_deanaction";
-            this.checkbox_deanaction.Size = new System.Drawing.Size(102, 17);
-            this.checkbox_deanaction.TabIndex = 30;
-            this.checkbox_deanaction.Text = "No Dean Action";
-            this.checkbox_deanaction.UseVisualStyleBackColor = true;
-            this.checkbox_deanaction.CheckedChanged += new System.EventHandler(this.checkbox_deanaction_CheckedChanged);
-            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 514);
+            this.ClientSize = new System.Drawing.Size(513, 547);
             this.Controls.Add(this.label_total_reports);
             this.Controls.Add(this.label_nineweeks);
             this.Controls.Add(this.button_export_excel);
@@ -663,6 +711,10 @@
         private System.Windows.Forms.ToolStripMenuItem studentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem teacherToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkbox_deanaction;
+        private System.Windows.Forms.DateTimePicker datetimepicker_dateofdean_end;
+        private System.Windows.Forms.CheckBox checkbox_dateofdeanaction_range;
+        private System.Windows.Forms.DateTimePicker datetimepicker_dateofdean_start;
+        private System.Windows.Forms.CheckBox checkbox_dateofdeanaction_single;
 
     }
 }

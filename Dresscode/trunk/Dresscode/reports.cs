@@ -19,7 +19,7 @@ namespace Dresscode
         string sql = "", firstname, lastname, studentid,teacher,infraction;
         globals gl = new globals();
         OleDbDataAdapter dAdapter;
-        DataSet ds = new DataSet();
+        DB_Interaction dbi = new DB_Interaction();
         bool wtfbrah = true;
         //
         int county = 0,
@@ -106,7 +106,7 @@ forthnineweeksend;
         {
             try
             {
-                DB_Interaction dbi = new DB_Interaction();
+                
                 dbi.dgvselectioncommand(sql, firstname, lastname, studentid,teacher,infraction, this.Name, dataGridView_reports.Name);
 
                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
@@ -485,8 +485,9 @@ forthnineweeksend;
             {
                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.UpdateCommand = new OleDbCommand("UPDATE "+gl.tbl_reports+" SET ["+gl.col_deanaction+"]=@dean WHERE ["+gl.col_id+"]=@idnum", gl.oleconnection);
+                adpt.UpdateCommand = new OleDbCommand("UPDATE `"+gl.tbl_reports+"` SET ["+gl.col_deanaction+"]=@dean,["+ gl.col_dateofdeanaction +"]=@dateofaction WHERE ["+gl.col_id+"]=@idnum", gl.oleconnection);
                 adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("dateofaction", OleDbType.VarChar, 255).Value = DateTime.Now.ToShortDateString();//dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
@@ -498,6 +499,7 @@ forthnineweeksend;
             finally
             {
                 if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                button_retrieve.PerformClick();
             }
         }
         private void weeksDatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -754,6 +756,25 @@ forthnineweeksend;
                     sql += " `"+gl.col_deanaction+"`='None'";
                     hasStarted = true;
                 }
+
+                if (checkbox_dateofdeanaction_single.Checked)
+                {
+                    wtfbrah = false;
+                    if (checkbox_dateofdeanaction_range.Checked)
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " `" + gl.col_dateofdeanaction + "` BETWEEN #" + datetimepicker_dateofdean_start.Value.ToShortDateString() + "# AND #" + datetimepicker_dateofdean_end.Value.ToShortDateString() + "#";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+                        if (hasStarted)
+                            sql += " AND";
+                        sql += " `" + gl.col_dateofdeanaction + "` = #" + datetimepicker_dateofdean_start.Value.ToShortDateString() + "#";
+                        hasStarted = true;
+                    }
+                }
                 if (wtfbrah)
                 {
                     sql = "SELECT * FROM `"+gl.tbl_reports+"`";
@@ -774,9 +795,29 @@ forthnineweeksend;
             getinfractions();
         }
 
-        private void checkbox_deanaction_CheckedChanged(object sender, EventArgs e)
+        private void checkbox_dateofdeanaction_CheckedChanged(object sender, EventArgs e)
         {
 
+            if (checkbox_dateofdeanaction_single.Checked == true)
+            {
+                datetimepicker_dateofdean_start.Enabled = true;
+                checkbox_dateofdeanaction_range.Enabled = true;
+            }
+            else
+            {
+                datetimepicker_dateofdean_start.Enabled = false;
+                checkbox_dateofdeanaction_range.Enabled = false;
+                checkbox_dateofdeanaction_range.Checked = false;
+            }
+        }
+
+        private void checkbox_dateofdean_range_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (checkbox_dateofdeanaction_range.Checked == true)
+                datetimepicker_dateofdean_end.Enabled = true;
+            else
+                datetimepicker_dateofdean_end.Enabled = false;
         }
     }
 }

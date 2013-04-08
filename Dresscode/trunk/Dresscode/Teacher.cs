@@ -231,7 +231,7 @@ forthnineweeksend;
                         submitted = false;
                     }
                     DB_Interaction dbi = new DB_Interaction();
-                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid,"","", this.Name, dataGridView1.Name);
+                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid,"","", this.Name, dataGridView_students.Name);
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
                 finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
@@ -367,9 +367,10 @@ forthnineweeksend;
         private void button_clear_Click(object sender, EventArgs e)
         {
             ds.Clear();
+            dataGridView_students.DataSource = null;
             combobox_firstname.Text = "";
             combobox_period.Items.Clear();
-            for (int i = 1; i <= 7; i++)
+            for (int i = 1; i <= gl.num_periods; i++)
                 combobox_period.Items.Add(i.ToString());
             combobox_lastname.Text = "";
             textbox_details.Clear();
