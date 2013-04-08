@@ -112,8 +112,16 @@ forthnineweeksend;
                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = sql;
-                getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                if(teacher != "")
+                    getinfractioncommand.Parameters.Add("teacher", OleDbType.VarChar, 50).Value = teacher;
+                if(infraction != "")
+                    getinfractioncommand.Parameters.Add("infraction", OleDbType.VarChar, 20).Value = infraction;
+                if (firstname != "")
+                {
+                    getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 20).Value = firstname;
+                    getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 20).Value = lastname;
+                    getinfractioncommand.Parameters.Add("studentid", OleDbType.VarChar, 20).Value = studentid;
+                }
                 getinfractioncommand.CommandType = CommandType.Text;
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                 while (getinfraction.Read())

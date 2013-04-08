@@ -37,11 +37,12 @@ namespace Dresscode
                 dgv.DataSource = (ds.Tables[0]);
                 if (frmname == "Reports")
                 {
-                    for (int i = 0; i <= 10; i++)
+                    for (int i = 0; i <= 12; i++)
                     {
                         if (i <= 1)
                             dgv.Columns[i].Visible = false;
-                        dgv.Columns[i].ReadOnly = true;
+                        if(i != 11)
+                            dgv.Columns[i].ReadOnly = true;
                     }
                     dgv.AutoResizeColumns(
                         DataGridViewAutoSizeColumnsMode.AllCells);
@@ -61,7 +62,7 @@ namespace Dresscode
                 }
                 if (frmname == "Email")
                 {
-                    for (int i = 0; i <= 10; i++)
+                    for (int i = 0; i <= 12; i++)
                     {
                         if (i <= 1)
                             dgv.Columns[i].Visible = false;

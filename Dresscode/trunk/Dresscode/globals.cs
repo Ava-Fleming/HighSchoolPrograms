@@ -28,6 +28,7 @@ namespace Dresscode
             col_grade = "Grade",
             col_period = "Period",
             col_deanaction = "Dean Action",
+            col_dateofdeanaction = "Date of Dean Action",
             col_reportdate = "Report Date",
             col_teacher = "Teacher",
             col_infractions = "Infractions",
