@@ -282,7 +282,7 @@ forthnineweeksend;
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                                 string sql = null;
-                                sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'" + "None" + "')";
+                                sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'None',NULL)";
                                 oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
                                 oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherid", teacherid);
                                 oledbAdapter.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid; //This can be converted to the first style but what fun would that be.
@@ -290,8 +290,6 @@ forthnineweeksend;
                                 oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                                 oledbAdapter.InsertCommand.Parameters.AddWithValue("teacher", teacherlastname + "," + teacherfirstname);
                                 oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
-                                
-                                   
                                 oledbAdapter.InsertCommand.Parameters.Add("details", OleDbType.VarChar, 255).Value = details;
                                 oledbAdapter.InsertCommand.ExecuteNonQuery();
                                 submitted = true;
