@@ -556,7 +556,7 @@ forthnineweeksend;
                         if (hasStarted)
                             sql += " AND";
                         teacher = combobox_teacher.Text;
-                        sql += " "+ gl.col_teacher + " =@teacher";
+                        sql += " `"+ gl.col_teacher + "`=@teacher";
                         hasStarted = true;
                     }
                     else
@@ -572,7 +572,7 @@ forthnineweeksend;
                         if (hasStarted)
                             sql += " AND";
                         infraction = comboBox_infraction_select.Text;
-                        sql += " "+ gl.col_infractions +" =@infraction";
+                        sql += " `"+ gl.col_infractions +"`=@infraction";
                         hasStarted = true;
                     }
                     else
@@ -638,7 +638,7 @@ forthnineweeksend;
                             studentid = comboBox_student_last.Text.Substring(i + 1, (comboBox_student_last.Text.Length - (i + 1)));
                         }
                     }
-                    sql += " `"+gl.col_firstname+"`=@firstname AND `"+gl.col_lastname+"`=@lastname AND `"+gl.col_studentid+"`='" + studentid + "'";
+                    sql += " `"+gl.col_firstname+"`=@firstname AND `"+gl.col_lastname+"`=@lastname AND `"+gl.col_studentid+"`=@studentid";
                     hasStarted = true;
                 }
                 if (checkBox_9weeksstart.Checked)
@@ -757,6 +757,11 @@ forthnineweeksend;
 
         private void button_retrieve_Click(object sender, EventArgs e)
         {
+            firstname = "";
+            lastname = "";
+            studentid = "";
+            teacher = "";
+            infraction = "";
             getquery();
             getinfractions();
         }

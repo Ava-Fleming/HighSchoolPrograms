@@ -21,11 +21,16 @@ namespace Dresscode
                 DataSet ds = new DataSet();
                 ds.Clear();
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
-                dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
-                dataAdapter.SelectCommand.Parameters.Add("teacher", OleDbType.VarChar, 255).Value = teacher;
-                dataAdapter.SelectCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = infraction;
+                if(teacher != "")
+                dataAdapter.SelectCommand.Parameters.Add("teacher", OleDbType.VarChar, 50).Value = teacher;
+                if(infraction != "")
+                dataAdapter.SelectCommand.Parameters.Add("infraction", OleDbType.VarChar, 20).Value = infraction;
+                if (firstname != "")
+                {
+                    dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 20).Value = firstname;
+                    dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 20).Value = lastname;
+                    dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 20).Value = studentid;
+                }
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
                 DataGridView dgv = Application.OpenForms[frmname].Controls[dgn] as DataGridView;
                 dataAdapter.Fill(ds);
