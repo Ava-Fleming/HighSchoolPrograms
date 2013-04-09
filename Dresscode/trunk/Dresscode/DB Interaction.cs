@@ -74,6 +74,7 @@ namespace Dresscode
             }
             catch (Exception x)
             {
+               if(x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function")
                 MessageBox.Show(x.Message, "Error");
             }
             finally

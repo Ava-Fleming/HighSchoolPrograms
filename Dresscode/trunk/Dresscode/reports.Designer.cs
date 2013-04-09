@@ -545,6 +545,7 @@
             // 
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_reports.Location = new System.Drawing.Point(12, 325);
+            this.dataGridView_reports.MultiSelect = false;
             this.dataGridView_reports.Name = "dataGridView_reports";
             this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
             this.dataGridView_reports.TabIndex = 28;

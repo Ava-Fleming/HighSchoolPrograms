@@ -499,6 +499,7 @@ forthnineweeksend;
             finally
             {
                 if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                dataGridView_reports.EndEdit();
                 button_retrieve.PerformClick();
             }
         }
