@@ -106,9 +106,19 @@ namespace Dresscode
             oledbAdapter.InsertCommand.ExecuteNonQuery();
             if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
         }
-        public void testcommands(string[] array)
+        public void testcommands(string sql, string[] parameter, string[] text)
         {
-            array[0] = "0";
+            for (int i =0; i<parameter.Length; i++)
+            {
+                if (parameter[i] != "")
+                {
+                    if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                    OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+                    oledbAdapter.InsertCommand = new OleDbCommand("", gl.oleconnection);
+                    oledbAdapter.InsertCommand.Parameters.AddWithValue(parameter[i], text[i]);
+                    if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                }
+            }
         }
     }
 }
