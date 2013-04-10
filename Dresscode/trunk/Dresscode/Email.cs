@@ -96,9 +96,7 @@ namespace Dresscode
                 oledbc_reademailscommand.CommandText = "SELECT * FROM `" + gl.tbl_mailinglist + "`";
                 OleDbDataReader oledbc_reademails = oledbc_reademailscommand.ExecuteReader();
                 while (oledbc_reademails.Read())
-                {
                     listBox_emails.Items.Add(oledbc_reademails[gl.col_emaillist].ToString());
-                }
             }
             catch (Exception x)
             {
@@ -118,8 +116,6 @@ namespace Dresscode
             timer1.Enabled = true;
         }
 
-
-
         private void button_remove_email_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you want to delete " + listBox_emails.SelectedItem.ToString() + "?", "Really Delete Email?", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -129,9 +125,8 @@ namespace Dresscode
                     gl.oleconnection.Open();
                     OleDbDataAdapter adapter = new OleDbDataAdapter();
                     string sql = "DELETE * FROM `" + gl.tbl_mailinglist + "` WHERE `" + gl.col_emaillist + "`=@demail";
-                    adapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                    //adapter.InsertCommand.Parameters.Add(gl. listBox_emails.SelectedItem
-                    adapter.InsertCommand.ExecuteNonQuery();
+                    adapter.DeleteCommand = new OleDbCommand(sql, gl.oleconnection);
+                    adapter.DeleteCommand.ExecuteNonQuery();
                     textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
                     listBox_emails.Items.Remove(listBox_emails.SelectedItem);
                 }

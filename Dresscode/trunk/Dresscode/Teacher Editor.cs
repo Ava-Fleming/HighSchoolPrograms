@@ -191,7 +191,7 @@ namespace Dresscode
         public void datagridupdate()
         {
                 DB_Interaction dbi = new DB_Interaction();
-                dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "", "", "", "","","", this.Name, datagridview_teachers.Name);
+                dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "","","", this.Name, datagridview_teachers.Name);
         }
     }
 }

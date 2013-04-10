@@ -44,21 +44,15 @@ namespace Dresscode
                         if(i != 11)
                             dgv.Columns[i].ReadOnly = true;
                     }
-                    dgv.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
                 }
                 if (frmname == "Teacher")
                 {
                     dgv.Columns[0].Visible = false;
                     dgv.Columns[1].Visible = false;
-                    dgv.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
                 }
                 if (frmname == "Teacher_Editor")
                 {
                     dgv.Columns[1].Visible = false;
-                    dgv.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
                 }
                 if (frmname == "Email")
                 {
@@ -68,14 +62,13 @@ namespace Dresscode
                             dgv.Columns[i].Visible = false;
                         dgv.Columns[i].ReadOnly = true;
                     }
-                    dgv.AutoResizeColumns(
-                        DataGridViewAutoSizeColumnsMode.AllCells);
                 }
+                dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception x)
             {
                if(x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function")
-                MessageBox.Show(x.Message, "Error");
+                   MessageBox.Show(x.Message, "Error");
             }
             finally
             {
