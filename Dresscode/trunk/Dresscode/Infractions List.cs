@@ -16,6 +16,7 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
+        DB_Interaction dbi = new DB_Interaction();
         string sql = "";
         private void Infractions_List_Load(object sender, EventArgs e)
         {
@@ -67,26 +68,15 @@ namespace Dresscode
                 }
                 if (words)
                 {
-                    gl.oleconnection.Open();
-                    OleDbDataAdapter oledba_addinfraction = new OleDbDataAdapter();
-                    sql = "INSERT INTO `"+gl.tbl_infractionlist+"` VALUES (@infraction)";
-                    oledba_addinfraction.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                    //oledba_addinfraction.InsertCommand.Parameters.AddWithValue("infractionlist", gl.tbl_infractionlist);
-                    oledba_addinfraction.InsertCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = textBox_infraction.Text;
-                    oledba_addinfraction.InsertCommand.CommandType = CommandType.Text;
-                    oledba_addinfraction.InsertCommand.ExecuteNonQuery();
+                    sql = "INSERT INTO `" + gl.tbl_infractionlist + "` VALUES (@infraction)";
+                    dbi.dbcommands(sql, this.Name, "", "", "", "", "", textBox_infraction.Text, "", "", "");
                     listBox_infractions.Items.Add(textBox_infraction.Text);
                     textBox_infraction.Clear();
                 }
             }
             catch (Exception x)
             {
-                MessageBox.Show(x.Message);
-            }
-            finally
-            {
-                if (gl.oleconnection.State == ConnectionState.Open)
-                    gl.oleconnection.Close();
+                MessageBox.Show("ERROR ON INSERTION\n" + x.Message,"Error");
             }
         }
 
@@ -96,23 +86,14 @@ namespace Dresscode
             {
                 if (listBox_infractions.SelectedItem != null)
                 {
-                    gl.oleconnection.Open();
-                    OleDbDataAdapter oledba_deleteinfraction = new OleDbDataAdapter();
                     sql = "DELETE * FROM `" + gl.tbl_infractionlist + "` WHERE " + gl.col_infractions + "=@infraction";
-                    oledba_deleteinfraction.DeleteCommand = new OleDbCommand(sql, gl.oleconnection);
-                    oledba_deleteinfraction.DeleteCommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = listBox_infractions.SelectedItem;
-                    oledba_deleteinfraction.DeleteCommand.CommandType = CommandType.Text;
-                    oledba_deleteinfraction.DeleteCommand.ExecuteNonQuery();
+                    dbi.dbcommands(sql, this.Name, "", "", "", "", "", listBox_infractions.SelectedItem.ToString(), "", "", "");
                     listBox_infractions.Items.Remove(listBox_infractions.SelectedItem);
                 }
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.Message);
-            }
-            finally
-            {
-                gl.oleconnection.Close();
             }
         }
     }

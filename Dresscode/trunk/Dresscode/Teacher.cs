@@ -20,7 +20,7 @@ namespace Dresscode
         }
         /**/
         globals gl = new globals();
-        DataSet ds = new DataSet();
+        DB_Interaction dbi = new DB_Interaction();
         private BindingSource bindingSource1 = new BindingSource();
         /**/
         string
@@ -57,7 +57,6 @@ forthnineweeksend;
         string sql = "";
         public void retrieval()
         {
-            ds.Clear();
             OleDbCommand getstudentinfocommand = gl.oleconnection.CreateCommand();
             for (int i = 0; i < lastname.Length; i++)
             {
@@ -280,18 +279,9 @@ forthnineweeksend;
                             try
                             {
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
-                                OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                                 string sql = null;
                                 sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'None',NULL)";
-                                oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherid", teacherid);
-                                oledbAdapter.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid; //This can be converted to the first style but what fun would that be.
-                                oledbAdapter.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                                oledbAdapter.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacher", teacherlastname + "," + teacherfirstname);
-                                oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
-                                oledbAdapter.InsertCommand.Parameters.Add("details", OleDbType.VarChar, 255).Value = details;
-                                oledbAdapter.InsertCommand.ExecuteNonQuery();
+                                dbi.dbcommands(sql, this.Name, teacherid, firstname, lastname, studentid, teacherlastname + "," + teacherfirstname, infraction, details, "", "");
                                 submitted = true;
 
                             }
@@ -301,7 +291,6 @@ forthnineweeksend;
                             }
                             finally
                             {
-                                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                                 button_retrieve.PerformClick();
                             }
                         }
@@ -348,25 +337,12 @@ forthnineweeksend;
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
             finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
-            /*
-             * This would set the period, but no predefined dates so no 2 or 3?
-            TimeSpan time = DateTime.Now.TimeOfDay;
-            if (time > new TimeSpan(7, 10, 00) && time < new TimeSpan(8, 10, 00))
-                combobox_period.Text = "1"; //First Block
-            if (time > new TimeSpan(8, 11, 00) && time < new TimeSpan(9, 50, 00))
-                combobox_period.Text = "2/3"; //Second Block
-            if (time > new TimeSpan(9, 50, 00) && time < new TimeSpan(11, 30, 00))
-                combobox_period.Text = "4/5"; //Third Block
-            if (time > new TimeSpan(11, 30, 00) && time < new TimeSpan(13, 40, 00))
-                combobox_period.Text = "6/7"; //Forth Block
-             */
             label_teacherid.Text = "Teacher ID: " + teacherid;
             label_date.Text += DateTime.Now.ToShortDateString();
         }
 
         private void button_clear_Click(object sender, EventArgs e)
         {
-            ds.Clear();
             dataGridView_students.DataSource = null;
             combobox_firstname.Text = "";
             combobox_period.Items.Clear();
@@ -402,7 +378,7 @@ forthnineweeksend;
         {
             if (textbox_details.Text.Length >= 256)
             {
-                MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherfirstname + " " + teacherlastname + "\nSTAHP\n\nOnly 255 characters can be reported.", "Limited report characters");
+                MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherlastname + " " + teacherfirstname + "\nSTAHP\n\nOnly 255 characters can be reported.", "Limited report characters");
                 textbox_details.Text = textbox_details.Text.Remove(255);
             }
         }
@@ -424,7 +400,7 @@ forthnineweeksend;
 
         private void form_dresscode_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show("Goodbye.\nYou know, using this program just now taught me a valuable lesson:\nthe best solution to a problem is usually the easiest one.\nAnd lets be honest, using the orginal dresscode system is hard.\nYou know what the old dresscode system used to be like?\nNo one could easily report students.\nReporting was bad until I showed up.\nIt's been fun, come back anytime. <3", "Closing");
+            MessageBox.Show("Goodbye.\nYou know, using this program just now taught a valuable lesson:\nthe best solution to a problem is usually the easiest one.\nAnd lets be honest, using the old dresscode system was hard.\nYou know what the old dresscode system used to be like?\nNo one could easily report students.\nReporting was bad until I showed up.\nIt's been fun, come back anytime. <3", "Closing");
             //MessageBox.Show("And when you close me i'll be Still Alive.\nStill Alive.\n\nGood bye.", "Still Alive");
             Application.Exit();
         }

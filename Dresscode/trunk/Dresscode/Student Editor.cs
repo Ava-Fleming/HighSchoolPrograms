@@ -18,8 +18,7 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
-        DataTable dTable = new DataTable();
-        BindingSource bSource = new BindingSource();
+        DB_Interaction dbi = new DB_Interaction();
 
         private void textBox_studentID_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -55,11 +54,8 @@ namespace Dresscode
                             excelconnection.Close();
                             if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
-                            OleDbDataAdapter doledbAdapter = new OleDbDataAdapter();
                             string dsql = "DELETE * FROM `" + gl.tbl_studentinfo + "`";
-                            doledbAdapter.InsertCommand = new OleDbCommand(dsql, gl.oleconnection);
-                            doledbAdapter.InsertCommand.ExecuteNonQuery();
-                            if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                            dbi.dbcommands(dsql, this.Name, "", "", "", "", "", "", "", "", "");
                             while (dtr_excel.Read())
                             {
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
@@ -69,16 +65,10 @@ namespace Dresscode
                                 string firstname = dtr_excel.GetValue(2).ToString();
                                 string grade = dtr_excel.GetValue(3).ToString();
                                 string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
-                                oledba_massadd.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                                oledba_massadd.InsertCommand.Parameters.Add("studentid", OleDbType.Numeric, 255).Value = studentid;
-                                oledba_massadd.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                                oledba_massadd.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                                oledba_massadd.InsertCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = grade;
-                                oledba_massadd.InsertCommand.ExecuteNonQuery();
-                                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                                dbi.dbcommands(sql, this.Name, "", lastname, firstname, studentid, "", "", "", "", grade);
                             }
                             this.Show();
-                            MessageBox.Show("Add students have been added successfully");
+                            MessageBox.Show("All students have been added successfully");
                             goodop = true;
                         }
                         catch (Exception ex)
@@ -130,15 +120,8 @@ namespace Dresscode
                         DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
                         if (dr == DialogResult.Yes)
                         {
-                            if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
-                            OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
                             string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
-                            oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                            oledba_addstudent.InsertCommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = textBox_studentID.Text;
-                            oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
-                            oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                            oledba_addstudent.InsertCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = int.Parse(numericUpDown1.Value.ToString());
-                            oledba_addstudent.InsertCommand.ExecuteNonQuery();
+                            dbi.dbcommands(sql, this.Name, "", firstname, lastname, textBox_studentID.Text, "", "", "", "", int.Parse(numericUpDown1.Value.ToString()).ToString());
                             MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                             textBox_studentID.Text = "";
                             textBox_firstname.Text = "";
@@ -167,8 +150,6 @@ namespace Dresscode
                             }
                         }
                         MessageBox.Show("The Student ID: " + textBox_studentID.Text + " already exists.\nExisting Student: " + efirst + " " + elast + "\nGrade: " + egrade);
-                        if(gl.oleconnection.State == ConnectionState.Open)
-                        gl.oleconnection.Close();
                     }
                 }
                 catch (Exception x)

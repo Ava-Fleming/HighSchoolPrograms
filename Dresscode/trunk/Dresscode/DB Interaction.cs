@@ -14,17 +14,17 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string dgvselectioncommand(string sql, string firstname, string lastname, string studentid,string teacher, string infraction, string frmname, string dgn)
+        public string dgvselectioncommand(string sql, string firstname, string lastname, string studentid, string teacher, string infraction, string frmname, string dgn)
         {
             try
             {
                 DataSet ds = new DataSet();
                 ds.Clear();
                 OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
-                if(teacher != "")
-                dataAdapter.SelectCommand.Parameters.Add("teacher", OleDbType.VarChar, 50).Value = teacher;
-                if(infraction != "")
-                dataAdapter.SelectCommand.Parameters.Add("infraction", OleDbType.VarChar, 20).Value = infraction;
+                if (teacher != "")
+                    dataAdapter.SelectCommand.Parameters.Add("teacher", OleDbType.VarChar, 50).Value = teacher;
+                if (infraction != "")
+                    dataAdapter.SelectCommand.Parameters.Add("infraction", OleDbType.VarChar, 20).Value = infraction;
                 if (firstname != "")
                 {
                     dataAdapter.SelectCommand.Parameters.Add("firstname", OleDbType.VarChar, 20).Value = firstname;
@@ -41,7 +41,7 @@ namespace Dresscode
                     {
                         if (i <= 1)
                             dgv.Columns[i].Visible = false;
-                        if(i != 11)
+                        if (i != 11)
                             dgv.Columns[i].ReadOnly = true;
                     }
                 }
@@ -67,14 +67,48 @@ namespace Dresscode
             }
             catch (Exception x)
             {
-               if(x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function")
-                   MessageBox.Show(x.Message, "Error");
+                if (x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function")
+                    MessageBox.Show(x.Message, "Error");
             }
             finally
             {
                 gl.oleconnection.Close();
             }
             return null;
+        }
+        public void dbcommands(string sql, string frmname, string teacherid, string firstname, string lastname, string studentid, string teacher, string infraction, string details, string email, string grade)
+        {
+            if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+            OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
+            oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
+            if (frmname == "Teacher")
+            {
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherid", teacherid);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("studentid", studentid);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("firstname", firstname);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("lastname", lastname);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacher", teacher);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("details", details);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("grade", grade);
+            }
+            if (frmname == "Student_Editor")
+            {
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("studentid", studentid);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("lastname", lastname);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("firstname", firstname);
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("grade", grade);
+            }
+            if (frmname == "Infractions_List")
+            {
+                oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
+            }
+            oledbAdapter.InsertCommand.ExecuteNonQuery();
+            if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+        }
+        public void testcommands(string[] array)
+        {
+            array[0] = "0";
         }
     }
 }

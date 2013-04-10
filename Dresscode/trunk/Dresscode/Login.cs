@@ -24,7 +24,7 @@ namespace Dresscode
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show("¡Adios! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa", "Good bye");
+            MessageBox.Show("¡Adios! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa\nMUAHM! (Bye) ~ Ethan Kuell", "Good bye");
             Application.Exit();
         }
 
