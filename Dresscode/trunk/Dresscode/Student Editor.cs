@@ -65,7 +65,10 @@ namespace Dresscode
                                 string firstname = dtr_excel.GetValue(2).ToString();
                                 string grade = dtr_excel.GetValue(3).ToString();
                                 string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
-                                dbi.dbcommands(sql, this.Name, "", lastname, firstname, studentid, "", "", "", "", grade);
+                                string[] pars = { "@studentid", "@lastname", "@firstname", "@grade"};
+                                string[] text = { studentid, lastname, firstname,grade };
+                                dbi.testcommands(sql, pars, text);
+                                //dbi.dbcommands(sql, this.Name, "", lastname, firstname, studentid, "", "", "", "", grade);
                             }
                             this.Show();
                             MessageBox.Show("All students have been added successfully");

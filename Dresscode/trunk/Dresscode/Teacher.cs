@@ -281,15 +281,9 @@ forthnineweeksend;
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 string sql = null;
                                 sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'None',NULL)";
-                                string[] pars = { "@teacherid","@studentid","@firstname","@lastname","@teacher","@grade","@infraction","@details" };// Fix
-                                for (int i = 0; i < pars.Length; i++)
-                                    pars[i] = "";
-                                string[] text = new string[100];
-                                for (int i = 0; i < text.Length; i++)
-                                    text[i] = "";
-                                
-                                
-                                dbi.dbcommands(sql, this.Name, teacherid, firstname, lastname, studentid, teacherlastname + "," + teacherfirstname, infraction, details, "", "");
+                                string[] pars = { "@teacherid","@studentid","@firstname","@lastname","@teacher","@infraction","@details" };
+                                string[] text = { teacherid, studentid, firstname, lastname, teacherlastname + ", " + teacherfirstname, infraction, details };
+                                dbi.testcommands(sql, pars, text);
                                 submitted = true;
 
                             }
