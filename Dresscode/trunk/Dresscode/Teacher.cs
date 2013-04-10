@@ -73,19 +73,19 @@ forthnineweeksend;
             int retrievalcode = 0;
             firstname = combobox_firstname.Text;
             lastname = combobox_lastname.Text;
-            sql = "SELECT * FROM `"+gl.tbl_studentinfo+"`";
+            sql = "SELECT * FROM `" + gl.tbl_studentinfo + "`";
             if (combobox_firstname.Text == "" && combobox_lastname.Text == "")
                 retrievalcode = -1;
             if (combobox_firstname.Text == "" && combobox_lastname.Text != "")
             {
                 retrievalcode = 0;
-                sql += " WHERE `"+gl.col_lastname+"`=@lastname";
+                sql += " WHERE `" + gl.col_lastname + "`=@lastname";
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
             }
             if (combobox_firstname.Text != "" && combobox_lastname.Text == "")
             {
                 retrievalcode = 1;
-                sql += " WHERE `"+gl.col_firstname+"`=@firstname";
+                sql += " WHERE `" + gl.col_firstname + "`=@firstname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
             }
             if (combobox_lastname.Text != "" && combobox_firstname.Text != "")
@@ -93,13 +93,13 @@ forthnineweeksend;
                 firstname = combobox_firstname.Text;
                 lastname = combobox_lastname.Text;
                 retrievalcode = 2;
-                sql += " WHERE `"+gl.col_firstname+"`=@firstname AND `"+gl.col_lastname+"`=@lastname";
+                sql += " WHERE `" + gl.col_firstname + "`=@firstname AND `" + gl.col_lastname + "`=@lastname";
                 getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
                 getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
             }
             try
             {
-                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 if (retrievalcode != -1)
                 {
                     getstudentinfocommand.CommandText = sql;
@@ -133,14 +133,14 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
+            finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
             #endregion
             for (int i = 0; i < combobox_firstname.Text.Length; i++)
             {
                 if (combobox_firstname.Text[i] == ' ')
                 {
                     firstname = combobox_firstname.Text.Substring(0, i);
-                    studentid = combobox_firstname.Text.Substring(i+1, (combobox_firstname.Text.Length - (i+1)));
+                    studentid = combobox_firstname.Text.Substring(i + 1, (combobox_firstname.Text.Length - (i + 1)));
                 }
             }
             for (int i = 0; i < combobox_lastname.Text.Length; i++)
@@ -148,7 +148,7 @@ forthnineweeksend;
                 if (combobox_lastname.Text[i] == ' ')
                 {
                     lastname = combobox_lastname.Text.Substring(0, i);
-                    studentid = combobox_lastname.Text.Substring(i+1, (combobox_lastname.Text.Length - (i+1)));
+                    studentid = combobox_lastname.Text.Substring(i + 1, (combobox_lastname.Text.Length - (i + 1)));
                 }
             }
 
@@ -158,9 +158,9 @@ forthnineweeksend;
                 try
                 {
 
-                    if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                    if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                     OleDbCommand recheck = gl.oleconnection.CreateCommand();
-                    recheck.CommandText = "SELECT * FROM `"+ gl.tbl_studentinfo +"` WHERE `"+gl.col_firstname+"`=@firstname AND `"+ gl.col_lastname +"`=@lastname AND `"+gl.col_studentid+"`=@studentid";
+                    recheck.CommandText = "SELECT * FROM `" + gl.tbl_studentinfo + "` WHERE `" + gl.col_firstname + "`=@firstname AND `" + gl.col_lastname + "`=@lastname AND `" + gl.col_studentid + "`=@studentid";
                     recheck.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     recheck.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
                     recheck.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
@@ -171,16 +171,16 @@ forthnineweeksend;
                         firstname = recheckreader[gl.col_firstname].ToString();
                         grade = recheckreader[gl.col_grade].ToString();
                     }
-                    if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                    if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
 
-                    if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                    if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                     county = 0;
                     totalinfractions = 1;
                     nineWeeksDatabase = 0;
                     currentNineWeeks = 0;
                     currentDayOfYear = DateTime.Now.DayOfYear;
                     OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
-                    string reportsstring = "SELECT * FROM `"+gl.tbl_reports+"` WHERE `"+gl.col_firstname+"`=@firstname AND `"+ gl.col_lastname +"`=@lastname AND `"+gl.col_studentid+"`=@studentid";
+                    string reportsstring = "SELECT * FROM `" + gl.tbl_reports + "` WHERE `" + gl.col_firstname + "`=@firstname AND `" + gl.col_lastname + "`=@lastname AND `" + gl.col_studentid + "`=@studentid";
                     getinfractioncommand.CommandText = reportsstring;
                     getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
                     getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
@@ -230,10 +230,10 @@ forthnineweeksend;
                         submitted = false;
                     }
                     DB_Interaction dbi = new DB_Interaction();
-                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid,"","", this.Name, dataGridView_students.Name);
+                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid, "", "", this.Name, dataGridView_students.Name);
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-                finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
+                finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
                 #endregion
             }
             else
@@ -278,29 +278,24 @@ forthnineweeksend;
                         {
                             try
                             {
-                                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 string sql = null;
                                 sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'None',NULL)";
-                                string[] pars = { "@teacherid","@studentid","@firstname","@lastname","@teacher","@infraction","@details" };
-                                string[] text = { teacherid, studentid, firstname, lastname, teacherlastname + ", " + teacherfirstname, infraction, details };
-                                dbi.testcommands(sql, pars, text);
+                                string[] pars = { "@teacherid", "@studentid", "@firstname", "@lastname", "@teacher", "@infraction", "@details" };
+                                string[] values = { teacherid, studentid, firstname, lastname, teacherlastname + ", " + teacherfirstname, infraction, details };
+                                dbi.dbcommands(sql, pars, values);
                                 submitted = true;
 
                             }
-                            catch (Exception x)
-                            {
-                                MessageBox.Show(x.Message);
-                            }
-                            finally
-                            {
-                                button_retrieve.PerformClick();
-                            }
+                            catch (Exception x) { MessageBox.Show(x.Message); }
+                            finally { button_retrieve.PerformClick(); }
                         }
                     }
                     else
-                    {
+                        if(gl.funnymode)
                         MessageBox.Show("Select The Infraction. You monster", "Missing Infraction.");
-                    }
+                        else
+                            MessageBox.Show("Select The Infraction", "Missing Infraction.");
                 }
             }
         }
@@ -318,7 +313,7 @@ forthnineweeksend;
             combobox_firstname.Focus();
             try
             {
-                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getdatescommand = gl.oleconnection.CreateCommand();
                 getdatescommand.CommandText = "SELECT * FROM `" + gl.tbl_nineweeksdates + "`";
                 OleDbDataReader getdateinfo = getdatescommand.ExecuteReader();
@@ -338,7 +333,7 @@ forthnineweeksend;
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
+            finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
             label_teacherid.Text = "Teacher ID: " + teacherid;
             label_date.Text += DateTime.Now.ToShortDateString();
         }
@@ -361,26 +356,26 @@ forthnineweeksend;
             textbox_details.Text = "Details";
             try
             {
-                sql = "SELECT * FROM `"+gl.tbl_infractionlist+"`";
-                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                sql = "SELECT * FROM `" + gl.tbl_infractionlist + "`";
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getpossibleinfractionscommand = gl.oleconnection.CreateCommand();
                 getpossibleinfractionscommand.CommandText = sql;
                 OleDbDataReader getpossibleinfractions = getpossibleinfractionscommand.ExecuteReader();
                 while (getpossibleinfractions.Read())
-                {
                     combobox_infraction.Items.Add(getpossibleinfractions[gl.col_infractions].ToString());
-                }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); 
-            }
+            finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
         }
-        
+
         private void textbox_details_TextChanged(object sender, EventArgs e)
         {
             if (textbox_details.Text.Length >= 256)
             {
-                MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherlastname + " " + teacherfirstname + "\nSTAHP\n\nOnly 255 characters can be reported.", "Limited report characters");
+                if (gl.funnymode)
+                    MessageBox.Show(teacherfirstname + " " + teacherlastname + "\nwhat are you doing?\n" + teacherlastname + " " + teacherfirstname + "\nSTAHP\n\nOnly 255 characters can be reported.", "Maximum report characters reached");
+                else
+                    MessageBox.Show("Only 255 characters are allowed to be entered as details.\nThe last character has been removed.", "Maximum report characters reached");
                 textbox_details.Text = textbox_details.Text.Remove(255);
             }
         }
@@ -388,23 +383,22 @@ forthnineweeksend;
         private void textbox_details_Click(object sender, EventArgs e)
         {
             if (textbox_details.Text == "Details")
-            {
                 textbox_details.Text = textbox_details.Text.Remove(0, textbox_details.Text.Length);
-            }
         }
         private void textbox_details_Leave(object sender, EventArgs e)
         {
             if (textbox_details.Text == "")
-            {
                 textbox_details.Text = "Details";
-            }
         }
 
         private void form_dresscode_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show("Goodbye.\nYou know, using this program just now taught a valuable lesson:\nthe best solution to a problem is usually the easiest one.\nAnd lets be honest, using the old dresscode system was hard.\nYou know what the old dresscode system used to be like?\nNo one could easily report students.\nReporting was bad until I showed up.\nIt's been fun, come back anytime. <3", "Closing");
-            //MessageBox.Show("And when you close me i'll be Still Alive.\nStill Alive.\n\nGood bye.", "Still Alive");
-            Application.Exit();
+            if (gl.funnymode)
+            {
+                MessageBox.Show("Goodbye.\nYou know, using this program just now taught a valuable lesson:\nthe best solution to a problem is usually the easiest one.\nAnd lets be honest, using the old dresscode system was hard.\nYou know what the old dresscode system used to be like?\nNo one could easily report students.\nReporting was bad until I showed up.\nIt's been fun, come back anytime. <3", "Closing");
+                MessageBox.Show("And when you close me i'll be Still Alive.\nStill Alive.\n\nGood bye.", "Still Alive");
+            }
+            this.Close();
         }
 
         private void combobox_firstname_KeyDown(object sender, KeyEventArgs e)
@@ -428,10 +422,7 @@ forthnineweeksend;
                 report.ShowDialog();
                 this.Show();
             }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message);
-            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
         }
     }
 }

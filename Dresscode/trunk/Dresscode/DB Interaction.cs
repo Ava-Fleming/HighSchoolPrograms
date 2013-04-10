@@ -67,7 +67,7 @@ namespace Dresscode
             }
             catch (Exception x)
             {
-                if (x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function")
+                if (x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function") //Disregard this, works fine regardless, it just shows a message box that shouldn't be there.
                     MessageBox.Show(x.Message, "Error");
             }
             finally
@@ -76,37 +76,7 @@ namespace Dresscode
             }
             return null;
         }
-        public void dbcommands(string sql, string frmname, string teacherid, string firstname, string lastname, string studentid, string teacher, string infraction, string details, string email, string grade)
-        {
-            if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
-            OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
-            oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-            if (frmname == "Teacher")
-            {
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacherid", teacherid);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("studentid", studentid);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("firstname", firstname);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("lastname", lastname);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("teacher", teacher);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("details", details);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("grade", grade);
-            }
-            if (frmname == "Student_Editor")
-            {
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("studentid", studentid);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("lastname", lastname);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("firstname", firstname);
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("grade", grade);
-            }
-            if (frmname == "Infractions_List")
-            {
-                oledbAdapter.InsertCommand.Parameters.AddWithValue("infraction", infraction);
-            }
-            oledbAdapter.InsertCommand.ExecuteNonQuery();
-            if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
-        }
-        public void testcommands(string sql, string[] parameter, string[] text)
+        public void dbcommands(string sql, string[] parameter, string[] text)
         {
             OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
             oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);

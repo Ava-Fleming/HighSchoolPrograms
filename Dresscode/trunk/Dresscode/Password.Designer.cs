@@ -164,6 +164,7 @@
         private System.Windows.Forms.Label label_teacherid;
         private System.Windows.Forms.TextBox textBox_teacherID;
         public string email;
+        public string teacherid;
 
     }
 }

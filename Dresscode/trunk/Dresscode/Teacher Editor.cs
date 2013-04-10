@@ -27,6 +27,7 @@ namespace Dresscode
         string hostPass;
         string sendTo;
         DataSet ds = new DataSet();
+        DB_Interaction dbi = new DB_Interaction();
         private void button_addteacher_Click(object sender, EventArgs e)
         {
             bool legit = false;
@@ -51,6 +52,8 @@ namespace Dresscode
             {
                 try
                 {
+                    textbox_lastname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text);
+                        textbox_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text);
                     bool newuser = true;
                     if (gl.oleconnection.State == ConnectionState.Closed)
                     gl.oleconnection.Open();
@@ -86,25 +89,13 @@ namespace Dresscode
                         StringBuilder strBuilder1 = new StringBuilder();
                         for (int i = 0; i < result1.Length; i++)
                             strBuilder1.Append(result1[i].ToString("x2"));
-
-                        //database
-                        if (gl.oleconnection.State == ConnectionState.Closed)
-                        gl.oleconnection.Open();
-                        OleDbDataAdapter oledba_addstudent = new OleDbDataAdapter();
+                        string admin = "";
+                        if (checkbox_dean.Checked) admin = "Yes";
                         string sql = "INSERT INTO `"+gl.tbl_teacherinfo+"` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
-                        oledba_addstudent.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                        oledba_addstudent.InsertCommand.Parameters.Add("teacherid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
-                        oledba_addstudent.InsertCommand.Parameters.Add("password", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
-                        oledba_addstudent.InsertCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text);
-                        oledba_addstudent.InsertCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text);
-                        oledba_addstudent.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textbox_email.Text;
+                        string[] pars = { "@teacherid", "@password", "@lastname", "@firstname", "@email", "@admin" };
+                        string[] values = { textbox_teacherid.Text, strBuilder1.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text), textbox_email.Text, admin };
+                        dbi.dbcommands(sql, pars, values);
 
-                        if (checkbox_dean.Checked)
-                        {
-                            oledba_addstudent.InsertCommand.Parameters.Add("admin", OleDbType.VarChar, 255).Value = "Yes";
-                        }
-                        else { oledba_addstudent.InsertCommand.Parameters.Add("admin", OleDbType.VarChar, 255).Value = ""; }
-                        oledba_addstudent.InsertCommand.ExecuteNonQuery();
                         //email
                         SmtpClient sm = new SmtpClient(SMTPHost, Port);
                         sm.EnableSsl = false;
@@ -126,15 +117,7 @@ namespace Dresscode
                     else
                         MessageBox.Show("The teacher ID: " + textbox_teacherid.Text + " is already in use.");
                 }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.Message);
-                }
-                finally
-                {
-                    if(gl.oleconnection.State == ConnectionState.Open)
-                        gl.oleconnection.Close();
-                }
+                catch (Exception x) { MessageBox.Show(x.Message); }
             }
             else
                 MessageBox.Show("Something appears to be empty");
@@ -145,9 +128,9 @@ namespace Dresscode
             try
             {
                 if (gl.oleconnection.State == ConnectionState.Closed)
-                gl.oleconnection.Open();
+                    gl.oleconnection.Open();
                 OleDbCommand emailcommand = gl.oleconnection.CreateCommand();
-                emailcommand.CommandText = "SELECT * FROM `"+gl.tbl_emailsettings+"`";
+                emailcommand.CommandText = "SELECT * FROM `" + gl.tbl_emailsettings + "`";
                 OleDbDataReader emailreader = emailcommand.ExecuteReader();
                 while (emailreader.Read())
                 {
@@ -164,8 +147,8 @@ namespace Dresscode
             }
             finally
             {
-                if(gl.oleconnection.State == ConnectionState.Open)
-                gl.oleconnection.Close();
+                if (gl.oleconnection.State == ConnectionState.Open)
+                    gl.oleconnection.Close();
             }
         }
 
@@ -174,24 +157,22 @@ namespace Dresscode
             e.Cancel = false;
             DialogResult dr = MessageBox.Show("Are you sure you want to delete:\n" + datagridview_teachers[3, datagridview_teachers.CurrentCell.RowIndex].Value.ToString() + " " + datagridview_teachers[2, datagridview_teachers.CurrentCell.RowIndex].Value.ToString(), "Confirmation", MessageBoxButtons.YesNo);
             if (dr == DialogResult.No)
-            {
                 e.Cancel = true;
-            }
             else
             {
-                gl.oleconnection.Open();
-                OleDbDataAdapter adpt = new OleDbDataAdapter();
-                adpt.DeleteCommand = new OleDbCommand("DELETE * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+gl.col_teacherid+"`=@idnum", gl.oleconnection);
-                adpt.DeleteCommand.Parameters.Add("@idnum", OleDbType.VarChar, 255).Value = datagridview_teachers[0, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
-                adpt.DeleteCommand.CommandType = CommandType.Text;
-                adpt.DeleteCommand.ExecuteNonQuery();
-                gl.oleconnection.Close();
+                try
+                {
+                    string[] pars = { "@idnum" };
+                    string[] values = { datagridview_teachers[0, datagridview_teachers.CurrentCell.RowIndex].Value.ToString() };
+                    dbi.dbcommands("DELETE * FROM `" + gl.tbl_teacherinfo + "` WHERE `" + gl.col_teacherid + "`=@idnum", pars, values);
+                }
+                catch (Exception) { }
             }
         }
         public void datagridupdate()
         {
-                DB_Interaction dbi = new DB_Interaction();
-                dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "","","", this.Name, datagridview_teachers.Name);
+            DB_Interaction dbi = new DB_Interaction();
+            dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "", "", "", this.Name, datagridview_teachers.Name);
         }
     }
 }

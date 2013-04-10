@@ -28,11 +28,13 @@ namespace Dresscode
         string sendTo;
         string alphabet = "abcdefghijklmnopqrstuvwxyz";
         globals gl = new globals();
+        DB_Interaction dbi = new DB_Interaction();
         //
 
         private void Password_Load(object sender, EventArgs e)
         {
-            //pull old info here.
+            textBox_teacherID.Text = teacherid;
+            //Get all email settings 
             try
             {
                 if (gl.oleconnection.State == ConnectionState.Closed)
@@ -49,15 +51,8 @@ namespace Dresscode
                     Port = int.Parse(reader[gl.col_portnumber].ToString());
                 }
             }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message);
-            }
-            finally
-            {
-                if (gl.oleconnection.State == ConnectionState.Open)
-                    gl.oleconnection.Close();
-            }
+            catch (Exception x) {MessageBox.Show(x.Message);}
+            finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
         }
 
         private void linkLabel_forgot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -70,7 +65,7 @@ namespace Dresscode
                 {
                     try
                     {
-                        //database pull
+                        //Get email from DB
                         if (gl.oleconnection.State == ConnectionState.Closed)
                         gl.oleconnection.Open();
                         OleDbCommand command = gl.oleconnection.CreateCommand();
@@ -78,9 +73,7 @@ namespace Dresscode
                         command.Parameters.Add("tid", OleDbType.Numeric, 255).Value = textBox_teacherID.Text;
                         OleDbDataReader reader = command.ExecuteReader();
                         while (reader.Read())
-                        {
                             sendTo = reader[gl.col_email].ToString();
-                        }
                         if (sendTo == "" || sendTo == " ")
                         {
                             AddEmail adp = new AddEmail();
@@ -88,63 +81,48 @@ namespace Dresscode
                             adp.ShowDialog();
                             sendTo = adp.email;
                         }
-                        if (gl.oleconnection.State == ConnectionState.Open)
-                        gl.oleconnection.Close();
-                        // password generator
-                        Random rand = new Random();
-                        String newPass = "";
-                        for (int i = 0; i < 8; i++)
+                        if (sendTo != null)
                         {
-                            if (rand.NextDouble() > 0.50)
-                                newPass += rand.Next(10);
-                            else
-                                newPass += alphabet[rand.Next(26)];
+                            // password generator
+                            Random rand = new Random();
+                            String newPass = "";
+                            for (int i = 0; i < 8; i++)
+                            {
+                                if (rand.NextDouble() > 0.50)
+                                    newPass += rand.Next(10);
+                                else
+                                    newPass += alphabet[rand.Next(26)];
+                            }
+                            MD5 md5 = new MD5CryptoServiceProvider();
+                            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
+                            byte[] result = md5.Hash;
+                            StringBuilder strBuilder = new StringBuilder();
+                            for (int i = 0; i < result.Length; i++)
+                                strBuilder.Append(result[i].ToString("x2"));
+                            //Set new [Random password] password.
+                            string[] pars = { "@newpass", "@tid"};
+                            string[] values = { strBuilder.ToString(), textBox_teacherID.Text };
+                            dbi.dbcommands("UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_password + "]=@newpass WHERE [" + gl.col_teacherid + "]=@tid", pars, values);
+                            // email
+                            SmtpClient sm = new SmtpClient(SMTPHost, Port);
+                            sm.EnableSsl = false;
+                            sm.Credentials = new NetworkCredential(host, hostPass);
+                            MailAddress from = new MailAddress(host);
+                            MailAddress to = new MailAddress(sendTo);
+                            MailMessage mMsg = new MailMessage(from, to);
+                            mMsg.Subject = "Dresscode Password Reset";
+                            mMsg.Body = "Your password has been changed to \"" + newPass + "\".";
+                            sm.Send(mMsg);
                         }
-                        MD5 md5 = new MD5CryptoServiceProvider();
-                        md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(newPass));
-                        byte[] result = md5.Hash;
-                        StringBuilder strBuilder = new StringBuilder();
-                        for (int i = 0; i < result.Length; i++)
-                        {
-                            strBuilder.Append(result[i].ToString("x2"));
-                        }
-                        //database
-                        if (gl.oleconnection.State == ConnectionState.Closed)
-                        gl.oleconnection.Open();
-                        OleDbDataAdapter adpt = new OleDbDataAdapter();
-                        adpt.UpdateCommand = new OleDbCommand("UPDATE `"+gl.tbl_teacherinfo+"` SET ["+gl.col_password+"]=@newpass WHERE ["+ gl.col_teacherid +"]=@tid", gl.oleconnection);
-                        adpt.UpdateCommand.Parameters.AddWithValue("newpass", strBuilder.ToString());
-                        //adpt.UpdateCommand.Parameters.Add("newpass", strBuilder.ToString());
-                        adpt.UpdateCommand.Parameters.AddWithValue("tid", textBox_teacherID.Text);
-                        adpt.UpdateCommand.ExecuteNonQuery();
-                        if (gl.oleconnection.State == ConnectionState.Open)
-                        gl.oleconnection.Close();
-                        // email
-                        SmtpClient sm = new SmtpClient(SMTPHost, Port);
-                        sm.EnableSsl = false;
-                        sm.Credentials = new NetworkCredential(host, hostPass);
-                        MailAddress from = new MailAddress(host);
-                        MailAddress to = new MailAddress(sendTo);
-                        MailMessage mMsg = new MailMessage(from, to);
-                        mMsg.Subject = "Dresscode Password Reset";
-                        mMsg.Body = "Your password has been changed to \"" + newPass + "\".";
-                        sm.Send(mMsg);
+                        else
+                            MessageBox.Show("The Teacher ID: " + textBox_teacherID.Text +" does not exist.", "ERROR");
                     }
-                    catch (Exception x)
-                    {
-                        MessageBox.Show(x.Message);
-                    }
-                    finally
-                    {
-                        if (gl.oleconnection.State == ConnectionState.Open)
-                        gl.oleconnection.Close();
-                    }
+                    catch (Exception x){ MessageBox.Show(x.Message); }
+                    finally{ if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();}
                 }
             }
             else
-            {
                 MessageBox.Show("You must enter your teacher ID first.");
-            }
         }
 
         private void button_change_pass_Click(object sender, EventArgs e)
@@ -160,8 +138,7 @@ namespace Dresscode
                 OleDbDataReader read = com.ExecuteReader();
                 while (read.Read())
                     oldPass = read[gl.col_password].ToString();
-                if(gl.oleconnection.State == ConnectionState.Open)
-                gl.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                 MD5 md5 = new MD5CryptoServiceProvider();
                 md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_old_pass.Text));
                 byte[] result = md5.Hash;
@@ -174,24 +151,25 @@ namespace Dresscode
                     {
                         if (textBox_new_pass_first.Text == textBox_new_pass_second.Text)
                         {
-                            MD5 md51 = new MD5CryptoServiceProvider();
-                            md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_new_pass_second.Text));
-                            byte[] result1 = md51.Hash;
-                            StringBuilder strBuilder1 = new StringBuilder();
-                            for (int i = 0; i < result1.Length; i++)
-                                strBuilder1.Append(result1[i].ToString("x2"));
-                            if (gl.oleconnection.State == ConnectionState.Closed)
-                            gl.oleconnection.Open();
-                            OleDbDataAdapter adpt = new OleDbDataAdapter();
-                            adpt.UpdateCommand = new OleDbCommand("UPDATE `"+ gl.tbl_teacherinfo+"` SET [" + gl.col_password + "]=@pass WHERE ["+gl.col_teacherid+"]=@tid", gl.oleconnection);
-                            adpt.UpdateCommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = strBuilder1.ToString();
-                            adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textBox_teacherID.Text;
-                            adpt.UpdateCommand.CommandType = CommandType.Text;
-                            adpt.UpdateCommand.ExecuteNonQuery();
-                            if (gl.oleconnection.State == ConnectionState.Open)
-                            gl.oleconnection.Close();
-                            MessageBox.Show("Your password has been successfully updated","Error");
-                            this.Close();
+                            try
+                            {
+                                MD5 md51 = new MD5CryptoServiceProvider();
+                                md51.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textBox_new_pass_second.Text));
+                                byte[] result1 = md51.Hash;
+                                StringBuilder strBuilder1 = new StringBuilder();
+                                for (int i = 0; i < result1.Length; i++)
+                                    strBuilder1.Append(result1[i].ToString("x2"));
+
+                                string[] pars = { "@pass", "@tid" };
+                                string[] values = { strBuilder1.ToString(), textBox_teacherID.Text };
+                                dbi.dbcommands("UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_password + "]=@pass WHERE [" + gl.col_teacherid + "]=@tid", pars, values);
+                                MessageBox.Show("Your password has been successfully updated", "Success!");
+                                TextBox tb = Application.OpenForms["Login"].Controls["textbox_teacherid"] as TextBox;
+                                tb.Text = textBox_teacherID.Text;
+                                this.Close();
+                            }
+                            catch (Exception x) { MessageBox.Show(x.Message, "ERROR"); }
+
                         }
                         else
                             MessageBox.Show("Your new password must be the same in both boxes.");

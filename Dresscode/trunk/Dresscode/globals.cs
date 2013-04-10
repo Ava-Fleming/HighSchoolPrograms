@@ -8,11 +8,13 @@ namespace Dresscode
 {
     class globals
     {
-          public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\w03s1762d\tech\TSA\dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
-         //public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
+        //public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=\\w03s1762d\tech\TSA\dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
+        public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
 
-          public int
-              num_periods = 7;
+        public bool funnymode = false;
+
+        public int
+            num_periods = 7;
 
         public string
             //Global strings
@@ -50,8 +52,8 @@ namespace Dresscode
             col_emailsubject = "Email Subject",
             col_emailbody = "Email Body",
             col_emaillist = "Email List",
-            
-            
+
+
             col_firstnineweeksstart = "firstnineweeksstart",
             col_firstnineweeksend = "firstnineweeksend",
             col_secondnineweeksstart = "secondnineweeksstart",
@@ -59,6 +61,6 @@ namespace Dresscode
             col_thirdnineweeksstart = "thirdnineweeksstart",
             col_thirdnineweeksend = "thirdnineweeksend",
             col_forthnineweeksstart = "forthnineweeksstart",
-            col_forthnineweeksend = "forthnineweeksend";  
+            col_forthnineweeksend = "forthnineweeksend";
     }
 }

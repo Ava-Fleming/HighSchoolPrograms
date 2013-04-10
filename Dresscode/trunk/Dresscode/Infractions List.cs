@@ -69,15 +69,14 @@ namespace Dresscode
                 if (words)
                 {
                     sql = "INSERT INTO `" + gl.tbl_infractionlist + "` VALUES (@infraction)";
-                    dbi.dbcommands(sql, this.Name, "", "", "", "", "", textBox_infraction.Text, "", "", "");
+                    string[] pars = { "@infraction" };
+                    string[] values = { textBox_infraction.Text };
+                    dbi.dbcommands(sql, pars, values);
                     listBox_infractions.Items.Add(textBox_infraction.Text);
                     textBox_infraction.Clear();
                 }
             }
-            catch (Exception x)
-            {
-                MessageBox.Show("ERROR ON INSERTION\n" + x.Message,"Error");
-            }
+            catch (Exception x) { MessageBox.Show("Error on insertion\n" + x.Message,"Error"); }
         }
 
         private void button_removeinfraction_Click(object sender, EventArgs e)
@@ -87,7 +86,9 @@ namespace Dresscode
                 if (listBox_infractions.SelectedItem != null)
                 {
                     sql = "DELETE * FROM `" + gl.tbl_infractionlist + "` WHERE " + gl.col_infractions + "=@infraction";
-                    dbi.dbcommands(sql, this.Name, "", "", "", "", "", listBox_infractions.SelectedItem.ToString(), "", "", "");
+                    string[] pars = { "@infraction" };
+                    string[] values = { listBox_infractions.SelectedItem.ToString() };
+                    dbi.dbcommands(sql, pars, values);
                     listBox_infractions.Items.Remove(listBox_infractions.SelectedItem);
                 }
             }

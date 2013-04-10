@@ -55,7 +55,9 @@ namespace Dresscode
                             if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
                             string dsql = "DELETE * FROM `" + gl.tbl_studentinfo + "`";
-                            dbi.dbcommands(dsql, this.Name, "", "", "", "", "", "", "", "", "");
+                                                        string[] npars =  {};
+                            string[] nvalues =  {};
+                            dbi.dbcommands(dsql, npars, nvalues);
                             while (dtr_excel.Read())
                             {
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
@@ -66,8 +68,8 @@ namespace Dresscode
                                 string grade = dtr_excel.GetValue(3).ToString();
                                 string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
                                 string[] pars = { "@studentid", "@lastname", "@firstname", "@grade"};
-                                string[] text = { studentid, lastname, firstname,grade };
-                                dbi.testcommands(sql, pars, text);
+                                string[] values = { studentid, lastname, firstname,grade };
+                                dbi.dbcommands(sql, pars, values);
                                 //dbi.dbcommands(sql, this.Name, "", lastname, firstname, studentid, "", "", "", "", grade);
                             }
                             this.Show();
@@ -124,7 +126,9 @@ namespace Dresscode
                         if (dr == DialogResult.Yes)
                         {
                             string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
-                            dbi.dbcommands(sql, this.Name, "", firstname, lastname, textBox_studentID.Text, "", "", "", "", int.Parse(numericUpDown1.Value.ToString()).ToString());
+                            string[] pars = { "@studentid", "@lastname", "@firstname", "@grade" };
+                            string[] values = { textBox_studentID.Text, lastname, firstname, int.Parse(numericUpDown1.Value.ToString()).ToString() };
+                            dbi.dbcommands(sql, pars, values);
                             MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                             textBox_studentID.Text = "";
                             textBox_firstname.Text = "";

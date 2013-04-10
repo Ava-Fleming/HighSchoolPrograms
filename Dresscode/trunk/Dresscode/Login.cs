@@ -19,51 +19,54 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
-        Teacher teachr = new Teacher();
+        
         bool real = false;
+        bool relaunched = false;
 
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            MessageBox.Show("¡Adios! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa\nMUAHM! (Bye) ~ Ethan Kuell", "Good bye");
-            Application.Exit();
+            if (relaunched == false)
+            {
+                MessageBox.Show("¡Adios! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa\nMUAHM! (Bye) ~ Ethan Kuell", "Good bye");
+            }
         }
 
         private void textbox_password_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-                button_login.PerformClick();
+            if (e.KeyCode == Keys.Enter) button_login.PerformClick();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            this.Hide();
             Password pass = new Password();
+            pass.teacherid = textbox_teacherid.Text;
             pass.ShowDialog();
+            this.Show();
+            if (textbox_teacherid.Text == "")
+                textbox_teacherid.Focus();
+            else
+                textbox_password.Focus();
         }
 
         private void button_login_Click(object sender, EventArgs e)
         {
+            Teacher teachr = new Teacher();
+            string teacherid = textbox_teacherid.Text;
             try
             {
                 MD5 md5 = new MD5CryptoServiceProvider();
-                //compute hash from the bytes of text
                 md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textbox_password.Text));
-
-                //get hash result after compute it
                 byte[] result = md5.Hash;
-
-                StringBuilder strBuilder = new StringBuilder();
+                StringBuilder hashedpassword = new StringBuilder();
                 for (int i = 0; i < result.Length; i++)
-                {
-                    //change it into 2 hexadecimal digits
-                    //for each byte
-                    strBuilder.Append(result[i].ToString("x2"));
-                }
-                if (gl.oleconnection.State == ConnectionState.Closed)
-                gl.oleconnection.Open();
+                    hashedpassword.Append(result[i].ToString("x2"));
+
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
                 getteacherscommand.CommandText = "SELECT * FROM `" + gl.tbl_teacherinfo + "` WHERE `" + gl.col_teacherid +"`=@tid AND `" + gl.col_password + "`=@pass";
-                getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
-                getteacherscommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = strBuilder.ToString();
+                getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = teacherid;
+                getteacherscommand.Parameters.Add("pass", OleDbType.VarChar, 255).Value = hashedpassword.ToString();
                 getteacherscommand.CommandType = CommandType.Text;
                 OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
 
@@ -73,7 +76,7 @@ namespace Dresscode
                     {
                         if (textbox_teacherid.Text.Contains(getteacher[gl.col_teacherid].ToString()))
                         {
-                            if (strBuilder.ToString() == getteacher[gl.col_password].ToString())
+                            if (hashedpassword.ToString() == getteacher[gl.col_password].ToString())
                             {
                                 teachr.teacherfirstname = getteacher[gl.col_firstname].ToString();
                                 teachr.teacherlastname = getteacher[gl.col_lastname].ToString();
@@ -86,20 +89,17 @@ namespace Dresscode
                     }
                 }
             }
-            catch (Exception x)
-            {
-                MessageBox.Show(x.Message, "Error");
-            }
+            catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
             finally
             {
-                if(gl.oleconnection.State == ConnectionState.Open)
-                    gl.oleconnection.Close();
+                if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                 if (real)
                 {
                     this.Hide();
                     teachr.ShowDialog();
                     this.Show();
-                    
+                    relaunched = true;
+                    Application.Restart();
                 }
                 else
                     MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");
@@ -108,6 +108,7 @@ namespace Dresscode
 
         private void Login_Load(object sender, EventArgs e)
         {
+            relaunched = false;
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Dresscode
         bool looping = false;
         StreamWriter SW;
         globals gl = new globals();
+        DB_Interaction dbi = new DB_Interaction();
         //textBox_console.Text += "\r\n";
         //
 
@@ -46,13 +47,10 @@ namespace Dresscode
                 {
                     try
                     {
-                        gl.oleconnection.Open();
-                        OleDbDataAdapter oledbd_addemail = new OleDbDataAdapter();
                         string sql = "INSERT INTO `" + gl.tbl_mailinglist + "` VALUES (@email)";
-                        oledbd_addemail.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                        oledbd_addemail.InsertCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = textBox_add_email.Text;
-                        oledbd_addemail.InsertCommand.CommandType = CommandType.Text;
-                        oledbd_addemail.InsertCommand.ExecuteNonQuery();
+                        string[] pars = { "@email" };
+                        string[] values = { textBox_add_email.Text };
+                        dbi.dbcommands(sql, pars, values);
                         listBox_emails.Items.Add(textBox_add_email.Text);
                         textBox_console.Text += "Added Email: " + textBox_add_email.Text + " \r\n";
                         textBox_add_email.Clear();
@@ -64,7 +62,7 @@ namespace Dresscode
                     }
                     finally
                     {
-                        gl.oleconnection.Close();
+                        if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                     }
                 }
             }
@@ -75,7 +73,7 @@ namespace Dresscode
             textBox_console.Text += "Initializing Settings from database.\r\n";
             try
             {
-                gl.oleconnection.Open();
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand oledbc_loadsettings = gl.oleconnection.CreateCommand();
                 oledbc_loadsettings.CommandText = "SELECT * FROM `" + gl.tbl_emailsettings + "`";
                 OleDbDataReader oledbdr_readersettings = oledbc_loadsettings.ExecuteReader();
@@ -90,8 +88,6 @@ namespace Dresscode
                     textBox_email_body.Text = oledbdr_readersettings[gl.col_emailbody].ToString();
                     numericUpDown_port.Value = int.Parse(oledbdr_readersettings[gl.col_portnumber].ToString());
                 }
-                gl.oleconnection.Close();
-                gl.oleconnection.Open();
                 OleDbCommand oledbc_reademailscommand = gl.oleconnection.CreateCommand();
                 oledbc_reademailscommand.CommandText = "SELECT * FROM `" + gl.tbl_mailinglist + "`";
                 OleDbDataReader oledbc_reademails = oledbc_reademailscommand.ExecuteReader();
@@ -103,10 +99,7 @@ namespace Dresscode
                 textBox_console.Text += "Error Loading data from database! \r\n";
                 MessageBox.Show(x.Message);
             }
-            finally
-            {
-                gl.oleconnection.Close();
-            }
+            finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
         }
 
         private void button_start_Click(object sender, EventArgs e)
@@ -114,6 +107,8 @@ namespace Dresscode
             textBox_console.Text += "Starting task...\r\n";
             looping = true;
             timer1.Enabled = true;
+            button_start.Enabled = false;
+            button_stop.Enabled = true;
         }
 
         private void button_remove_email_Click(object sender, EventArgs e)
@@ -122,11 +117,11 @@ namespace Dresscode
             {
                 try
                 {
-                    gl.oleconnection.Open();
                     OleDbDataAdapter adapter = new OleDbDataAdapter();
                     string sql = "DELETE * FROM `" + gl.tbl_mailinglist + "` WHERE `" + gl.col_emaillist + "`=@demail";
-                    adapter.DeleteCommand = new OleDbCommand(sql, gl.oleconnection);
-                    adapter.DeleteCommand.ExecuteNonQuery();
+                    string[] pars = { "@demail" };
+                    string[] values = { listBox_emails.SelectedItem.ToString() };
+                    dbi.dbcommands(sql, pars, values);
                     textBox_console.Text += "Removed: " + listBox_emails.SelectedItem + ".\r\n";
                     listBox_emails.Items.Remove(listBox_emails.SelectedItem);
                 }
@@ -134,10 +129,6 @@ namespace Dresscode
                 {
                     textBox_console.Text += "Error Loading data from database! \r\n";
                     MessageBox.Show(x.Message);
-                }
-                finally
-                {
-                    gl.oleconnection.Close();
                 }
             }
         }
@@ -184,32 +175,26 @@ namespace Dresscode
 
         public void saveSettings()
         {
-            //send new settings to database here.
+            //Send new settings to database here.
             try
             {
-                gl.oleconnection.Open();
-                OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                 string sql = "";
                 sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_timehour + "]=@timehour, [" + gl.col_timeminute + "]=@timeminute";
-                oledbAdapter.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("timehour", numericUpDown_hours.Value.ToString());
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("timeminute", numericUpDown_minutes.Value.ToString());
-                oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_smtpserver + "]=@smtpserver, [" + gl.col_portnumber + "]=@portnum";
-                oledbAdapter.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("smtpserver", textBox_smtp.Text);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("portnum", numericUpDown_port.Value.ToString());
-                oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_hostemail + "]=@hostmemail, [" + gl.col_hostpassword + "]=@hostpass, [" + gl.col_emailsubject + "]=@esubject, [" + gl.col_emailbody + "]=@ebody";
-                oledbAdapter.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("hostmemail", textBox_host_email.Text);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("hostpass", textBox_email_password.Text);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("esubject", textBox_email_subject.Text);
-                oledbAdapter.UpdateCommand.Parameters.AddWithValue("ebody", textBox_email_body.Text);
-                oledbAdapter.UpdateCommand.ExecuteNonQuery();
-                //Console output.
+                string[] pars = { "@timehour", "@timeminute" };
+                string[] values = { numericUpDown_hours.Value.ToString(), numericUpDown_minutes.Value.ToString() };
+                dbi.dbcommands(sql, pars, values);
                 textBox_console.Text += "Send time set to " + numericUpDown_hours.Value.ToString() + ":" + numericUpDown_minutes.Value.ToString() + "\r\n";
+
+                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_smtpserver + "]=@smtpserver, [" + gl.col_portnumber + "]=@portnum";
+                string[] pars2 = { "@smtpserver", "@portnum" };
+                string[] values2 = { textBox_smtp.Text, numericUpDown_port.Value.ToString() };
+                dbi.dbcommands(sql, pars2, values2);
                 textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + " AND SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
+
+                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_hostemail + "]=@hostmemail, [" + gl.col_hostpassword + "]=@hostpass, [" + gl.col_emailsubject + "]=@esubject, [" + gl.col_emailbody + "]=@ebody";
+                string[] pars3 = { "@hostmemail", "@hostpass", "@esubject", "@ebody" };
+                string[] values3 = { textBox_host_email.Text, textBox_email_password.Text, textBox_email_subject.Text, textBox_email_body.Text };
+                dbi.dbcommands(sql, pars3, values3);
                 textBox_console.Text += "Host email set to " + textBox_host_email.Text + " AND Email password set to " + textBox_email_password.Text + "\r\n";
                 textBox_console.Text += "Email subject set to " + textBox_email_subject.Text + "\r\n";
                 textBox_console.Text += "Email body set to " + textBox_email_body.Text + "\r\n";
@@ -219,10 +204,6 @@ namespace Dresscode
             {
                 textBox_console.Text += "Error saving settings! \r\n";
                 MessageBox.Show(x.Message);
-            }
-            finally
-            {
-                gl.oleconnection.Close();
             }
         }
 
@@ -268,7 +249,7 @@ namespace Dresscode
                 //--------Datagrid start ========
                 string sql = "SELECT  * FROM `" + gl.tbl_reports + "` WHERE `" + gl.col_deanaction + "`='None'";
                 DB_Interaction dbi = new DB_Interaction();
-                dbi.dgvselectioncommand(sql,"","","","","",this.Name,dataGridView1.Name);
+                dbi.dgvselectioncommand(sql, "", "", "", "", "", this.Name, dataGridView1.Name);
 
                 //--------Datagrid stop ========
                 //--Excel export ---
@@ -320,11 +301,9 @@ namespace Dresscode
                         sm.Send(mMsg);
                         textBox_console.Text += "Email sent to " + listBox_emails.Items[i].ToString() + "!\r\n";
                     }
+                    File.Delete("Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx");
                 }
-                catch (Exception x)
-                {
-                    MessageBox.Show(x.Message);
-                }
+                catch (Exception x) { MessageBox.Show(x.Message); }
             }
             if (looping == false && System.DateTime.Now.Hour == hour && System.DateTime.Now.Minute == min + 1)
                 looping = true;

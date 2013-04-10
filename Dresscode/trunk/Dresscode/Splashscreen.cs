@@ -30,21 +30,16 @@ namespace Dresscode
                 timer2.Enabled = true;
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    if(gl.oleconnection.State == ConnectionState.Closed)
-                        gl.oleconnection.Open();
+                    if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                     connectable = true;
+                    if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                 }
                 else
                     MessageBox.Show("You are not connected to the internet my young padawan", "Error");
             }
             catch (Exception)
             {
-                
-            }
-            finally
-            {
-                if (gl.oleconnection.State == ConnectionState.Open)
-                    gl.oleconnection.Close();
+
             }
         }
 
@@ -54,12 +49,9 @@ namespace Dresscode
             timer2.Enabled = false;
             if (connectable)
             {
-                Login login = new Login();
                 this.Hide();
-                if (login.ShowDialog() == DialogResult.OK)
-                {
-                    Application.Run(new Login());
-                }
+                Login login = new Login();
+                if (login.ShowDialog() == DialogResult.OK) Application.Run(new Login());
             }
             else
             {
@@ -70,25 +62,13 @@ namespace Dresscode
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (count == 0)
-            {
-                pictureBox1.Image = Properties.Resources.markhor1;
-                count++;
-            }
+            if (count == 0) { pictureBox1.Image = Properties.Resources.markhor1; count++; }
             else
             {
-                if (count == 1)
-                {
-                    pictureBox1.Image = Properties.Resources.markhor2;
-                    count++;
-                }
+                if (count == 1) { pictureBox1.Image = Properties.Resources.markhor2; count++; }
                 else
                 {
-                    if (count == 2)
-                    {
-                        pictureBox1.Image = Properties.Resources.markhor3;
-                        count++;
-                    }
+                    if (count == 2) { pictureBox1.Image = Properties.Resources.markhor3; count++; }
                     else
                         pictureBox1.Image = Properties.Resources.morkhorcomputerdms;
                 }

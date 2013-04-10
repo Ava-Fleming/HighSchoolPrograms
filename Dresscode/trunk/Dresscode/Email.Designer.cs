@@ -82,7 +82,7 @@
             this.textBox_console.Multiline = true;
             this.textBox_console.Name = "textBox_console";
             this.textBox_console.ReadOnly = true;
-            this.textBox_console.Size = new System.Drawing.Size(423, 263);
+            this.textBox_console.Size = new System.Drawing.Size(423, 397);
             this.textBox_console.TabIndex = 0;
             // 
             // listBox_emails
@@ -419,7 +419,7 @@
             // 
             // button_clear_console
             // 
-            this.button_clear_console.Location = new System.Drawing.Point(354, 275);
+            this.button_clear_console.Location = new System.Drawing.Point(357, 409);
             this.button_clear_console.Name = "button_clear_console";
             this.button_clear_console.Size = new System.Drawing.Size(75, 23);
             this.button_clear_console.TabIndex = 2;
@@ -429,7 +429,7 @@
             // 
             // button_save_console
             // 
-            this.button_save_console.Location = new System.Drawing.Point(6, 275);
+            this.button_save_console.Location = new System.Drawing.Point(6, 409);
             this.button_save_console.Name = "button_save_console";
             this.button_save_console.Size = new System.Drawing.Size(101, 23);
             this.button_save_console.TabIndex = 1;
