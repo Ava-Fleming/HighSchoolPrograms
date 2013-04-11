@@ -17,6 +17,7 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
+        DB_Interaction dbi = new DB_Interaction();
         string sql = "";
 
         private void settings_Load(object sender, EventArgs e)
@@ -62,27 +63,15 @@ namespace Dresscode
                  gl.oleconnection.Open();
                 OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
                 sql = "UPDATE `" + gl.tbl_nineweeksdates + "` SET [" + gl.col_firstnineweeksstart + "]=@firststart,[" + gl.col_firstnineweeksend + "]=@firstend,[" + gl.col_secondnineweeksstart + "]=@secondstart,[" + gl.col_secondnineweeksend + "]=@secondend,[" + gl.col_thirdnineweeksstart + "]=@thirdstart,[" + gl.col_thirdnineweeksend + "]=@thirdend,[" + gl.col_forthnineweeksstart + "]=@forthstart,[" + gl.col_forthnineweeksend + "]=@forthend";
-                oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-                oledbAdapter.InsertCommand.Parameters.Add("firststart", OleDbType.Date, 255).Value = datetimepicker_1.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("firstend", OleDbType.Date, 255).Value = datetimepicker_2.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("secondstart", OleDbType.Date, 255).Value = datetimepicker_3.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("secondend", OleDbType.Date, 255).Value = datetimepicker_4.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("thirdstart", OleDbType.Date, 255).Value = datetimepicker_5.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("thirdend", OleDbType.Date, 255).Value = datetimepicker_6.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("forthstart", OleDbType.Date, 255).Value = datetimepicker_7.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.Parameters.Add("forthend", OleDbType.Date, 255).Value = datetimepicker_8.Value.ToShortDateString();
-                oledbAdapter.InsertCommand.ExecuteNonQuery();
+                string[] pars = { "@firststart", "@firstend", "@secondstart", "@secondend", "@thirdstart", "@thirdend", "@forthstart", "@forthend" };
+                string[] values = { datetimepicker_1.Value.ToShortDateString(), datetimepicker_2.Value.ToShortDateString(), datetimepicker_3.Value.ToShortDateString(), datetimepicker_4.Value.ToShortDateString(), datetimepicker_5.Value.ToShortDateString(), datetimepicker_6.Value.ToShortDateString(), datetimepicker_7.Value.ToShortDateString(), datetimepicker_8.Value.ToShortDateString() };
+                dbi.dbcommands(sql, pars, values);
                 MessageBox.Show("9 Weeks Dates have been updated");
                 this.Close();
             }
             catch (Exception x)
             {
                 MessageBox.Show(x.Message);
-            }
-            finally
-            {
-                if (gl.oleconnection.State == ConnectionState.Open)
-                 gl.oleconnection.Close();
             }
         }
     }
