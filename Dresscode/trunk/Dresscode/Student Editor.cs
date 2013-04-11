@@ -55,7 +55,9 @@ namespace Dresscode
                             if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
                             string dsql = "DELETE * FROM `" + gl.tbl_studentinfo + "`";
-                            dbi.dbcommands(dsql, null, null);
+                            string[] dpar = {};
+                            string[] dvalues = {};
+                            dbi.dbcommands(dsql, dpar, dvalues);
                             while (dtr_excel.Read())
                             {
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
