@@ -97,7 +97,6 @@ namespace Dresscode
                 {
                     this.Hide();
                     teachr.ShowDialog();
-                    this.Show();
                     relaunched = true;
                     Application.Restart();
                 }
