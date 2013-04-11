@@ -55,9 +55,7 @@ namespace Dresscode
                             if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
                             string dsql = "DELETE * FROM `" + gl.tbl_studentinfo + "`";
-                                                        string[] npars =  {};
-                            string[] nvalues =  {};
-                            dbi.dbcommands(dsql, npars, nvalues);
+                            dbi.dbcommands(dsql, null, null);
                             while (dtr_excel.Read())
                             {
                                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
@@ -70,7 +68,6 @@ namespace Dresscode
                                 string[] pars = { "@studentid", "@lastname", "@firstname", "@grade"};
                                 string[] values = { studentid, lastname, firstname,grade };
                                 dbi.dbcommands(sql, pars, values);
-                                //dbi.dbcommands(sql, this.Name, "", lastname, firstname, studentid, "", "", "", "", grade);
                             }
                             this.Show();
                             MessageBox.Show("All students have been added successfully");
