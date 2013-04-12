@@ -57,7 +57,7 @@ namespace Dresscode
                 }
                 if (frmname == "Email")
                 {
-                    for (int i = 0; i <= 12; i++)
+                    for (int i = 0; i <= dgv.Columns.Count; i++)
                     {
                         if (i <= 1)
                             dgv.Columns[i].Visible = false;

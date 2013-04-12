@@ -19,6 +19,7 @@ namespace Dresscode
         public string
             //Global strings
             glt_isdean = "yes", //Make this lower case (The program will check for both capitial or lower case starting letter)
+            glt_checked = "Checked",
             //Global Table Names
             tbl_studentinfo = "Student Info",
             tbl_teacherinfo = "Teacher Info",
@@ -52,6 +53,7 @@ namespace Dresscode
             col_emailsubject = "Email Subject",
             col_emailbody = "Email Body",
             col_emaillist = "Email List",
+            col_deleteexcel = "Delete Excel",
 
 
             col_firstnineweeksstart = "firstnineweeksstart",

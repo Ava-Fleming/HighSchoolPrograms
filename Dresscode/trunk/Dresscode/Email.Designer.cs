@@ -65,6 +65,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
@@ -120,7 +121,7 @@
             this.tabControl_main.Location = new System.Drawing.Point(2, 2);
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
-            this.tabControl_main.Size = new System.Drawing.Size(446, 464);
+            this.tabControl_main.Size = new System.Drawing.Size(446, 491);
             this.tabControl_main.TabIndex = 4;
             // 
             // tabPage_main
@@ -132,14 +133,14 @@
             this.tabPage_main.Location = new System.Drawing.Point(4, 22);
             this.tabPage_main.Name = "tabPage_main";
             this.tabPage_main.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_main.Size = new System.Drawing.Size(438, 438);
+            this.tabPage_main.Size = new System.Drawing.Size(438, 465);
             this.tabPage_main.TabIndex = 0;
             this.tabPage_main.Text = "Main";
             this.tabPage_main.UseVisualStyleBackColor = true;
             // 
             // button_stop
             // 
-            this.button_stop.Location = new System.Drawing.Point(235, 411);
+            this.button_stop.Location = new System.Drawing.Point(236, 434);
             this.button_stop.Name = "button_stop";
             this.button_stop.Size = new System.Drawing.Size(75, 23);
             this.button_stop.TabIndex = 16;
@@ -149,7 +150,7 @@
             // 
             // button_start
             // 
-            this.button_start.Location = new System.Drawing.Point(118, 411);
+            this.button_start.Location = new System.Drawing.Point(119, 434);
             this.button_start.Name = "button_start";
             this.button_start.Size = new System.Drawing.Size(75, 23);
             this.button_start.TabIndex = 15;
@@ -159,6 +160,7 @@
             // 
             // groupBox_settings
             // 
+            this.groupBox_settings.Controls.Add(this.checkBox1);
             this.groupBox_settings.Controls.Add(this.checkbox_showpassword);
             this.groupBox_settings.Controls.Add(this.label_smtpserver);
             this.groupBox_settings.Controls.Add(this.textBox_smtp);
@@ -180,7 +182,7 @@
             this.groupBox_settings.Controls.Add(this.numericUpDown_hours);
             this.groupBox_settings.Location = new System.Drawing.Point(7, 183);
             this.groupBox_settings.Name = "groupBox_settings";
-            this.groupBox_settings.Size = new System.Drawing.Size(425, 222);
+            this.groupBox_settings.Size = new System.Drawing.Size(425, 245);
             this.groupBox_settings.TabIndex = 5;
             this.groupBox_settings.TabStop = false;
             this.groupBox_settings.Text = "Settings";
@@ -262,7 +264,7 @@
             this.numericUpDown_port.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown_port.TabIndex = 9;
             this.numericUpDown_port.Value = new decimal(new int[] {
-            587,
+            26,
             0,
             0,
             0});
@@ -359,6 +361,11 @@
             this.numericUpDown_minutes.Name = "numericUpDown_minutes";
             this.numericUpDown_minutes.Size = new System.Drawing.Size(56, 20);
             this.numericUpDown_minutes.TabIndex = 7;
+            this.numericUpDown_minutes.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
             // 
             // numericUpDown_hours
             // 
@@ -378,7 +385,7 @@
             this.numericUpDown_hours.Size = new System.Drawing.Size(45, 20);
             this.numericUpDown_hours.TabIndex = 6;
             this.numericUpDown_hours.Value = new decimal(new int[] {
-            1,
+            13,
             0,
             0,
             0});
@@ -446,7 +453,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(450, 24);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(442, 432);
+            this.dataGridView1.Size = new System.Drawing.Size(442, 468);
             this.dataGridView1.TabIndex = 0;
             // 
             // label1
@@ -458,11 +465,22 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Report Data Preview:";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
+            this.checkBox1.Location = new System.Drawing.Point(6, 216);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(151, 17);
+            this.checkBox1.TabIndex = 17;
+            this.checkBox1.Text = "Delete report after sending";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Email
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 468);
+            this.ClientSize = new System.Drawing.Size(904, 493);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tabControl_main);
@@ -524,5 +542,6 @@
         private System.Windows.Forms.CheckBox checkbox_showpassword;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

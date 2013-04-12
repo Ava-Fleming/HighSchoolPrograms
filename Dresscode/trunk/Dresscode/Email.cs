@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Data.OleDb;
 using System.Net;
+using System.Globalization;
 
 namespace Dresscode
 {
@@ -87,6 +88,8 @@ namespace Dresscode
                     textBox_email_subject.Text = oledbdr_readersettings[gl.col_emailsubject].ToString();
                     textBox_email_body.Text = oledbdr_readersettings[gl.col_emailbody].ToString();
                     numericUpDown_port.Value = int.Parse(oledbdr_readersettings[gl.col_portnumber].ToString());
+                    if (oledbdr_readersettings[gl.col_deleteexcel].ToString() == CultureInfo.CurrentCulture.TextInfo.ToLower(gl.glt_checked) || oledbdr_readersettings[gl.col_deleteexcel].ToString() == CultureInfo.CurrentCulture.TextInfo.ToTitleCase(gl.glt_checked))
+                        checkBox1.Checked = true;
                 }
                 OleDbCommand oledbc_reademailscommand = gl.oleconnection.CreateCommand();
                 oledbc_reademailscommand.CommandText = "SELECT * FROM `" + gl.tbl_mailinglist + "`";
@@ -150,6 +153,7 @@ namespace Dresscode
                 textBox_email_body.Enabled = true;
                 checkbox_showpassword.Enabled = true;
                 timer1.Enabled = false;
+                checkBox1.Enabled = true;
                 button_start.Enabled = false;
                 button_stop.Enabled = false;
             }
@@ -168,6 +172,7 @@ namespace Dresscode
                 textBox_smtp.Enabled = false;
                 textBox_email_body.Enabled = false;
                 checkbox_showpassword.Enabled = false;
+                checkBox1.Enabled = false;
                 button_start.Enabled = true;
                 button_stop.Enabled = true;
             }
@@ -191,13 +196,14 @@ namespace Dresscode
                 dbi.dbcommands(sql, pars2, values2);
                 textBox_console.Text += "SMTP server set to " + textBox_smtp.Text + " AND SMTP port set to " + numericUpDown_port.Value.ToString() + "\r\n";
 
-                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_hostemail + "]=@hostmemail, [" + gl.col_hostpassword + "]=@hostpass, [" + gl.col_emailsubject + "]=@esubject, [" + gl.col_emailbody + "]=@ebody";
-                string[] pars3 = { "@hostmemail", "@hostpass", "@esubject", "@ebody" };
-                string[] values3 = { textBox_host_email.Text, textBox_email_password.Text, textBox_email_subject.Text, textBox_email_body.Text };
+                sql = "UPDATE `" + gl.tbl_emailsettings + "` SET [" + gl.col_hostemail + "]=@hostmemail, [" + gl.col_hostpassword + "]=@hostpass, [" + gl.col_emailsubject + "]=@esubject, [" + gl.col_emailbody + "]=@ebody, [" + gl.col_deleteexcel + "]=@deletere";
+                string[] pars3 = { "@hostmemail", "@hostpass", "@esubject", "@ebody", "@deletere" };
+                string[] values3 = { textBox_host_email.Text, textBox_email_password.Text, textBox_email_subject.Text, textBox_email_body.Text, checkBox1.CheckState.ToString() };
                 dbi.dbcommands(sql, pars3, values3);
                 textBox_console.Text += "Host email set to " + textBox_host_email.Text + " AND Email password set to " + textBox_email_password.Text + "\r\n";
                 textBox_console.Text += "Email subject set to " + textBox_email_subject.Text + "\r\n";
                 textBox_console.Text += "Email body set to " + textBox_email_body.Text + "\r\n";
+                textBox_console.Text += "Delete after every report set to: " + checkBox1.CheckState.ToString() + "\r\n";
                 textBox_console.Text += "Settings saved to database\r\n";
             }
             catch (Exception x)
@@ -301,7 +307,8 @@ namespace Dresscode
                         sm.Send(mMsg);
                         textBox_console.Text += "Email sent to " + listBox_emails.Items[i].ToString() + "!\r\n";
                     }
-                    File.Delete("Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx");
+                    if(checkBox1.Checked)
+                        File.Delete("Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx");
                 }
                 catch (Exception x) { MessageBox.Show(x.Message); }
             }
