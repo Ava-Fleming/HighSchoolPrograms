@@ -37,10 +37,7 @@ namespace Dresscode
                 else
                     MessageBox.Show("You are not connected to the internet my young padawan", "Error");
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception) {}
         }
 
         private void timer1_Tick(object sender, EventArgs e)

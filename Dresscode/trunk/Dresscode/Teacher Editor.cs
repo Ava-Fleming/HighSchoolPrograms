@@ -53,12 +53,12 @@ namespace Dresscode
                 try
                 {
                     textbox_lastname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text);
-                        textbox_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text);
+                    textbox_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text);
                     bool newuser = true;
                     if (gl.oleconnection.State == ConnectionState.Closed)
-                    gl.oleconnection.Open();
+                        gl.oleconnection.Open();
                     OleDbCommand getteacherscommand = gl.oleconnection.CreateCommand();
-                    getteacherscommand.CommandText = "SELECT * FROM `"+gl.tbl_teacherinfo+"` WHERE `"+gl.col_teacherid+"`=@tid";
+                    getteacherscommand.CommandText = "SELECT * FROM `" + gl.tbl_teacherinfo + "` WHERE `" + gl.col_teacherid + "`=@tid";
                     getteacherscommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = textbox_teacherid.Text;
                     getteacherscommand.CommandType = CommandType.Text;
                     OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
@@ -66,7 +66,7 @@ namespace Dresscode
                     while (getteacher.Read())
                         if (getteacher[gl.col_teacherid].ToString() == textbox_teacherid.Text)
                             newuser = false;
-                    if(gl.oleconnection.State == ConnectionState.Open)
+                    if (gl.oleconnection.State == ConnectionState.Open)
                         gl.oleconnection.Close();
                     if (newuser)
                     {
@@ -91,9 +91,9 @@ namespace Dresscode
                             strBuilder1.Append(result1[i].ToString("x2"));
                         string admin = "";
                         if (checkbox_dean.Checked) admin = "Yes";
-                        string sql = "INSERT INTO `"+gl.tbl_teacherinfo+"` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
+                        string sql = "INSERT INTO `" + gl.tbl_teacherinfo + "` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
                         string[] pars = { "@teacherid", "@password", "@lastname", "@firstname", "@email", "@admin" };
-                        string[] values = { textbox_teacherid.Text, strBuilder1.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text), textbox_email.Text, admin };
+                        string[] values = { "0", textbox_teacherid.Text, strBuilder1.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text), textbox_email.Text, admin };
                         dbi.dbcommands(sql, pars, values);
 
                         //email
@@ -173,6 +173,36 @@ namespace Dresscode
         {
             DB_Interaction dbi = new DB_Interaction();
             dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "", "", "", this.Name, datagridview_teachers.Name);
+        }
+
+        private void datagridview_teachers_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                OleDbDataAdapter adpt = new OleDbDataAdapter();
+                string sql = "UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_teacherid + "]=@tid,[" + gl.col_lastname + "]=@lastname, [" + gl.col_firstname + "]=@firstname, [" + gl.col_email + "]=@email, [" + gl.col_dean + "]=@dean WHERE [" + gl.col_id + "]=@idnum";
+                adpt.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
+                adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = datagridview_teachers[1, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = datagridview_teachers[3, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = datagridview_teachers[4, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = datagridview_teachers[5, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = datagridview_teachers[6, datagridview_teachers.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(datagridview_teachers[0, datagridview_teachers.CurrentCell.RowIndex].Value.ToString());
+                adpt.UpdateCommand.CommandType = CommandType.Text;
+                adpt.UpdateCommand.ExecuteNonQuery();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                datagridview_teachers.EndEdit();
+                datagridupdate();
+            }
         }
     }
 }

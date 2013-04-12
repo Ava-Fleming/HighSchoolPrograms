@@ -52,7 +52,8 @@ namespace Dresscode
                 }
                 if (frmname == "Teacher_Editor")
                 {
-                    dgv.Columns[1].Visible = false;
+                    dgv.Columns[0].Visible = false;
+                    dgv.Columns[2].Visible = false;
                 }
                 if (frmname == "Email")
                 {

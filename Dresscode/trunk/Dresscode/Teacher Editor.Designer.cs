@@ -136,9 +136,9 @@
             this.datagridview_teachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagridview_teachers.Location = new System.Drawing.Point(12, 220);
             this.datagridview_teachers.Name = "datagridview_teachers";
-            this.datagridview_teachers.ReadOnly = true;
             this.datagridview_teachers.Size = new System.Drawing.Size(493, 139);
             this.datagridview_teachers.TabIndex = 12;
+            this.datagridview_teachers.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridview_teachers_CellEndEdit);
             this.datagridview_teachers.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.datagridview_teachers_UserDeletingRow);
             // 
             // pictureBox1
