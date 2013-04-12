@@ -91,8 +91,8 @@ namespace Dresscode
                             strBuilder1.Append(result1[i].ToString("x2"));
                         string admin = "";
                         if (checkbox_dean.Checked) admin = "Yes";
-                        string sql = "INSERT INTO `" + gl.tbl_teacherinfo + "` VALUES (@teacherid,@password,@lastname,@firstname,@email,@admin)";
-                        string[] pars = { "@teacherid", "@password", "@lastname", "@firstname", "@email", "@admin" };
+                        string sql = "INSERT INTO `" + gl.tbl_teacherinfo + "` VALUES (@guidnum, @teacherid,@password,@lastname,@firstname,@email,@admin)";
+                        string[] pars = { "@guidnum", "@teacherid", "@password", "@lastname", "@firstname", "@email", "@admin" };
                         string[] values = { "0", textbox_teacherid.Text, strBuilder1.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text), textbox_email.Text, admin };
                         dbi.dbcommands(sql, pars, values);
 

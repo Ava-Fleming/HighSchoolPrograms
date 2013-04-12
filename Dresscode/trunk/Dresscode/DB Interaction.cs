@@ -66,10 +66,8 @@ namespace Dresscode
                 }
                 dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
-            catch (Exception x)
+            catch (Exception)
             {
-                if (x.Message != "Operation is not valid because it results in a reentrant call to the SetCurrentCellAddressCore function") //Disregard this, works fine regardless, it just shows a message box that shouldn't be there.
-                    MessageBox.Show(x.Message, "Error");
             }
             finally
             {
