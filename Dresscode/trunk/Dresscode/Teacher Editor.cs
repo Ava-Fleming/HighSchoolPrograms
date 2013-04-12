@@ -179,7 +179,6 @@ namespace Dresscode
         {
             try
             {
-
                 if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
                 string sql = "UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_teacherid + "]=@tid,[" + gl.col_lastname + "]=@lastname, [" + gl.col_firstname + "]=@firstname, [" + gl.col_email + "]=@email, [" + gl.col_dean + "]=@dean WHERE [" + gl.col_id + "]=@idnum";

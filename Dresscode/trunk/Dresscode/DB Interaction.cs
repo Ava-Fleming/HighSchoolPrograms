@@ -14,7 +14,7 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string dgvselectioncommand(string sql, string firstname, string lastname, string studentid, string teacher, string infraction, string frmname, string dgn)
+        public void dgvselectioncommand(string sql, string firstname, string lastname, string studentid, string teacher, string infraction, string frmname, string dgn)
         {
             try
             {
@@ -56,30 +56,16 @@ namespace Dresscode
                     dgv.Columns[2].Visible = false;
                 }
                 if (frmname == "Email")
-                {
-                    for (int i = 0; i <= dgv.Columns.Count; i++)
-                    {
-                        if (i <= 1)
-                            dgv.Columns[i].Visible = false;
-                        dgv.Columns[i].ReadOnly = true;
-                    }
-                }
+                    dgv.Columns[0].Visible = false;
                 dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
-            catch (Exception)
-            {
-            }
-            finally
-            {
-                gl.oleconnection.Close();
-            }
-            return null;
+            catch (Exception){ }
         }
         public void dbcommands(string sql, string[] parameter, string[] text)
         {
             OleDbDataAdapter oledbAdapter = new OleDbDataAdapter();
             oledbAdapter.InsertCommand = new OleDbCommand(sql, gl.oleconnection);
-            for (int i =0; i<parameter.Length; i++)
+            for (int i = 0; i < parameter.Length; i++)
                 if (parameter[i] != "")
                     oledbAdapter.InsertCommand.Parameters.AddWithValue(parameter[i], text[i]);
             if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();

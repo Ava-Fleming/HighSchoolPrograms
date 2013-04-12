@@ -38,6 +38,7 @@
             this.button_stop = new System.Windows.Forms.Button();
             this.button_start = new System.Windows.Forms.Button();
             this.groupBox_settings = new System.Windows.Forms.GroupBox();
+            this.checkbox_deleteexcel = new System.Windows.Forms.CheckBox();
             this.checkbox_showpassword = new System.Windows.Forms.CheckBox();
             this.label_smtpserver = new System.Windows.Forms.Label();
             this.textBox_smtp = new System.Windows.Forms.TextBox();
@@ -65,7 +66,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabControl_main.SuspendLayout();
             this.tabPage_main.SuspendLayout();
             this.groupBox_settings.SuspendLayout();
@@ -160,7 +160,7 @@
             // 
             // groupBox_settings
             // 
-            this.groupBox_settings.Controls.Add(this.checkBox1);
+            this.groupBox_settings.Controls.Add(this.checkbox_deleteexcel);
             this.groupBox_settings.Controls.Add(this.checkbox_showpassword);
             this.groupBox_settings.Controls.Add(this.label_smtpserver);
             this.groupBox_settings.Controls.Add(this.textBox_smtp);
@@ -186,6 +186,17 @@
             this.groupBox_settings.TabIndex = 5;
             this.groupBox_settings.TabStop = false;
             this.groupBox_settings.Text = "Settings";
+            // 
+            // checkbox_deleteexcel
+            // 
+            this.checkbox_deleteexcel.AutoSize = true;
+            this.checkbox_deleteexcel.Enabled = false;
+            this.checkbox_deleteexcel.Location = new System.Drawing.Point(6, 216);
+            this.checkbox_deleteexcel.Name = "checkbox_deleteexcel";
+            this.checkbox_deleteexcel.Size = new System.Drawing.Size(151, 17);
+            this.checkbox_deleteexcel.TabIndex = 17;
+            this.checkbox_deleteexcel.Text = "Delete report after sending";
+            this.checkbox_deleteexcel.UseVisualStyleBackColor = true;
             // 
             // checkbox_showpassword
             // 
@@ -419,7 +430,7 @@
             this.tabPage_console.Location = new System.Drawing.Point(4, 22);
             this.tabPage_console.Name = "tabPage_console";
             this.tabPage_console.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_console.Size = new System.Drawing.Size(438, 438);
+            this.tabPage_console.Size = new System.Drawing.Size(438, 465);
             this.tabPage_console.TabIndex = 1;
             this.tabPage_console.Text = "Output Console";
             this.tabPage_console.UseVisualStyleBackColor = true;
@@ -450,9 +461,12 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(450, 24);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(442, 468);
             this.dataGridView1.TabIndex = 0;
             // 
@@ -464,17 +478,6 @@
             this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Report Data Preview:";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(6, 216);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(151, 17);
-            this.checkBox1.TabIndex = 17;
-            this.checkBox1.Text = "Delete report after sending";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Email
             // 
@@ -542,6 +545,6 @@
         private System.Windows.Forms.CheckBox checkbox_showpassword;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkbox_deleteexcel;
     }
 }
