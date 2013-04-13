@@ -183,5 +183,65 @@ namespace Dresscode
             if(e.KeyChar == ' ')
                 e.Handled = true;
         }
+
+        private void Student_Editor_Load(object sender, EventArgs e)
+        {
+            datagridupdate();
+        }
+        public void datagridupdate()
+        {
+            dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_studentinfo + "`", "", "", "", "", "", this.Name, dataGridView1.Name);
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            /*
+             * Allow Editing, but I need to modify the DB first.
+            try
+            {
+                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                OleDbDataAdapter adpt = new OleDbDataAdapter();
+                string sql = "UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_studentid + "]=@tid,[" + gl.col_lastname + "]=@lastname, [" + gl.col_firstname + "]=@firstname, [" + gl.col_email + "]=@email, [" + gl.col_dean + "]=@dean WHERE [" + gl.col_id + "]=@idnum";
+                adpt.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
+                adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = dataGridView1[1, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = dataGridView1[3, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = dataGridView1[4, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = dataGridView1[5, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView1[6, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView1[0, dataGridView1.CurrentCell.RowIndex].Value.ToString());
+                adpt.UpdateCommand.CommandType = CommandType.Text;
+                adpt.UpdateCommand.ExecuteNonQuery();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            finally
+            {
+                if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                dataGridView1.EndEdit();
+                datagridupdate();
+            }
+             */
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            //When DB is modified, change to new form.
+            e.Cancel = false;
+            DialogResult dr = MessageBox.Show("Are you sure you want to delete:\n" + dataGridView1[1, dataGridView1.CurrentCell.RowIndex].Value.ToString() + " " + dataGridView1[2, dataGridView1.CurrentCell.RowIndex].Value.ToString(), "Confirmation", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.No)
+                e.Cancel = true;
+            else
+            {
+                try
+                {
+                    string[] pars = { "@idnum" };
+                    string[] values = { dataGridView1[0, dataGridView1.CurrentCell.RowIndex].Value.ToString() };
+                    dbi.dbcommands("DELETE * FROM `" + gl.tbl_studentinfo + "` WHERE `" + gl.col_studentid + "`=@idnum", pars, values);
+                }
+                catch (Exception) { }
+            }
+        }
     }
 }
