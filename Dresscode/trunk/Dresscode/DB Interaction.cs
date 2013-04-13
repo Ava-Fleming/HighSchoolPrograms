@@ -57,6 +57,8 @@ namespace Dresscode
                 }
                 if (frmname == "Email")
                     dgv.Columns[0].Visible = false;
+                if (frmname == "Student_Editor")
+                    dgv.Columns[0].Visible = false;
                 dgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception){ }

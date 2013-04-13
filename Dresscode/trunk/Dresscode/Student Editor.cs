@@ -66,12 +66,13 @@ namespace Dresscode
                                 string lastname = dtr_excel.GetValue(1).ToString();
                                 string firstname = dtr_excel.GetValue(2).ToString();
                                 string grade = dtr_excel.GetValue(3).ToString();
-                                string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
+                                string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (0,@studentid,@lastname,@firstname,@grade)";
                                 string[] pars = { "@studentid", "@lastname", "@firstname", "@grade"};
                                 string[] values = { studentid, lastname, firstname,grade };
                                 dbi.dbcommands(sql, pars, values);
                             }
                             this.Show();
+                            datagridupdate();
                             MessageBox.Show("All students have been added successfully");
                             goodop = true;
                         }
@@ -124,10 +125,11 @@ namespace Dresscode
                         DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
                         if (dr == DialogResult.Yes)
                         {
-                            string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (@studentid,@lastname,@firstname,@grade)";
+                            string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (0,@studentid,@lastname,@firstname,@grade)";
                             string[] pars = { "@studentid", "@lastname", "@firstname", "@grade" };
                             string[] values = { textBox_studentID.Text, lastname, firstname, int.Parse(numericUpDown1.Value.ToString()).ToString() };
                             dbi.dbcommands(sql, pars, values);
+                            datagridupdate();
                             MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                             textBox_studentID.Text = "";
                             textBox_firstname.Text = "";
@@ -195,19 +197,16 @@ namespace Dresscode
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            /*
-             * Allow Editing, but I need to modify the DB first.
             try
             {
                 if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
-                string sql = "UPDATE `" + gl.tbl_teacherinfo + "` SET [" + gl.col_studentid + "]=@tid,[" + gl.col_lastname + "]=@lastname, [" + gl.col_firstname + "]=@firstname, [" + gl.col_email + "]=@email, [" + gl.col_dean + "]=@dean WHERE [" + gl.col_id + "]=@idnum";
+                string sql = "UPDATE `" + gl.tbl_studentinfo + "` SET [" + gl.col_studentid + "]=@sid,[" + gl.col_lastname + "]=@lastname, [" + gl.col_firstname + "]=@firstname, [" + gl.col_grade + "]=@grade WHERE [" + gl.col_id + "]=@idnum";
                 adpt.UpdateCommand = new OleDbCommand(sql, gl.oleconnection);
-                adpt.UpdateCommand.Parameters.Add("tid", OleDbType.VarChar, 255).Value = dataGridView1[1, dataGridView1.CurrentCell.RowIndex].Value.ToString();
-                adpt.UpdateCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = dataGridView1[3, dataGridView1.CurrentCell.RowIndex].Value.ToString();
-                adpt.UpdateCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = dataGridView1[4, dataGridView1.CurrentCell.RowIndex].Value.ToString();
-                adpt.UpdateCommand.Parameters.Add("email", OleDbType.VarChar, 255).Value = dataGridView1[5, dataGridView1.CurrentCell.RowIndex].Value.ToString();
-                adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView1[6, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("sid", OleDbType.VarChar, 255).Value = dataGridView1[1, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = dataGridView1[2, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = dataGridView1[3, dataGridView1.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("grade", OleDbType.VarChar, 255).Value = dataGridView1[4, dataGridView1.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView1[0, dataGridView1.CurrentCell.RowIndex].Value.ToString());
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
@@ -222,7 +221,6 @@ namespace Dresscode
                 dataGridView1.EndEdit();
                 datagridupdate();
             }
-             */
         }
 
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -238,7 +236,7 @@ namespace Dresscode
                 {
                     string[] pars = { "@idnum" };
                     string[] values = { dataGridView1[0, dataGridView1.CurrentCell.RowIndex].Value.ToString() };
-                    dbi.dbcommands("DELETE * FROM `" + gl.tbl_studentinfo + "` WHERE `" + gl.col_studentid + "`=@idnum", pars, values);
+                    dbi.dbcommands("DELETE * FROM `" + gl.tbl_studentinfo + "` WHERE `" + gl.col_id + "`=@idnum", pars, values);
                 }
                 catch (Exception) { }
             }
