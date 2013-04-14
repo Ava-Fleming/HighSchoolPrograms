@@ -27,7 +27,7 @@ namespace Dresscode
         {
             if (relaunched == false)
             {
-                MessageBox.Show("¡Adios! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa\nMUAHM! (Bye) ~ Ethan Kuell", "Good bye");
+                MessageBox.Show("¡Adiós! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa\nMUAHM! (Bye) ~ Ethan Kuell", "Good bye");
                 Application.Exit();
             }
         }
