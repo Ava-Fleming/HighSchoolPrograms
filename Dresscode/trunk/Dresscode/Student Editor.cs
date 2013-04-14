@@ -66,7 +66,7 @@ namespace Dresscode
                                 string lastname = dtr_excel.GetValue(1).ToString();
                                 string firstname = dtr_excel.GetValue(2).ToString();
                                 string grade = dtr_excel.GetValue(3).ToString();
-                                string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (0,@studentid,@lastname,@firstname,@grade)";
+                                string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES ('" + 0 + "',@studentid,@lastname,@firstname,@grade)";
                                 string[] pars = { "@studentid", "@lastname", "@firstname", "@grade"};
                                 string[] values = { studentid, lastname, firstname,grade };
                                 dbi.dbcommands(sql, pars, values);
@@ -125,7 +125,7 @@ namespace Dresscode
                         DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
                         if (dr == DialogResult.Yes)
                         {
-                            string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES (0,@studentid,@lastname,@firstname,@grade)";
+                            string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES ('" + 0 + "',@studentid,@lastname,@firstname,@grade)";
                             string[] pars = { "@studentid", "@lastname", "@firstname", "@grade" };
                             string[] values = { textBox_studentID.Text, lastname, firstname, int.Parse(numericUpDown1.Value.ToString()).ToString() };
                             dbi.dbcommands(sql, pars, values);

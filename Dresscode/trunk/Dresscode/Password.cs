@@ -70,7 +70,7 @@ namespace Dresscode
                         gl.oleconnection.Open();
                         OleDbCommand command = gl.oleconnection.CreateCommand();
                         command.CommandText = "SELECT * FROM `"+ gl.tbl_teacherinfo +"` WHERE `"+ gl.col_teacherid +"`=@tid";
-                        command.Parameters.Add("tid", OleDbType.Numeric, 255).Value = textBox_teacherID.Text;
+                        command.Parameters.AddWithValue("tid", textBox_teacherID.Text);
                         OleDbDataReader reader = command.ExecuteReader();
                         while (reader.Read())
                             sendTo = reader[gl.col_email].ToString();

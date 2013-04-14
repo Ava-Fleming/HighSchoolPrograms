@@ -64,6 +64,7 @@ namespace Dresscode
             {
                 try
                 {
+                    teacherid = CultureInfo.CurrentCulture.TextInfo.ToLower(teacherid);
                     MD5 md5 = new MD5CryptoServiceProvider();
                     md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textbox_password.Text));
                     byte[] result = md5.Hash;
@@ -83,7 +84,8 @@ namespace Dresscode
                     {
                         if (real == false)
                         {
-                            if (textbox_teacherid.Text.Contains(getteacher[gl.col_teacherid].ToString()))
+
+                            if (teacherid.Contains(getteacher[gl.col_teacherid].ToString()))
                             {
                                 if (hashedpassword.ToString() == getteacher[gl.col_password].ToString())
                                 {

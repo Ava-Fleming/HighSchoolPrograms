@@ -52,6 +52,7 @@ namespace Dresscode
             {
                 try
                 {
+                    string lastname = "", firstname = "", email = "", dean = "";
                     textbox_lastname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text);
                     textbox_firstname.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text);
                     bool newuser = true;
@@ -64,8 +65,14 @@ namespace Dresscode
                     OleDbDataReader getteacher = getteacherscommand.ExecuteReader();
 
                     while (getteacher.Read())
+                    {
                         if (getteacher[gl.col_teacherid].ToString() == textbox_teacherid.Text)
                             newuser = false;
+                        lastname = getteacher[gl.col_lastname].ToString();
+                        firstname = getteacher[gl.col_firstname].ToString();
+                        email = getteacher[gl.col_email].ToString();
+                        dean = getteacher[gl.col_dean].ToString();
+                    }
                     if (gl.oleconnection.State == ConnectionState.Open)
                         gl.oleconnection.Close();
                     if (newuser)
@@ -91,9 +98,11 @@ namespace Dresscode
                             strBuilder1.Append(result1[i].ToString("x2"));
                         string admin = "";
                         if (checkbox_dean.Checked) admin = "Yes";
-                        string sql = "INSERT INTO `" + gl.tbl_teacherinfo + "` VALUES (@guidnum, @teacherid,@password,@lastname,@firstname,@email,@admin)";
-                        string[] pars = { "@guidnum", "@teacherid", "@password", "@lastname", "@firstname", "@email", "@admin" };
-                        string[] values = { "0", textbox_teacherid.Text, strBuilder1.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text), textbox_email.Text, admin };
+                        else
+                            admin = "No";
+                        string sql = "INSERT INTO `" + gl.tbl_teacherinfo + "` VALUES ('" + 0 + "', @teacherid,@password,@lastname,@firstname,@email,@admin)";
+                        string[] pars = { "@teacherid", "@password", "@lastname", "@firstname", "@email", "@admin" };
+                        string[] values = { CultureInfo.CurrentCulture.TextInfo.ToLower(textbox_teacherid.Text), strBuilder1.ToString(), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_lastname.Text), CultureInfo.CurrentCulture.TextInfo.ToTitleCase(textbox_firstname.Text), textbox_email.Text, admin };
                         dbi.dbcommands(sql, pars, values);
 
                         //email
@@ -115,7 +124,7 @@ namespace Dresscode
                         checkbox_dean.Checked = false;
                     }
                     else
-                        MessageBox.Show("The teacher ID: " + textbox_teacherid.Text + " is already in use.");
+                        MessageBox.Show("The teacher ID: " + textbox_teacherid.Text + " is already in use.\nName: " + lastname + ", " + firstname + "\nEmail: " + email + "\nIs Dean: " + dean,"Teacher ID already in use.");
                 }
                 catch (Exception x) { MessageBox.Show(x.Message); }
             }
