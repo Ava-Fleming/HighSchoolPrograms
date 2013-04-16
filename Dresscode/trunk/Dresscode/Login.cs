@@ -109,7 +109,7 @@ namespace Dresscode
                     {
                         this.Hide();
                         teachr.ShowDialog();
-                        Application.Restart();
+                            Application.Restart();
                     }
                     else
                         MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");

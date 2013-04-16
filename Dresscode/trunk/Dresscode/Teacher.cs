@@ -309,6 +309,17 @@ forthnineweeksend;
             {
                 menuStrip1.Enabled = true;
                 menuStrip1.Visible = true;
+                this.MinimumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
+                this.MaximumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
+            }
+            else
+            {
+                groupbox_retrieve.Location = new System.Drawing.Point(groupbox_retrieve.Location.X, groupbox_retrieve.Location.Y - 20);
+                dataGridView_students.Location = new System.Drawing.Point(dataGridView_students.Location.X, dataGridView_students.Location.Y - 20);
+                groupbox_submit.Location = new System.Drawing.Point(groupbox_submit.Location.X, groupbox_submit.Location.Y - 20);
+                this.Size = new System.Drawing.Size(this.Size.Width, this.Size.Height - 20);
+                this.MinimumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
+                this.MaximumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
             }
             combobox_firstname.Focus();
             try

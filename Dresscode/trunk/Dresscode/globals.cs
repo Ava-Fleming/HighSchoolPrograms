@@ -12,6 +12,7 @@ namespace Dresscode
         public OleDbConnection oleconnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\DevPump\Documents\Visual Studio 2012\Projects\Dresscode\Dresscode\dc.mdb;Jet OLEDB:Database Password=Braves2013");
 
         public bool funnymode = false;
+        
 
         public int
             num_periods = 7;
