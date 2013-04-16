@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textbox_teacherid = new System.Windows.Forms.TextBox();
             this.label_teacherid = new System.Windows.Forms.Label();
             this.label_firstname = new System.Windows.Forms.Label();
@@ -41,9 +42,12 @@
             this.datagridview_teachers = new System.Windows.Forms.DataGridView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.datagridview_teachers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // textbox_teacherid
@@ -136,7 +140,7 @@
             this.datagridview_teachers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.datagridview_teachers.Location = new System.Drawing.Point(12, 220);
             this.datagridview_teachers.Name = "datagridview_teachers";
-            this.datagridview_teachers.Size = new System.Drawing.Size(493, 139);
+            this.datagridview_teachers.Size = new System.Drawing.Size(493, 140);
             this.datagridview_teachers.TabIndex = 12;
             this.datagridview_teachers.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagridview_teachers_CellEndEdit);
             this.datagridview_teachers.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.datagridview_teachers_UserDeletingRow);
@@ -159,11 +163,26 @@
             this.pictureBox2.TabIndex = 14;
             this.pictureBox2.TabStop = false;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::Dresscode.Properties.Resources.morkhorcomputerdms;
+            this.pictureBox3.Location = new System.Drawing.Point(237, 288);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(493, 140);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 15;
+            this.pictureBox3.TabStop = false;
+            // 
             // Teacher_Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 371);
+            this.ClientSize = new System.Drawing.Size(517, 218);
+            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.datagridview_teachers);
@@ -177,12 +196,15 @@
             this.Controls.Add(this.textbox_firstname);
             this.Controls.Add(this.label_teacherid);
             this.Controls.Add(this.textbox_teacherid);
+            this.MaximumSize = new System.Drawing.Size(533, 410);
+            this.MinimumSize = new System.Drawing.Size(533, 256);
             this.Name = "Teacher_Editor";
             this.Text = "Teacher Editor";
             this.Load += new System.EventHandler(this.Teacher_Editor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.datagridview_teachers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,5 +225,7 @@
         private System.Windows.Forms.DataGridView datagridview_teachers;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

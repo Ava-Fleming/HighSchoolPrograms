@@ -185,11 +185,6 @@ namespace Dresscode
             if(e.KeyChar == ' ')
                 e.Handled = true;
         }
-
-        private void Student_Editor_Load(object sender, EventArgs e)
-        {
-            datagridupdate();
-        }
         public void datagridupdate()
         {
             dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_studentinfo + "`", "", "", "", "", "", this.Name, dataGridView1.Name);
@@ -241,5 +236,30 @@ namespace Dresscode
                 catch (Exception) { }
             }
         }
+        private void Student_Editor_Load(object sender, EventArgs e)
+        {
+            pictureBox1.Location = new System.Drawing.Point(220, 12);
+            dataGridView1.Visible = false;
+            timer1.Enabled = true;
+            timer1.Interval = 50;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //550 S 225
+            if (this.Size.Width != this.MaximumSize.Width)
+                this.Size = new System.Drawing.Size(this.Size.Width + 10, 0);
+            else
+            {
+                //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
+                timer1.Enabled = false;
+                this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
+                datagridupdate();
+                pictureBox1.Visible = false;
+                pictureBox1.Enabled = false;
+                dataGridView1.Visible = true;
+            }
+        }
+
     }
 }

@@ -134,6 +134,7 @@ namespace Dresscode
 
         private void Teacher_Editor_Load(object sender, EventArgs e)
         {
+            pictureBox3.Location = new System.Drawing.Point(12, 220);
             try
             {
                 if (gl.oleconnection.State == ConnectionState.Closed)
@@ -159,6 +160,9 @@ namespace Dresscode
                 if (gl.oleconnection.State == ConnectionState.Open)
                     gl.oleconnection.Close();
             }
+            datagridview_teachers.Visible = false;
+            timer1.Enabled = true;
+            timer1.Interval = 50;
         }
 
         private void datagridview_teachers_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -209,6 +213,23 @@ namespace Dresscode
                 if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                 datagridview_teachers.EndEdit();
                 datagridupdate();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //550 S 225
+            if (this.Size.Height != this.MaximumSize.Height)
+                this.Size = new System.Drawing.Size(0, this.Size.Height + 10);
+            else
+            {
+                //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
+                timer1.Enabled = false;
+                this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
+                datagridupdate();
+                pictureBox3.Visible = false;
+                pictureBox3.Enabled = false;
+                datagridview_teachers.Visible = true;
             }
         }
     }
