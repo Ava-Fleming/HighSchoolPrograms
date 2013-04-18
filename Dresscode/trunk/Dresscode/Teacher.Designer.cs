@@ -268,6 +268,7 @@
             // 
             this.dataGridView_students.AllowUserToAddRows = false;
             this.dataGridView_students.AllowUserToDeleteRows = false;
+            this.dataGridView_students.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView_students.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_students.Location = new System.Drawing.Point(12, 109);
             this.dataGridView_students.Name = "dataGridView_students";
