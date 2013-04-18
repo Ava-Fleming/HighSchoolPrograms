@@ -19,6 +19,9 @@ namespace Dresscode
             InitializeComponent();
         }
         globals gl = new globals();
+        Login logi;
+        Teacher teachr;
+        Password pass;
         
         bool real = false;
         bool relaunched = false;
@@ -32,15 +35,12 @@ namespace Dresscode
             }
         }
 
-        private void textbox_password_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter) button_login.PerformClick();
-        }
+        private void textbox_password_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) button_login.PerformClick(); }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Hide();
-            Password pass = new Password();
+            pass = new Password();
             pass.teacherid = textbox_teacherid.Text;
             pass.ShowDialog();
             this.Show();
@@ -52,14 +52,17 @@ namespace Dresscode
 
         private void button_login_Click(object sender, EventArgs e)
         {
-            Teacher teachr = new Teacher();
+            teachr = new Teacher();
             string teacherid = textbox_teacherid.Text;
             if (textbox_teacherid.Text == "ESYSTEM" && textbox_password.Text == "emailpassword")
             {
                 this.Hide();
                 Email ema = new Email();
                 ema.ShowDialog();
-                Application.Restart();
+                logi = new Login();
+                logi.Show();
+                relaunched = true;
+                this.Close();
             }
             else
             {
@@ -109,7 +112,10 @@ namespace Dresscode
                     {
                         this.Hide();
                         teachr.ShowDialog();
-                            Application.Restart();
+                        logi = new Login();
+                        logi.Show();
+                        relaunched = true;
+                        this.Close();
                     }
                     else
                         MessageBox.Show("Check your user information", "Incorrect teacher I.D or Password");

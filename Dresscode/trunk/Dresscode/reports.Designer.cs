@@ -544,6 +544,7 @@
             // dataGridView_reports
             // 
             this.dataGridView_reports.AllowUserToAddRows = false;
+            this.dataGridView_reports.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_reports.Location = new System.Drawing.Point(12, 325);
             this.dataGridView_reports.MultiSelect = false;
