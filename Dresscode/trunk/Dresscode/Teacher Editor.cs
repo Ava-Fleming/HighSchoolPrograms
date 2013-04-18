@@ -226,7 +226,6 @@ namespace Dresscode
                 //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
                 timer1.Enabled = false;
                 this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
-                datagridupdate();
                 pictureBox3.Visible = false;
                 pictureBox3.Enabled = false;
                 datagridview_teachers.Visible = true;

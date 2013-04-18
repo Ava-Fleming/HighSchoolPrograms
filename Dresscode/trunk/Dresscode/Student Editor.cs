@@ -238,6 +238,7 @@ namespace Dresscode
         }
         private void Student_Editor_Load(object sender, EventArgs e)
         {
+            datagridupdate();
             pictureBox1.Location = new System.Drawing.Point(220, 12);
             dataGridView1.Visible = false;
             timer1.Enabled = true;
@@ -254,7 +255,6 @@ namespace Dresscode
                 //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
                 timer1.Enabled = false;
                 this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
-                datagridupdate();
                 pictureBox1.Visible = false;
                 pictureBox1.Enabled = false;
                 dataGridView1.Visible = true;
