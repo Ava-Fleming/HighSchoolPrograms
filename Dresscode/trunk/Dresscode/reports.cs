@@ -107,8 +107,16 @@ forthnineweeksend;
             try
             {
                 
-                dbi.dgvselectioncommand(sql, firstname, lastname, studentid,teacher,infraction, this.Name, dataGridView_reports.Name);
-
+                //dbi.dgvselectioncommand(sql, firstname, lastname, studentid,teacher,infraction, this.Name, dataGridView_reports.Name);
+                dbi.sql = sql;
+                dbi.firstname = firstname;
+                dbi.lastname = lastname;
+                dbi.studentid = studentid;
+                dbi.teacher = teacher;
+                dbi.infraction = infraction;
+                dbi.frmname = this.Name;
+                dbi.dgn = dataGridView_reports.Name;
+                dbi.teste();
                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = sql;
@@ -572,7 +580,7 @@ forthnineweeksend;
                     }
                     else
                     {
-                        MessageBox.Show("Please select a teacher.");
+                        MessageBox.Show("Please select a teacher.\nBlank Teacher is another way to say any.\nAll reports will be loaded with the specified critera","Missing Teacher");
                     }
                 }
                 if (checkBox_infraction.Checked)

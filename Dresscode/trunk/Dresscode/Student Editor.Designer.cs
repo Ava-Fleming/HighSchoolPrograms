@@ -111,6 +111,7 @@
             // 
             // button_addstudent
             // 
+            this.button_addstudent.Enabled = false;
             this.button_addstudent.Location = new System.Drawing.Point(110, 117);
             this.button_addstudent.Name = "button_addstudent";
             this.button_addstudent.Size = new System.Drawing.Size(75, 27);
@@ -140,6 +141,7 @@
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(6, 117);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 27);
@@ -189,7 +191,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Dresscode.Properties.Resources.Presidentmarkhor;
-            this.pictureBox1.Location = new System.Drawing.Point(452, 129);
+            this.pictureBox1.Location = new System.Drawing.Point(220, 156);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(313, 148);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -204,6 +206,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximumSize = new System.Drawing.Size(555, 210);
             this.MinimumSize = new System.Drawing.Size(230, 210);
             this.Name = "Student_Editor";

@@ -184,7 +184,11 @@ namespace Dresscode
         }
         public void datagridupdate()
         {
-            dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "", "", "", this.Name, datagridview_teachers.Name);
+            dbi.sql = "SELECT * FROM `" + gl.tbl_teacherinfo + "`";
+            dbi.frmname = this.Name;
+            dbi.dgn = datagridview_teachers.Name;
+            dbi.teste();
+            //dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_teacherinfo + "`", "", "", "", "", "", this.Name, datagridview_teachers.Name);
         }
 
         private void datagridview_teachers_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -218,17 +222,20 @@ namespace Dresscode
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //550 S 225
-            if (this.Size.Height != this.MaximumSize.Height)
-                this.Size = new System.Drawing.Size(0, this.Size.Height + 10);
-            else
+            if (dbi.finished)
             {
-                //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
-                timer1.Enabled = false;
-                this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
-                pictureBox3.Visible = false;
-                pictureBox3.Enabled = false;
-                datagridview_teachers.Visible = true;
+                //550 S 225
+                if (this.Size.Height != this.MaximumSize.Height)
+                    this.Size = new System.Drawing.Size(0, this.Size.Height + 10);
+                else
+                {
+                    //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
+                    timer1.Enabled = false;
+                    this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
+                    pictureBox3.Visible = false;
+                    pictureBox3.Enabled = false;
+                    datagridview_teachers.Visible = true;
+                }
             }
         }
     }

@@ -230,7 +230,14 @@ forthnineweeksend;
                         submitted = false;
                     }
                     DB_Interaction dbi = new DB_Interaction();
-                    dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid, "", "", this.Name, dataGridView_students.Name);
+                    dbi.sql = reportsstring;
+                    dbi.firstname = firstname;
+                    dbi.lastname = lastname;
+                    dbi.studentid = studentid;
+                    dbi.frmname = this.Name;
+                    dbi.dgn = dataGridView_students.Name;
+                    dbi.teste();
+                    //dbi.dgvselectioncommand(reportsstring, firstname, lastname, studentid, "", "", this.Name, dataGridView_students.Name);
                 }
                 catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
                 finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }

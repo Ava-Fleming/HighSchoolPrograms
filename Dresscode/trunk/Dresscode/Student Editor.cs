@@ -52,27 +52,28 @@ namespace Dresscode
                             System.Data.OleDb.OleDbDataAdapter oledbd_readexcel = new System.Data.OleDb.OleDbDataAdapter("select * from [Sheet1$]", excelconnection);
                             oledbd_readexcel.Fill(DtSet);
                             excelconnection.Close();
-                            if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                            if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                             DataTableReader dtr_excel = DtSet.CreateDataReader(DtSet.Tables[0]);
                             string dsql = "DELETE * FROM `" + gl.tbl_studentinfo + "`";
-                            string[] dpar = {};
-                            string[] dvalues = {};
+                            string[] dpar = { };
+                            string[] dvalues = { };
                             dbi.dbcommands(dsql, dpar, dvalues);
                             while (dtr_excel.Read())
                             {
-                                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                                if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 OleDbDataAdapter oledba_massadd = new OleDbDataAdapter();
                                 string studentid = dtr_excel.GetValue(0).ToString();
                                 string lastname = dtr_excel.GetValue(1).ToString();
                                 string firstname = dtr_excel.GetValue(2).ToString();
                                 string grade = dtr_excel.GetValue(3).ToString();
                                 string sql = "INSERT INTO `" + gl.tbl_studentinfo + "` VALUES ('" + 0 + "',@studentid,@lastname,@firstname,@grade)";
-                                string[] pars = { "@studentid", "@lastname", "@firstname", "@grade"};
-                                string[] values = { studentid, lastname, firstname,grade };
+                                string[] pars = { "@studentid", "@lastname", "@firstname", "@grade" };
+                                string[] values = { studentid, lastname, firstname, grade };
                                 dbi.dbcommands(sql, pars, values);
                             }
                             this.Show();
-                            datagridupdate();
+                            dbupdater();
+                            //datagridupdate();
                             MessageBox.Show("All students have been added successfully");
                             goodop = true;
                         }
@@ -104,9 +105,9 @@ namespace Dresscode
                 try
                 {
                     bool newentry = true;
-                    if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                    if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                     OleDbCommand checkforstudent = gl.oleconnection.CreateCommand();
-                    checkforstudent.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"`";
+                    checkforstudent.CommandText = "SELECT * FROM `" + gl.tbl_studentinfo + "`";
                     OleDbDataReader checkexistingstudent = checkforstudent.ExecuteReader();
                     while (checkexistingstudent.Read())
                     {
@@ -119,7 +120,7 @@ namespace Dresscode
                             }
                         }
                     }
-                    if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
+                    if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                     if (newentry)
                     {
                         DialogResult dr = MessageBox.Show("Is this correct?\nStudent ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "", "Verification", MessageBoxButtons.YesNo);
@@ -129,7 +130,8 @@ namespace Dresscode
                             string[] pars = { "@studentid", "@lastname", "@firstname", "@grade" };
                             string[] values = { textBox_studentID.Text, lastname, firstname, int.Parse(numericUpDown1.Value.ToString()).ToString() };
                             dbi.dbcommands(sql, pars, values);
-                            datagridupdate();
+                            dbupdater();
+                            //datagridupdate();
                             MessageBox.Show("Student ID: " + textBox_studentID.Text + "\nStudent Name: " + textBox_firstname.Text + " " + textBox_lastname.Text + "\nGrade: " + numericUpDown1.Value.ToString() + "\nHas been successfully added to the student list.", "Success");
                             textBox_studentID.Text = "";
                             textBox_firstname.Text = "";
@@ -139,9 +141,9 @@ namespace Dresscode
                     }
                     else
                     {
-                        if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                        if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                         OleDbCommand getexisting = gl.oleconnection.CreateCommand();
-                        getexisting.CommandText = "SELECT * FROM `"+gl.tbl_studentinfo+"` WHERE `"+gl.col_studentid+"`=@studentid";
+                        getexisting.CommandText = "SELECT * FROM `" + gl.tbl_studentinfo + "` WHERE `" + gl.col_studentid + "`=@studentid";
                         getexisting.Parameters.AddWithValue("studentid", textBox_studentID.Text);
                         OleDbDataReader getexistingstudent = checkforstudent.ExecuteReader();
                         string efirst = "";
@@ -182,12 +184,8 @@ namespace Dresscode
 
         private void textBox_lastname_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == ' ')
+            if (e.KeyChar == ' ')
                 e.Handled = true;
-        }
-        public void datagridupdate()
-        {
-            dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_studentinfo + "`", "", "", "", "", "", this.Name, dataGridView1.Name);
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -214,7 +212,8 @@ namespace Dresscode
             {
                 if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
                 dataGridView1.EndEdit();
-                datagridupdate();
+                dbupdater();
+                //datagridupdate();
             }
         }
 
@@ -236,29 +235,66 @@ namespace Dresscode
                 catch (Exception) { }
             }
         }
+        public void dbupdater()
+        {
+
+        }
+        public class dbretrival
+        {
+
+        }
+
         private void Student_Editor_Load(object sender, EventArgs e)
         {
-            datagridupdate();
             pictureBox1.Location = new System.Drawing.Point(220, 12);
-            dataGridView1.Visible = false;
+            dataGridView1.Visible = true;
+            dbi.sql = "SELECT * FROM `" + gl.tbl_studentinfo + "`";
+            dbi.frmname = this.Name;
+            dbi.dgn = dataGridView1.Name;
+            dbi.teste();
+            pictureBox1.Visible = true;
             timer1.Enabled = true;
             timer1.Interval = 50;
+            textBox_firstname.Text = "Please Wait...";
+            textBox_lastname.Text = "Please Wait...";
+            textBox_studentID.Text = "Please Wait...";
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //550 S 225
-            if (this.Size.Width != this.MaximumSize.Width)
-                this.Size = new System.Drawing.Size(this.Size.Width + 10, 0);
-            else
+            //Org 230, 210
+            if (dbi.finished)
             {
-                //Place Loading markhor in spot of datagridview until fully loaded then make dgv visible.
-                timer1.Enabled = false;
-                this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
-                pictureBox1.Visible = false;
-                pictureBox1.Enabled = false;
-                dataGridView1.Visible = true;
+                Random rand = new Random();
+                if (this.Size.Width != this.MaximumSize.Width)
+                    this.Size = new System.Drawing.Size(this.Size.Width + 5, 0);
+                else
+                {
+                    timer1.Enabled = false;
+                    this.MinimumSize = new System.Drawing.Size(this.MaximumSize.Width, this.MaximumSize.Height);
+                    dataGridView1.Visible = true;
+                    if (textBox_studentID.Text == "Please Wait...")
+                    {
+                        textBox_studentID.Clear();
+                        textBox_lastname.Clear();
+                        textBox_firstname.Clear();
+                        textBox_firstname.Enabled = true;
+                        textBox_firstname.Enabled = true;
+                        textBox_firstname.Enabled = true;
+                        pictureBox1.Visible = false;
+                        button_addstudent.Enabled = true;
+                        button1.Enabled = true;
+                        this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+                    }
+                }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dbupdater();
+            textBox_firstname.Focus();
         }
 
     }
