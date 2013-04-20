@@ -69,6 +69,7 @@ forthnineweeksend;
                     firstname = firstname.Replace("'", " ");
             }
             label_totalinfractions.Text = "Total Infractions: 0";
+            label_nineweeksinfractions.Text = "Infractions this 9 weeks: 0";
             #region Getbasicstudentinfo
             int retrievalcode = 0;
             firstname = combobox_firstname.Text;
@@ -103,8 +104,8 @@ forthnineweeksend;
                 if (retrievalcode != -1)
                 {
                     getstudentinfocommand.CommandText = sql;
-                    getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
-                    getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
+                    //getstudentinfocommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = combobox_firstname.Text;
+                    //getstudentinfocommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = combobox_lastname.Text;
                     getstudentinfocommand.CommandType = CommandType.Text;
                     OleDbDataReader getstudentinfo = getstudentinfocommand.ExecuteReader();
                     while (getstudentinfo.Read())
@@ -174,7 +175,7 @@ forthnineweeksend;
                     if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close();
 
                     if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
-                    county = 0;
+                    county = 1;
                     totalinfractions = 1;
                     nineWeeksDatabase = 0;
                     currentNineWeeks = 0;
@@ -188,41 +189,44 @@ forthnineweeksend;
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     while (getinfraction.Read())
                     {
-                        DateTime databasedate = DateTime.Parse(getinfraction["Report Date"].ToString());
-                        if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
+                        //I'm not sure so I am not going to fully add this, but I am coding it still.
+                        if (getinfraction[gl.col_infractions].ToString() != "Tardy")
                         {
-                            nineWeeksDatabase = 1;
+                            DateTime databasedate = DateTime.Parse(getinfraction[gl.col_reportdate].ToString());
+                            if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
+                            {
+                                nineWeeksDatabase = 1;
+                            }
+                            if (databasedate >= secondtnineweeksstart || databasedate <= secondnineweeksend)
+                            {
+                                nineWeeksDatabase = 2;
+                            }
+                            if (databasedate >= thirdnineweeksstart && databasedate <= thirdnineweeksend)
+                            {
+                                nineWeeksDatabase = 3;
+                            }
+                            if (databasedate >= forthnineweeksstart && databasedate <= forthnineweeksend)
+                            {
+                                nineWeeksDatabase = 4;
+                            }
+                            if (DateTime.Today >= secondtnineweeksstart || DateTime.Today <= secondnineweeksend)
+                            {
+                                currentNineWeeks = 2;
+                            }
+                            if (DateTime.Today >= thirdnineweeksstart && DateTime.Today <= thirdnineweeksend)
+                            {
+                                currentNineWeeks = 3;
+                            }
+                            if (DateTime.Today >= forthnineweeksstart && DateTime.Today <= forthnineweeksend)
+                            {
+                                currentNineWeeks = 4;
+                            }
+                            if (currentNineWeeks == nineWeeksDatabase)
+                            {
+                                label_nineweeksinfractions.Text = "Infractions this 9 weeks: " + (county++);
+                            }
+                            label_totalinfractions.Text = "Total Infractions: " + (totalinfractions++);
                         }
-                        if (databasedate >= secondtnineweeksstart || databasedate <= secondnineweeksend)
-                        {
-                            nineWeeksDatabase = 2;
-                        }
-                        if (databasedate >= thirdnineweeksstart && databasedate <= thirdnineweeksend)
-                        {
-                            nineWeeksDatabase = 3;
-                        }
-                        if (databasedate >= forthnineweeksstart && databasedate <= forthnineweeksend)
-                        {
-                            nineWeeksDatabase = 4;
-                        }
-                        if (DateTime.Today >= secondtnineweeksstart || DateTime.Today <= secondnineweeksend)
-                        {
-                            currentNineWeeks = 2;
-                        }
-                        if (DateTime.Today >= thirdnineweeksstart && DateTime.Today <= thirdnineweeksend)
-                        {
-                            currentNineWeeks = 3;
-                        }
-                        if (DateTime.Today >= forthnineweeksstart && DateTime.Today <= forthnineweeksend)
-                        {
-                            currentNineWeeks = 4;
-                        }
-                        if (currentNineWeeks == nineWeeksDatabase)
-                        {
-                            county++;
-                            label_nineweeksinfractions.Text = "Infractions this 9 weeks: " + county;
-                        }
-                        label_totalinfractions.Text = "Total Infractions: " + (totalinfractions++);
                     }
                     if (submitted && county >= 5)
                     {
@@ -243,6 +247,9 @@ forthnineweeksend;
                 finally { if (gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
                 #endregion
             }
+            else
+                if(firstname == "" && lastname == "")
+                    MessageBox.Show("Missing student name.", "Error");
             else
                 MessageBox.Show("Student: \"" + firstname + " " + lastname + "\" does not exist\nContact Administration", "Error");
         }

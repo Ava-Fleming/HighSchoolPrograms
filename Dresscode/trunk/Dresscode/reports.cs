@@ -585,7 +585,7 @@ forthnineweeksend;
                 }
                 if (checkBox_infraction.Checked)
                 {
-                    if (checkBox_infraction.Text != "")
+                    if (comboBox_infraction_select.Text != "")
                     {
                         wtfbrah = false;
                         if (hasStarted)
@@ -596,7 +596,8 @@ forthnineweeksend;
                     }
                     else
                     {
-                        MessageBox.Show("Please select the Infraction.");
+
+                        MessageBox.Show("Please select an Infraction.\nBlank Infraction is another way to say any.\nAll reports will be loaded with the specified critera", "Missing Infraction");
                     }
                 }
                 if (checkBox_period_single.Checked)
