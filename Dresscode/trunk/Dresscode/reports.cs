@@ -83,20 +83,11 @@ forthnineweeksend;
                     {
                         combobox_teacher.Items.Add(getinfraction[gl.col_teacher].ToString());
                     }
-                }
-            }
-            catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
-            finally { if(gl.oleconnection.State == ConnectionState.Open) gl.oleconnection.Close(); }
 
-            try
-            {
-                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
-                OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
-                getinfractioncommand.CommandText = "SELECT * FROM `"+gl.tbl_infractionlist+"`";
-                OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
-                while (getinfraction.Read())
-                {
-                    comboBox_infraction_select.Items.Add(getinfraction[gl.col_infractions].ToString());
+                    if (!comboBox_infraction_select.Items.Contains(getinfraction[gl.col_infractions].ToString()))
+                    {
+                        comboBox_infraction_select.Items.Add(getinfraction[gl.col_infractions].ToString());
+                    }
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
@@ -106,7 +97,6 @@ forthnineweeksend;
         {
             try
             {
-                
                 //dbi.dgvselectioncommand(sql, firstname, lastname, studentid,teacher,infraction, this.Name, dataGridView_reports.Name);
                 dbi.sql = sql;
                 dbi.firstname = firstname;
@@ -514,7 +504,7 @@ forthnineweeksend;
         private void weeksDatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Nine_Weeks_Dates nwd = new Nine_Weeks_Dates();
+            var nwd = new Nine_Weeks_Dates();
             nwd.ShowDialog();
             this.Show();
         }
@@ -522,7 +512,7 @@ forthnineweeksend;
         private void teacherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Teacher_Editor te = new Teacher_Editor();
+            var te = new Teacher_Editor();
             te.ShowDialog();
             this.Show();
         }
@@ -530,7 +520,7 @@ forthnineweeksend;
         private void studentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Student_Editor se = new Student_Editor();
+            var se = new Student_Editor();
             se.ShowDialog();
             this.Show();
         }
@@ -538,7 +528,7 @@ forthnineweeksend;
         private void infractionsListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Infractions_List il = new Infractions_List();
+            var il = new Infractions_List();
             il.ShowDialog();
             this.Show();
         }
@@ -707,6 +697,7 @@ forthnineweeksend;
                             sql += " `"+ gl.col_reportdate + "` BETWEEN #" + startdate + "# AND #" + enddate + "#";
                             hasStarted = true;
                         }
+                        else
                             MessageBox.Show("Please select the 9 weeks for both.");
                     }
                     else
@@ -734,9 +725,7 @@ forthnineweeksend;
                             hasStarted = true;
                         }
                         else
-                        {
                             MessageBox.Show("Please select the 9 weeks.");
-                        }
                     }
                 }
                 if (checkBox_semester.Checked)
@@ -752,11 +741,8 @@ forthnineweeksend;
                             sql += " `"+ gl.col_reportdate + "` BETWEEN #" + thirdnineweeksstart + "# AND #" + forthnineweeksend + "#";
                         hasStarted = true;
                     }
-
                     else
-                    {
                         MessageBox.Show("Please select the semester.");
-                    }
                 }
                 if (checkbox_deanaction.Checked)
                 {
