@@ -22,7 +22,7 @@ namespace Dresscode
         Login logi;
         Teacher teachr;
         Password pass;
-        
+        Closing clsing;
         bool real = false;
         bool relaunched = false;
 
@@ -30,8 +30,9 @@ namespace Dresscode
         {
             if (relaunched == false)
             {
-                MessageBox.Show("¡Adiós! ~ Matt Fleming\nAu revoir! ~ Vincent Ragusa\nMUAHM! (Bye) ~ Ethan Kuell", "Good bye");
-                Application.Exit();
+                this.Hide();
+                clsing = new Closing();
+                clsing.ShowDialog();
             }
         }
 

@@ -93,6 +93,12 @@
     <Compile Include="AddEmail.Designer.cs">
       <DependentUpon>AddEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Closing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Closing.Designer.cs">
+      <DependentUpon>Closing.cs</DependentUpon>
+    </Compile>
     <Compile Include="DB Interaction.cs" />
     <Compile Include="Teacher.cs">
       <SubType>Form</SubType>
@@ -160,6 +166,9 @@
     <EmbeddedResource Include="AddEmail.resx">
       <DependentUpon>AddEmail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Closing.resx">
+      <DependentUpon>Closing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Teacher.resx">
       <DependentUpon>Teacher.cs</DependentUpon>
     </EmbeddedResource>
@@ -221,6 +230,11 @@
     <Content Include="Images\outofdresscode.png" />
     <Content Include="Images\Presidentmarkhor.png" />
     <Content Include="Images\thglife.png" />
+    <None Include="Resources\Waving Markhor3.png" />
+    <None Include="Resources\Waving Markhor2.png" />
+    <None Include="Resources\Waving Markhor1.png" />
+    <None Include="Resources\teacherinfo.png" />
+    <None Include="Resources\studentinfo.png" />
     <None Include="Resources\161-202markor2.png" />
     <None Include="Resources\161-202markor1.png" />
     <None Include="Resources\morkhorcomputerdms.png" />

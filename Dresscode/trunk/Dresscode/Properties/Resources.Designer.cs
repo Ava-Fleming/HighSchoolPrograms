@@ -108,5 +108,40 @@ namespace Dresscode.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap studentinfo {
+            get {
+                object obj = ResourceManager.GetObject("studentinfo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap teacherinfo {
+            get {
+                object obj = ResourceManager.GetObject("teacherinfo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Waving_Markhor1 {
+            get {
+                object obj = ResourceManager.GetObject("Waving_Markhor1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Waving_Markhor2 {
+            get {
+                object obj = ResourceManager.GetObject("Waving_Markhor2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Waving_Markhor3 {
+            get {
+                object obj = ResourceManager.GetObject("Waving_Markhor3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

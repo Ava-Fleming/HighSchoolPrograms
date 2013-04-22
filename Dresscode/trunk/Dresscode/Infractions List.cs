@@ -97,5 +97,11 @@ namespace Dresscode
                 MessageBox.Show(x.Message);
             }
         }
+
+        private void listBox_infractions_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+                button_removeinfraction.PerformClick();
+        }
     }
 }

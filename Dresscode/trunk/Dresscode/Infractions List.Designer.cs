@@ -66,6 +66,7 @@
             this.listBox_infractions.Name = "listBox_infractions";
             this.listBox_infractions.Size = new System.Drawing.Size(127, 134);
             this.listBox_infractions.TabIndex = 3;
+            this.listBox_infractions.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox_infractions_KeyDown);
             // 
             // textBox_infraction
             // 

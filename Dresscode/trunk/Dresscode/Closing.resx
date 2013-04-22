@@ -117,41 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="markhor1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\markhor1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="markhor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\markhor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="markhor3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\markhor3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Presidentmarkhor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Presidentmarkhor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="morkhorcomputerdms" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\morkhorcomputerdms.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_161_202markor1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\161-202markor1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_161_202markor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\161-202markor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="studentinfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\studentinfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="teacherinfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\teacherinfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Waving_Markhor1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Waving Markhor1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Waving_Markhor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Waving Markhor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Waving_Markhor3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Waving Markhor3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

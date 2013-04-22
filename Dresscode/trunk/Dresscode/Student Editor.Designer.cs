@@ -190,7 +190,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Dresscode.Properties.Resources.Presidentmarkhor;
+            this.pictureBox1.Image = global::Dresscode.Properties.Resources.studentinfo;
             this.pictureBox1.Location = new System.Drawing.Point(220, 156);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(313, 148);
@@ -202,13 +202,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(214, 172);
+            this.ClientSize = new System.Drawing.Size(217, 182);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximumSize = new System.Drawing.Size(555, 210);
-            this.MinimumSize = new System.Drawing.Size(230, 210);
+            this.MinimumSize = new System.Drawing.Size(223, 210);
             this.Name = "Student_Editor";
             this.Text = "Student Info";
             this.Load += new System.EventHandler(this.Student_Editor_Load);
