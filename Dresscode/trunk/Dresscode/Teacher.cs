@@ -197,7 +197,7 @@ forthnineweeksend;
                             {
                                 nineWeeksDatabase = 1;
                             }
-                            if (databasedate >= secondtnineweeksstart || databasedate <= secondnineweeksend)
+                            if (databasedate >= secondtnineweeksstart & databasedate <= secondnineweeksend)
                             {
                                 nineWeeksDatabase = 2;
                             }
@@ -209,7 +209,7 @@ forthnineweeksend;
                             {
                                 nineWeeksDatabase = 4;
                             }
-                            if (DateTime.Today >= secondtnineweeksstart || DateTime.Today <= secondnineweeksend)
+                            if (DateTime.Today >= secondtnineweeksstart && DateTime.Today <= secondnineweeksend)
                             {
                                 currentNineWeeks = 2;
                             }

@@ -206,7 +206,6 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximumSize = new System.Drawing.Size(555, 210);
             this.MinimumSize = new System.Drawing.Size(223, 210);
             this.Name = "Student_Editor";
