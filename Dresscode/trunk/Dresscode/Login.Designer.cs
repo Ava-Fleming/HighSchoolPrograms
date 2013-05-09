@@ -42,7 +42,6 @@
             this.textbox_teacherid.Name = "textbox_teacherid";
             this.textbox_teacherid.Size = new System.Drawing.Size(135, 20);
             this.textbox_teacherid.TabIndex = 0;
-            this.textbox_teacherid.Text = "157";
             // 
             // textbox_password
             // 
@@ -51,7 +50,6 @@
             this.textbox_password.PasswordChar = '*';
             this.textbox_password.Size = new System.Drawing.Size(135, 20);
             this.textbox_password.TabIndex = 1;
-            this.textbox_password.Text = "1234";
             this.textbox_password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textbox_password_KeyDown);
             // 
             // label_user

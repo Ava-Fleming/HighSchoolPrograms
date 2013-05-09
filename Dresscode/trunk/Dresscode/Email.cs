@@ -255,8 +255,10 @@ namespace Dresscode
                 //--------Datagrid start ========
                 string sql = "SELECT  * FROM `" + gl.tbl_reports + "` WHERE `" + gl.col_deanaction + "`='None'";
                 DB_Interaction dbi = new DB_Interaction();
-               // dbi.dgvselectioncommand(sql, "", "", "", "", "", this.Name, dataGridView1.Name);
-
+                dbi.sql = sql;
+                dbi.frmname = this.Name;
+                dbi.dgn = dataGridView1.Name;
+                dbi.teste();
                 //--------Datagrid stop ========
                 //--Excel export ---
                 try

@@ -33,11 +33,7 @@ namespace Dresscode
 
         void bgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            //dbi.dgvselectioncommand(
-            // Filename to process was passed to RunWorkerAsync(), so it's available
-
-            // here in DoWorkEventArgs object.
-            e.Result = dgvselectioncommand();//dbi.dgvselectioncommand("SELECT * FROM `" + gl.tbl_studentinfo + "`", "", "", "", "", "", this.Name, dataGridView1.Name);
+            e.Result = dgvselectioncommand();
 
         }
 
@@ -45,10 +41,7 @@ namespace Dresscode
         {
 
             if (e.Error != null)
-            {
                 MessageBox.Show(e.Error.Message);
-            }
-
             else
             {
                 try
@@ -85,7 +78,7 @@ namespace Dresscode
                     finished = true;
                     dgv.ScrollBars = ScrollBars.Both;
                 }
-                catch (Exception) { }
+                catch (Exception x) { MessageBox.Show(x.Message); }
             }
 
         }
