@@ -254,11 +254,13 @@ namespace Dresscode
                 looping = false;
                 //--------Datagrid start ========
                 string sql = "SELECT  * FROM `" + gl.tbl_reports + "` WHERE `" + gl.col_deanaction + "`='None'";
-                DB_Interaction dbi = new DB_Interaction();
-                dbi.sql = sql;
-                dbi.frmname = this.Name;
-                dbi.dgn = dataGridView1.Name;
-                dbi.teste();
+                DataSet ds = new DataSet();
+                ds.Clear();
+                OleDbDataAdapter dataAdapter = new OleDbDataAdapter(sql, gl.oleconnection);
+                dataAdapter.SelectCommand.CommandType = CommandType.Text;
+                dataAdapter.Fill(ds);
+                dataGridView1.DataSource = ds.Tables[0];
+                dataGridView1.Columns[0].Visible = false;
                 //--------Datagrid stop ========
                 //--Excel export ---
                 try
@@ -271,11 +273,11 @@ namespace Dresscode
                     {
                         ExcelApp.Cells[1, i - 2] = dataGridView1.Columns[i - 1].HeaderText; //1 3
                     }
-                    for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                    for (int i = 0; i < dataGridView1.Rows.Count; i++)
                     {
                         for (int j = 2; j < dataGridView1.Columns.Count; j++) //3
                         {
-                            ExcelApp.Cells[i + 2, j - 1] = dataGridView1.Rows[i].Cells[j].Value.ToString(); //2 2
+                            ExcelApp.Cells[i + 2, j -1] = dataGridView1.Rows[i].Cells[j].Value.ToString(); //2 2
                         }
                     }
                     ExcelApp.ActiveWorkbook.SaveCopyAs(AppDomain.CurrentDomain.BaseDirectory + "Report " + DateTime.Now.Date.Month + "-" + DateTime.Now.Date.Day + "-" + DateTime.Now.Date.Year + ".xlsx"); //or .xlsx file, depending of the excel version of your system
