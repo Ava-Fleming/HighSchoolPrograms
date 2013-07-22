@@ -32,7 +32,8 @@ namespace Dresscode
             /*Teacher info*/
             period = "",
             infraction = "",
-            details = "";
+            details = "",
+            learningcenter = "";
         /**/
         int county = 0,
         nineWeeksDatabase = 0,
@@ -282,7 +283,10 @@ forthnineweeksend;
                         details = textbox_details.Text;
                     else
                         details = "N/A";
-
+                    if (checkBox1.Checked)
+                        learningcenter = "yes";
+                    else
+                        learningcenter = "no";
                     period = combobox_period.Text;
                     infraction = combobox_infraction.Text;
                     if (infraction != "")
@@ -294,9 +298,9 @@ forthnineweeksend;
                             {
                                 if (gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                                 string sql = null;
-                                sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,'None',NULL)";
-                                string[] pars = { "@teacherid", "@studentid", "@firstname", "@lastname", "@teacher", "@infraction", "@details" };
-                                string[] values = { teacherid, studentid, firstname, lastname, teacherlastname + ", " + teacherfirstname, infraction, details };
+                                sql = "INSERT INTO `" + gl.tbl_reports + "` VALUES ('" + 0 + "',@teacherid,@studentid,@firstname,@lastname,'" + grade + "','" + period + "',@teacher,'" + DateTime.Now.ToShortDateString() + "',@infraction,@details,@learningcenter,'None',NULL)";
+                                string[] pars = { "@teacherid", "@studentid", "@firstname", "@lastname", "@teacher", "@infraction", "@details","@learningcenter" };
+                                string[] values = { teacherid, studentid, firstname, lastname, teacherlastname + ", " + teacherfirstname, infraction, details, learningcenter };
                                 dbi.dbcommands(sql, pars, values);
                                 submitted = true;
 
@@ -316,24 +320,21 @@ forthnineweeksend;
 
         private void form_dresscode_Load(object sender, EventArgs e)
         {
-            menuStrip1.Visible = false;
-            menuStrip1.Enabled = false;
             button_clear.PerformClick();
             if (admin)
             {
-                menuStrip1.Enabled = true;
-                menuStrip1.Visible = true;
-                this.MinimumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
-                this.MaximumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
+                reportsToolStripMenuItem.Enabled = true;
+                learningCenterToolStripMenuItem.Enabled = true;
             }
             else
             {
+                /*
                 groupbox_retrieve.Location = new System.Drawing.Point(groupbox_retrieve.Location.X, groupbox_retrieve.Location.Y - 20);
                 dataGridView_students.Location = new System.Drawing.Point(dataGridView_students.Location.X, dataGridView_students.Location.Y - 20);
                 groupbox_submit.Location = new System.Drawing.Point(groupbox_submit.Location.X, groupbox_submit.Location.Y - 20);
                 this.Size = new System.Drawing.Size(this.Size.Width, this.Size.Height - 20);
                 this.MinimumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
-                this.MaximumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);
+                this.MaximumSize = new System.Drawing.Size(this.Size.Width, this.Size.Height);*/
             }
             combobox_firstname.Focus();
             try
@@ -442,9 +443,22 @@ forthnineweeksend;
         {
             try
             {
+
                 this.Hide();
                 Reports report = new Reports();
                 report.ShowDialog();
+                this.Show();
+            }
+            catch (Exception x) { MessageBox.Show(x.Message); }
+        }
+
+        private void learningCenterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                Learning_Center leaningcenter = new Learning_Center();
+                leaningcenter.ShowDialog();
                 this.Show();
             }
             catch (Exception x) { MessageBox.Show(x.Message); }

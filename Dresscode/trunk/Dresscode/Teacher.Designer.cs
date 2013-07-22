@@ -48,7 +48,9 @@
             this.label_teacherid = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.learningCenterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView_students = new System.Windows.Forms.DataGridView();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupbox_retrieve.SuspendLayout();
             this.groupbox_submit.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -137,6 +139,7 @@
             // 
             // groupbox_submit
             // 
+            this.groupbox_submit.Controls.Add(this.checkBox1);
             this.groupbox_submit.Controls.Add(this.label_period);
             this.groupbox_submit.Controls.Add(this.label_date);
             this.groupbox_submit.Controls.Add(this.label_selecttheinfraction);
@@ -199,10 +202,10 @@
             // 
             // textbox_details
             // 
-            this.textbox_details.Location = new System.Drawing.Point(6, 72);
+            this.textbox_details.Location = new System.Drawing.Point(6, 83);
             this.textbox_details.Multiline = true;
             this.textbox_details.Name = "textbox_details";
-            this.textbox_details.Size = new System.Drawing.Size(407, 80);
+            this.textbox_details.Size = new System.Drawing.Size(407, 69);
             this.textbox_details.TabIndex = 6;
             this.textbox_details.Text = "Details";
             this.textbox_details.Click += new System.EventHandler(this.textbox_details_Click);
@@ -250,7 +253,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reportsToolStripMenuItem});
+            this.reportsToolStripMenuItem,
+            this.learningCenterToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(443, 24);
@@ -259,10 +263,19 @@
             // 
             // reportsToolStripMenuItem
             // 
+            this.reportsToolStripMenuItem.Enabled = false;
             this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.reportsToolStripMenuItem.Text = "Reports";
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.reportsToolStripMenuItem.Text = "Dean";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
+            // 
+            // learningCenterToolStripMenuItem
+            // 
+            this.learningCenterToolStripMenuItem.Enabled = false;
+            this.learningCenterToolStripMenuItem.Name = "learningCenterToolStripMenuItem";
+            this.learningCenterToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.learningCenterToolStripMenuItem.Text = "Learning Center";
+            this.learningCenterToolStripMenuItem.Click += new System.EventHandler(this.learningCenterToolStripMenuItem_Click);
             // 
             // dataGridView_students
             // 
@@ -275,6 +288,16 @@
             this.dataGridView_students.ReadOnly = true;
             this.dataGridView_students.Size = new System.Drawing.Size(419, 149);
             this.dataGridView_students.TabIndex = 18;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(256, 61);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(138, 17);
+            this.checkBox1.TabIndex = 14;
+            this.checkBox1.Text = "Sent to Learning Center";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Teacher
             // 
@@ -329,6 +352,8 @@
         private System.Windows.Forms.Label label_date;
         private System.Windows.Forms.Label label_period;
         private System.Windows.Forms.DataGridView dataGridView_students;
+        private System.Windows.Forms.ToolStripMenuItem learningCenterToolStripMenuItem;
+        private System.Windows.Forms.CheckBox checkBox1;
         
     }
 }

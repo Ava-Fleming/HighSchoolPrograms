@@ -100,6 +100,12 @@
       <DependentUpon>Closing.cs</DependentUpon>
     </Compile>
     <Compile Include="DB Interaction.cs" />
+    <Compile Include="Learning Center.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Learning Center.Designer.cs">
+      <DependentUpon>Learning Center.cs</DependentUpon>
+    </Compile>
     <Compile Include="Teacher.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Closing.resx">
       <DependentUpon>Closing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Learning Center.resx">
+      <DependentUpon>Learning Center.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Teacher.resx">
       <DependentUpon>Teacher.cs</DependentUpon>
