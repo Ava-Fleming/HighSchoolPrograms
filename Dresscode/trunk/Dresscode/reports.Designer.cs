@@ -74,6 +74,8 @@
             this.studentEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.studentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.teacherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBox_learningcenter = new System.Windows.Forms.CheckBox();
+            this.comboBox_learningcenter = new System.Windows.Forms.ComboBox();
             this.groupBox_search.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_grade_start)).BeginInit();
@@ -105,7 +107,7 @@
             // label_viewing
             // 
             this.label_viewing.AutoSize = true;
-            this.label_viewing.Location = new System.Drawing.Point(15, 309);
+            this.label_viewing.Location = new System.Drawing.Point(16, 324);
             this.label_viewing.Name = "label_viewing";
             this.label_viewing.Size = new System.Drawing.Size(94, 13);
             this.label_viewing.TabIndex = 7;
@@ -113,7 +115,7 @@
             // 
             // button_retrieve
             // 
-            this.button_retrieve.Location = new System.Drawing.Point(12, 512);
+            this.button_retrieve.Location = new System.Drawing.Point(12, 557);
             this.button_retrieve.Name = "button_retrieve";
             this.button_retrieve.Size = new System.Drawing.Size(132, 23);
             this.button_retrieve.TabIndex = 26;
@@ -145,6 +147,8 @@
             // 
             // groupBox_search
             // 
+            this.groupBox_search.Controls.Add(this.comboBox_learningcenter);
+            this.groupBox_search.Controls.Add(this.checkBox_learningcenter);
             this.groupBox_search.Controls.Add(this.datetimepicker_dateofdean_end);
             this.groupBox_search.Controls.Add(this.checkbox_dateofdeanaction_range);
             this.groupBox_search.Controls.Add(this.datetimepicker_dateofdean_start);
@@ -179,7 +183,7 @@
             this.groupBox_search.Controls.Add(this.combobox_teacher);
             this.groupBox_search.Location = new System.Drawing.Point(12, 25);
             this.groupBox_search.Name = "groupBox_search";
-            this.groupBox_search.Size = new System.Drawing.Size(489, 281);
+            this.groupBox_search.Size = new System.Drawing.Size(489, 296);
             this.groupBox_search.TabIndex = 12;
             this.groupBox_search.TabStop = false;
             this.groupBox_search.Text = "Search Criteria";
@@ -188,7 +192,7 @@
             // 
             this.datetimepicker_dateofdean_end.Enabled = false;
             this.datetimepicker_dateofdean_end.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.datetimepicker_dateofdean_end.Location = new System.Drawing.Point(285, 243);
+            this.datetimepicker_dateofdean_end.Location = new System.Drawing.Point(285, 264);
             this.datetimepicker_dateofdean_end.Name = "datetimepicker_dateofdean_end";
             this.datetimepicker_dateofdean_end.Size = new System.Drawing.Size(80, 20);
             this.datetimepicker_dateofdean_end.TabIndex = 34;
@@ -197,7 +201,7 @@
             // 
             this.checkbox_dateofdeanaction_range.AutoSize = true;
             this.checkbox_dateofdeanaction_range.Enabled = false;
-            this.checkbox_dateofdeanaction_range.Location = new System.Drawing.Point(221, 246);
+            this.checkbox_dateofdeanaction_range.Location = new System.Drawing.Point(221, 267);
             this.checkbox_dateofdeanaction_range.Name = "checkbox_dateofdeanaction_range";
             this.checkbox_dateofdeanaction_range.Size = new System.Drawing.Size(58, 17);
             this.checkbox_dateofdeanaction_range.TabIndex = 33;
@@ -209,7 +213,7 @@
             // 
             this.datetimepicker_dateofdean_start.Enabled = false;
             this.datetimepicker_dateofdean_start.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetimepicker_dateofdean_start.Location = new System.Drawing.Point(135, 243);
+            this.datetimepicker_dateofdean_start.Location = new System.Drawing.Point(135, 264);
             this.datetimepicker_dateofdean_start.Name = "datetimepicker_dateofdean_start";
             this.datetimepicker_dateofdean_start.Size = new System.Drawing.Size(80, 20);
             this.datetimepicker_dateofdean_start.TabIndex = 32;
@@ -217,7 +221,7 @@
             // checkbox_dateofdeanaction_single
             // 
             this.checkbox_dateofdeanaction_single.AutoSize = true;
-            this.checkbox_dateofdeanaction_single.Location = new System.Drawing.Point(6, 246);
+            this.checkbox_dateofdeanaction_single.Location = new System.Drawing.Point(6, 267);
             this.checkbox_dateofdeanaction_single.Name = "checkbox_dateofdeanaction_single";
             this.checkbox_dateofdeanaction_single.Size = new System.Drawing.Size(123, 17);
             this.checkbox_dateofdeanaction_single.TabIndex = 31;
@@ -228,7 +232,7 @@
             // checkbox_deanaction
             // 
             this.checkbox_deanaction.AutoSize = true;
-            this.checkbox_deanaction.Location = new System.Drawing.Point(7, 223);
+            this.checkbox_deanaction.Location = new System.Drawing.Point(7, 244);
             this.checkbox_deanaction.Name = "checkbox_deanaction";
             this.checkbox_deanaction.Size = new System.Drawing.Size(102, 17);
             this.checkbox_deanaction.TabIndex = 30;
@@ -546,17 +550,17 @@
             this.dataGridView_reports.AllowUserToAddRows = false;
             this.dataGridView_reports.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView_reports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_reports.Location = new System.Drawing.Point(12, 325);
+            this.dataGridView_reports.Location = new System.Drawing.Point(12, 349);
             this.dataGridView_reports.MultiSelect = false;
             this.dataGridView_reports.Name = "dataGridView_reports";
-            this.dataGridView_reports.Size = new System.Drawing.Size(489, 181);
+            this.dataGridView_reports.Size = new System.Drawing.Size(489, 202);
             this.dataGridView_reports.TabIndex = 28;
             this.dataGridView_reports.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_reports_CellEndEdit);
             this.dataGridView_reports.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_reports_UserDeletingRow);
             // 
             // button_export_excel
             // 
-            this.button_export_excel.Location = new System.Drawing.Point(388, 512);
+            this.button_export_excel.Location = new System.Drawing.Point(388, 557);
             this.button_export_excel.Name = "button_export_excel";
             this.button_export_excel.Size = new System.Drawing.Size(113, 23);
             this.button_export_excel.TabIndex = 27;
@@ -567,7 +571,7 @@
             // label_nineweeks
             // 
             this.label_nineweeks.AutoSize = true;
-            this.label_nineweeks.Location = new System.Drawing.Point(156, 309);
+            this.label_nineweeks.Location = new System.Drawing.Point(157, 324);
             this.label_nineweeks.Name = "label_nineweeks";
             this.label_nineweeks.Size = new System.Drawing.Size(109, 13);
             this.label_nineweeks.TabIndex = 30;
@@ -576,7 +580,7 @@
             // label_total_reports
             // 
             this.label_total_reports.AutoSize = true;
-            this.label_total_reports.Location = new System.Drawing.Point(327, 309);
+            this.label_total_reports.Location = new System.Drawing.Point(328, 324);
             this.label_total_reports.Name = "label_total_reports";
             this.label_total_reports.Size = new System.Drawing.Size(77, 13);
             this.label_total_reports.TabIndex = 31;
@@ -599,20 +603,20 @@
             this.weeksDatesToolStripMenuItem,
             this.infractionsListToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // weeksDatesToolStripMenuItem
             // 
             this.weeksDatesToolStripMenuItem.Name = "weeksDatesToolStripMenuItem";
-            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.weeksDatesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.weeksDatesToolStripMenuItem.Text = "9 Weeks Dates";
             this.weeksDatesToolStripMenuItem.Click += new System.EventHandler(this.weeksDatesToolStripMenuItem_Click);
             // 
             // infractionsListToolStripMenuItem
             // 
             this.infractionsListToolStripMenuItem.Name = "infractionsListToolStripMenuItem";
-            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.infractionsListToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.infractionsListToolStripMenuItem.Text = "Infractions List";
             this.infractionsListToolStripMenuItem.Click += new System.EventHandler(this.infractionsListToolStripMenuItem_Click);
             // 
@@ -622,28 +626,48 @@
             this.studentToolStripMenuItem,
             this.teacherToolStripMenuItem});
             this.studentEditorToolStripMenuItem.Name = "studentEditorToolStripMenuItem";
-            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.studentEditorToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.studentEditorToolStripMenuItem.Text = "Add";
             // 
             // studentToolStripMenuItem
             // 
             this.studentToolStripMenuItem.Name = "studentToolStripMenuItem";
-            this.studentToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.studentToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.studentToolStripMenuItem.Text = "Student";
             this.studentToolStripMenuItem.Click += new System.EventHandler(this.studentToolStripMenuItem_Click);
             // 
             // teacherToolStripMenuItem
             // 
             this.teacherToolStripMenuItem.Name = "teacherToolStripMenuItem";
-            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.teacherToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.teacherToolStripMenuItem.Text = "Teacher";
             this.teacherToolStripMenuItem.Click += new System.EventHandler(this.teacherToolStripMenuItem_Click);
+            // 
+            // checkBox_learningcenter
+            // 
+            this.checkBox_learningcenter.AutoSize = true;
+            this.checkBox_learningcenter.Location = new System.Drawing.Point(7, 222);
+            this.checkBox_learningcenter.Name = "checkBox_learningcenter";
+            this.checkBox_learningcenter.Size = new System.Drawing.Size(152, 17);
+            this.checkBox_learningcenter.TabIndex = 35;
+            this.checkBox_learningcenter.Text = "Search by Learning Center";
+            this.checkBox_learningcenter.UseVisualStyleBackColor = true;
+            this.checkBox_learningcenter.CheckedChanged += new System.EventHandler(this.checkBox_learningcenter_CheckedChanged);
+            // 
+            // comboBox_learningcenter
+            // 
+            this.comboBox_learningcenter.Enabled = false;
+            this.comboBox_learningcenter.FormattingEnabled = true;
+            this.comboBox_learningcenter.Location = new System.Drawing.Point(165, 220);
+            this.comboBox_learningcenter.Name = "comboBox_learningcenter";
+            this.comboBox_learningcenter.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_learningcenter.TabIndex = 36;
             // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 547);
+            this.ClientSize = new System.Drawing.Size(513, 592);
             this.Controls.Add(this.label_total_reports);
             this.Controls.Add(this.label_nineweeks);
             this.Controls.Add(this.button_export_excel);
@@ -718,6 +742,8 @@
         private System.Windows.Forms.CheckBox checkbox_dateofdeanaction_range;
         private System.Windows.Forms.DateTimePicker datetimepicker_dateofdean_start;
         private System.Windows.Forms.CheckBox checkbox_dateofdeanaction_single;
+        private System.Windows.Forms.ComboBox comboBox_learningcenter;
+        private System.Windows.Forms.CheckBox checkBox_learningcenter;
 
     }
 }

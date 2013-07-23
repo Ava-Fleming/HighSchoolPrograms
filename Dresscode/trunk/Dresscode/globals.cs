@@ -21,6 +21,8 @@ namespace Dresscode
             //Global strings
             glt_isdean = "yes", //Make this lower case (The program will check for both capitial or lower case starting letter)
             glt_checked = "Checked",
+            glt_notpresent = "Not Present",
+            glt_present = "Present",
             //Global Table Names
             tbl_studentinfo = "Student Info",
             tbl_teacherinfo = "Teacher Info",

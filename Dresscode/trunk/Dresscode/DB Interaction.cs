@@ -14,7 +14,7 @@ namespace Dresscode
     class DB_Interaction
     {
         globals gl = new globals();
-        public string sql, firstname, lastname, studentid, teacher, infraction, frmname, dgn;
+        public string sql, firstname, lastname, studentid, teacher, infraction, frmname, dgn, learningcenter;
         public bool finished;
 
         public void teste()
@@ -52,11 +52,11 @@ namespace Dresscode
                     dgv.DataSource = (dbpull.Tables[0]);
                     if (frmname == "Reports")
                     {
-                        for (int i = 0; i <= 12; i++)
+                        for (int i = 0; i <= 13; i++)
                         {
                             if (i <= 1)
                                 dgv.Columns[i].Visible = false;
-                            if (i != 11)
+                            if (i != 12)
                                 dgv.Columns[i].ReadOnly = true;
                         }
                     }
@@ -99,6 +99,8 @@ namespace Dresscode
                     dataAdapter.SelectCommand.Parameters.Add("lastname", OleDbType.VarChar, 20).Value = lastname;
                     dataAdapter.SelectCommand.Parameters.Add("studentid", OleDbType.VarChar, 20).Value = studentid;
                 }
+                if (learningcenter != "")
+                    dataAdapter.SelectCommand.Parameters.Add("learningcenter", OleDbType.VarChar, 255).Value = learningcenter;
                 dataAdapter.SelectCommand.CommandType = CommandType.Text;
                 dataAdapter.Fill(ds);
                 

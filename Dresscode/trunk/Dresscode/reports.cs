@@ -16,7 +16,7 @@ namespace Dresscode
     public partial class Reports : Form
     {
         BindingSource bSource = new BindingSource();
-        string sql = "", firstname, lastname, studentid,teacher,infraction;
+        string sql = "", firstname, lastname, studentid, teacher, infraction, learningcenter;
         globals gl = new globals();
         OleDbDataAdapter dAdapter;
         DB_Interaction dbi = new DB_Interaction();
@@ -88,6 +88,8 @@ forthnineweeksend;
                     {
                         comboBox_infraction_select.Items.Add(getinfraction[gl.col_infractions].ToString());
                     }
+                    if (!comboBox_learningcenter.Items.Contains(getinfraction[gl.col_learningcenter].ToString()))
+                        comboBox_learningcenter.Items.Add(getinfraction[gl.col_learningcenter].ToString());
                 }
             }
             catch (Exception x) { MessageBox.Show(x.Message, "Error"); }
@@ -106,22 +108,27 @@ forthnineweeksend;
                 dbi.infraction = infraction;
                 dbi.frmname = this.Name;
                 dbi.dgn = dataGridView_reports.Name;
+                dbi.learningcenter = learningcenter;
                 dbi.teste();
                 if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbCommand getinfractioncommand = gl.oleconnection.CreateCommand();
                 getinfractioncommand.CommandText = sql;
                 if(teacher != "")
-                    getinfractioncommand.Parameters.Add("teacher", OleDbType.VarChar, 50).Value = teacher;
+                    getinfractioncommand.Parameters.Add("teacher", OleDbType.VarChar, 255).Value = teacher;
                 if(infraction != "")
-                    getinfractioncommand.Parameters.Add("infraction", OleDbType.VarChar, 20).Value = infraction;
+                    getinfractioncommand.Parameters.Add("infraction", OleDbType.VarChar, 255).Value = infraction;
                 if (firstname != "")
                 {
-                    getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 20).Value = firstname;
-                    getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 20).Value = lastname;
-                    getinfractioncommand.Parameters.Add("studentid", OleDbType.VarChar, 20).Value = studentid;
+                    getinfractioncommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
+                    getinfractioncommand.Parameters.Add("lastname", OleDbType.VarChar, 255).Value = lastname;
+                    getinfractioncommand.Parameters.Add("studentid", OleDbType.VarChar, 255).Value = studentid;
                 }
+                if (learningcenter != "")
+                    getinfractioncommand.Parameters.Add("learningcenter", OleDbType.VarChar, 255).Value = learningcenter;
                 getinfractioncommand.CommandType = CommandType.Text;
                 OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
+                label_nineweeks.Text = "Infractions this 9 weeks: 0";
+                label_total_reports.Text = "Total Infractions: 0";
                 while (getinfraction.Read())
                 {
                     DateTime databasedate = DateTime.Parse(getinfraction[gl.col_reportdate].ToString());
@@ -481,14 +488,17 @@ forthnineweeksend;
         {
             try
             {
-                if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
+                if(dataGridView_reports[12, dataGridView_reports.CurrentCell.RowIndex].Value.ToString() != "" || dataGridView_reports[12, dataGridView_reports.CurrentCell.RowIndex].Value.ToString() != null)
+                {
+                    if(gl.oleconnection.State == ConnectionState.Closed) gl.oleconnection.Open();
                 OleDbDataAdapter adpt = new OleDbDataAdapter();
                 adpt.UpdateCommand = new OleDbCommand("UPDATE `"+gl.tbl_reports+"` SET ["+gl.col_deanaction+"]=@dean,["+ gl.col_dateofdeanaction +"]=@dateofaction WHERE ["+gl.col_id+"]=@idnum", gl.oleconnection);
-                adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
+                adpt.UpdateCommand.Parameters.Add("dean", OleDbType.VarChar, 255).Value = dataGridView_reports[12, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.Parameters.Add("dateofaction", OleDbType.VarChar, 255).Value = DateTime.Now.ToShortDateString();//dataGridView_reports[11, dataGridView_reports.CurrentCell.RowIndex].Value.ToString();
                 adpt.UpdateCommand.Parameters.Add("idnum", OleDbType.Guid, 255).Value = Guid.Parse(dataGridView_reports[0, dataGridView_reports.CurrentCell.RowIndex].Value.ToString());
                 adpt.UpdateCommand.CommandType = CommandType.Text;
                 adpt.UpdateCommand.ExecuteNonQuery();
+            }
             }
             catch (Exception x)
             {
@@ -771,6 +781,25 @@ forthnineweeksend;
                         hasStarted = true;
                     }
                 }
+
+                if (checkBox_learningcenter.Checked)
+                {
+
+                    if (comboBox_learningcenter.Text != "")
+                    {
+                        wtfbrah = false;
+                        if (hasStarted)
+                            sql += " AND";
+                        learningcenter = comboBox_learningcenter.Text;
+                        sql += " `" + gl.col_learningcenter + "`=@learningcenter";
+                        hasStarted = true;
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("Please select an Status.\nBlank Status is another way to say any.\nAll reports will be loaded with the specified critera", "Missing Infraction");
+                    }
+                }
                 if (wtfbrah)
                 {
                     sql = "SELECT * FROM `"+gl.tbl_reports+"`";
@@ -814,6 +843,14 @@ forthnineweeksend;
                 datetimepicker_dateofdean_end.Enabled = true;
             else
                 datetimepicker_dateofdean_end.Enabled = false;
+        }
+
+        private void checkBox_learningcenter_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox_learningcenter.Checked)
+                comboBox_learningcenter.Enabled = true;
+                else
+                comboBox_learningcenter.Enabled = false;
         }
     }
 }

@@ -190,9 +190,6 @@ forthnineweeksend;
                     OleDbDataReader getinfraction = getinfractioncommand.ExecuteReader();
                     while (getinfraction.Read())
                     {
-                        //I'm not sure so I am not going to fully add this, but I am coding it still.
-                        if (getinfraction[gl.col_infractions].ToString() != "Tardy")
-                        {
                             DateTime databasedate = DateTime.Parse(getinfraction[gl.col_reportdate].ToString());
                             if (databasedate >= firstnineweeksstart && databasedate <= firstnineweeksend)
                             {
@@ -227,7 +224,6 @@ forthnineweeksend;
                                 label_nineweeksinfractions.Text = "Infractions this 9 weeks: " + (county++);
                             }
                             label_totalinfractions.Text = "Total Infractions: " + (totalinfractions++);
-                        }
                     }
                     if (submitted && county >= 5)
                     {
@@ -283,15 +279,12 @@ forthnineweeksend;
                         details = textbox_details.Text;
                     else
                         details = "N/A";
-                    if (checkBox1.Checked)
-                        learningcenter = "yes";
-                    else
-                        learningcenter = "no";
+                    learningcenter = gl.glt_notpresent;
                     period = combobox_period.Text;
                     infraction = combobox_infraction.Text;
                     if (infraction != "")
                     {
-                        DialogResult verification = MessageBox.Show("Is this correct?\nStudent Name: " + firstname + " " + lastname + "\nGrade: " + grade + "\nStudent ID: " + studentid + "\nPeriod: #" + period + "\nInfractured by: (" + teacherid + ") " + teacherfirstname + " " + teacherlastname + "\nDate: " + DateTime.Now.ToShortDateString() + "\nInfraction: " + infraction + "\nDetails: " + details, "Verify your infraction", MessageBoxButtons.YesNo);
+                        DialogResult verification = MessageBox.Show("Is this correct?\nStudent Name: " + firstname + " " + lastname + "\nGrade: " + grade + "\nStudent ID: " + studentid + "\nPeriod: #" + period + "\nInfractured by: (" + teacherid + ") " + teacherfirstname + " " + teacherlastname + "\nDate: " + DateTime.Now.ToShortDateString() + "\nInfraction: " + infraction + "\nDetails: " + details + "\nLearning Center status: " + learningcenter, "Verify your infraction", MessageBoxButtons.YesNo);
                         if (verification == DialogResult.Yes)
                         {
                             try

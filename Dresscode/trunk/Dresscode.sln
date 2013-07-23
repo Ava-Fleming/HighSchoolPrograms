@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.20617.1 PREVIEW
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dresscode", "Dresscode\Dresscode.csproj", "{4DB72039-3C6F-4365-8DD4-AC94B44A97A5}"
 EndProject
-Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "ModelingProject1", "ModelingProject1\ModelingProject1.modelproj", "{CF16FF87-737A-4CF5-905B-5A6007EFA059}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -31,16 +29,6 @@ Global
 		{4DB72039-3C6F-4365-8DD4-AC94B44A97A5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{4DB72039-3C6F-4365-8DD4-AC94B44A97A5}.Release|x86.ActiveCfg = Release|x86
 		{4DB72039-3C6F-4365-8DD4-AC94B44A97A5}.Release|x86.Build.0 = Release|x86
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{CF16FF87-737A-4CF5-905B-5A6007EFA059}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
