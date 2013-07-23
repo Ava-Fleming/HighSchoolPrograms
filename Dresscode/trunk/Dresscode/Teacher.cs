@@ -21,7 +21,6 @@ namespace Dresscode
         /**/
         globals gl = new globals();
         DB_Interaction dbi = new DB_Interaction();
-        private BindingSource bindingSource1 = new BindingSource();
         /**/
         string
             /*Student info*/

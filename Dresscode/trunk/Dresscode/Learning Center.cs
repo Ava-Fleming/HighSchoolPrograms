@@ -10,15 +10,19 @@ using System.Data.OleDb;
 using System.Globalization;
 namespace Dresscode
 {
+    
     public partial class Learning_Center : Form
     {
         public Learning_Center()
         {
             InitializeComponent();
         }
-
+        
         globals gl = new globals();
-
+        DB_Interaction dbi = new DB_Interaction();
+        string sql;
+        string[] pars;
+        string[] values;
         private void Learning_Center_Load(object sender, EventArgs e)
         {
             timer_checklearningcenter.Enabled = true;
@@ -60,19 +64,13 @@ namespace Dresscode
                 {
                     timer_checklearningcenter.Enabled = false;
                     timer_checklearningcenter.Stop();
-                    if (gl.oleconnection.State == ConnectionState.Closed)
-                        gl.oleconnection.Open();
-                    OleDbDataAdapter adpt = new OleDbDataAdapter();
-                    adpt.UpdateCommand = new OleDbCommand("UPDATE `" + gl.tbl_reports + "` SET [" + gl.col_learningcenter + "]=@learncenter WHERE ["+ gl.col_lastname +"]=@lname AND ["+ gl.col_learningcenter +"]=@learnc AND ["+ gl.col_firstname +"]=@firstname AND ["+ gl.col_reportdate +"]=@reportdate", gl.oleconnection);
-                    adpt.UpdateCommand.Parameters.Add("learncenter", OleDbType.VarChar, 255).Value = gl.glt_present;
                     string lastname = (listBox_students.SelectedItem.ToString().Substring(0, listBox_students.SelectedItem.ToString().IndexOf(","))).Trim();
-                    adpt.UpdateCommand.Parameters.Add("lname", OleDbType.VarChar, 255).Value = lastname;
-                    adpt.UpdateCommand.Parameters.Add("learnc", OleDbType.VarChar, 255).Value = gl.glt_notpresent;
                     string firstname = (listBox_students.SelectedItem.ToString().Substring((listBox_students.SelectedItem.ToString().IndexOf(", ") + 2), listBox_students.SelectedItem.ToString().Length - (listBox_students.SelectedItem.ToString().IndexOf(", ") + 2))).Trim();
-                    adpt.UpdateCommand.Parameters.Add("firstname", OleDbType.VarChar, 255).Value = firstname;
-                    adpt.UpdateCommand.Parameters.Add("reportdate", OleDbType.DBDate, 255).Value = DateTime.Today.ToShortDateString();
-                    adpt.UpdateCommand.CommandType = CommandType.Text;
-                    adpt.UpdateCommand.ExecuteNonQuery();
+                    sql = "UPDATE `" + gl.tbl_reports + "` SET [" + gl.col_learningcenter + "]=@learncenter WHERE [" + gl.col_lastname + "]=@lname AND [" + gl.col_learningcenter + "]=@learnc AND [" + gl.col_firstname + "]=@firstname AND [" + gl.col_reportdate + "]=@reportdate";
+                    string[] pars = { "@learncenter", "@lname", "@learnc", "@firstname", "@reportdate"};
+                    string[] values = { gl.glt_present, lastname, gl.glt_notpresent, firstname, DateTime.Today.ToShortDateString() };
+                    
+                    dbi.dbcommands(sql, pars, values);
                     listBox_present.Items.Add(listBox_students.SelectedItem);
                     listBox_students.Items.Remove(listBox_students.SelectedItem);
                 }

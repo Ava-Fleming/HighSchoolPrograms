@@ -39,7 +39,7 @@ namespace Dresscode
 
         void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            
             if (e.Error != null)
                 MessageBox.Show(e.Error.Message);
             else
